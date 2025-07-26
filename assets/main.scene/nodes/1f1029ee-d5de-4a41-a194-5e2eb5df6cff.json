@@ -1,0 +1,50 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "game-list-layout",
+    "id": "1f1029ee-d5de-4a41-a194-5e2eb5df6cff",
+    "state": "",
+    "metadata": {},
+    "type": "TransformNode",
+    "uniqueId": 1753456789352,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

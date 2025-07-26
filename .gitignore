@@ -1,0 +1,6 @@
+node_modules/
+.bjseditor/
+.next/
+.vscode/
+assets/.export-cache.json
+assets/main.scene/preview.png
