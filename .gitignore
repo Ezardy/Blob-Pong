@@ -2,5 +2,7 @@ node_modules/
 .bjseditor/
 .next/
 .vscode/
+public/
 assets/.export-cache.json
 assets/main.scene/preview.png
+src/scripts.ts

@@ -8,7 +8,6 @@
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
 	"metallic": 0,
-	"roughness": 1,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -22,9 +21,9 @@
 		0
 	],
 	"albedo": [
-		1,
-		1,
-		1
+		0.6346607172924734,
+		0,
+		0
 	],
 	"baseWeight": 1,
 	"reflectivity": [
@@ -122,15 +121,14 @@
 		"outputTextureWidth": 0,
 		"outputTextureHeight": 0
 	},
-	"id": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
-	"name": "ground",
+	"id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+	"name": "button",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",
 	"alpha": 1,
 	"backFaceCulling": true,
 	"cullBackFaces": true,
-	"sideOrientation": 1,
 	"alphaMode": 2,
 	"_needDepthPrePass": false,
 	"disableDepthWrite": false,
@@ -156,7 +154,7 @@
 		"mask": 255,
 		"enabled": false
 	},
-	"uniqueId": 1711813881026,
+	"uniqueId": 1753626823209,
 	"plugins": {
 		"PBRBRDFConfiguration": {
 			"tags": null,
@@ -269,7 +267,7 @@
 				1
 			],
 			"useMaskFromThicknessTexture": false,
-			"useGltfStyleTextures": false,
+			"useGltfStyleTextures": true,
 			"applyAlbedoAfterSubSurface": false,
 			"legacyTranslucency": false,
 			"name": "PBRSubSurface",

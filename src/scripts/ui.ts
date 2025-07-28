@@ -1,8 +1,8 @@
 import { Mesh, Node } from "@babylonjs/core";
 import { GUI3DManager, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
-import { visibleAsEntity } from "babylonjs-editor-tools";
+import { IScript, visibleAsEntity } from "babylonjs-editor-tools";
 
-export default class Ui {
+export default class Ui implements IScript {
 	@visibleAsEntity("node", "Join public game button mesh")
 	private readonly	_joinPublicGameButtonMesh!:	Mesh;
 

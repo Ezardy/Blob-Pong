@@ -14,11 +14,11 @@
     "applyGravity": false,
     "updateUpVectorFromRotation": false,
     "rotation": [
-        0,
-        0,
+        -5.800000000000002e-9,
+        -5.799999999999999e-9,
         0
     ],
-    "speed": 0,
+    "speed": 200,
     "position": [
         0,
         0,
@@ -46,7 +46,7 @@
         "focalLength": 42.574003560703986,
         "scripts": []
     },
-    "uniqueId": 19,
+    "uniqueId": 25,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {
@@ -82,7 +82,7 @@
                 1,
                 2
             ],
-            "angularSensibility": 5000000000
+            "angularSensibility": 500
         }
     },
     "animations": [],

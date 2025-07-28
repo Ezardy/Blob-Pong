@@ -5,58 +5,9 @@
 	"environmentIntensity": 1,
 	"specularIntensity": 1,
 	"disableBumpMap": false,
-	"albedoTexture": {
-		"tags": null,
-		"url": "assets/amiga.jpg",
-		"uOffset": 0,
-		"vOffset": 0,
-		"uScale": 1,
-		"vScale": 1,
-		"uAng": 0,
-		"vAng": 0,
-		"wAng": 0,
-		"uRotationCenter": 0.5,
-		"vRotationCenter": 0.5,
-		"wRotationCenter": 0.5,
-		"homogeneousRotationInUVTransform": false,
-		"isBlocking": true,
-		"name": "assets/amiga.jpg",
-		"metadata": {
-			"baseSize": {
-				"width": 128,
-				"height": 128
-			}
-		},
-		"hasAlpha": false,
-		"getAlphaFromRGB": false,
-		"level": 1,
-		"coordinatesIndex": 0,
-		"optimizeUVAllocation": true,
-		"coordinatesMode": 0,
-		"wrapU": 1,
-		"wrapV": 1,
-		"wrapR": 1,
-		"anisotropicFilteringLevel": 4,
-		"isCube": false,
-		"is3D": false,
-		"is2DArray": false,
-		"gammaSpace": true,
-		"invertZ": false,
-		"lodLevelInAlpha": false,
-		"lodGenerationOffset": 0,
-		"lodGenerationScale": 0,
-		"linearSpecularLOD": false,
-		"isRenderTarget": false,
-		"animations": [],
-		"invertY": true,
-		"samplingMode": 3,
-		"_useSRGBBuffer": false,
-		"noMipmap": false
-	},
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
 	"metallic": 0,
-	"roughness": 1,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -70,9 +21,9 @@
 		0
 	],
 	"albedo": [
-		1,
-		1,
-		1
+		0.6346607172924734,
+		0,
+		0
 	],
 	"baseWeight": 1,
 	"reflectivity": [
@@ -170,15 +121,14 @@
 		"outputTextureWidth": 0,
 		"outputTextureHeight": 0
 	},
-	"id": "9f2b8769-ac8e-4289-b8a4-171c5b7d3139",
-	"name": "box",
+	"id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+	"name": "icon",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",
 	"alpha": 1,
 	"backFaceCulling": true,
 	"cullBackFaces": true,
-	"sideOrientation": 1,
 	"alphaMode": 2,
 	"_needDepthPrePass": false,
 	"disableDepthWrite": false,
@@ -204,7 +154,7 @@
 		"mask": 255,
 		"enabled": false
 	},
-	"uniqueId": 1711813856778,
+	"uniqueId": 1753696953292,
 	"plugins": {
 		"PBRBRDFConfiguration": {
 			"tags": null,
@@ -317,7 +267,7 @@
 				1
 			],
 			"useMaskFromThicknessTexture": false,
-			"useGltfStyleTextures": false,
+			"useGltfStyleTextures": true,
 			"applyAlbedoAfterSubSurface": false,
 			"legacyTranslucency": false,
 			"name": "PBRSubSurface",

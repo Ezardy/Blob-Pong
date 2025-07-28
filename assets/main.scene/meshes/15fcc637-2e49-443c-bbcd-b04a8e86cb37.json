@@ -1,24 +1,24 @@
 {
     "meshes": [
         {
-            "name": "ground",
-            "id": "0fe36208-15f6-4366-a95f-7a324d858364",
-            "uniqueId": 1716121479529,
-            "type": "GroundMesh",
+            "name": "header",
+            "id": "15fcc637-2e49-443c-bbcd-b04a8e86cb37",
+            "uniqueId": 1753626784674,
+            "type": "Mesh",
             "position": [
-                0,
-                0,
-                0
+                12.475325176346745,
+                216.15431780623624,
+                18.07848950579637
             ],
             "rotation": [
-                -1.5707963267948966,
-                0,
-                0
+                -0.12224586634005827,
+                -0.11976251227498148,
+                0.029181528467618418
             ],
             "scaling": [
-                1,
-                1,
-                1
+                0.9999999999999922,
+                0.999999999999993,
+                0.9999999999999962
             ],
             "localMatrix": [
                 1,
@@ -61,35 +61,33 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "geometryUniqueId": 1716121479530,
-            "geometryId": "fa4be5bf-7e53-4da5-8976-f2f037d975df",
+            "geometryUniqueId": 1753626784675,
+            "geometryId": "b03d53f7-3fcf-481e-955b-a90dd67b31ad",
             "subMeshes": null,
-            "materialUniqueId": 1711813881026,
-            "materialId": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
+            "materialUniqueId": 1753626823209,
+            "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
             "metadata": {
-                "type": "Ground",
-                "width": 4096,
-                "height": 4096,
+                "type": "Box",
+                "width": 285.90000000000015,
+                "depth": 100,
+                "height": 50.39999999999995,
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/ui.ts",
+                        "key": "scripts/text-block.ts",
                         "values": {
-                            "_joinPublicGameButtonMesh": {
-                                "type": "entity",
-                                "value": "9de33c5d-d058-46de-8210-789d3858dee1"
+                            "_text": {
+                                "type": "string",
+                                "value": "public games list"
                             },
-                            "_joinPrivateGameButtonMesh": {
-                                "type": "entity",
-                                "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
-                            },
-                            "_createGameButtonMesh": {
-                                "type": "entity",
-                                "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
+                            "_fontSize": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
-                ]
+                ],
+                "parentId": 1753456789352
             },
             "instances": [],
             "animations": [],
@@ -105,54 +103,46 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "subdivisionsX": 1,
-            "subdivisionsY": 1,
-            "minX": -512,
-            "maxX": 512,
-            "minZ": -512,
-            "maxZ": 512,
-            "width": 1024,
-            "height": 1024,
-            "delayLoadingFile": "assets/main.scene/geometries/fa4be5bf-7e53-4da5-8976-f2f037d975df.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/b03d53f7-3fcf-481e-955b-a90dd67b31ad.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                2048,
-                0,
-                2048
+                142.9499969482422,
+                25.200000762939453,
+                50
             ],
             "boundingBoxMinimum": [
-                -2048,
-                0,
-                -2048
+                -142.9499969482422,
+                -25.200000762939453,
+                -50
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 12,
+                    "count": 72,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 12,
+                    "count": 72,
                     "stride": 3,
-                    "offset": 48,
+                    "offset": 288,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 8,
+                    "count": 48,
                     "stride": 2,
-                    "offset": 96,
+                    "offset": 576,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 6,
+                    "count": 36,
                     "stride": 1,
-                    "offset": 128,
+                    "offset": 768,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 152,
+                    "offset": 912,
                     "dataType": 0
                 }
             },
@@ -177,7 +167,6 @@
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
             "metallic": 0,
-            "roughness": 1,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -191,9 +180,9 @@
                 0
             ],
             "albedo": [
-                1,
-                1,
-                1
+                0.6346607172924734,
+                0,
+                0
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -291,15 +280,14 @@
                 "outputTextureWidth": 0,
                 "outputTextureHeight": 0
             },
-            "id": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
-            "name": "ground",
+            "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "name": "button",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
             "alpha": 1,
             "backFaceCulling": true,
             "cullBackFaces": true,
-            "sideOrientation": 1,
             "alphaMode": 2,
             "_needDepthPrePass": false,
             "disableDepthWrite": false,
@@ -325,7 +313,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1711813881026,
+            "uniqueId": 1753626823209,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -438,7 +426,7 @@
                         1
                     ],
                     "useMaskFromThicknessTexture": false,
-                    "useGltfStyleTextures": false,
+                    "useGltfStyleTextures": true,
                     "applyAlbedoAfterSubSurface": false,
                     "legacyTranslucency": false,
                     "name": "PBRSubSurface",
@@ -480,29 +468,27 @@
         "vertexData": []
     },
     "metadata": {
-        "type": "Ground",
-        "width": 4096,
-        "height": 4096,
+        "type": "Box",
+        "width": 285.90000000000015,
+        "depth": 100,
+        "height": 50.39999999999995,
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/ui.ts",
+                "key": "scripts/text-block.ts",
                 "values": {
-                    "_joinPublicGameButtonMesh": {
-                        "type": "entity",
-                        "value": "9de33c5d-d058-46de-8210-789d3858dee1"
+                    "_text": {
+                        "type": "string",
+                        "value": "public games list"
                     },
-                    "_joinPrivateGameButtonMesh": {
-                        "type": "entity",
-                        "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
-                    },
-                    "_createGameButtonMesh": {
-                        "type": "entity",
-                        "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
+                    "_fontSize": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }
-        ]
+        ],
+        "parentId": 1753456789352
     },
     "basePoseMatrix": [
         1,
