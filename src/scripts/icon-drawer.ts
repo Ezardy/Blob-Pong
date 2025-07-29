@@ -1,4 +1,4 @@
-import { Color3, Color4, ISize, MeshBuilder, MeshUVSpaceRenderer, PBRMaterial, Texture, Vector3 } from "@babylonjs/core";
+import { Color3, Color4, int, ISize, MeshBuilder, MeshUVSpaceRenderer, PBRMaterial, Texture, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { IScript, visibleAsNumber, visibleAsTexture } from "babylonjs-editor-tools";
 
@@ -28,36 +28,59 @@ export default class IconDrawer implements IScript {
 	@visibleAsNumber("bottom icon size", {min: 0, max: 1, step: 0.005})
 	private readonly	_bottomIconSize:	number = 1;
 
-	public constructor(public mesh: Mesh) { }
+	private readonly	_meshSize:	number[];
+	private readonly	_decalMap:	MeshUVSpaceRenderer;
+	private readonly	_rotation:	number[];
 
-	public onStart(): void {
+	public constructor(public mesh: Mesh) {
 		const	extendSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
-		const	buttonSize:	Vector3 = new Vector3(extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z);
-		const	decalMap:	MeshUVSpaceRenderer = new MeshUVSpaceRenderer(this.mesh, this.mesh.getScene());
+		this._meshSize = [extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z];
+		this._decalMap = new MeshUVSpaceRenderer(this.mesh, this.mesh.getScene());
+		this._rotation = this.mesh.absoluteRotationQuaternion.toEulerAngles().asArray();
+		console.log(this.mesh.absoluteRotationQuaternion.toEulerAngles());
 		const	material:	PBRMaterial = this.mesh.material as PBRMaterial;
 		const	color:		Color3 = material.albedoColor;
-		const	rotation:	Vector3 = this.mesh.absoluteRotationQuaternion.toEulerAngles();
-		this.mesh.decalMap = decalMap;
+		this.mesh.decalMap = this._decalMap;
 		material.decalMap!.isEnabled = true;
 		this.mesh.decalMap.clearColor = new Color4(color.r, color.g, color.b, 0);
 		this.mesh.decalMap.clear();
 		material.decalMap!.smoothAlpha = true;
-		if (this._topIcon != undefined) {
-			this._topIcon.hasAlpha = true;
-			this._topIcon.wrapU = Texture.CLAMP_ADDRESSMODE;
-			this._topIcon.wrapV = Texture.CLAMP_ADDRESSMODE;
-			const	textureSize:	ISize = this._topIcon.getBaseSize();
-			var		widthScale:		number = 1;
-			var		heightScale:	number = 1;
-			if (buttonSize.x > buttonSize.y)
-				heightScale = buttonSize.y / buttonSize.x;
+	}
+
+	public onStart(): void {
+		this._drawSafe(this._topIcon, this.mesh.forward.negate(), 2, this._topIconSize, 1);
+		this._drawSafe(this._bottomIcon, this.mesh.forward, 2, this._bottomIconSize, -1);
+		this._drawSafe(this._leftIcon, this.mesh.right.negate(), 0, this._leftIconSize, 1);
+		this._drawSafe(this._rightIcon, this.mesh.right, 0, this._rightIconSize, -1);
+		this._drawSafe(this._upperIcon, this.mesh.up, 1, this._upperIconSize, -1);
+		this._drawSafe(this._lowerIcon, this.mesh.up.negate(), 1, this._lowerIconSize, -1);
+	}
+
+	private	_drawSafe(icon: Texture | undefined, normal: Vector3, i: int, size: number, dir: int): void {
+		if (icon != undefined) {
+			if (icon.isReady())
+				this._draw(icon, normal, i, size, dir);
 			else
-				widthScale = buttonSize.x / buttonSize.y;
-			const	normal = this.mesh.forward.negate();
-			decalMap.renderTexture(this._topIcon!,
-				this.mesh.absolutePosition.add(normal.scale(buttonSize.z)),
-				normal,
-				new Vector3(textureSize.width * widthScale * this._topIconSize, textureSize.height * heightScale * this._topIconSize, 1), rotation.z);
+				icon.onLoadObservable.addOnce(() => this._draw(icon, normal, i, size, dir));
 		}
+	}
+
+	private	_draw(icon: Texture, normal: Vector3, i: int, size: number, dir: int): void {
+		icon.hasAlpha = true;
+		icon.wrapU = Texture.CLAMP_ADDRESSMODE;
+		icon.wrapV = Texture.CLAMP_ADDRESSMODE;
+		const	textureSize:	ISize = icon.getBaseSize();
+		var		widthScale:		number = 1;
+		var		heightScale:	number = 1;
+		const	i1:	int = (i + 1) % 3;
+		const	i2:	int = (i + 2) % 3;
+		if (this._meshSize[i1] > this._meshSize[i2])
+			heightScale = this._meshSize[i2] / this._meshSize[i1];
+		else
+			widthScale = this._meshSize[i1] / this._meshSize[i2];
+		this._decalMap.renderTexture(icon,
+			this.mesh.absolutePosition.add(normal.scale(this._meshSize[i])),
+			normal,
+			new Vector3(textureSize.width * widthScale * size, textureSize.height * heightScale * size, 1), this._rotation[i] * dir);
 	}
 }
