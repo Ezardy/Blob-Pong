@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                50.72030430145348,
-                50.72030430145348,
-                50.72030430145348
+                100,
+                100,
+                100
             ],
             "localMatrix": [
                 1,
@@ -62,8 +62,11 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "materialUniqueId": 185,
+            "materialUniqueId": 28,
             "materialId": "default material",
+            "metadata": {
+                "parentId": 1753456789352
+            },
             "instances": [],
             "animations": [],
             "ranges": [],
@@ -76,17 +79,16 @@
                 0,
                 0
             ],
-            "applyFog": true,
-            "metadata": {
-                "parentId": 1753456789352
-            }
+            "applyFog": true
         }
     ],
     "transformNodes": [],
     "cameras": [],
     "lights": [],
     "materials": [],
-    "metadata": null,
+    "metadata": {
+        "parentId": 1753456789352
+    },
     "basePoseMatrix": [
         -1,
         0,

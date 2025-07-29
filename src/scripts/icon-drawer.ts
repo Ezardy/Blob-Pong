@@ -31,7 +31,8 @@ export default class IconDrawer implements IScript {
 	public constructor(public mesh: Mesh) { }
 
 	public onStart(): void {
-		const	buttonSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSizeWorld;
+		const	extendSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
+		const	buttonSize:	Vector3 = new Vector3(extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z);
 		const	decalMap:	MeshUVSpaceRenderer = new MeshUVSpaceRenderer(this.mesh, this.mesh.getScene());
 		const	material:	PBRMaterial = this.mesh.material as PBRMaterial;
 		const	color:		Color3 = material.albedoColor;
@@ -53,7 +54,6 @@ export default class IconDrawer implements IScript {
 			else
 				widthScale = buttonSize.x / buttonSize.y;
 			const	normal = this.mesh.forward.negate();
-			console.log(normal.scale(buttonSize.z));
 			decalMap.renderTexture(this._topIcon!,
 				this.mesh.absolutePosition.add(normal.scale(buttonSize.z)),
 				normal,
