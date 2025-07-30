@@ -12,10 +12,9 @@ export default class TextBlockDrawer implements IScript {
 		step: 1
 	})
 	private readonly	_fontSize:	number = 24;
+	private readonly	_textBlock:	TextBlock;
 
-	public constructor(public mesh: Mesh) { }
-
-	public	onStart():	void {
+	public constructor(public mesh: Mesh) {
 		const	buttonSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize.scale(2);
 		const	textBlock:	Mesh = MeshBuilder.CreatePlane(this.mesh.name + "_text", {width: buttonSize.x, height: buttonSize.y});
 		textBlock.parent = this.mesh;
@@ -27,9 +26,13 @@ export default class TextBlockDrawer implements IScript {
 		else
 			widthScale = buttonSize.x / buttonSize.y;
 		const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(textBlock, 1024 * widthScale, 1024 * heightScale);
-		const	text:	TextBlock = new TextBlock(this.mesh.id + "_text", this._text);
-		text.fontSize = this._fontSize;
-		text.color = "white";
-		dynText.addControl(text);
+		this._textBlock = new TextBlock(this.mesh.id + "_text");
+		this._textBlock.color = "white";
+		dynText.addControl(this._textBlock);
+	}
+
+	public	onStart():	void {
+		this._textBlock.text = this._text;
+		this._textBlock.fontSize = this._fontSize;
 	}
 }
