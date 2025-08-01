@@ -67,7 +67,7 @@ export default class IconDrawer implements IScript {
 		this._drawSafe(this._topIcon, this.mesh.forward.negate(), meshSize.x, meshSize.y, meshSize.z, this._topIconSize, this._topIconAngle * 2 * Math.PI / 360);
 		this._drawSafe(this._bottomIcon, this.mesh.forward, meshSize.x, meshSize.y, meshSize.z, this._bottomIconSize, this._bottomIconAngle * 2 * Math.PI / 360);
 		
-		setTimeout(() => this.mesh.rotationQuaternion = this._rotation, 100);
+		this.mesh.onMeshReadyObservable.add(() => setTimeout(() => this.mesh.rotationQuaternion = this._rotation, 100));
 	}
 
 	private	_drawSafe(icon: Texture | undefined, normal: Vector3, width: number, height: number, depth: number, size: number, angle: number): void {
@@ -86,17 +86,18 @@ export default class IconDrawer implements IScript {
 		icon.hasAlpha = true;
 		icon.wrapU = Texture.CLAMP_ADDRESSMODE;
 		icon.wrapV = Texture.CLAMP_ADDRESSMODE;
-		const	minSize:		number = Math.min(width, height) * 2;
+		const	maxSize:		number = Math.max(width, height) * 2;
 		const	textureSize:	ISize = icon.getBaseSize();
 		var		widthScale:		number = 1;
 		var		heightScale:	number = 1;
-		if (width > height)
-			heightScale = textureSize.width / textureSize.height;
+		if (textureSize.width > textureSize.height)
+			heightScale = textureSize.height / textureSize.width;
 		else
-			widthScale = textureSize.height / textureSize.width;
+			widthScale = textureSize.width / textureSize.height;
+		const	decalSize:	Vector3 = new Vector3(maxSize * widthScale * size, maxSize * heightScale * size, 1);
 		this._decalMap.renderTexture(icon,
 			this.mesh.absolutePosition.add(normal.scale(depth)),
 			normal,
-			new Vector3(minSize * widthScale * size, minSize * heightScale * size, 1), angle);
+			decalSize, angle);
 	}
 }
