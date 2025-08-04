@@ -1,24 +1,25 @@
 {
     "meshes": [
         {
-            "name": "header",
-            "id": "15fcc637-2e49-443c-bbcd-b04a8e86cb37",
-            "uniqueId": 1753626784674,
+            "name": "Cube",
+            "id": "d61eee2d-3b31-4e02-b491-4001a8e5e148",
+            "uniqueId": 1754229256759,
             "type": "Mesh",
             "position": [
-                12.475325176346745,
-                216.15431780623624,
-                18.07848950579637
+                -8.881784197001252e-16,
+                3.304023721284466e-13,
+                0
             ],
-            "rotation": [
-                -0.12217304763960347,
-                -0.11976251227498119,
-                0.029181528467616454
+            "rotationQuaternion": [
+                0.010587786730499963,
+                0.009469992883631432,
+                0.012115255260339323,
+                0.9998257041089263
             ],
             "scaling": [
-                1,
-                1,
-                1
+                1.0000000000000149,
+                1.0000000000000162,
+                1.0000000000000009
             ],
             "localMatrix": [
                 1,
@@ -42,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -59,129 +60,179 @@
             ],
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
-            "sideOrientation": 1,
+            "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1753626784675,
-            "geometryId": "b03d53f7-3fcf-481e-955b-a90dd67b31ad",
+            "geometryUniqueId": 1754229256760,
+            "geometryId": "79108f68-7089-4f4f-92ad-3ee22b49b7b3",
             "subMeshes": null,
-            "materialUniqueId": 1753626823209,
-            "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "materialUniqueId": 1754229353107,
+            "materialId": "39296249-5ec1-4116-ab48-1d641cf85311",
             "metadata": {
-                "type": "Box",
-                "width": 488.60000000000014,
-                "depth": 100,
-                "height": 50.39999999999995,
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/text-block.ts",
+                        "key": "scripts/icon-drawer.ts",
                         "values": {
-                            "_frontText": {
-                                "type": "string",
-                                "value": "Game list"
+                            "_leftIcon": {
+                                "type": "texture",
+                                "value": null
                             },
-                            "_frontFontSize": {
+                            "_leftIconSize": {
                                 "type": "number",
-                                "value": 50
+                                "value": 0
                             },
-                            "_frontColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_backText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_backFontSize": {
+                            "_leftIconAngle": {
                                 "type": "number",
-                                "value": 1
+                                "value": 0
                             },
-                            "_backColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
+                            "_rightIcon": {
+                                "type": "texture",
+                                "value": null
                             },
-                            "_rightText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_rightFontSize": {
+                            "_rightIconSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 0
                             },
-                            "_rightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_leftText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_leftFontSize": {
+                            "_rightIconAngle": {
                                 "type": "number",
-                                "value": 1
+                                "value": 0
                             },
-                            "_leftColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
+                            "_topIcon": {
+                                "type": "texture",
+                                "value": null
                             },
-                            "_topText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_topFontSize": {
+                            "_topIconSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 0
                             },
-                            "_topColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_bottomText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_bottomFontSize": {
+                            "_topIconAngle": {
                                 "type": "number",
-                                "value": 1
+                                "value": 0
                             },
-                            "_bottomColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
+                            "_bottomIcon": {
+                                "type": "texture",
+                                "value": {
+                                    "tags": null,
+                                    "url": "assets/textures/player count filter ascending.png",
+                                    "uOffset": 0,
+                                    "vOffset": 0,
+                                    "uScale": 1,
+                                    "vScale": 1,
+                                    "uAng": 0,
+                                    "vAng": 0,
+                                    "wAng": 0,
+                                    "uRotationCenter": 0.5,
+                                    "vRotationCenter": 0.5,
+                                    "wRotationCenter": 0.5,
+                                    "homogeneousRotationInUVTransform": false,
+                                    "isBlocking": true,
+                                    "name": "assets/textures/player count filter ascending.png",
+                                    "hasAlpha": false,
+                                    "getAlphaFromRGB": false,
+                                    "level": 1,
+                                    "coordinatesIndex": 0,
+                                    "optimizeUVAllocation": true,
+                                    "coordinatesMode": 0,
+                                    "wrapU": 1,
+                                    "wrapV": 1,
+                                    "wrapR": 1,
+                                    "anisotropicFilteringLevel": 4,
+                                    "isCube": false,
+                                    "is3D": false,
+                                    "is2DArray": false,
+                                    "gammaSpace": true,
+                                    "invertZ": false,
+                                    "lodLevelInAlpha": false,
+                                    "lodGenerationOffset": 0,
+                                    "lodGenerationScale": 0,
+                                    "linearSpecularLOD": false,
+                                    "isRenderTarget": false,
+                                    "animations": [],
+                                    "invertY": true,
+                                    "samplingMode": 3,
+                                    "_useSRGBBuffer": false,
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/player count filter",
+                                    "noMipmap": false
+                                }
+                            },
+                            "_bottomIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_bottomIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_frontIcon": {
+                                "type": "texture",
+                                "value": {
+                                    "tags": null,
+                                    "url": "assets/textures/coin.png",
+                                    "uOffset": 0,
+                                    "vOffset": 0,
+                                    "uScale": 1,
+                                    "vScale": 1,
+                                    "uAng": 0,
+                                    "vAng": 0,
+                                    "wAng": 0,
+                                    "uRotationCenter": 0.5,
+                                    "vRotationCenter": 0.5,
+                                    "wRotationCenter": 0.5,
+                                    "homogeneousRotationInUVTransform": false,
+                                    "isBlocking": true,
+                                    "name": "assets/textures/coin.png",
+                                    "hasAlpha": false,
+                                    "getAlphaFromRGB": false,
+                                    "level": 1,
+                                    "coordinatesIndex": 0,
+                                    "optimizeUVAllocation": true,
+                                    "coordinatesMode": 0,
+                                    "wrapU": 1,
+                                    "wrapV": 1,
+                                    "wrapR": 1,
+                                    "anisotropicFilteringLevel": 4,
+                                    "isCube": false,
+                                    "is3D": false,
+                                    "is2DArray": false,
+                                    "gammaSpace": true,
+                                    "invertZ": false,
+                                    "lodLevelInAlpha": false,
+                                    "lodGenerationOffset": 0,
+                                    "lodGenerationScale": 0,
+                                    "linearSpecularLOD": false,
+                                    "isRenderTarget": false,
+                                    "animations": [],
+                                    "invertY": true,
+                                    "samplingMode": 3,
+                                    "_useSRGBBuffer": false,
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/coin.png",
+                                    "noMipmap": false
+                                }
+                            },
+                            "_frontIconSize": {
+                                "type": "number",
+                                "value": 0.7549999999999999
+                            },
+                            "_frontIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_backIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_backIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_backIconAngle": {
+                                "type": "number",
+                                "value": 0
                             }
                         }
                     }
                 ],
-                "parentId": 1753456789352
+                "parentId": 1754229256758
             },
             "instances": [],
             "animations": [],
@@ -197,16 +248,16 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/b03d53f7-3fcf-481e-955b-a90dd67b31ad.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/79108f68-7089-4f4f-92ad-3ee22b49b7b3.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                244.3000030517578,
-                25.200000762939453,
-                50
+                1,
+                1,
+                1
             ],
             "boundingBoxMinimum": [
-                -244.3000030517578,
-                -25.200000762939453,
-                -50
+                -1,
+                -1,
+                -1
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
@@ -374,8 +425,8 @@
                 "outputTextureWidth": 0,
                 "outputTextureHeight": 0
             },
-            "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
-            "name": "button",
+            "id": "39296249-5ec1-4116-ab48-1d641cf85311",
+            "name": "icon",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -407,7 +458,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753626823209,
+            "uniqueId": 1754229353107,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -562,134 +613,184 @@
         "vertexData": []
     },
     "metadata": {
-        "type": "Box",
-        "width": 488.60000000000014,
-        "depth": 100,
-        "height": 50.39999999999995,
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/text-block.ts",
+                "key": "scripts/icon-drawer.ts",
                 "values": {
-                    "_frontText": {
-                        "type": "string",
-                        "value": "Game list"
+                    "_leftIcon": {
+                        "type": "texture",
+                        "value": null
                     },
-                    "_frontFontSize": {
+                    "_leftIconSize": {
                         "type": "number",
-                        "value": 50
+                        "value": 0
                     },
-                    "_frontColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_backText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_backFontSize": {
+                    "_leftIconAngle": {
                         "type": "number",
-                        "value": 1
+                        "value": 0
                     },
-                    "_backColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
+                    "_rightIcon": {
+                        "type": "texture",
+                        "value": null
                     },
-                    "_rightText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_rightFontSize": {
+                    "_rightIconSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 0
                     },
-                    "_rightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_leftText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_leftFontSize": {
+                    "_rightIconAngle": {
                         "type": "number",
-                        "value": 1
+                        "value": 0
                     },
-                    "_leftColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
+                    "_topIcon": {
+                        "type": "texture",
+                        "value": null
                     },
-                    "_topText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_topFontSize": {
+                    "_topIconSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 0
                     },
-                    "_topColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_bottomText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_bottomFontSize": {
+                    "_topIconAngle": {
                         "type": "number",
-                        "value": 1
+                        "value": 0
                     },
-                    "_bottomColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
+                    "_bottomIcon": {
+                        "type": "texture",
+                        "value": {
+                            "tags": null,
+                            "url": "assets/textures/player count filter ascending.png",
+                            "uOffset": 0,
+                            "vOffset": 0,
+                            "uScale": 1,
+                            "vScale": 1,
+                            "uAng": 0,
+                            "vAng": 0,
+                            "wAng": 0,
+                            "uRotationCenter": 0.5,
+                            "vRotationCenter": 0.5,
+                            "wRotationCenter": 0.5,
+                            "homogeneousRotationInUVTransform": false,
+                            "isBlocking": true,
+                            "name": "assets/textures/player count filter ascending.png",
+                            "hasAlpha": false,
+                            "getAlphaFromRGB": false,
+                            "level": 1,
+                            "coordinatesIndex": 0,
+                            "optimizeUVAllocation": true,
+                            "coordinatesMode": 0,
+                            "wrapU": 1,
+                            "wrapV": 1,
+                            "wrapR": 1,
+                            "anisotropicFilteringLevel": 4,
+                            "isCube": false,
+                            "is3D": false,
+                            "is2DArray": false,
+                            "gammaSpace": true,
+                            "invertZ": false,
+                            "lodLevelInAlpha": false,
+                            "lodGenerationOffset": 0,
+                            "lodGenerationScale": 0,
+                            "linearSpecularLOD": false,
+                            "isRenderTarget": false,
+                            "animations": [],
+                            "invertY": true,
+                            "samplingMode": 3,
+                            "_useSRGBBuffer": false,
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/player count filter",
+                            "noMipmap": false
+                        }
+                    },
+                    "_bottomIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_bottomIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_frontIcon": {
+                        "type": "texture",
+                        "value": {
+                            "tags": null,
+                            "url": "assets/textures/coin.png",
+                            "uOffset": 0,
+                            "vOffset": 0,
+                            "uScale": 1,
+                            "vScale": 1,
+                            "uAng": 0,
+                            "vAng": 0,
+                            "wAng": 0,
+                            "uRotationCenter": 0.5,
+                            "vRotationCenter": 0.5,
+                            "wRotationCenter": 0.5,
+                            "homogeneousRotationInUVTransform": false,
+                            "isBlocking": true,
+                            "name": "assets/textures/coin.png",
+                            "hasAlpha": false,
+                            "getAlphaFromRGB": false,
+                            "level": 1,
+                            "coordinatesIndex": 0,
+                            "optimizeUVAllocation": true,
+                            "coordinatesMode": 0,
+                            "wrapU": 1,
+                            "wrapV": 1,
+                            "wrapR": 1,
+                            "anisotropicFilteringLevel": 4,
+                            "isCube": false,
+                            "is3D": false,
+                            "is2DArray": false,
+                            "gammaSpace": true,
+                            "invertZ": false,
+                            "lodLevelInAlpha": false,
+                            "lodGenerationOffset": 0,
+                            "lodGenerationScale": 0,
+                            "linearSpecularLOD": false,
+                            "isRenderTarget": false,
+                            "animations": [],
+                            "invertY": true,
+                            "samplingMode": 3,
+                            "_useSRGBBuffer": false,
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/coin.png",
+                            "noMipmap": false
+                        }
+                    },
+                    "_frontIconSize": {
+                        "type": "number",
+                        "value": 0.7549999999999999
+                    },
+                    "_frontIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_backIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_backIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_backIconAngle": {
+                        "type": "number",
+                        "value": 0
                     }
                 }
             }
         ],
-        "parentId": 1753456789352
+        "parentId": 1754229256758
     },
     "basePoseMatrix": [
-        1,
+        -2,
         0,
         0,
         0,
         0,
-        1,
+        2,
         0,
         0,
         0,
         0,
-        1,
+        2,
         0,
         0,
         0,

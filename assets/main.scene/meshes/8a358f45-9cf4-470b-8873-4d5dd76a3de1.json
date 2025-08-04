@@ -1,24 +1,25 @@
 {
     "meshes": [
         {
-            "name": "ground",
-            "id": "0fe36208-15f6-4366-a95f-7a324d858364",
-            "uniqueId": 1716121479529,
-            "type": "GroundMesh",
+            "name": "Cube",
+            "id": "8a358f45-9cf4-470b-8873-4d5dd76a3de1",
+            "uniqueId": 1754057510020,
+            "type": "Mesh",
             "position": [
                 0,
-                386.53518695665366,
-                8.582805287741328e-14
-            ],
-            "rotation": [
-                -1.5707963267948966,
                 0,
                 0
             ],
+            "rotationQuaternion": [
+                0,
+                -0.21127226537034788,
+                0,
+                0.9774272504310902
+            ],
             "scaling": [
-                1,
-                1,
-                1
+                0.24060215245813982,
+                0.2406021524581423,
+                0.24060215245813982
             ],
             "localMatrix": [
                 1,
@@ -42,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -59,81 +60,137 @@
             ],
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
-            "sideOrientation": 1,
+            "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1716121479530,
-            "geometryId": "fa4be5bf-7e53-4da5-8976-f2f037d975df",
+            "geometryUniqueId": 1754057510021,
+            "geometryId": "3b83d2fd-8af7-4603-b07d-0422d8cb9410",
             "subMeshes": null,
-            "materialUniqueId": 1711813881026,
-            "materialId": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
+            "materialUniqueId": 1754057400893,
+            "materialId": "11996d17-729f-4315-82f9-d503842cb10f",
             "metadata": {
-                "type": "Ground",
-                "width": 4096,
-                "height": 4096,
                 "scripts": [
                     {
                         "enabled": false,
-                        "key": "scripts/ui.ts",
+                        "key": "scripts/icon-drawer.ts",
                         "values": {
-                            "_joinPublicGameButtonMesh": {
-                                "type": "entity",
-                                "value": "9de33c5d-d058-46de-8210-789d3858dee1"
-                            },
-                            "_joinPrivateGameButtonMesh": {
-                                "type": "entity",
-                                "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
-                            },
-                            "_createGameButtonMesh": {
-                                "type": "entity",
-                                "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
-                            },
-                            "_gameListPreviousButtonMesh": {
-                                "type": "entity",
+                            "_leftIcon": {
+                                "type": "texture",
                                 "value": null
                             },
-                            "_gameListHeaderMesh": {
-                                "type": "entity",
+                            "_leftIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_leftIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_rightIcon": {
+                                "type": "texture",
                                 "value": null
                             },
-                            "_playerCountOrderButtonMesh": {
-                                "type": "entity",
+                            "_rightIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_rightIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_topIcon": {
+                                "type": "texture",
                                 "value": null
                             },
-                            "_playerCountInputMesh": {
-                                "type": "entity",
+                            "_topIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_topIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_bottomIcon": {
+                                "type": "texture",
                                 "value": null
                             },
-                            "_entranceFeeOrderButtonMesh": {
-                                "type": "entity",
+                            "_bottomIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_bottomIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_frontIcon": {
+                                "type": "texture",
+                                "value": {
+                                    "tags": null,
+                                    "url": "assets/textures/previous.png",
+                                    "uOffset": 0,
+                                    "vOffset": 0,
+                                    "uScale": 1,
+                                    "vScale": 1,
+                                    "uAng": 0,
+                                    "vAng": 0,
+                                    "wAng": 0,
+                                    "uRotationCenter": 0.5,
+                                    "vRotationCenter": 0.5,
+                                    "wRotationCenter": 0.5,
+                                    "homogeneousRotationInUVTransform": false,
+                                    "isBlocking": true,
+                                    "name": "assets/textures/previous.png",
+                                    "hasAlpha": false,
+                                    "getAlphaFromRGB": false,
+                                    "level": 1,
+                                    "coordinatesIndex": 0,
+                                    "optimizeUVAllocation": true,
+                                    "coordinatesMode": 0,
+                                    "wrapU": 1,
+                                    "wrapV": 1,
+                                    "wrapR": 1,
+                                    "anisotropicFilteringLevel": 4,
+                                    "isCube": false,
+                                    "is3D": false,
+                                    "is2DArray": false,
+                                    "gammaSpace": true,
+                                    "invertZ": false,
+                                    "lodLevelInAlpha": false,
+                                    "lodGenerationOffset": 0,
+                                    "lodGenerationScale": 0,
+                                    "linearSpecularLOD": false,
+                                    "isRenderTarget": false,
+                                    "animations": [],
+                                    "invertY": true,
+                                    "samplingMode": 3,
+                                    "_useSRGBBuffer": false,
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous.png",
+                                    "noMipmap": false
+                                }
+                            },
+                            "_frontIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_frontIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_backIcon": {
+                                "type": "texture",
                                 "value": null
                             },
-                            "_entranceFeeInputMesh": {
-                                "type": "entity",
-                                "value": null
+                            "_backIconSize": {
+                                "type": "number",
+                                "value": 0
                             },
-                            "_refreshButtonMesh": {
-                                "type": "entity",
-                                "value": null
-                            },
-                            "_playButtonMesh": {
-                                "type": "entity",
-                                "value": null
-                            },
-                            "_gameNameEntryMesh": {
-                                "type": "entity",
-                                "value": null
-                            },
-                            "_playerCountEntryMesh": {
-                                "type": "entity",
-                                "value": null
-                            },
-                            "_entranceFeeEntryMesh": {
-                                "type": "entity",
-                                "value": null
+                            "_backIconAngle": {
+                                "type": "number",
+                                "value": 0
                             }
                         }
                     }
-                ]
+                ],
+                "parentId": 1754057510019
             },
             "instances": [],
             "animations": [],
@@ -149,54 +206,46 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "subdivisionsX": 1,
-            "subdivisionsY": 1,
-            "minX": -512,
-            "maxX": 512,
-            "minZ": -512,
-            "maxZ": 512,
-            "width": 1024,
-            "height": 1024,
-            "delayLoadingFile": "assets/main.scene/geometries/fa4be5bf-7e53-4da5-8976-f2f037d975df.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/3b83d2fd-8af7-4603-b07d-0422d8cb9410.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                2048,
-                0,
-                2048
+                1,
+                1,
+                1
             ],
             "boundingBoxMinimum": [
-                -2048,
-                0,
-                -2048
+                -1,
+                -1,
+                -1
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 12,
+                    "count": 72,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 12,
+                    "count": 72,
                     "stride": 3,
-                    "offset": 48,
+                    "offset": 288,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 8,
+                    "count": 48,
                     "stride": 2,
-                    "offset": 96,
+                    "offset": 576,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 6,
+                    "count": 36,
                     "stride": 1,
-                    "offset": 128,
+                    "offset": 768,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 152,
+                    "offset": 912,
                     "dataType": 0
                 }
             },
@@ -221,7 +270,6 @@
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
             "metallic": 0,
-            "roughness": 1,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -235,9 +283,9 @@
                 0
             ],
             "albedo": [
-                1,
-                1,
-                1
+                0.6346607172924734,
+                0,
+                0
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -335,15 +383,14 @@
                 "outputTextureWidth": 0,
                 "outputTextureHeight": 0
             },
-            "id": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
-            "name": "ground",
+            "id": "11996d17-729f-4315-82f9-d503842cb10f",
+            "name": "icon",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
             "alpha": 1,
             "backFaceCulling": true,
             "cullBackFaces": true,
-            "sideOrientation": 1,
             "alphaMode": 2,
             "_needDepthPrePass": false,
             "disableDepthWrite": false,
@@ -369,7 +416,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1711813881026,
+            "uniqueId": 1754057400893,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -482,7 +529,7 @@
                         1
                     ],
                     "useMaskFromThicknessTexture": false,
-                    "useGltfStyleTextures": false,
+                    "useGltfStyleTextures": true,
                     "applyAlbedoAfterSubSurface": false,
                     "legacyTranslucency": false,
                     "name": "PBRSubSurface",
@@ -524,86 +571,142 @@
         "vertexData": []
     },
     "metadata": {
-        "type": "Ground",
-        "width": 4096,
-        "height": 4096,
         "scripts": [
             {
                 "enabled": false,
-                "key": "scripts/ui.ts",
+                "key": "scripts/icon-drawer.ts",
                 "values": {
-                    "_joinPublicGameButtonMesh": {
-                        "type": "entity",
-                        "value": "9de33c5d-d058-46de-8210-789d3858dee1"
-                    },
-                    "_joinPrivateGameButtonMesh": {
-                        "type": "entity",
-                        "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
-                    },
-                    "_createGameButtonMesh": {
-                        "type": "entity",
-                        "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
-                    },
-                    "_gameListPreviousButtonMesh": {
-                        "type": "entity",
+                    "_leftIcon": {
+                        "type": "texture",
                         "value": null
                     },
-                    "_gameListHeaderMesh": {
-                        "type": "entity",
+                    "_leftIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_leftIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_rightIcon": {
+                        "type": "texture",
                         "value": null
                     },
-                    "_playerCountOrderButtonMesh": {
-                        "type": "entity",
+                    "_rightIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_rightIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_topIcon": {
+                        "type": "texture",
                         "value": null
                     },
-                    "_playerCountInputMesh": {
-                        "type": "entity",
+                    "_topIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_topIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_bottomIcon": {
+                        "type": "texture",
                         "value": null
                     },
-                    "_entranceFeeOrderButtonMesh": {
-                        "type": "entity",
+                    "_bottomIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_bottomIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_frontIcon": {
+                        "type": "texture",
+                        "value": {
+                            "tags": null,
+                            "url": "assets/textures/previous.png",
+                            "uOffset": 0,
+                            "vOffset": 0,
+                            "uScale": 1,
+                            "vScale": 1,
+                            "uAng": 0,
+                            "vAng": 0,
+                            "wAng": 0,
+                            "uRotationCenter": 0.5,
+                            "vRotationCenter": 0.5,
+                            "wRotationCenter": 0.5,
+                            "homogeneousRotationInUVTransform": false,
+                            "isBlocking": true,
+                            "name": "assets/textures/previous.png",
+                            "hasAlpha": false,
+                            "getAlphaFromRGB": false,
+                            "level": 1,
+                            "coordinatesIndex": 0,
+                            "optimizeUVAllocation": true,
+                            "coordinatesMode": 0,
+                            "wrapU": 1,
+                            "wrapV": 1,
+                            "wrapR": 1,
+                            "anisotropicFilteringLevel": 4,
+                            "isCube": false,
+                            "is3D": false,
+                            "is2DArray": false,
+                            "gammaSpace": true,
+                            "invertZ": false,
+                            "lodLevelInAlpha": false,
+                            "lodGenerationOffset": 0,
+                            "lodGenerationScale": 0,
+                            "linearSpecularLOD": false,
+                            "isRenderTarget": false,
+                            "animations": [],
+                            "invertY": true,
+                            "samplingMode": 3,
+                            "_useSRGBBuffer": false,
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous.png",
+                            "noMipmap": false
+                        }
+                    },
+                    "_frontIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_frontIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_backIcon": {
+                        "type": "texture",
                         "value": null
                     },
-                    "_entranceFeeInputMesh": {
-                        "type": "entity",
-                        "value": null
+                    "_backIconSize": {
+                        "type": "number",
+                        "value": 0
                     },
-                    "_refreshButtonMesh": {
-                        "type": "entity",
-                        "value": null
-                    },
-                    "_playButtonMesh": {
-                        "type": "entity",
-                        "value": null
-                    },
-                    "_gameNameEntryMesh": {
-                        "type": "entity",
-                        "value": null
-                    },
-                    "_playerCountEntryMesh": {
-                        "type": "entity",
-                        "value": null
-                    },
-                    "_entranceFeeEntryMesh": {
-                        "type": "entity",
-                        "value": null
+                    "_backIconAngle": {
+                        "type": "number",
+                        "value": 0
                     }
                 }
             }
-        ]
+        ],
+        "parentId": 1754057510019
     },
     "basePoseMatrix": [
-        1,
+        -2,
         0,
         0,
         0,
         0,
-        1,
+        2,
         0,
         0,
         0,
         0,
-        1,
+        2,
         0,
         0,
         0,

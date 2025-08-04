@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "player count order button mesh",
-            "id": "8e0829f4-915c-4ea4-b564-767751baa043",
-            "uniqueId": 1753699837712,
+            "name": "entrance fee order button mesh",
+            "id": "7a4de177-b531-4848-9de1-4b865cce64e3",
+            "uniqueId": 1754229256758,
             "type": "Mesh",
             "position": [
-                -203.6359642211254,
-                124.41118963197833,
-                -1.1368683772161603e-12
+                -56.33882118468598,
+                115.44844303513169,
+                -1.1368683772161603e-13
             ],
             "rotationQuaternion": [
                 0,
@@ -65,6 +65,7 @@
             "materialUniqueId": 38,
             "materialId": "default material",
             "metadata": {
+                "scripts": [],
                 "parentId": 1753456789352
             },
             "instances": [],
@@ -87,6 +88,7 @@
     "lights": [],
     "materials": [],
     "metadata": {
+        "scripts": [],
         "parentId": 1753456789352
     },
     "basePoseMatrix": [

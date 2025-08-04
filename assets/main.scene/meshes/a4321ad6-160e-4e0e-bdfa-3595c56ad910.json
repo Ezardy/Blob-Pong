@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "player count order button mesh",
-            "id": "8e0829f4-915c-4ea4-b564-767751baa043",
-            "uniqueId": 1753699837712,
+            "name": "previous button mesh",
+            "id": "a4321ad6-160e-4e0e-bdfa-3595c56ad910",
+            "uniqueId": 1754057510019,
             "type": "Mesh",
             "position": [
-                -203.6359642211254,
-                124.41118963197833,
-                -1.1368683772161603e-12
+                -288.236421295581,
+                217.1025204895149,
+                -35.87375173777764
             ],
             "rotationQuaternion": [
                 0,
@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                27,
-                27,
-                27
+                100,
+                100,
+                100
             ],
             "localMatrix": [
                 1,

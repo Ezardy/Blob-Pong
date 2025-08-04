@@ -6,8 +6,8 @@
             "uniqueId": 1753699837713,
             "type": "Mesh",
             "position": [
-                -1.3322676295501878e-14,
-                4.884981308350689e-15,
+                0,
+                0,
                 0
             ],
             "rotationQuaternion": [
@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                0.5000000000000071,
-                0.500000000000001,
-                0.5000000000000002
+                1,
+                1,
+                1
             ],
             "localMatrix": [
                 1,
@@ -70,7 +70,7 @@
             "metadata": {
                 "scripts": [
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "key": "scripts/icon-drawer.ts",
                         "values": {
                             "_leftIcon": {
@@ -79,7 +79,7 @@
                             },
                             "_leftIconSize": {
                                 "type": "number",
-                                "value": 0
+                                "value": 0.995
                             },
                             "_rightIcon": {
                                 "type": "texture",
@@ -87,25 +87,41 @@
                             },
                             "_rightIconSize": {
                                 "type": "number",
-                                "value": 0
-                            },
-                            "_upperIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_upperIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_lowerIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_lowerIconSize": {
-                                "type": "number",
-                                "value": 0
+                                "value": 0.995
                             },
                             "_topIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_topIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_bottomIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_bottomIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_leftIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_rightIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_topIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_bottomIconAngle": {
+                                "type": "number",
+                                "value": 180
+                            },
+                            "_frontIcon": {
                                 "type": "texture",
                                 "value": {
                                     "tags": null,
@@ -123,12 +139,6 @@
                                     "homogeneousRotationInUVTransform": false,
                                     "isBlocking": true,
                                     "name": "assets/textures/player count filter ascending.png",
-                                    "metadata": {
-                                        "baseSize": {
-                                            "width": 58,
-                                            "height": 60
-                                        }
-                                    },
                                     "hasAlpha": false,
                                     "getAlphaFromRGB": false,
                                     "level": 1,
@@ -157,17 +167,67 @@
                                     "noMipmap": false
                                 }
                             },
-                            "_topIconSize": {
+                            "_frontIconSize": {
                                 "type": "number",
-                                "value": 1.005
+                                "value": 0.995
                             },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
+                            "_frontIconAngle": {
                                 "type": "number",
                                 "value": 0
+                            },
+                            "_backIcon": {
+                                "type": "texture",
+                                "value": {
+                                    "tags": null,
+                                    "url": "assets/textures/player count filter descending.png",
+                                    "uOffset": 0,
+                                    "vOffset": 0,
+                                    "uScale": 1,
+                                    "vScale": 1,
+                                    "uAng": 0,
+                                    "vAng": 0,
+                                    "wAng": 0,
+                                    "uRotationCenter": 0.5,
+                                    "vRotationCenter": 0.5,
+                                    "wRotationCenter": 0.5,
+                                    "homogeneousRotationInUVTransform": false,
+                                    "isBlocking": true,
+                                    "name": "assets/textures/player count filter descending.png",
+                                    "hasAlpha": false,
+                                    "getAlphaFromRGB": false,
+                                    "level": 1,
+                                    "coordinatesIndex": 0,
+                                    "optimizeUVAllocation": true,
+                                    "coordinatesMode": 0,
+                                    "wrapU": 1,
+                                    "wrapV": 1,
+                                    "wrapR": 1,
+                                    "anisotropicFilteringLevel": 4,
+                                    "isCube": false,
+                                    "is3D": false,
+                                    "is2DArray": false,
+                                    "gammaSpace": true,
+                                    "invertZ": false,
+                                    "lodLevelInAlpha": false,
+                                    "lodGenerationOffset": 0,
+                                    "lodGenerationScale": 0,
+                                    "linearSpecularLOD": false,
+                                    "isRenderTarget": false,
+                                    "animations": [],
+                                    "invertY": true,
+                                    "samplingMode": 3,
+                                    "_useSRGBBuffer": false,
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/player count filter",
+                                    "noMipmap": false
+                                }
+                            },
+                            "_backIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_backIconAngle": {
+                                "type": "number",
+                                "value": 180
                             }
                         }
                     }
@@ -555,7 +615,7 @@
     "metadata": {
         "scripts": [
             {
-                "enabled": true,
+                "enabled": false,
                 "key": "scripts/icon-drawer.ts",
                 "values": {
                     "_leftIcon": {
@@ -564,7 +624,7 @@
                     },
                     "_leftIconSize": {
                         "type": "number",
-                        "value": 0
+                        "value": 0.995
                     },
                     "_rightIcon": {
                         "type": "texture",
@@ -572,25 +632,41 @@
                     },
                     "_rightIconSize": {
                         "type": "number",
-                        "value": 0
-                    },
-                    "_upperIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_upperIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_lowerIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_lowerIconSize": {
-                        "type": "number",
-                        "value": 0
+                        "value": 0.995
                     },
                     "_topIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_topIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_bottomIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_bottomIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_leftIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_rightIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_topIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_bottomIconAngle": {
+                        "type": "number",
+                        "value": 180
+                    },
+                    "_frontIcon": {
                         "type": "texture",
                         "value": {
                             "tags": null,
@@ -608,12 +684,6 @@
                             "homogeneousRotationInUVTransform": false,
                             "isBlocking": true,
                             "name": "assets/textures/player count filter ascending.png",
-                            "metadata": {
-                                "baseSize": {
-                                    "width": 58,
-                                    "height": 60
-                                }
-                            },
                             "hasAlpha": false,
                             "getAlphaFromRGB": false,
                             "level": 1,
@@ -642,17 +712,67 @@
                             "noMipmap": false
                         }
                     },
-                    "_topIconSize": {
+                    "_frontIconSize": {
                         "type": "number",
-                        "value": 1.005
+                        "value": 0.995
                     },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
+                    "_frontIconAngle": {
                         "type": "number",
                         "value": 0
+                    },
+                    "_backIcon": {
+                        "type": "texture",
+                        "value": {
+                            "tags": null,
+                            "url": "assets/textures/player count filter descending.png",
+                            "uOffset": 0,
+                            "vOffset": 0,
+                            "uScale": 1,
+                            "vScale": 1,
+                            "uAng": 0,
+                            "vAng": 0,
+                            "wAng": 0,
+                            "uRotationCenter": 0.5,
+                            "vRotationCenter": 0.5,
+                            "wRotationCenter": 0.5,
+                            "homogeneousRotationInUVTransform": false,
+                            "isBlocking": true,
+                            "name": "assets/textures/player count filter descending.png",
+                            "hasAlpha": false,
+                            "getAlphaFromRGB": false,
+                            "level": 1,
+                            "coordinatesIndex": 0,
+                            "optimizeUVAllocation": true,
+                            "coordinatesMode": 0,
+                            "wrapU": 1,
+                            "wrapV": 1,
+                            "wrapR": 1,
+                            "anisotropicFilteringLevel": 4,
+                            "isCube": false,
+                            "is3D": false,
+                            "is2DArray": false,
+                            "gammaSpace": true,
+                            "invertZ": false,
+                            "lodLevelInAlpha": false,
+                            "lodGenerationOffset": 0,
+                            "lodGenerationScale": 0,
+                            "linearSpecularLOD": false,
+                            "isRenderTarget": false,
+                            "animations": [],
+                            "invertY": true,
+                            "samplingMode": 3,
+                            "_useSRGBBuffer": false,
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/player count filter",
+                            "noMipmap": false
+                        }
+                    },
+                    "_backIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_backIconAngle": {
+                        "type": "number",
+                        "value": 180
                     }
                 }
             }

@@ -84,7 +84,7 @@ export default function Home() {
 
 		SceneLoaderFlags.ForceFullSceneLoadingForIncremental = true;
 		await loadScene("/scene/", "main.babylon", scene, scriptsMap, {
-			quality: "high",
+			quality: "low",
 		});
 
 		if (scene.activeCamera) {

@@ -12,21 +12,27 @@ export default class TextBlockDrawer implements IScript {
 		step: 1
 	})
 	private readonly	_fontSize:	number = 24;
+	@visibleAsNumber("texture size", {min: 2, max: 4096, step: 2})
+	private readonly	_textureSize:	number = 2;
 
-	public constructor(public mesh: Mesh) { }
+	private readonly	_plane:		Mesh;
+	private readonly	_meshSize:	Vector3;
+
+	public constructor(public mesh: Mesh) {
+		this._meshSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
+		this._plane = MeshBuilder.CreatePlane(this.mesh.name + "_text", {width: this._meshSize.x * 2, height: this._meshSize.y * 2});
+	}
 
 	public	onStart():	void {
-		const	buttonSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize.scale(2);
-		const	textBlock:	Mesh = MeshBuilder.CreatePlane(this.mesh.name + "_text", {width: buttonSize.x, height: buttonSize.y});
-		textBlock.parent = this.mesh;
-		textBlock.position.z = -buttonSize.z / 2 - 0.1;
+		this._plane.parent = this.mesh;
+		this._plane.position.z = -this._meshSize.z - 0.1;
 		var	widthScale:		number = 1;
 		var	heightScale:	number = 1;
-		if (buttonSize.x > buttonSize.y)
-			heightScale = buttonSize.y / buttonSize.x;
+		if (this._meshSize.x > this._meshSize.y)
+			heightScale = this._meshSize.y / this._meshSize.x;
 		else
-			widthScale = buttonSize.x / buttonSize.y;
-		const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(textBlock, 1024 * widthScale, 1024 * heightScale);
+			widthScale = this._meshSize.x / this._meshSize.y;
+		const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._textureSize * widthScale, this._textureSize * heightScale);
 		const	text:	TextBlock = new TextBlock(this.mesh.id + "_text", this._text);
 		text.fontSize = this._fontSize;
 		text.color = "white";

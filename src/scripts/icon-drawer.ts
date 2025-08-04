@@ -1,4 +1,4 @@
-import { Color3, Color4, int, ISize, MeshBuilder, MeshUVSpaceRenderer, PBRMaterial, Quaternion, Texture, Vector3 } from "@babylonjs/core";
+import { Axis, Color3, Color4, int, ISize, Matrix, MeshBuilder, MeshUVSpaceRenderer, PBRMaterial, Quaternion, Texture, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { IScript, visibleAsNumber, visibleAsTexture } from "babylonjs-editor-tools";
 
@@ -15,20 +15,8 @@ export default class IconDrawer implements IScript {
 	private readonly	_rightIconSize:	number = 1;
 	@visibleAsNumber("right icon angle", {min: 0, max: 359, step: 1})
 	private readonly	_rightIconAngle:	number = 0;
-	@visibleAsTexture("upper icon")
-	private readonly	_upperIcon?:	Texture;
-	@visibleAsNumber("upper icon size", {min: 0, max: 1, step: 0.005})
-	private readonly	_upperIconSize:	number = 1;
-	@visibleAsNumber("upper icon angle", {min: 0, max: 359, step: 1})
-	private readonly	_upperIconAngle:	number = 0;
-	@visibleAsTexture("lower icon")
-	private readonly	_lowerIcon?:	Texture;
-	@visibleAsNumber("lower icon size", {min: 0, max: 1, step: 0.005})
-	private readonly	_lowerIconSize:	number = 1;
-	@visibleAsNumber("lower icon angle", {min: 0, max: 359, step: 1})
-	private readonly	_lowerIconAngle:	number = 0;
 	@visibleAsTexture("top icon")
-	private readonly	_topIcon?:		Texture;
+	private readonly	_topIcon?:	Texture;
 	@visibleAsNumber("top icon size", {min: 0, max: 1, step: 0.005})
 	private readonly	_topIconSize:	number = 1;
 	@visibleAsNumber("top icon angle", {min: 0, max: 359, step: 1})
@@ -39,13 +27,24 @@ export default class IconDrawer implements IScript {
 	private readonly	_bottomIconSize:	number = 1;
 	@visibleAsNumber("bottom icon angle", {min: 0, max: 359, step: 1})
 	private readonly	_bottomIconAngle:	number = 0;
+	@visibleAsTexture("front icon")
+	private readonly	_frontIcon?:		Texture;
+	@visibleAsNumber("front icon size", {min: 0, max: 1, step: 0.005})
+	private readonly	_frontIconSize:	number = 1;
+	@visibleAsNumber("front icon angle", {min: 0, max: 359, step: 1})
+	private readonly	_frontIconAngle:	number = 0;
+	@visibleAsTexture("back icon")
+	private readonly	_backIcon?:	Texture;
+	@visibleAsNumber("back icon size", {min: 0, max: 1, step: 0.005})
+	private readonly	_backIconSize:	number = 1;
+	@visibleAsNumber("back icon angle", {min: 0, max: 359, step: 1})
+	private readonly	_backIconAngle:	number = 0;
 
-	private readonly	_decalMap:	MeshUVSpaceRenderer;
-	private readonly	_rotation:	Quaternion;
+	private readonly	_decalMap:				MeshUVSpaceRenderer;
 
 	public constructor(public mesh: Mesh) {
-		this._rotation = mesh.rotationQuaternion!;
-		mesh.rotationQuaternion = Quaternion.Identity();
+		if (Vector3.Cross(mesh.up, Vector3.Up()).length() == 0)
+			mesh.rotate(Axis.Z, 1e-6);
 		mesh.computeWorldMatrix(true);
 		this._decalMap = new MeshUVSpaceRenderer(this.mesh, this.mesh.getScene());
 		const	material:	PBRMaterial = this.mesh.material as PBRMaterial;
@@ -60,25 +59,28 @@ export default class IconDrawer implements IScript {
 	public onStart(): void {
 		const	extendSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		const	meshSize:	Vector3 = new Vector3(extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z);
-		this._drawSafe(this._lowerIcon, this.mesh.up.negate(), meshSize.x, meshSize.z, meshSize.y, this._lowerIconSize, this._lowerIconAngle * 2 * Math.PI / 360);
-		this._drawSafe(this._upperIcon, this.mesh.up, meshSize.x, meshSize.z, meshSize.y, this._upperIconSize, this._upperIconAngle * 2 * Math.PI / 360);
-		this._drawSafe(this._rightIcon, this.mesh.right, meshSize.z, meshSize.y, meshSize.x, this._rightIconSize, this._rightIconAngle * 2 * Math.PI / 360);
-		this._drawSafe(this._leftIcon, this.mesh.right.negate(), meshSize.z, meshSize.y, meshSize.x, this._leftIconSize, this._leftIconAngle * 2 * Math.PI / 360);
-		this._drawSafe(this._topIcon, this.mesh.forward.negate(), meshSize.x, meshSize.y, meshSize.z, this._topIconSize, this._topIconAngle * 2 * Math.PI / 360);
-		this._drawSafe(this._bottomIcon, this.mesh.forward, meshSize.x, meshSize.y, meshSize.z, this._bottomIconSize, this._bottomIconAngle * 2 * Math.PI / 360);
-		
-		this.mesh.onMeshReadyObservable.add(() => setTimeout(() => this.mesh.rotationQuaternion = this._rotation, 100));
+
+		var		angle:		number = 0;
+		const	rotation:	Vector3 = this.mesh.rotationQuaternion!.toEulerAngles();
+		const	yP:			Vector3 = new Vector3(this.mesh.up.x, 0, this.mesh.up.z);
+		yP.normalize().applyRotationQuaternionInPlace(Quaternion.RotationYawPitchRoll(Math.PI / 2, 0, 0));
+		const	cross:	Vector3 = Vector3.Cross(this.mesh.right, yP);
+		angle = Math.atan2(cross.length() * Math.sign(Vector3.Dot(cross.normalizeToNew(), this.mesh.up.negate())), Vector3.Dot(this.mesh.right, yP));
+
+		this._drawSafe(this._bottomIcon, this.mesh.up.negate(), meshSize.x, meshSize.z, meshSize.y, this._bottomIconSize, angle + this._bottomIconAngle * Math.PI / 180);
+		this._drawSafe(this._topIcon, this.mesh.up, meshSize.x, meshSize.z, meshSize.y, this._topIconSize, -angle + this._topIconAngle * Math.PI / 180);
+		this._drawSafe(this._rightIcon, this.mesh.right, meshSize.z, meshSize.y, meshSize.x, this._rightIconSize, -rotation.x + this._rightIconAngle * Math.PI / 180);
+		this._drawSafe(this._leftIcon, this.mesh.right.negate(), meshSize.z, meshSize.y, meshSize.x, this._leftIconSize, rotation.x + this._leftIconAngle * Math.PI / 180);
+		this._drawSafe(this._frontIcon, this.mesh.forward.negate(), meshSize.x, meshSize.y, meshSize.z, this._frontIconSize, rotation.z + this._frontIconAngle * Math.PI / 180);
+		this._drawSafe(this._backIcon, this.mesh.forward, meshSize.x, meshSize.y, meshSize.z, this._backIconSize, -rotation.z + this._backIconAngle * Math.PI / 180);
 	}
 
 	private	_drawSafe(icon: Texture | undefined, normal: Vector3, width: number, height: number, depth: number, size: number, angle: number): void {
 		if (icon != undefined) {
-			if (icon.isReady()) {
+			if (icon.isReady())
 				this._draw(icon, normal, width, height, depth, size, angle);
-			} else {
-				icon.onLoadObservable.addOnce(() => {
-					this._draw(icon, normal, width, height, depth, size, angle);
-				});
-			}
+			else 
+				icon.onLoadObservable.addOnce(() => this._draw(icon, normal, width, height, depth, size, angle));
 		}
 	}
 

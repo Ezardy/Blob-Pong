@@ -11,9 +11,9 @@
                 -82.31586041729275
             ],
             "rotation": [
-                -0.3257134675827095,
+                -0.3257134675827121,
                 -0.5331521995802376,
-                0.005996054752008259
+                0.005996054752008573
             ],
             "scaling": [
                 0.9999999999999959,
@@ -76,13 +76,107 @@
                         "enabled": true,
                         "key": "scripts/text-block.ts",
                         "values": {
-                            "_text": {
+                            "_frontFontSize": {
+                                "type": "number",
+                                "value": 30
+                            },
+                            "_frontText": {
                                 "type": "string",
                                 "value": "Join public game"
                             },
-                            "_fontSize": {
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontSize": {
                                 "type": "number",
-                                "value": 100
+                                "value": 1
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.10675535077288945,
+                                    0.728448275862069,
+                                    0.2229617636002962,
+                                    1
+                                ]
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
                             }
                         }
                     }
@@ -115,16 +209,110 @@
                     "metadata": {
                         "scripts": [
                             {
-                                "enabled": true,
+                                "enabled": false,
                                 "key": "scripts/text-block.ts",
                                 "values": {
-                                    "_text": {
+                                    "_frontText": {
                                         "type": "string",
                                         "value": "Join private game"
                                     },
-                                    "_fontSize": {
+                                    "_frontFontSize": {
                                         "type": "number",
-                                        "value": 100
+                                        "value": 30
+                                    },
+                                    "_frontColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_backText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_backColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_rightText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_leftText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_topText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_bottomText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
                                     }
                                 }
                             }
@@ -160,16 +348,110 @@
                     "metadata": {
                         "scripts": [
                             {
-                                "enabled": true,
+                                "enabled": false,
                                 "key": "scripts/text-block.ts",
                                 "values": {
-                                    "_text": {
+                                    "_frontFontSize": {
+                                        "type": "number",
+                                        "value": 30
+                                    },
+                                    "_frontText": {
                                         "type": "string",
                                         "value": "Create game"
                                     },
-                                    "_fontSize": {
+                                    "_frontColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_backText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backFontSize": {
                                         "type": "number",
-                                        "value": 100
+                                        "value": 1
+                                    },
+                                    "_backColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_rightText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_leftText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_topText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_bottomText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomFontSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
                                     }
                                 }
                             }
@@ -568,13 +850,107 @@
                 "enabled": true,
                 "key": "scripts/text-block.ts",
                 "values": {
-                    "_text": {
+                    "_frontFontSize": {
+                        "type": "number",
+                        "value": 30
+                    },
+                    "_frontText": {
                         "type": "string",
                         "value": "Join public game"
                     },
-                    "_fontSize": {
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontSize": {
                         "type": "number",
-                        "value": 100
+                        "value": 1
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            0.10675535077288945,
+                            0.728448275862069,
+                            0.2229617636002962,
+                            1
+                        ]
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
                     }
                 }
             }
