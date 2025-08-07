@@ -72,7 +72,7 @@
                 "height": 4096,
                 "scripts": [
                     {
-                        "enabled": false,
+                        "enabled": true,
                         "key": "scripts/ui.ts",
                         "values": {
                             "_joinPublicGameButtonMesh": {
@@ -141,7 +141,7 @@
             "layerMask": 268435455,
             "alphaIndex": 1.7976931348623157e+308,
             "hasVertexAlpha": false,
-            "overlayAlpha": 0,
+            "overlayAlpha": 0.5,
             "overlayColor": [
                 0,
                 0,
@@ -529,7 +529,7 @@
         "height": 4096,
         "scripts": [
             {
-                "enabled": false,
+                "enabled": true,
                 "key": "scripts/ui.ts",
                 "values": {
                     "_joinPublicGameButtonMesh": {

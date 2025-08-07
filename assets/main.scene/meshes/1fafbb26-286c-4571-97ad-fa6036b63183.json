@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "previous button mesh",
-            "id": "a4321ad6-160e-4e0e-bdfa-3595c56ad910",
-            "uniqueId": 1754057510019,
+            "name": "play button mesh",
+            "id": "1fafbb26-286c-4571-97ad-fa6036b63183",
+            "uniqueId": 1754476123724,
             "type": "Mesh",
             "position": [
-                -288.236421295581,
-                217.1025204895149,
-                -35.87375173777764
+                226.73325818000203,
+                79.90104457105517,
+                1.1368683772161603e-13
             ],
             "rotationQuaternion": [
                 0,
@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                1,
-                1,
-                1
+                27,
+                27,
+                27
             ],
             "localMatrix": [
                 1,

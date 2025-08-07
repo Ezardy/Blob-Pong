@@ -12,14 +12,14 @@
             ],
             "rotationQuaternion": [
                 0,
-                -0.21127226537034788,
+                -0.2112722653703478,
                 0,
                 0.9774272504310902
             ],
             "scaling": [
-                0.24060215245813982,
-                0.2406021524581423,
-                0.24060215245813982
+                24,
+                24,
+                24.000000000000004
             ],
             "localMatrix": [
                 1,
@@ -70,7 +70,7 @@
             "metadata": {
                 "scripts": [
                     {
-                        "enabled": false,
+                        "enabled": true,
                         "key": "scripts/icon-drawer.ts",
                         "values": {
                             "_leftIcon": {
@@ -125,7 +125,7 @@
                                 "type": "texture",
                                 "value": {
                                     "tags": null,
-                                    "url": "assets/textures/previous.png",
+                                    "url": "assets/textures/previous 1.png",
                                     "uOffset": 0,
                                     "vOffset": 0,
                                     "uScale": 1,
@@ -138,7 +138,7 @@
                                     "wRotationCenter": 0.5,
                                     "homogeneousRotationInUVTransform": false,
                                     "isBlocking": true,
-                                    "name": "assets/textures/previous.png",
+                                    "name": "assets/textures/previous 1.png",
                                     "hasAlpha": false,
                                     "getAlphaFromRGB": false,
                                     "level": 1,
@@ -163,7 +163,7 @@
                                     "invertY": true,
                                     "samplingMode": 3,
                                     "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous.png",
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
                                     "noMipmap": false
                                 }
                             },
@@ -186,6 +186,162 @@
                             "_backIconAngle": {
                                 "type": "number",
                                 "value": 0
+                            }
+                        }
+                    },
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_frontText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontFontSize": {
+                                "type": "number",
+                                "value": 21
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontSize": {
+                                "type": "number",
+                                "value": 21
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": "Main\\nmenu"
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 20
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 21
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 21
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 21
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
@@ -573,7 +729,7 @@
     "metadata": {
         "scripts": [
             {
-                "enabled": false,
+                "enabled": true,
                 "key": "scripts/icon-drawer.ts",
                 "values": {
                     "_leftIcon": {
@@ -628,7 +784,7 @@
                         "type": "texture",
                         "value": {
                             "tags": null,
-                            "url": "assets/textures/previous.png",
+                            "url": "assets/textures/previous 1.png",
                             "uOffset": 0,
                             "vOffset": 0,
                             "uScale": 1,
@@ -641,7 +797,7 @@
                             "wRotationCenter": 0.5,
                             "homogeneousRotationInUVTransform": false,
                             "isBlocking": true,
-                            "name": "assets/textures/previous.png",
+                            "name": "assets/textures/previous 1.png",
                             "hasAlpha": false,
                             "getAlphaFromRGB": false,
                             "level": 1,
@@ -666,7 +822,7 @@
                             "invertY": true,
                             "samplingMode": 3,
                             "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous.png",
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
                             "noMipmap": false
                         }
                     },
@@ -689,6 +845,162 @@
                     "_backIconAngle": {
                         "type": "number",
                         "value": 0
+                    }
+                }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_frontText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontFontSize": {
+                        "type": "number",
+                        "value": 21
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontSize": {
+                        "type": "number",
+                        "value": 21
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": "Main\\nmenu"
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 20
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 21
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 21
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 21
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
                     }
                 }
             }

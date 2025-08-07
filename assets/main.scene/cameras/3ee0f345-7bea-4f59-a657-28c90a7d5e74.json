@@ -14,15 +14,15 @@
     "applyGravity": false,
     "updateUpVectorFromRotation": false,
     "rotation": [
-        0.4660000000000002,
-        -0.136,
+        0,
+        0,
         0
     ],
     "speed": 200,
     "position": [
-        -35.3793507894031,
-        246.0118312672814,
-        -278.1382718451044
+        0,
+        0,
+        -729.6182718451049
     ],
     "upVector": [
         0,
@@ -46,7 +46,7 @@
         "focalLength": 42.574003560703986,
         "scripts": []
     },
-    "uniqueId": 34,
+    "uniqueId": 42,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {

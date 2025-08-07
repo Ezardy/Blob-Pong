@@ -177,6 +177,10 @@
                                     1,
                                     1
                                 ]
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
                             }
                         }
                     }
@@ -672,6 +676,10 @@
                             1,
                             1
                         ]
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
                     }
                 }
             }
