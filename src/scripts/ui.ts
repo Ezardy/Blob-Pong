@@ -1,8 +1,9 @@
-import { Mesh, Node, Nullable } from "@babylonjs/core";
+import { Mesh, Node, Nullable, Quaternion } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
 import IconDrawer from "./icon-drawer";
+import ButtonWithDescription from "./button-with-description";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -17,7 +18,7 @@ export default class Ui implements IScript {
 
 	// game list layout elements
 	@visibleAsEntity("node", "game list previous button mesh")
-	private readonly	_gameListPreviousButton!:		Mesh;
+	private readonly	_gameListPreviousButtonMesh!:		Mesh;
 	@visibleAsEntity("node", "game list header mesh")
 	private readonly	_gameListHeaderMesh!:			Mesh;
 	@visibleAsEntity("node", "player count order button mesh")
@@ -100,7 +101,12 @@ export default class Ui implements IScript {
 			this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
 			this._gameListPreviousButtonHeaderPanel.margin = 50;
 			this._gameListPreviousButtonHeaderPanel.blockLayout = true;
-				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListPreviousButton, "game_list_previous_button"))
+				const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 4, 0 ,0));
+				gameListPreviousButton.onPointerUpObservable.add(() => {
+					this._setContainerVisibility(this._gameListLayout, false);
+					this._setContainerVisibility(this._mainLayout, true);
+				});
+				this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
 				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game_list_header"));
 			this._gameListPreviousButtonHeaderPanel.blockLayout = false;
 			this._gameListLayout.addControl(this._gameListPanel);

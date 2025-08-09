@@ -127,7 +127,7 @@
                                 "type": "entity",
                                 "value": null
                             },
-                            "_gameListPreviousButton": {
+                            "_gameListPreviousButtonMesh": {
                                 "type": "entity",
                                 "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
                             }
@@ -584,7 +584,7 @@
                         "type": "entity",
                         "value": null
                     },
-                    "_gameListPreviousButton": {
+                    "_gameListPreviousButtonMesh": {
                         "type": "entity",
                         "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
                     }
