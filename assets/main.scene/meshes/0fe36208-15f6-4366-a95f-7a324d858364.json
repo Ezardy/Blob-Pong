@@ -87,17 +87,13 @@
                                 "type": "entity",
                                 "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
                             },
-                            "_gameListPreviousButtonMesh": {
-                                "type": "entity",
-                                "value": null
-                            },
                             "_gameListHeaderMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "15fcc637-2e49-443c-bbcd-b04a8e86cb37"
                             },
                             "_playerCountOrderButtonMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "4971c2a6-b062-4f5b-bfbb-da18af77dce5"
                             },
                             "_playerCountInputMesh": {
                                 "type": "entity",
@@ -105,7 +101,7 @@
                             },
                             "_entranceFeeOrderButtonMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "d61eee2d-3b31-4e02-b491-4001a8e5e148"
                             },
                             "_entranceFeeInputMesh": {
                                 "type": "entity",
@@ -113,11 +109,11 @@
                             },
                             "_refreshButtonMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690"
                             },
                             "_playButtonMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "7fb2333d-a45c-42a8-8a32-0282fc30cc26"
                             },
                             "_gameNameEntryMesh": {
                                 "type": "entity",
@@ -130,6 +126,10 @@
                             "_entranceFeeEntryMesh": {
                                 "type": "entity",
                                 "value": null
+                            },
+                            "_gameListPreviousButton": {
+                                "type": "entity",
+                                "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
                             }
                         }
                     }
@@ -544,17 +544,13 @@
                         "type": "entity",
                         "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
                     },
-                    "_gameListPreviousButtonMesh": {
-                        "type": "entity",
-                        "value": null
-                    },
                     "_gameListHeaderMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "15fcc637-2e49-443c-bbcd-b04a8e86cb37"
                     },
                     "_playerCountOrderButtonMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "4971c2a6-b062-4f5b-bfbb-da18af77dce5"
                     },
                     "_playerCountInputMesh": {
                         "type": "entity",
@@ -562,7 +558,7 @@
                     },
                     "_entranceFeeOrderButtonMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "d61eee2d-3b31-4e02-b491-4001a8e5e148"
                     },
                     "_entranceFeeInputMesh": {
                         "type": "entity",
@@ -570,11 +566,11 @@
                     },
                     "_refreshButtonMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690"
                     },
                     "_playButtonMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "7fb2333d-a45c-42a8-8a32-0282fc30cc26"
                     },
                     "_gameNameEntryMesh": {
                         "type": "entity",
@@ -587,6 +583,10 @@
                     "_entranceFeeEntryMesh": {
                         "type": "entity",
                         "value": null
+                    },
+                    "_gameListPreviousButton": {
+                        "type": "entity",
+                        "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
                     }
                 }
             }

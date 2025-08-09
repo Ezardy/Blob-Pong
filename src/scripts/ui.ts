@@ -1,6 +1,9 @@
 import { Mesh, Node } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
-import { IScript, visibleAsEntity } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
+import MeshControl from "./mesh-control";
+import IconDrawer from "./icon-drawer";
+import { isDecalDrawer } from "./idecal-drawer";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -15,7 +18,7 @@ export default class Ui implements IScript {
 
 	// game list layout elements
 	@visibleAsEntity("node", "game list previous button mesh")
-	private readonly	_gameListPreviousButtonMesh!:	Mesh;
+	private readonly	_gameListPreviousButton!:		Mesh;
 	@visibleAsEntity("node", "game list header mesh")
 	private readonly	_gameListHeaderMesh!:			Mesh;
 	@visibleAsEntity("node", "player count order button mesh")
@@ -65,6 +68,7 @@ export default class Ui implements IScript {
 
 	public onStart(): void {
 		this._setMainLayout();
+		this._setGameListLayout();
 
 		this._setContainerVisibility(this._gameListLayout, false);
 	}
@@ -93,8 +97,18 @@ export default class Ui implements IScript {
 		this._manager.addControl(this._gameListLayout);
 		this._gameListLayout.margin = 20;
 
-		const	previousButton:	MeshButton3D = new MeshButton3D(this._gameListPreviousButtonMesh, "gameListPreviousButton");
+		this._gameListLayout.blockLayout = true;
+			this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
+			this._gameListPreviousButtonHeaderPanel.margin = 50;
+			this._gameListPreviousButtonHeaderPanel.blockLayout = true;
+				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListPreviousButton.parent as Mesh, "game_list_previous_button"))
+				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game_list_header"));
+			this._gameListPreviousButtonHeaderPanel.blockLayout = false;
+			this._gameListLayout.addControl(this._gameListPanel);
+			this._gameListPanel.blockLayout = true;
 
+			this._gameListPanel.blockLayout = false;
+		this._gameListLayout.blockLayout = false;
 	}
 
 	private	_setContainerVisibility(container: Container3D, isVisible: boolean):	void {
@@ -103,6 +117,8 @@ export default class Ui implements IScript {
 			control.isVisible = isVisible;
 			if (control instanceof Container3D)
 				this._setContainerVisibility(control, isVisible);
+			else if (isVisible && isDecalDrawer(control.mesh))
+				control.mesh.draw();
 		}
 	}
 }

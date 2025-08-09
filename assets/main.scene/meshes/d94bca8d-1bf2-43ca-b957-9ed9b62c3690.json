@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "Cube",
+            "name": "refresh button mesh",
             "id": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690",
             "uniqueId": 1754473643855,
             "type": "Mesh",
             "position": [
-                0,
-                0,
-                0
+                70.43974892154708,
+                119.15932952596779,
+                -14.459203910043527
             ],
             "rotationQuaternion": [
                 0,
+                0.1010562971829463,
                 0,
-                0,
-                1
+                0.9948807088287882
             ],
             "scaling": [
-                1,
-                1,
-                1
+                26.999999999999993,
+                27,
+                26.999999999999993
             ],
             "localMatrix": [
                 1,
@@ -186,11 +186,171 @@
                             "_backIconAngle": {
                                 "type": "number",
                                 "value": 0
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            }
+                        }
+                    },
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_frontText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": "refresh\\nlist"
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 15
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
                 ],
-                "parentId": 1754473643854
+                "parentId": 1753456789352
             },
             "instances": [],
             "animations": [],
@@ -689,11 +849,171 @@
                     "_backIconAngle": {
                         "type": "number",
                         "value": 0
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    }
+                }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_frontText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": "refresh\\nlist"
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 15
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
                     }
                 }
             }
         ],
-        "parentId": 1754473643854
+        "parentId": 1753456789352
     },
     "basePoseMatrix": [
         -2,

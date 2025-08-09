@@ -1,23 +1,23 @@
 {
     "meshes": [
         {
-            "name": "Cube",
+            "name": "previous button mesh",
             "id": "8a358f45-9cf4-470b-8873-4d5dd76a3de1",
             "uniqueId": 1754057510020,
             "type": "Mesh",
             "position": [
-                0,
-                0,
-                0
+                -289.1704975457447,
+                204.49263002765613,
+                -40.07876908176547
             ],
             "rotationQuaternion": [
                 0,
-                -0.2112722653703478,
+                -0.21127226537034777,
                 0,
                 0.9774272504310902
             ],
             "scaling": [
-                24,
+                24.000000000000004,
                 24,
                 24.000000000000004
             ],
@@ -69,126 +69,6 @@
             "materialId": "11996d17-729f-4315-82f9-d503842cb10f",
             "metadata": {
                 "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/icon-drawer.ts",
-                        "values": {
-                            "_leftIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_leftIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_leftIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_rightIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_topIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_topIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_frontIcon": {
-                                "type": "texture",
-                                "value": {
-                                    "tags": null,
-                                    "url": "assets/textures/previous 1.png",
-                                    "uOffset": 0,
-                                    "vOffset": 0,
-                                    "uScale": 1,
-                                    "vScale": 1,
-                                    "uAng": 0,
-                                    "vAng": 0,
-                                    "wAng": 0,
-                                    "uRotationCenter": 0.5,
-                                    "vRotationCenter": 0.5,
-                                    "wRotationCenter": 0.5,
-                                    "homogeneousRotationInUVTransform": false,
-                                    "isBlocking": true,
-                                    "name": "assets/textures/previous 1.png",
-                                    "hasAlpha": false,
-                                    "getAlphaFromRGB": false,
-                                    "level": 1,
-                                    "coordinatesIndex": 0,
-                                    "optimizeUVAllocation": true,
-                                    "coordinatesMode": 0,
-                                    "wrapU": 1,
-                                    "wrapV": 1,
-                                    "wrapR": 1,
-                                    "anisotropicFilteringLevel": 4,
-                                    "isCube": false,
-                                    "is3D": false,
-                                    "is2DArray": false,
-                                    "gammaSpace": true,
-                                    "invertZ": false,
-                                    "lodLevelInAlpha": false,
-                                    "lodGenerationOffset": 0,
-                                    "lodGenerationScale": 0,
-                                    "linearSpecularLOD": false,
-                                    "isRenderTarget": false,
-                                    "animations": [],
-                                    "invertY": true,
-                                    "samplingMode": 3,
-                                    "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                                    "noMipmap": false
-                                }
-                            },
-                            "_frontIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_frontIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_backIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            }
-                        }
-                    },
                     {
                         "enabled": true,
                         "key": "scripts/text-block.ts",
@@ -344,9 +224,133 @@
                                 "value": false
                             }
                         }
+                    },
+                    {
+                        "enabled": true,
+                        "key": "scripts/icon-drawer.ts",
+                        "values": {
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_leftIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_leftIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_rightIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_rightIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_rightIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_topIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_topIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_topIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_bottomIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_bottomIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_bottomIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_frontIcon": {
+                                "type": "texture",
+                                "value": {
+                                    "tags": null,
+                                    "url": "assets/textures/previous 1.png",
+                                    "uOffset": 0,
+                                    "vOffset": 0,
+                                    "uScale": 1,
+                                    "vScale": 1,
+                                    "uAng": 0,
+                                    "vAng": 0,
+                                    "wAng": 0,
+                                    "uRotationCenter": 0.5,
+                                    "vRotationCenter": 0.5,
+                                    "wRotationCenter": 0.5,
+                                    "homogeneousRotationInUVTransform": false,
+                                    "isBlocking": true,
+                                    "name": "assets/textures/previous 1.png",
+                                    "hasAlpha": false,
+                                    "getAlphaFromRGB": false,
+                                    "level": 1,
+                                    "coordinatesIndex": 0,
+                                    "optimizeUVAllocation": true,
+                                    "coordinatesMode": 0,
+                                    "wrapU": 1,
+                                    "wrapV": 1,
+                                    "wrapR": 1,
+                                    "anisotropicFilteringLevel": 4,
+                                    "isCube": false,
+                                    "is3D": false,
+                                    "is2DArray": false,
+                                    "gammaSpace": true,
+                                    "invertZ": false,
+                                    "lodLevelInAlpha": false,
+                                    "lodGenerationOffset": 0,
+                                    "lodGenerationScale": 0,
+                                    "linearSpecularLOD": false,
+                                    "isRenderTarget": false,
+                                    "animations": [],
+                                    "invertY": true,
+                                    "samplingMode": 3,
+                                    "_useSRGBBuffer": false,
+                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
+                                    "noMipmap": false
+                                }
+                            },
+                            "_frontIconSize": {
+                                "type": "number",
+                                "value": 0.995
+                            },
+                            "_frontIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_backIcon": {
+                                "type": "texture",
+                                "value": null
+                            },
+                            "_backIconSize": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_backIconAngle": {
+                                "type": "number",
+                                "value": 0
+                            }
+                        }
                     }
                 ],
-                "parentId": 1754057510019
+                "parentId": 1753456789352
             },
             "instances": [],
             "animations": [],
@@ -730,126 +734,6 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/icon-drawer.ts",
-                "values": {
-                    "_leftIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_leftIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_leftIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_rightIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_topIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_topIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_frontIcon": {
-                        "type": "texture",
-                        "value": {
-                            "tags": null,
-                            "url": "assets/textures/previous 1.png",
-                            "uOffset": 0,
-                            "vOffset": 0,
-                            "uScale": 1,
-                            "vScale": 1,
-                            "uAng": 0,
-                            "vAng": 0,
-                            "wAng": 0,
-                            "uRotationCenter": 0.5,
-                            "vRotationCenter": 0.5,
-                            "wRotationCenter": 0.5,
-                            "homogeneousRotationInUVTransform": false,
-                            "isBlocking": true,
-                            "name": "assets/textures/previous 1.png",
-                            "hasAlpha": false,
-                            "getAlphaFromRGB": false,
-                            "level": 1,
-                            "coordinatesIndex": 0,
-                            "optimizeUVAllocation": true,
-                            "coordinatesMode": 0,
-                            "wrapU": 1,
-                            "wrapV": 1,
-                            "wrapR": 1,
-                            "anisotropicFilteringLevel": 4,
-                            "isCube": false,
-                            "is3D": false,
-                            "is2DArray": false,
-                            "gammaSpace": true,
-                            "invertZ": false,
-                            "lodLevelInAlpha": false,
-                            "lodGenerationOffset": 0,
-                            "lodGenerationScale": 0,
-                            "linearSpecularLOD": false,
-                            "isRenderTarget": false,
-                            "animations": [],
-                            "invertY": true,
-                            "samplingMode": 3,
-                            "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                            "noMipmap": false
-                        }
-                    },
-                    "_frontIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_frontIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_backIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    }
-                }
-            },
-            {
-                "enabled": true,
                 "key": "scripts/text-block.ts",
                 "values": {
                     "_frontText": {
@@ -1003,9 +887,133 @@
                         "value": false
                     }
                 }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/icon-drawer.ts",
+                "values": {
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_leftIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_leftIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_rightIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_rightIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_rightIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_topIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_topIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_topIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_bottomIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_bottomIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_bottomIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_frontIcon": {
+                        "type": "texture",
+                        "value": {
+                            "tags": null,
+                            "url": "assets/textures/previous 1.png",
+                            "uOffset": 0,
+                            "vOffset": 0,
+                            "uScale": 1,
+                            "vScale": 1,
+                            "uAng": 0,
+                            "vAng": 0,
+                            "wAng": 0,
+                            "uRotationCenter": 0.5,
+                            "vRotationCenter": 0.5,
+                            "wRotationCenter": 0.5,
+                            "homogeneousRotationInUVTransform": false,
+                            "isBlocking": true,
+                            "name": "assets/textures/previous 1.png",
+                            "hasAlpha": false,
+                            "getAlphaFromRGB": false,
+                            "level": 1,
+                            "coordinatesIndex": 0,
+                            "optimizeUVAllocation": true,
+                            "coordinatesMode": 0,
+                            "wrapU": 1,
+                            "wrapV": 1,
+                            "wrapR": 1,
+                            "anisotropicFilteringLevel": 4,
+                            "isCube": false,
+                            "is3D": false,
+                            "is2DArray": false,
+                            "gammaSpace": true,
+                            "invertZ": false,
+                            "lodLevelInAlpha": false,
+                            "lodGenerationOffset": 0,
+                            "lodGenerationScale": 0,
+                            "linearSpecularLOD": false,
+                            "isRenderTarget": false,
+                            "animations": [],
+                            "invertY": true,
+                            "samplingMode": 3,
+                            "_useSRGBBuffer": false,
+                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
+                            "noMipmap": false
+                        }
+                    },
+                    "_frontIconSize": {
+                        "type": "number",
+                        "value": 0.995
+                    },
+                    "_frontIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_backIcon": {
+                        "type": "texture",
+                        "value": null
+                    },
+                    "_backIconSize": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_backIconAngle": {
+                        "type": "number",
+                        "value": 0
+                    }
+                }
             }
         ],
-        "parentId": 1754057510019
+        "parentId": 1753456789352
     },
     "basePoseMatrix": [
         -2,

@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "Cube",
+            "name": "player count order button mesh",
             "id": "4971c2a6-b062-4f5b-bfbb-da18af77dce5",
             "uniqueId": 1753699837713,
             "type": "Mesh",
             "position": [
-                0,
-                0,
-                0
+                -190.93216071164076,
+                119.25892157507832,
+                -47.25093277404653
             ],
             "rotationQuaternion": [
                 0,
+                -0.12100313719447454,
                 0,
-                0,
-                1
+                0.9926521247592709
             ],
             "scaling": [
-                1,
-                1,
-                1
+                27.000000000000007,
+                27,
+                27.000000000000007
             ],
             "localMatrix": [
                 1,
@@ -228,11 +228,171 @@
                             "_backIconAngle": {
                                 "type": "number",
                                 "value": 180
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            }
+                        }
+                    },
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_frontText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": "player\\ncount\\nascending\\norder"
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 11
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": "player\\ncount\\ndescending\\norder"
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 10
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 180
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
                 ],
-                "parentId": 1753699837712
+                "parentId": 1753456789352
             },
             "instances": [],
             "animations": [],
@@ -773,11 +933,171 @@
                     "_backIconAngle": {
                         "type": "number",
                         "value": 180
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    }
+                }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_frontText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": "player\\ncount\\nascending\\norder"
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 11
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": "player\\ncount\\ndescending\\norder"
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 180
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
                     }
                 }
             }
         ],
-        "parentId": 1753699837712
+        "parentId": 1753456789352
     },
     "basePoseMatrix": [
         -2,
