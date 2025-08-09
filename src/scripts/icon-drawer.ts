@@ -1,9 +1,8 @@
 import { Axis, Color3, Color4, ISize, MeshUVSpaceRenderer, PBRMaterial, Quaternion, Texture, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { IScript, visibleAsBoolean, visibleAsNumber, visibleAsTexture } from "babylonjs-editor-tools";
-import { IDecalDrawer } from "./idecal-drawer";
 
-export default class IconDrawer extends Mesh implements IScript, IDecalDrawer {
+export default class IconDrawer implements IScript {
 	@visibleAsBoolean("render on start")
 	private readonly	_renderOnStart = true;
 	@visibleAsTexture("left icon")
@@ -46,27 +45,15 @@ export default class IconDrawer extends Mesh implements IScript, IDecalDrawer {
 	private				_isDrew:				boolean = false;
 
 	public constructor(public mesh: Mesh) {
-		super(mesh.name + "_parent", mesh.getScene(), {parent: mesh.parent});
 		if (Vector3.Cross(this.mesh.up, Vector3.Up()).length() == 0)
 			this.mesh.rotate(Axis.Z, 1e-6);
-		this.mesh.computeWorldMatrix(true);
-		console.log(this.absolutePosition);
-		console.log(this.position);
-		console.log(mesh.absolutePosition);
-		console.log(mesh.position)
-		this.position = mesh.position.clone();
-		mesh.parent = this;
-		mesh.position.setAll(0);
-		console.log(this.absolutePosition);
-		console.log(this.position);
-		console.log(mesh.absolutePosition);
-		console.log(mesh.position)
-		this.mesh.decalMap = new MeshUVSpaceRenderer(this.mesh, this.mesh.getScene());
-		const	material:	PBRMaterial = this.mesh.material as PBRMaterial;
+		mesh.computeWorldMatrix(true);
+		mesh.decalMap = new MeshUVSpaceRenderer(mesh, mesh.getScene());
+		const	material:	PBRMaterial = mesh.material as PBRMaterial;
 		const	color:		Color3 = material.albedoColor;
 		material.decalMap!.isEnabled = true;
-		this.mesh.decalMap.clearColor = new Color4(color.r, color.g, color.b, 0);
-		this.mesh.decalMap.clear();
+		mesh.decalMap.clearColor = new Color4(color.r, color.g, color.b, 0);
+		mesh.decalMap.clear();
 		material.decalMap!.smoothAlpha = true;
 	}
 

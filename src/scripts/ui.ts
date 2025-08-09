@@ -1,9 +1,8 @@
-import { Mesh, Node } from "@babylonjs/core";
+import { Mesh, Node, Nullable } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
 import IconDrawer from "./icon-drawer";
-import { isDecalDrawer } from "./idecal-drawer";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -101,7 +100,7 @@ export default class Ui implements IScript {
 			this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
 			this._gameListPreviousButtonHeaderPanel.margin = 50;
 			this._gameListPreviousButtonHeaderPanel.blockLayout = true;
-				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListPreviousButton.parent as Mesh, "game_list_previous_button"))
+				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListPreviousButton, "game_list_previous_button"))
 				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game_list_header"));
 			this._gameListPreviousButtonHeaderPanel.blockLayout = false;
 			this._gameListLayout.addControl(this._gameListPanel);
@@ -117,8 +116,11 @@ export default class Ui implements IScript {
 			control.isVisible = isVisible;
 			if (control instanceof Container3D)
 				this._setContainerVisibility(control, isVisible);
-			else if (isVisible && isDecalDrawer(control.mesh))
-				control.mesh.draw();
+			else if (isVisible) {
+				const	drawer:	Nullable<IconDrawer> = getScriptByClassForObject(control.mesh, IconDrawer);
+				if (drawer != null)
+					drawer.draw();
+			}
 		}
 	}
 }
