@@ -257,7 +257,7 @@
                     "metadata": {
                         "scripts": [
                             {
-                                "enabled": false,
+                                "enabled": true,
                                 "key": "scripts/text-block.ts",
                                 "values": {
                                     "_frontText": {
@@ -361,6 +361,54 @@
                                             1,
                                             1
                                         ]
+                                    },
+                                    "_frontAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isFrontInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBackInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isRightInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isLeftInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isTopInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBottomInverted": {
+                                        "type": "boolean",
+                                        "value": false
                                     }
                                 }
                             }
@@ -396,7 +444,7 @@
                     "metadata": {
                         "scripts": [
                             {
-                                "enabled": false,
+                                "enabled": true,
                                 "key": "scripts/text-block.ts",
                                 "values": {
                                     "_frontFontSize": {

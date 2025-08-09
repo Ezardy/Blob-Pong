@@ -140,7 +140,7 @@ export default class TextBlockDrawer implements IScript {
 
 	private	_renderText(text: string, fontSize: number, color: Color4, textBlock: TextBlock, plane: Mesh, offset: Vector3, rotation: Vector3, widthHeight: Vector2):	void {
 		if (text.length > 0) {
-			plane.position = offset.addInPlace(offset.normalizeToNew().scaleInPlace(0.1));
+			plane.position = offset.addInPlace(offset.normalizeToNew().scaleInPlace(0.04));
 			plane.addRotation(rotation.x, rotation.y, rotation.z);
 			textBlock.text = text;
 			textBlock.fontSize = fontSize;
