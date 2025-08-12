@@ -97,7 +97,7 @@
                             },
                             "_playerCountInputMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "e8c6ce1c-eb46-4c89-98f8-aa4846c082be"
                             },
                             "_entranceFeeOrderButtonMesh": {
                                 "type": "entity",
@@ -554,7 +554,7 @@
                     },
                     "_playerCountInputMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "e8c6ce1c-eb46-4c89-98f8-aa4846c082be"
                     },
                     "_entranceFeeOrderButtonMesh": {
                         "type": "entity",

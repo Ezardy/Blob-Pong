@@ -1,9 +1,11 @@
-import { Mesh, Node, Nullable, Quaternion } from "@babylonjs/core";
+import { Axis, Mesh, Node, Nullable, Quaternion } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
 import IconDrawer from "./icon-drawer";
 import ButtonWithDescription from "./button-with-description";
+import SwitchButton3D from "./switch-button";
+import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -45,8 +47,9 @@ export default class Ui implements IScript {
 	private readonly	_entranceFeeOrderButtonInputPanel:	StackPanel3D;
 	private readonly	_refreshPlayButtonPanel:			StackPanel3D;
 	private readonly	_entryPanel:						StackPanel3D;
-	private readonly	_gameListPanel:						StackPanel3D;
-	private readonly	_gameListLayout:					StackPanel3D;
+	private readonly	_gameListControlPanel:				StackPanel3D;
+	private readonly	_gameListPanel:						AdvancedStackPanel3D;
+	private readonly	_gameListLayout:					AdvancedStackPanel3D;
 
 	private readonly	_manager:	GUI3DManager;
 
@@ -57,13 +60,14 @@ export default class Ui implements IScript {
 		this._mainLayout = new StackPanel3D(true);
 
 		// game list layout initialization
-		this._gameListLayout = new StackPanel3D(true);
+		this._gameListLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
+		this._gameListControlPanel = new StackPanel3D(false);
 		this._gameListPreviousButtonHeaderPanel = new StackPanel3D(false);
 		this._playerCountOrderButtonInputPanel = new StackPanel3D(false);
 		this._entranceFeeOrderButtonInputPanel = new StackPanel3D(false);
 		this._refreshPlayButtonPanel = new StackPanel3D(false);
 		this._entryPanel = new StackPanel3D(false);
-		this._gameListPanel = new StackPanel3D(true);
+		this._gameListPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
 	}
 
 	public onStart(): void {
@@ -96,24 +100,50 @@ export default class Ui implements IScript {
 	private	_setGameListLayout():	void {
 		this._manager.addControl(this._gameListLayout);
 		this._gameListLayout.margin = 20;
-
+		this._gameListLayout.offset = 10;
 		this._gameListLayout.blockLayout = true;
-			this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
-			this._gameListPreviousButtonHeaderPanel.margin = 50;
-			this._gameListPreviousButtonHeaderPanel.blockLayout = true;
-				const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 4, 0 ,0));
-				gameListPreviousButton.onPointerUpObservable.add(() => {
-					this._setContainerVisibility(this._gameListLayout, false);
-					this._setContainerVisibility(this._mainLayout, true);
-				});
-				this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
-				this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game_list_header"));
-			this._gameListPreviousButtonHeaderPanel.blockLayout = false;
-			this._gameListLayout.addControl(this._gameListPanel);
-			this._gameListPanel.blockLayout = true;
-
-			this._gameListPanel.blockLayout = false;
+		this._setGameListPanel();
+		this._setGameListControlPanel();
+		this._setGameListPreviousButtonHeaderPanel();
 		this._gameListLayout.blockLayout = false;
+	}
+
+	private	_setGameListPreviousButtonHeaderPanel():	void {
+		this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
+		this._gameListPreviousButtonHeaderPanel.margin = 50;
+		this._gameListPreviousButtonHeaderPanel.blockLayout = true;
+		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 4, 0 ,0));
+		gameListPreviousButton.onPointerUpObservable.add(() => {
+			this._setContainerVisibility(this._gameListLayout, false);
+			this._setContainerVisibility(this._mainLayout, true);
+		});
+		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
+		this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game list header"));
+		this._gameListPreviousButtonHeaderPanel.blockLayout = false;
+	}
+
+	private	_setGameListControlPanel():	void {
+		this._gameListLayout.addControl(this._gameListControlPanel);
+		this._gameListControlPanel.margin = 80;
+		this._gameListControlPanel.blockLayout = true;
+			this._gameListControlPanel.addControl(this._playerCountOrderButtonInputPanel);
+			this._playerCountOrderButtonInputPanel.margin = 50;
+			this._playerCountOrderButtonInputPanel.blockLayout = true;
+				const	playerCountOrderButton:	SwitchButton3D = new SwitchButton3D(this._playerCountOrderButtonMesh, "player count order button",
+					Quaternion.RotationAxis(Axis.Y, Math.PI / 4),
+					Quaternion.RotationAxis(Axis.Y, Math.PI), Quaternion.RotationAxis(Axis.Y, 7 * Math.PI / 4));
+				this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
+				this._playerCountOrderButtonInputPanel.addControl(new MeshControl(this._playerCountInputMesh, "player count input"));
+			this._playerCountOrderButtonInputPanel.blockLayout = false;
+		this._gameListControlPanel.blockLayout = false;
+	}
+
+	private	_setGameListPanel():	void {
+		this._gameListLayout.addControl(this._gameListPanel);
+		this._gameListPanel.margin = 1;
+		this._gameListPanel.blockLayout = true;
+
+		this._gameListPanel.blockLayout = false;
 	}
 
 	private	_setContainerVisibility(container: Container3D, isVisible: boolean):	void {
@@ -123,9 +153,7 @@ export default class Ui implements IScript {
 			if (control instanceof Container3D)
 				this._setContainerVisibility(control, isVisible);
 			else if (isVisible) {
-				const	drawer:	Nullable<IconDrawer> = getScriptByClassForObject(control.mesh, IconDrawer);
-				if (drawer != null)
-					drawer.draw();
+				getScriptByClassForObject(control.mesh, IconDrawer)?.draw();
 			}
 		}
 	}
