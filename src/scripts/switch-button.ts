@@ -125,5 +125,6 @@ export default class SwitchButton3D extends MeshButton3D {
 			}
 			this._state = (this._state + 1) % this._maxState;
 		};
+		this.pointerDownAnimation = () => {return;};
 	}
 }

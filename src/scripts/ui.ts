@@ -124,14 +124,14 @@ export default class Ui implements IScript {
 
 	private	_setGameListControlPanel():	void {
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 80;
+		this._gameListControlPanel.margin = 30;
 		this._gameListControlPanel.blockLayout = true;
 			this._gameListControlPanel.addControl(this._playerCountOrderButtonInputPanel);
 			this._playerCountOrderButtonInputPanel.margin = 50;
 			this._playerCountOrderButtonInputPanel.blockLayout = true;
 				const	playerCountOrderButton:	SwitchButton3D = new SwitchButton3D(this._playerCountOrderButtonMesh, "player count order button",
 					Quaternion.RotationAxis(Axis.Y, Math.PI / 4),
-					Quaternion.RotationAxis(Axis.Y, Math.PI), Quaternion.RotationAxis(Axis.Y, 7 * Math.PI / 4));
+					Quaternion.RotationAxis(Axis.X, Math.PI), Quaternion.RotationYawPitchRoll(-Math.PI / 4, Math.PI, 0));
 				this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
 				this._playerCountOrderButtonInputPanel.addControl(new MeshControl(this._playerCountInputMesh, "player count input"));
 			this._playerCountOrderButtonInputPanel.blockLayout = false;
