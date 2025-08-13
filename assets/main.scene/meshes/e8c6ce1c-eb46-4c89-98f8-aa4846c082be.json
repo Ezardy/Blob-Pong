@@ -6,9 +6,9 @@
             "uniqueId": 1754739902864,
             "type": "Mesh",
             "position": [
-                -124.70585784411888,
-                43.8262513198778,
-                0
+                41.60603344796625,
+                120.1311446153438,
+                -47.91195692995032
             ],
             "rotationQuaternion": [
                 0,
@@ -42,7 +42,7 @@
             "isEnabled": true,
             "isVisible": true,
             "infiniteDistance": false,
-            "pickable": true,
+            "pickable": false,
             "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,

@@ -6,6 +6,7 @@ import IconDrawer from "./icon-drawer";
 import ButtonWithDescription from "./button-with-description";
 import SwitchButton3D from "./switch-button";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
+import InputField3D from "./input-field";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -133,7 +134,12 @@ export default class Ui implements IScript {
 					Quaternion.RotationAxis(Axis.Y, Math.PI / 4),
 					Quaternion.RotationAxis(Axis.X, Math.PI), Quaternion.RotationYawPitchRoll(-Math.PI / 4, Math.PI, 0));
 				this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
-				this._playerCountOrderButtonInputPanel.addControl(new MeshControl(this._playerCountInputMesh, "player count input"));
+				const	playerCountInput:	MeshControl = new MeshControl(this._playerCountInputMesh, "player count input");
+				playerCountInput.onPointerEnterObservable.add(() => this._manager.utilityLayer!.pickingEnabled = false);
+				const	input:	InputField3D = getScriptByClassForObject(this._playerCountInputMesh, InputField3D)!;
+				input.inputTextArea.onPointerOutObservable.add(() => this._manager.utilityLayer!.pickingEnabled = true)
+				input.parser = (s: string) => Number.parseFloat(s).toString();
+				this._playerCountOrderButtonInputPanel.addControl(playerCountInput);
 			this._playerCountOrderButtonInputPanel.blockLayout = false;
 		this._gameListControlPanel.blockLayout = false;
 	}

@@ -1,4 +1,4 @@
-import { Color3, Color4, int, MeshBuilder, Vector3 } from "@babylonjs/core";
+import { Color3, Color4, int, MeshBuilder, PointerEventTypes, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputText, InputTextArea, TextBlock } from "@babylonjs/gui";
 import { IScript, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
@@ -32,6 +32,10 @@ export default class InputField3D implements IScript {
 
 	public	parser:	(input: string) => string = (i) => i;
 
+	public get	inputTextArea():	InputTextArea {
+		return this._inputText;
+	}
+
 	public constructor(public mesh: Mesh) {
 		const	extendSize:			Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		this._extendSizeScaled = extendSize.multiply(mesh.absoluteScaling);
@@ -64,6 +68,7 @@ export default class InputField3D implements IScript {
 	public	onStart():	void {
 		this._hint = JSON.parse(`"${this._hint}"`);
 		const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler);
+		dynText.skipBlockEvents = 0;
 		dynText.addControl(this._inputText);
 		this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
 		this._inputText.highligherOpacity = this._highlightColor.a;
