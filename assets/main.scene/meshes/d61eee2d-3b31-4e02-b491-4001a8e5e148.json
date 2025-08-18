@@ -6,20 +6,20 @@
             "uniqueId": 1754229256759,
             "type": "Mesh",
             "position": [
-                -63.9549242154548,
-                -139.7523011281366,
-                -9.444041554150772
+                18.796619927106775,
+                122.59050721103236,
+                -44.16766937092762
             ],
             "rotationQuaternion": [
                 0,
-                -0.07323819712763165,
+                -0.014261130846111511,
                 0,
-                0.9973144772244581
+                0.9998983049025487
             ],
             "scaling": [
+                27.000000000000007,
                 27,
-                27,
-                27
+                27.000000000000007
             ],
             "localMatrix": [
                 1,
@@ -189,7 +189,7 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             }
                         }
                     },
@@ -228,7 +228,7 @@
                             },
                             "_backFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 11
                             },
                             "_backColor": {
                                 "type": "color4",
@@ -249,11 +249,11 @@
                             },
                             "_rightText": {
                                 "type": "string",
-                                "value": "fee\\nascending\\norder"
+                                "value": "fee\\ndescending\\norder"
                             },
                             "_rightFontSize": {
                                 "type": "number",
-                                "value": 11
+                                "value": 10
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -266,7 +266,7 @@
                             },
                             "_rightAngle": {
                                 "type": "number",
-                                "value": 0
+                                "value": 180
                             },
                             "_isRightInverted": {
                                 "type": "boolean",
@@ -274,11 +274,11 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": "fee\\ndescending\\norder"
+                                "value": "fee\\nascending\\norder"
                             },
                             "_leftFontSize": {
                                 "type": "number",
-                                "value": 10
+                                "value": 11
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -291,7 +291,7 @@
                             },
                             "_leftAngle": {
                                 "type": "number",
-                                "value": 180
+                                "value": 0
                             },
                             "_isLeftInverted": {
                                 "type": "boolean",
@@ -852,7 +852,7 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     }
                 }
             },
@@ -891,7 +891,7 @@
                     },
                     "_backFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 11
                     },
                     "_backColor": {
                         "type": "color4",
@@ -912,11 +912,11 @@
                     },
                     "_rightText": {
                         "type": "string",
-                        "value": "fee\\nascending\\norder"
+                        "value": "fee\\ndescending\\norder"
                     },
                     "_rightFontSize": {
                         "type": "number",
-                        "value": 11
+                        "value": 10
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -929,7 +929,7 @@
                     },
                     "_rightAngle": {
                         "type": "number",
-                        "value": 0
+                        "value": 180
                     },
                     "_isRightInverted": {
                         "type": "boolean",
@@ -937,11 +937,11 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": "fee\\ndescending\\norder"
+                        "value": "fee\\nascending\\norder"
                     },
                     "_leftFontSize": {
                         "type": "number",
-                        "value": 10
+                        "value": 11
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -954,7 +954,7 @@
                     },
                     "_leftAngle": {
                         "type": "number",
-                        "value": 180
+                        "value": 0
                     },
                     "_isLeftInverted": {
                         "type": "boolean",

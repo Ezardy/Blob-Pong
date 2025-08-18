@@ -1,4 +1,4 @@
-import { int, Mesh, Quaternion, Animation as BAnimation } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, Axis, MeshBuilder } from "@babylonjs/core";
 import { MeshButton3D } from "@babylonjs/gui";
 
 export default class SwitchButton3D extends MeshButton3D {
@@ -12,8 +12,16 @@ export default class SwitchButton3D extends MeshButton3D {
 	public constructor(mesh: Mesh, name: string,
 		state1DescriptionRotation: Quaternion,
 		state2Rotation: Quaternion, state2DescriptionRotation: Quaternion,
+		pivot: Vector3 = Vector3.Zero(), offset: Vector3 = Vector3.Zero(),
+		scaleOnEnter: number = 1,
 		state3Rotation?: Quaternion, state3DescriptionRotation?: Quaternion) {
-		super(mesh, name);
+		const	dummy:	Mesh = new Mesh(mesh.name + " transform", mesh.getScene(), {parent: mesh.parent});
+		dummy.position = mesh.position.clone();
+		mesh.setParent(dummy);
+		mesh.position.setAll(0);
+		super(dummy, name);
+
+		mesh.setPivotPoint(pivot);
 
 		const	ir:		Quaternion = mesh.rotationQuaternion!;
 		const	d1r:	Quaternion = ir.multiply(state1DescriptionRotation);
@@ -28,6 +36,8 @@ export default class SwitchButton3D extends MeshButton3D {
 		const	d1Anim:	BAnimation = new BAnimation(mesh.name + " d1", "rotationQuaternion", 30, BAnimation.ANIMATIONTYPE_QUATERNION, BAnimation.ANIMATIONLOOPMODE_CONSTANT);
 		const	d2Anim:	BAnimation = new BAnimation(mesh.name + " d2", "rotationQuaternion", 30, BAnimation.ANIMATIONTYPE_QUATERNION, BAnimation.ANIMATIONLOOPMODE_CONSTANT);
 		const	d3Anim:	BAnimation = new BAnimation(mesh.name + " d3", "rotationQuaternion", 30, BAnimation.ANIMATIONTYPE_QUATERNION, BAnimation.ANIMATIONLOOPMODE_CONSTANT);
+		const	sAnim:	BAnimation = new BAnimation(mesh.name + " scale", "scaling", 30, BAnimation.ANIMATIONTYPE_VECTOR3, BAnimation.ANIMATIONLOOPMODE_CONSTANT);
+		const	oAnim:	BAnimation = new BAnimation(mesh.name + " offsetting", "position", 30, BAnimation.ANIMATIONTYPE_VECTOR3, BAnimation.ANIMATIONLOOPMODE_CONSTANT);
 
 		s1Anim.setKeys([{
 			frame: 0,
@@ -56,6 +66,20 @@ export default class SwitchButton3D extends MeshButton3D {
 		}, {
 			frame: 5,
 			value: d3r
+		}]);
+		sAnim.setKeys([{
+			frame: 0,
+			value: mesh.scaling
+		}, {
+			frame: 5,
+			value: mesh.scaling.scale(scaleOnEnter)
+		}]);
+		oAnim.setKeys([{
+			frame: 0,
+			value: mesh.position
+		}, {
+			frame: 5,
+			value: mesh.position.add(offset)
 		}]);
 		if (state3Rotation && state3DescriptionRotation) {
 			this._maxState = 3;
@@ -88,29 +112,34 @@ export default class SwitchButton3D extends MeshButton3D {
 		this.pointerEnterAnimation = () => {
 			switch (this._state) {
 				case 0:
-					mesh.getScene().beginDirectAnimation(mesh, [d1Anim], 0, 5);
+					mesh.getScene().beginDirectAnimation(mesh, [d1Anim, sAnim, oAnim], 0, 5);
 					break;
 				case 1:
-					mesh.getScene().beginDirectAnimation(mesh, [d2Anim], 0, 5);
+					mesh.getScene().beginDirectAnimation(mesh, [d2Anim, sAnim, oAnim], 0, 5);
 					break;
 				default:
-					mesh.getScene().beginDirectAnimation(mesh, [d3Anim], 0, 5);
+					mesh.getScene().beginDirectAnimation(mesh, [d3Anim, sAnim, oAnim], 0, 5);
 					break;
 			}
 		};
 		this.pointerOutAnimation = () => {
 			switch (this._state) {
 				case 0:
-					mesh.getScene().beginDirectAnimation(mesh, [d1Anim], 5, 0);
+					mesh.getScene().beginDirectAnimation(mesh, [d1Anim, sAnim, oAnim], 5, 0);
 					break;
 				case 1:
-					mesh.getScene().beginDirectAnimation(mesh, [d2Anim], 5, 0);
+					mesh.getScene().beginDirectAnimation(mesh, [d2Anim, sAnim, oAnim], 5, 0);
 					break;
 				default:
-					mesh.getScene().beginDirectAnimation(mesh, [d3Anim], 5, 0);
+					mesh.getScene().beginDirectAnimation(mesh, [d3Anim, sAnim, oAnim], 5, 0);
 					break;
 			}
 		};
+		const	oldPointerDownAnimation = this.pointerDownAnimation.bind(this);
+		this.pointerDownAnimation = () => {
+			oldPointerDownAnimation();
+		};
+		const	oldPointerUpAnimation = this.pointerUpAnimation.bind(this);
 		this.pointerUpAnimation = () => {
 			switch (this._state) {
 				case 0:
@@ -123,8 +152,8 @@ export default class SwitchButton3D extends MeshButton3D {
 					mesh.getScene().beginDirectAnimation(mesh, [s1Anim], 0, 5);
 					break;
 			}
+			oldPointerUpAnimation();
 			this._state = (this._state + 1) % this._maxState;
 		};
-		this.pointerDownAnimation = () => {return;};
 	}
 }

@@ -6,20 +6,20 @@
             "uniqueId": 1754739902864,
             "type": "Mesh",
             "position": [
-                41.60603344796625,
-                120.1311446153438,
-                -47.91195692995032
+                -111.6542460606044,
+                120.13114461534363,
+                -40.82131364511538
             ],
             "rotationQuaternion": [
                 0,
+                -0.24048504741449653,
                 0,
-                0,
-                1
+                0.970652843178264
             ],
             "scaling": [
+                27.000000000000004,
                 27,
-                27,
-                27
+                27.000000000000004
             ],
             "localMatrix": [
                 1,
@@ -80,9 +80,9 @@
                             "_hintColor": {
                                 "type": "color4",
                                 "value": [
-                                    0.7672413793103449,
-                                    0.7672413793103449,
-                                    0.7672413793103449,
+                                    0.7686274509803922,
+                                    0.7686274509803922,
+                                    0.7686274509803922,
                                     0.796078431372549
                                 ]
                             },
@@ -119,7 +119,7 @@
                                     1,
                                     0,
                                     0,
-                                    0.514018691588785
+                                    0.5137254901960784
                                 ]
                             },
                             "_borderThickness": {
@@ -143,7 +143,111 @@
                 ],
                 "parentId": 1753456789352
             },
-            "instances": [],
+            "instances": [
+                {
+                    "name": "entrance fee input mesh",
+                    "id": "17357c88-61ba-4cf8-a2dd-d5330ddfa441",
+                    "isEnabled": true,
+                    "isVisible": true,
+                    "isPickable": true,
+                    "checkCollisions": false,
+                    "position": [
+                        86.2093928429939,
+                        120.1311446153438,
+                        -35.84681031052337
+                    ],
+                    "scaling": [
+                        26.999999999999996,
+                        27,
+                        27.000000000000007
+                    ],
+                    "rotationQuaternion": [
+                        0,
+                        -0.013974951454816122,
+                        0,
+                        0.9999023455977267
+                    ],
+                    "metadata": {
+                        "scripts": [
+                            {
+                                "enabled": true,
+                                "key": "scripts/input-field.ts",
+                                "values": {
+                                    "_textureResolutionScaler": {
+                                        "type": "number",
+                                        "value": 2
+                                    },
+                                    "_hint": {
+                                        "type": "string",
+                                        "value": "fee\\namount"
+                                    },
+                                    "_hintSize": {
+                                        "type": "number",
+                                        "value": 7
+                                    },
+                                    "_hintColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            0.7686274509803922,
+                                            0.7686274509803922,
+                                            0.7686274509803922,
+                                            0.796078431372549
+                                        ]
+                                    },
+                                    "_textSize": {
+                                        "type": "number",
+                                        "value": 11
+                                    },
+                                    "_textColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_backgroundColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            0,
+                                            0,
+                                            0,
+                                            0.20392156862745098
+                                        ]
+                                    },
+                                    "_focusedBackgroundColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            0,
+                                            0,
+                                            0,
+                                            0.4117647058823529
+                                        ]
+                                    },
+                                    "_highlightColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            0,
+                                            0,
+                                            0.5137254901960784
+                                        ]
+                                    },
+                                    "_borderThickness": {
+                                        "type": "number",
+                                        "value": 0
+                                    }
+                                }
+                            }
+                        ],
+                        "parentId": 1753456789352
+                    },
+                    "animations": [],
+                    "ranges": [],
+                    "uniqueId": 1755097327281
+                }
+            ],
             "animations": [],
             "ranges": [],
             "layerMask": 268435455,
@@ -534,9 +638,9 @@
                     "_hintColor": {
                         "type": "color4",
                         "value": [
-                            0.7672413793103449,
-                            0.7672413793103449,
-                            0.7672413793103449,
+                            0.7686274509803922,
+                            0.7686274509803922,
+                            0.7686274509803922,
                             0.796078431372549
                         ]
                     },
@@ -573,7 +677,7 @@
                             1,
                             0,
                             0,
-                            0.514018691588785
+                            0.5137254901960784
                         ]
                     },
                     "_borderThickness": {

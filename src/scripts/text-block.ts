@@ -1,6 +1,6 @@
 import { Color3, Color4, MeshBuilder, Vector2, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
-import { AdvancedDynamicTexture, TextBlock } from "@babylonjs/gui";
+import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
 
 export default class TextBlockDrawer implements IScript {
@@ -84,6 +84,7 @@ export default class TextBlockDrawer implements IScript {
 
 	private readonly	_extendSize:		Vector3;
 	private readonly	_extendSizeScaled:	Vector3;
+	private				_drew:				boolean = false;
 
 	public constructor(public mesh: Mesh) {
 		this._extendSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
@@ -115,27 +116,34 @@ export default class TextBlockDrawer implements IScript {
 	}
 
 	public	onStart():	void {
-		this._frontText = JSON.parse(`"${this._frontText}"`);
-		this._backText = JSON.parse(`"${this._backText}"`);
-		this._leftText = JSON.parse(`"${this._leftText}"`);
-		this._rightText = JSON.parse(`"${this._rightText}"`);
-		this._topText = JSON.parse(`"${this._topText}"`);
-		this._bottomText = JSON.parse(`"${this._bottomText}"`);
-		this._frontAngle *= Math.PI / 180;
-		this._backAngle *= Math.PI / 180;
-		this._topAngle *= -Math.PI / 180;
-		this._bottomAngle *= Math.PI / 180;
-		this._leftAngle *= Math.PI / 180;
-		this._rightAngle *= Math.PI / 180;
-		const	whXY:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.y);
-		const	whZY:	Vector2 = new Vector2(this._extendSizeScaled.z, this._extendSizeScaled.y);
-		const	whXZ:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.z);
-		this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontTextBlock, this._frontPlane, new Vector3(0, 0, -this._extendSize.z), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
-		this._renderText(this._backText, this._backFontSize, this._backColor, this._backTextBlock, this._backPlane, new Vector3(0, 0, this._extendSize.z), new Vector3(0, this._isBackInverted ? 0 : Math.PI, this._backAngle), whXY.rotate(this._backAngle));
-		this._renderText(this._rightText, this._rightFontSize, this._rightColor, this._rightTextBlock, this._rightPlane, new Vector3(this._extendSize.x, 0, 0), new Vector3(0, this._isRightInverted ? Math.PI / 2 : -Math.PI / 2, this._rightAngle), whZY.rotate(this._rightAngle));
-		this._renderText(this._leftText, this._leftFontSize, this._leftColor, this._leftTextBlock, this._leftPlane, new Vector3(-this._extendSize.x, 0, 0), new Vector3(0, this._isLeftInverted ? -Math.PI / 2 : Math.PI / 2, this._leftAngle), whZY.rotate(this._leftAngle));
-		this._renderText(this._topText, this._topFontSize, this._topColor, this._topTextBlock, this._topPlane, new Vector3(0, this._extendSize.y, 0), new Vector3(this._isTopInverted ? -Math.PI / 2 : Math.PI / 2, this._topAngle, 0), whXZ.rotate(this._topAngle));
-		this._renderText(this._bottomText, this._bottomFontSize, this._bottomColor, this._bottomTextBlock, this._bottomPlane, new Vector3(0, -this._extendSize.y, 0), new Vector3(this._isBottomInverted ? Math.PI / 2 : -Math.PI / 2, this._bottomAngle, 0), whXZ.rotate(this._bottomAngle));
+		this.draw();
+	}
+
+	public	draw():	void {
+		if (!this._drew) {
+			this._frontText = JSON.parse(`"${this._frontText}"`);
+			this._backText = JSON.parse(`"${this._backText}"`);
+			this._leftText = JSON.parse(`"${this._leftText}"`);
+			this._rightText = JSON.parse(`"${this._rightText}"`);
+			this._topText = JSON.parse(`"${this._topText}"`);
+			this._bottomText = JSON.parse(`"${this._bottomText}"`);
+			this._frontAngle *= Math.PI / 180;
+			this._backAngle *= Math.PI / 180;
+			this._topAngle *= -Math.PI / 180;
+			this._bottomAngle *= Math.PI / 180;
+			this._leftAngle *= Math.PI / 180;
+			this._rightAngle *= Math.PI / 180;
+			const	whXY:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.y);
+			const	whZY:	Vector2 = new Vector2(this._extendSizeScaled.z, this._extendSizeScaled.y);
+			const	whXZ:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.z);
+			this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontTextBlock, this._frontPlane, new Vector3(0, 0, -this._extendSize.z), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
+			this._renderText(this._backText, this._backFontSize, this._backColor, this._backTextBlock, this._backPlane, new Vector3(0, 0, this._extendSize.z), new Vector3(0, this._isBackInverted ? 0 : Math.PI, this._backAngle), whXY.rotate(this._backAngle));
+			this._renderText(this._rightText, this._rightFontSize, this._rightColor, this._rightTextBlock, this._rightPlane, new Vector3(this._extendSize.x, 0, 0), new Vector3(0, this._isRightInverted ? Math.PI / 2 : -Math.PI / 2, this._rightAngle), whZY.rotate(this._rightAngle));
+			this._renderText(this._leftText, this._leftFontSize, this._leftColor, this._leftTextBlock, this._leftPlane, new Vector3(-this._extendSize.x, 0, 0), new Vector3(0, this._isLeftInverted ? -Math.PI / 2 : Math.PI / 2, this._leftAngle), whZY.rotate(this._leftAngle));
+			this._renderText(this._topText, this._topFontSize, this._topColor, this._topTextBlock, this._topPlane, new Vector3(0, this._extendSize.y, 0), new Vector3(this._isTopInverted ? -Math.PI / 2 : Math.PI / 2, this._topAngle, 0), whXZ.rotate(this._topAngle));
+			this._renderText(this._bottomText, this._bottomFontSize, this._bottomColor, this._bottomTextBlock, this._bottomPlane, new Vector3(0, -this._extendSize.y, 0), new Vector3(this._isBottomInverted ? Math.PI / 2 : -Math.PI / 2, this._bottomAngle, 0), whXZ.rotate(this._bottomAngle));
+			this._drew = true;
+		}
 	}
 
 	private	_renderText(text: string, fontSize: number, color: Color4, textBlock: TextBlock, plane: Mesh, offset: Vector3, rotation: Vector3, widthHeight: Vector2):	void {

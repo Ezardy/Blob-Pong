@@ -22,7 +22,7 @@
     "position": [
         0,
         0,
-        -670
+        -690
     ],
     "upVector": [
         0,
@@ -46,7 +46,7 @@
         "focalLength": 42.574003560703986,
         "scripts": []
     },
-    "uniqueId": 40,
+    "uniqueId": 41,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {

@@ -6,9 +6,9 @@
             "uniqueId": 1754057510020,
             "type": "Mesh",
             "position": [
-                -280.06,
-                173.91890378451632,
-                -73.74088296903145
+                -315.49671596653627,
+                196.70431329842876,
+                -91.4860309141784
             ],
             "rotationQuaternion": [
                 0,
@@ -113,7 +113,7 @@
                             },
                             "_rightText": {
                                 "type": "string",
-                                "value": "Main\\nmenu"
+                                "value": ""
                             },
                             "_rightFontSize": {
                                 "type": "number",
@@ -130,11 +130,11 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Main\\nmenu"
                             },
                             "_leftFontSize": {
                                 "type": "number",
-                                "value": 21
+                                "value": 20
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -201,7 +201,7 @@
                             },
                             "_leftAngle": {
                                 "type": "number",
-                                "value": 90
+                                "value": 0
                             },
                             "_isLeftInverted": {
                                 "type": "boolean",
@@ -776,7 +776,7 @@
                     },
                     "_rightText": {
                         "type": "string",
-                        "value": "Main\\nmenu"
+                        "value": ""
                     },
                     "_rightFontSize": {
                         "type": "number",
@@ -793,11 +793,11 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": ""
+                        "value": "Main\\nmenu"
                     },
                     "_leftFontSize": {
                         "type": "number",
-                        "value": 21
+                        "value": 20
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -864,7 +864,7 @@
                     },
                     "_leftAngle": {
                         "type": "number",
-                        "value": 90
+                        "value": 0
                     },
                     "_isLeftInverted": {
                         "type": "boolean",

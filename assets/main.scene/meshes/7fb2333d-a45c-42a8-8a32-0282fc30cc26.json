@@ -6,9 +6,9 @@
             "uniqueId": 1754476123725,
             "type": "Mesh",
             "position": [
-                185.9059371226058,
-                -158.2192001747452,
-                -40.511444044434825
+                329.16084238075086,
+                118.36638648812743,
+                -31.95901075461414
             ],
             "rotationQuaternion": [
                 0,
@@ -189,7 +189,7 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             }
                         }
                     },
@@ -852,7 +852,7 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     }
                 }
             },

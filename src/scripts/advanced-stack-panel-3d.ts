@@ -1,4 +1,4 @@
-import { Camera, int, Matrix, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, Camera, Color3, Engine, int, LinesMesh, Matrix, Mesh, MeshBuilder, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D, Control3D } from "@babylonjs/gui";
 
 export class AdvancedStackPanel3D extends Container3D {
@@ -6,8 +6,9 @@ export class AdvancedStackPanel3D extends Container3D {
 	public static readonly	END_ALIGNMENT = 2;
 	public static readonly	CENTER_ALIGNMENT = 0;
 
-	private				_isVertical:	boolean;
-	private				_alignment:		int;
+	private	_isVertical:	boolean;
+	private	_alignment:		int;
+	private	_extendSizes:	Map<int, Vector3> = new Map();
 
 	/**
 	 * Gets or sets a boolean indicating if the stack panel is vertical or horizontal (horizontal by default)
@@ -49,81 +50,56 @@ export class AdvancedStackPanel3D extends Container3D {
 	protected override _arrangeChildren() {
 		let width = 0;
 		let height = 0;
-		let controlCount = 0;
-		const extendSizes: {[key: int]: Vector3} = {};
+		let index = 0;
+		this._extendSizes.clear();
 
 		const	currentInverseWorld = Matrix.Invert(this.node!.computeWorldMatrix(true));
 
 		// Measure
 		for (const child of this._children) {
-			if (child.mesh) {
-				child.mesh.computeWorldMatrix(true);
-				child.mesh.getWorldMatrix().multiplyToRef(currentInverseWorld, TmpVectors.Matrix[0]);
-				const boundingBox = child.mesh.getBoundingInfo().boundingBox;
-				const extendSize = Vector3.TransformNormal(boundingBox.extendSize, TmpVectors.Matrix[0]);
-				extendSizes[controlCount] = extendSize;
-				if (this._isVertical)
-					height += extendSize.y;
-				else
-					width += extendSize.x;
-			} else if (child.node) {
+			if (child.node && child.isVisible) {
 				child.node.computeWorldMatrix(true);
-				child.node.getWorldMatrix().multiplyToRef(currentInverseWorld, TmpVectors.Matrix[0]);
-				const	boundingVectors:	Vector3 = child.node.getHierarchyBoundingVectors().max;
-				const	extendSize:	Vector3 = boundingVectors.x == -Number.MAX_VALUE || boundingVectors.y == -Number.MAX_VALUE || boundingVectors.z == -Number.MAX_VALUE ? Vector3.Zero() : Vector3.TransformNormal(boundingVectors, TmpVectors.Matrix[0]);
-				extendSizes[controlCount] = extendSize;
-				if (this._isVertical)
-					height += extendSize.y;
-				else
-					width += extendSize.x;
+				const	boundingVectors:	{min: Vector3, max: Vector3} = child.node.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+				if (Math.abs(boundingVectors.min.x) != Number.MAX_VALUE
+					&& Math.abs(boundingVectors.min.y) != Number.MAX_VALUE
+					&& Math.abs(boundingVectors.min.z) != Number.MAX_VALUE
+					&& Math.abs(boundingVectors.max.x) != Number.MAX_VALUE
+					&& Math.abs(boundingVectors.max.y) != Number.MAX_VALUE
+					&& Math.abs(boundingVectors.max.z) != Number.MAX_VALUE) {
+					let	extendSize:	Vector3;
+					if (child.mesh) {
+						child.mesh.getWorldMatrix().multiplyToRef(currentInverseWorld, TmpVectors.Matrix[0]);
+						const	boundingBox:	Vector3 = child.mesh.getBoundingInfo().boundingBox.extendSize;
+						extendSize = Vector3.TransformNormal(boundingBox, TmpVectors.Matrix[0]);
+					} else {
+						const	worldBoundingBox:	Vector3 = boundingVectors.max.subtract(boundingVectors.min).scaleInPlace(0.5);
+						extendSize = Vector3.TransformNormal(worldBoundingBox, currentInverseWorld);
+					}
+					if (this._isVertical)
+						height += extendSize.y;
+					else
+						width += extendSize.x;
+					this._extendSizes.set(index, extendSize);
+				}
 			}
-			controlCount++;
+			index += 1;
 		}
 
+		let	controlCount:	int = this._extendSizes.size;
+		let	_offset: number;
 		if (this._isVertical) {
 			height += ((controlCount - 1) * this.margin) / 2;
+			_offset = -height;
 		} else {
 			width += ((controlCount - 1) * this.margin) / 2;
+			_offset = -width;
 		}
 
-		// Arrange
-		let _offset: number = 0;
-		const	lastControlIndex:	int = this.children.findLastIndex((c) => c.node);
-		if (this._alignment == 0) {
-			if (this._isVertical)
-				_offset = -height;
-			else
-				_offset = -width;
-		} else if (lastControlIndex > -1) {
-			const	camera:	Camera = this.children[lastControlIndex].node?.getScene().activeCamera!;
-			const	camZ:	number = Vector3.TransformCoordinates(camera.globalPosition, currentInverseWorld).z;
-			let	heightScaler:	number = 1;
-			let	widthScaler:	number = 1;
-			if (screen.availHeight > screen.availWidth)
-				heightScaler = screen.availHeight / screen.availWidth;
-			else
-				widthScaler = screen.availWidth / screen.availHeight;
-			if (this._alignment == AdvancedStackPanel3D.START_ALIGNMENT) {
-				if (lastControlIndex > -1) {
-					const	control:	Control3D = this.children[lastControlIndex];
-					const	nZ:	number = Math.abs(camZ - (control.node!.position.z ? control.node!.position.z * (1 + extendSizes[lastControlIndex].z / Math.abs(control.node!.position.z)) : 0));
-					_offset = nZ * Math.tan(camera.fov / 2) * (this._isVertical ? heightScaler : widthScaler) - (this._isVertical ? height : width) * 2 - this.offset;
-				}
-			} else {
-				const	firstControlIndex:	number = this.children.findIndex((c) => c.node);
-				if (firstControlIndex > -1) {
-					const	control:	Control3D = this.children[firstControlIndex];
-					const	nZ:	number = Math.abs(camZ - (control.mesh ? control.mesh.position.z : control.node!.position.z));
-					_offset = -nZ * Math.tan(camera.fov / 2) * (this._isVertical ? heightScaler : widthScaler) + this.offset;
-				}
-			}
-		}
-
-		let index = 0;
+		index = 0;
 		for (const child of this._children) {
-			if (child.mesh || child.node) {
-				controlCount--;
-				const extendSize = extendSizes[index++];
+			if (child.node && this._extendSizes.has(index)) {
+				controlCount -= 1;
+				const extendSize = this._extendSizes.get(index)!;
 
 				if (this._isVertical) {
 					child.position.y = _offset + extendSize.y;
@@ -134,9 +110,64 @@ export class AdvancedStackPanel3D extends Container3D {
 					child.position.y = 0;
 					_offset += extendSize.x * 2;
 				}
-
 				_offset += controlCount > 0 ? this.margin : 0;
 			}
+			index += 1;
+		}
+
+		if (this._alignment != AdvancedStackPanel3D.CENTER_ALIGNMENT) {
+			if (this._alignment == AdvancedStackPanel3D.START_ALIGNMENT) {
+				if (this._isVertical)
+					this._positionNode(0.5, 0, 0, -1, currentInverseWorld);
+				else
+					this._positionNode(0, 0.5, 1, 0, currentInverseWorld);
+			} else {
+				if (this._isVertical)
+					this._positionNode(0.5, 1, 0, 1, currentInverseWorld);
+				else
+					this._positionNode(1, 0.5, -1, 0, currentInverseWorld);
+			}
+		}
+
+	}
+
+	private	_positionNode(pX: number, pY: number, oX: number, oY: number, nodeInverseWorld: Matrix):	void {
+		const	worldBoundingPoints:	{min: Vector3, max: Vector3} = this.node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+		const	minBoundingPoint:		Vector3 = Vector3.TransformCoordinates(worldBoundingPoints.min, nodeInverseWorld);
+		const	maxBoundingPoint:		Vector3 = Vector3.TransformCoordinates(worldBoundingPoints.max, nodeInverseWorld);
+		const	extendSize:				Vector3 = maxBoundingPoint.subtract(minBoundingPoint).scaleInPlace(0.5);
+		const	centerOfBounds:			Vector3 = maxBoundingPoint.add(minBoundingPoint).scaleInPlace(0.5);
+		const	scene:					Scene = this.node!.getScene();
+		const	camera:					Camera = scene.activeCamera!;
+		const	engine:					AbstractEngine = scene.getEngine();
+		const	ray:					Ray = scene.createPickingRay(engine.getRenderWidth() * pX, engine.getRenderHeight() * pY, this.node!.getWorldMatrix(), camera);
+		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, new Vector3(0, 0, -1));
+		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
+
+		/*
+		const	line:	LinesMesh = MeshBuilder.CreateLines(this.name + " line", {points: [
+			worldBoundingPoints.min,
+			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.min.z),
+			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
+			worldBoundingPoints.min,
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z),
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.max.z),
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.max.z),
+			worldBoundingPoints.max,
+			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
+			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.min.z),
+			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z),
+			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z)
+		]}, this.node!.getScene());
+		line.color = Color3.Blue();
+		const	sphere = MeshBuilder.CreateSphere("node sphere", {diameter: 10});
+		sphere.setParent(this.node!);
+		sphere.position = new Vector3(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z);
+		*/
+		if (distance) {
+			this.node!.position = ray.origin.add(ray.direction.scale(distance)).subtractFromFloats(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z);
 		}
 	}
 }

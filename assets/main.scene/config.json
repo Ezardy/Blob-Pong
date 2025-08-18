@@ -155,15 +155,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.100795786376953,
-            0.005584000780905006,
+            0.2987962593994149,
+            0.23283461113245935,
             0
         ],
         "speed": 200,
         "position": [
-            11.498597886125175,
-            125.33932187475222,
-            -813.0071308681728
+            -19.814374228746033,
+            244.44739315476147,
+            -499.56792003306066
         ],
         "upVector": [
             0,
@@ -231,6 +231,9 @@
                 "wheelPrecisionX": 3,
                 "wheelPrecisionY": 3,
                 "wheelPrecisionZ": 3
+            },
+            "EditorFreeCameraPanInput": {
+                "tags": null
             }
         },
         "animations": [],

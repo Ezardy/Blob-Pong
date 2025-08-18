@@ -1,6 +1,6 @@
-import { Color3, Color4, int, MeshBuilder, PointerEventTypes, Vector3 } from "@babylonjs/core";
+import { Color3, Color4, int, MeshBuilder, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
-import { AdvancedDynamicTexture, Control, InputText, InputTextArea, TextBlock } from "@babylonjs/gui";
+import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
 import { IScript, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
 
 export default class InputField3D implements IScript {
@@ -29,6 +29,7 @@ export default class InputField3D implements IScript {
 	private readonly	_plane:				Mesh;
 	private readonly	_extendSizeScaled:	Vector3;
 	private				_hintShowed:		boolean = true;
+	private				_drew:				boolean = false;
 
 	public	parser:	(input: string) => string = (i) => i;
 
@@ -53,35 +54,41 @@ export default class InputField3D implements IScript {
 		});
 		this._inputText.onBlurObservable.add(() => {
 			if (!this._hintShowed) {
-				const	pstr:	string = this.parser(this._inputText.text);
-				if (pstr.length == 0) {
+				if (this._inputText.text.length == 0) {
 					this._hintShowed = true;
 					this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
 					this._inputText.color = this._hintColor.toHexString();
 					this._inputText.text = this._hint;
 				} else
-					this._inputText.text = pstr;
+					this._inputText.text = this.parser(this._inputText.text);
 			}
 		});
 	}
 
 	public	onStart():	void {
-		this._hint = JSON.parse(`"${this._hint}"`);
-		const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler);
-		dynText.skipBlockEvents = 0;
-		dynText.addControl(this._inputText);
-		this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
-		this._inputText.highligherOpacity = this._highlightColor.a;
-		this._inputText.text = this._hint;
-		this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
-		this._inputText.background = this._backgroundColor.toHexString();
-		this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
-		this._inputText.color = this._hintColor.toHexString();
-		this._inputText.autoStretchWidth = true;
-		this._inputText.autoStretchHeight = true;
-		this._inputText.margin = "1px";
-		this._inputText.thickness = this._borderThickness * this._textureResolutionScaler;
-		this._inputText.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-		this._inputText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER
+		this.draw();
+	}
+
+	public	draw():	void {
+		if (!this._drew) {
+			this._hint = JSON.parse(`"${this._hint}"`);
+			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler);
+			dynText.skipBlockEvents = 0;
+			dynText.addControl(this._inputText);
+			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
+			this._inputText.highligherOpacity = this._highlightColor.a;
+			this._inputText.text = this._hint;
+			this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
+			this._inputText.background = this._backgroundColor.toHexString();
+			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
+			this._inputText.color = this._hintColor.toHexString();
+			this._inputText.autoStretchWidth = true;
+			this._inputText.autoStretchHeight = true;
+			this._inputText.margin = "1px";
+			this._inputText.thickness = this._borderThickness * this._textureResolutionScaler;
+			this._inputText.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+			this._inputText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER
+			this._drew = true;
+		}
 	}
 }

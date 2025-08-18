@@ -105,7 +105,7 @@
                             },
                             "_entranceFeeInputMesh": {
                                 "type": "entity",
-                                "value": null
+                                "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
                             },
                             "_refreshButtonMesh": {
                                 "type": "entity",
@@ -562,7 +562,7 @@
                     },
                     "_entranceFeeInputMesh": {
                         "type": "entity",
-                        "value": null
+                        "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
                     },
                     "_refreshButtonMesh": {
                         "type": "entity",
