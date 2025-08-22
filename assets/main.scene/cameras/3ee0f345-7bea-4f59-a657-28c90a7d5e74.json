@@ -22,7 +22,7 @@
     "position": [
         0,
         0,
-        -690
+        -660.6577062937866
     ],
     "upVector": [
         0,
@@ -44,9 +44,10 @@
     "metadata": {
         "sensorSize": 36,
         "focalLength": 42.574003560703986,
-        "scripts": []
+        "scripts": [],
+        "isLocked": true
     },
-    "uniqueId": 41,
+    "uniqueId": 44,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {
