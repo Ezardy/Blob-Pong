@@ -68,7 +68,7 @@ export default class IconDrawer implements IScript {
 			const	meshSize:	Vector3 = new Vector3(extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z);
 
 			var		angle:		number = 0;
-			const	rotation:	Vector3 = this.mesh.rotationQuaternion!.toEulerAngles();
+			const	rotation:	Vector3 = this.mesh.absoluteRotationQuaternion ? this.mesh.absoluteRotationQuaternion.toEulerAngles() : this.mesh.rotation;
 			const	yP:			Vector3 = new Vector3(this.mesh.up.x, 0, this.mesh.up.z);
 			yP.normalize().applyRotationQuaternionInPlace(Quaternion.RotationYawPitchRoll(Math.PI / 2, 0, 0));
 			const	cross:	Vector3 = Vector3.Cross(this.mesh.right, yP);

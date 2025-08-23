@@ -1,4 +1,4 @@
-import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, Axis, MeshBuilder } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, Axis, MeshBuilder, BoundingInfo } from "@babylonjs/core";
 import { MeshButton3D } from "@babylonjs/gui";
 
 export default class SwitchButton3D extends MeshButton3D {
@@ -17,6 +17,7 @@ export default class SwitchButton3D extends MeshButton3D {
 		state3Rotation?: Quaternion, state3DescriptionRotation?: Quaternion) {
 		const	dummy:	Mesh = new Mesh(mesh.name + " transform", mesh.getScene(), {parent: mesh.parent});
 		dummy.position = mesh.position.clone();
+		dummy.setBoundingInfo(new BoundingInfo(mesh.getBoundingInfo().boundingBox.minimumWorld, mesh.getBoundingInfo().boundingBox.maximumWorld));
 		mesh.setParent(dummy);
 		mesh.position.setAll(0);
 		super(dummy, name);

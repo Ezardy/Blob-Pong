@@ -225,7 +225,7 @@ export default class TextBlockDrawer implements IScript {
 			textBlock.fontFamily = family;
 			textBlock.fontSize = fontSize;
 			textBlock.color = color.toHexString();
-			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * 2, Math.abs(widthHeight.y) * 2);
+			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * 2, Math.abs(widthHeight.y) * 2, false);
 			dynText.addControl(textBlock);
 		} else
 			plane.setEnabled(false);

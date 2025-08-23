@@ -1,5 +1,7 @@
-import { AbstractEngine, Camera, Color3, Engine, int, LinesMesh, Matrix, Mesh, MeshBuilder, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
-import { Container3D, Control3D } from "@babylonjs/gui";
+import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { Container3D } from "@babylonjs/gui";
+import { getScriptByClassForObject } from "babylonjs-editor-tools";
+import IconDrawer from "./icon-drawer";
 
 export class AdvancedStackPanel3D extends Container3D {
 	public static readonly	START_ALIGNMENT = 1;
@@ -55,7 +57,6 @@ export class AdvancedStackPanel3D extends Container3D {
 
 		const	currentInverseWorld = Matrix.Invert(this.node!.computeWorldMatrix(true));
 
-		// Measure
 		for (const child of this._children) {
 			if (child.node && child.isVisible) {
 				child.node.computeWorldMatrix(true);
@@ -134,9 +135,6 @@ export class AdvancedStackPanel3D extends Container3D {
 	private	_positionNode(pX: number, pY: number, oX: number, oY: number, nodeInverseWorld: Matrix):	void {
 		const	worldBoundingPoints:	{min: Vector3, max: Vector3} = this.node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
 		const	minBoundingPoint:		Vector3 = Vector3.TransformCoordinates(worldBoundingPoints.min, nodeInverseWorld);
-		const	maxBoundingPoint:		Vector3 = Vector3.TransformCoordinates(worldBoundingPoints.max, nodeInverseWorld);
-		const	extendSize:				Vector3 = maxBoundingPoint.subtract(minBoundingPoint).scaleInPlace(0.5);
-		const	centerOfBounds:			Vector3 = maxBoundingPoint.add(minBoundingPoint).scaleInPlace(0.5);
 		const	scene:					Scene = this.node!.getScene();
 		const	camera:					Camera = scene.activeCamera!;
 		const	engine:					AbstractEngine = scene.getEngine();
@@ -144,30 +142,23 @@ export class AdvancedStackPanel3D extends Container3D {
 		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, new Vector3(0, 0, -1));
 		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
 
-		/*
-		const	line:	LinesMesh = MeshBuilder.CreateLines(this.name + " line", {points: [
-			worldBoundingPoints.min,
-			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.min.z),
-			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
-			worldBoundingPoints.min,
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z),
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.max.z),
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.max.y, worldBoundingPoints.max.z),
-			worldBoundingPoints.max,
-			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.max.y, worldBoundingPoints.min.z),
-			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.min.z),
-			new Vector3(worldBoundingPoints.max.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z),
-			new Vector3(worldBoundingPoints.min.x, worldBoundingPoints.min.y, worldBoundingPoints.max.z)
-		]}, this.node!.getScene());
-		line.color = Color3.Blue();
-		const	sphere = MeshBuilder.CreateSphere("node sphere", {diameter: 10});
-		sphere.setParent(this.node!);
-		sphere.position = new Vector3(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z);
-		*/
-		if (distance) {
+		if (distance)
 			this.node!.position = ray.origin.add(ray.direction.scale(distance)).subtractFromFloats(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z);
+	}
+
+	public override set	isVisible(value: boolean) {
+		this._isVisible = value;
+		for (const child of this.children) {
+			child.isVisible = value;
+			if (value && child.mesh) {
+				getScriptByClassForObject(child.mesh, IconDrawer)?.draw();
+				for (const childOfChild of child.mesh.getChildMeshes())
+					getScriptByClassForObject(childOfChild, IconDrawer)?.draw();
+			}
 		}
+	}
+
+	public override get	isVisible():	boolean {
+		return this._isVisible;
 	}
 }

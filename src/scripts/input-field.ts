@@ -72,7 +72,7 @@ export default class InputField3D implements IScript {
 	public	draw():	void {
 		if (!this._drew) {
 			this._hint = JSON.parse(`"${this._hint}"`);
-			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler);
+			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler, false);
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
 			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();

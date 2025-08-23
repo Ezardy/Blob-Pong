@@ -1,5 +1,5 @@
-import { Axis, Mesh, Node, Nullable, Quaternion, Vector3 } from "@babylonjs/core";
-import { Container3D, GUI3DManager, InputTextArea, MeshButton3D, StackPanel3D } from "@babylonjs/gui";
+import { Axis, Mesh, Node, Quaternion, Vector3 } from "@babylonjs/core";
+import { Container3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
 import IconDrawer from "./icon-drawer";
@@ -18,7 +18,7 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "Create game button mesh")
 	private readonly	_createGameButtonMesh!:	Mesh;
 
-	private readonly	_mainLayout:	StackPanel3D;
+	private readonly	_mainLayout:	AdvancedStackPanel3D;
 
 	// game list layout elements
 	@visibleAsEntity("node", "game list previous button mesh")
@@ -44,10 +44,10 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "entrance fee entry mesh")
 	private readonly	_entranceFeeEntryMesh!:			Mesh;
 
-	private readonly	_gameListPreviousButtonHeaderPanel:	StackPanel3D;
-	private readonly	_playerCountOrderButtonInputPanel:	StackPanel3D;
-	private readonly	_entranceFeeOrderButtonInputPanel:	StackPanel3D;
-	private readonly	_entryPanel:						StackPanel3D;
+	private readonly	_gameListPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
+	private readonly	_playerCountOrderButtonInputPanel:	AdvancedStackPanel3D;
+	private readonly	_entranceFeeOrderButtonInputPanel:	AdvancedStackPanel3D;
+	private readonly	_entryPanel:						AdvancedStackPanel3D;
 	private readonly	_gameListControlPanel:				AdvancedStackPanel3D;
 	private readonly	_gameListPanel:						AdvancedStackPanel3D;
 	private readonly	_gameListLayout:					AdvancedStackPanel3D;
@@ -58,22 +58,22 @@ export default class Ui implements IScript {
 		this._manager = new GUI3DManager(this.node.getScene());
 
 		// main layout initialization
-		this._mainLayout = new StackPanel3D(true);
+		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 
 		// game list layout initialization
 		this._gameListLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
 		this._gameListControlPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
-		this._gameListPreviousButtonHeaderPanel = new StackPanel3D(false);
-		this._playerCountOrderButtonInputPanel = new StackPanel3D(false);
-		this._entranceFeeOrderButtonInputPanel = new StackPanel3D(false);
-		this._entryPanel = new StackPanel3D(false);
+		this._gameListPreviousButtonHeaderPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._playerCountOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._entranceFeeOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._entryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameListPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 	}
 
 	public onStart(): void {
 		this._setMainLayout();
 		this._setGameListLayout();
-		this._setContainerVisibility(this._gameListLayout, false);
+		this._gameListLayout.isVisible = false;
 	}
 
 	private	_setMainLayout():	void {
@@ -85,8 +85,8 @@ export default class Ui implements IScript {
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
-			this._setContainerVisibility(this._mainLayout, false);
-			this._setContainerVisibility(this._gameListLayout, true);
+			this._mainLayout.isVisible = false;
+			this._gameListLayout.isVisible = true;
 		});
 		
 		this._mainLayout.blockLayout = true;
@@ -101,9 +101,9 @@ export default class Ui implements IScript {
 		this._gameListLayout.margin = 20;
 		this._gameListLayout.offset = 0;
 		this._gameListLayout.blockLayout = true;
-		//this._setGameListPanel();
-		this._setGameListControlPanel();
-		this._setGameListPreviousButtonHeaderPanel();
+			this._setGameListPanel();
+			this._setGameListControlPanel();
+			this._setGameListPreviousButtonHeaderPanel();
 		this._gameListLayout.blockLayout = false;
 	}
 
@@ -130,19 +130,19 @@ export default class Ui implements IScript {
 		this._gameListLayout.addControl(this._gameListControlPanel);
 		this._gameListControlPanel.margin = 70;
 		this._gameListControlPanel.blockLayout = true;
-		this._setPlayerCountOrderButtonInputPanel();
-		this._setEntranceFeeOrderButtonInputPanel();
-		const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
-		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4), false);
-		this._gameListControlPanel.addControl(refreshButton);
-		this._gameListControlPanel.addControl(playButton);
+			this._setPlayerCountOrderButtonInputPanel();
+			this._setEntranceFeeOrderButtonInputPanel();
+			const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
+			const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4), false);
+			this._gameListControlPanel.addControl(refreshButton);
+			this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
 	}
 
 	private	_setPlayerCountOrderButtonInputPanel():	void {
 		getScriptByClassForObject(this._playerCountOrderButtonMesh, TextBlockDrawer)?.draw();
 		this._gameListControlPanel.addControl(this._playerCountOrderButtonInputPanel);
-		this._playerCountOrderButtonInputPanel.margin = 40;
+		this._playerCountOrderButtonInputPanel.margin = 0;
 		this._playerCountOrderButtonInputPanel.blockLayout = true;
 			const	playerCountOrderBtnExtS:	Vector3 = this._playerCountOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1.5);
 			const	playerCountOrderButton:	SwitchButton3D = new SwitchButton3D(this._playerCountOrderButtonMesh, "player count order button",
@@ -161,7 +161,7 @@ export default class Ui implements IScript {
 	private	_setEntranceFeeOrderButtonInputPanel():	void {
 		getScriptByClassForObject(this._entranceFeeOrderButtonMesh, TextBlockDrawer)?.draw();
 		this._gameListControlPanel.addControl(this._entranceFeeOrderButtonInputPanel);
-		this._entranceFeeOrderButtonInputPanel.margin = 30;
+		this._entranceFeeOrderButtonInputPanel.margin = 1;
 		this._entranceFeeOrderButtonInputPanel.blockLayout = true;
 			const	entranceFeeOrderBtnExtS:	Vector3 = this._entranceFeeOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1.5);
 			const	entranceFeeOrderButton:	SwitchButton3D = new SwitchButton3D(this._entranceFeeOrderButtonMesh, "entrance fee order button",
@@ -194,7 +194,7 @@ export default class Ui implements IScript {
 				this._setContainerVisibility(control, isVisible);
 			else if (isVisible && control.mesh) {
 				getScriptByClassForObject(control.mesh, IconDrawer)?.draw();
-				for (const mesh of control.mesh?.getChildMeshes(false)) {
+				for (const mesh of control.mesh.getChildMeshes(false)) {
 					getScriptByClassForObject(mesh, IconDrawer)?.draw();
 				}
 			}

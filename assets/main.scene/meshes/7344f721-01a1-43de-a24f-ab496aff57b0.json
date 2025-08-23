@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "entrance fee entry mesh (Clone)",
-            "id": "6283bbed-4ac7-463d-bc9e-5387b900a14d",
-            "uniqueId": 1755851182667,
+            "name": "name entry mesh",
+            "id": "7344f721-01a1-43de-a24f-ab496aff57b0",
+            "uniqueId": 1755870980125,
             "type": "Mesh",
             "position": [
-                288.44374261171305,
+                293.82240526855446,
                 0,
-                -56.72948274898957
+                -55.97364696416225
             ],
             "rotation": [
                 0.39269908169872353,
@@ -16,7 +16,7 @@
                 0
             ],
             "scaling": [
-                1.930570147041655,
+                1.906290195744289,
                 0.5468687546872836,
                 1
             ],
@@ -61,11 +61,11 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "geometryUniqueId": 1755850142868,
-            "geometryId": "ae29b120-b825-4778-97f5-94655fc38d3b",
+            "geometryUniqueId": 1755870980124,
+            "geometryId": "07690a2e-577c-434d-b3ca-8da96fe293ad",
             "subMeshes": null,
-            "materialUniqueId": 1755783165536,
-            "materialId": "ad7c96ea-9657-4327-a2c7-a68cc2153972",
+            "materialUniqueId": 1755870980123,
+            "materialId": "ff0b47bd-5653-4c9e-8cbe-458a283ccc58",
             "metadata": {
                 "type": "Plane",
                 "size": 100,
@@ -76,11 +76,11 @@
                         "values": {
                             "_frontText": {
                                 "type": "string",
-                                "value": "23532wegsdg34t6"
+                                "value": "52f2-ffffsh-jjsdg"
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 30
+                                "value": 20
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -223,6 +223,156 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_frontPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    10,
+                                    0
+                                ]
+                            },
+                            "_frontAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    1,
+                                    0
+                                ]
+                            },
+                            "_frontFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomFontFamily": {
+                                "type": "string",
+                                "value": ""
                             }
                         }
                     }
@@ -243,7 +393,7 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/ae29b120-b825-4778-97f5-94655fc38d3b.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/07690a2e-577c-434d-b3ca-8da96fe293ad.babylonbinarymeshdata",
             "boundingBoxMaximum": [
                 50,
                 50,
@@ -309,7 +459,7 @@
                 "url": "assets/textures/solar-field.jpg",
                 "uOffset": 0,
                 "vOffset": 0,
-                "uScale": 1,
+                "uScale": 1.1,
                 "vScale": 0.2999999999999994,
                 "uAng": 0,
                 "vAng": 0,
@@ -385,9 +535,9 @@
                 1
             ],
             "emissive": [
-                0.1365561831153389,
-                0.1365561831153389,
-                0.7543103448275862
+                0.13725490196078433,
+                0.13725490196078433,
+                0.7529411764705882
             ],
             "microSurface": 1,
             "useLightmapAsShadowmap": false,
@@ -469,8 +619,8 @@
                 "outputTextureWidth": 0,
                 "outputTextureHeight": 0
             },
-            "id": "ad7c96ea-9657-4327-a2c7-a68cc2153972",
-            "name": "list entry",
+            "id": "ff0b47bd-5653-4c9e-8cbe-458a283ccc58",
+            "name": "name entry",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -501,7 +651,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1755783165536,
+            "uniqueId": 1755870980123,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -665,11 +815,11 @@
                 "values": {
                     "_frontText": {
                         "type": "string",
-                        "value": "23532wegsdg34t6"
+                        "value": "52f2-ffffsh-jjsdg"
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 30
+                        "value": 20
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -812,6 +962,156 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_frontPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            10,
+                            0
+                        ]
+                    },
+                    "_frontAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            1,
+                            0
+                        ]
+                    },
+                    "_frontFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomFontFamily": {
+                        "type": "string",
+                        "value": ""
                     }
                 }
             }

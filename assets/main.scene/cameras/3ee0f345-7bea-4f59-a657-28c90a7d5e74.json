@@ -47,7 +47,7 @@
         "scripts": [],
         "isLocked": true
     },
-    "uniqueId": 44,
+    "uniqueId": 62,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {
