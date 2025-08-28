@@ -31,14 +31,15 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			this.blockLayout = false;
 		}
 		this._entries = entries;
-		const	len:	int = Math.min(entries.length, this.children.length)
+		const	lastPos:	int = this.children.length - Math.min(entries.length, this.children.length - 1) - 1;
 		let i;
-		for (i = 0; i < len; i += 1) {
+		for (i = this.children.length - 1; i > lastPos; i -= 1) {
 			fillerFunc(entries[i], this.children[i]);
 			this.children[i].isVisible = true;
 		}
-		for (; i < this.children.length; i += 1)
+		for (; i >= 0; i -= 1) {
 			this.children[i].isVisible = false;
+		}
 		this._arrangeChildren();
 	}
 
@@ -58,10 +59,13 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			Object.getOwnPropertyDescriptor(AdvancedStackPanel3D.prototype, "isVisible")!.set!.call(this, value);
 			if (value) {
 				this.node?.getScene().onPointerObservable.add(this._scrollCallback);
-				for (let i = (this._entries ? this._entries.length : 0); i < this.children.length; i += 1)
+				const	entLen:	int = Math.min(this._entries ? this._entries.length : 0, this.children.length - 1);
+				const	len:	int = this.children.length - entLen;
+				for (let i = 0; i < len; i += 1)
 					this.children[i].isVisible = false;
-			} else
+			} else {
 				this.node?.getScene().onPointerObservable.removeCallback(this._scrollCallback);
+			}
 		}
 	}
 
