@@ -41,6 +41,8 @@ export default class IconDrawer implements IScript {
 	private readonly	_backIconSize:	number = 1;
 	@visibleAsNumber("back icon angle", {min: 0, max: 359, step: 1})
 	private readonly	_backIconAngle:	number = 0;
+	@visibleAsBoolean("clonable", {description: "Is this script will be cloned during cloneNodeWithScripts execution"})
+	private readonly	_clonable:	boolean = true;
 
 	private				_isDrew:				boolean = false;
 

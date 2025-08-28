@@ -1,7 +1,9 @@
 import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, Axis, MeshBuilder, BoundingInfo } from "@babylonjs/core";
-import { MeshButton3D } from "@babylonjs/gui";
+import { Control3D, MeshButton3D } from "@babylonjs/gui";
+import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
+import { Control3DClone } from "./typing-utils";
 
-export default class SwitchButton3D extends MeshButton3D {
+export default class SwitchButton3D extends MeshButton3D implements IClonableControl3D {
 	public get	state() {
 		return this._state;
 	}
@@ -10,11 +12,11 @@ export default class SwitchButton3D extends MeshButton3D {
 	private readonly	_maxState:	int;
 
 	public constructor(mesh: Mesh, name: string,
-		state1DescriptionRotation: Quaternion,
-		state2Rotation: Quaternion, state2DescriptionRotation: Quaternion,
-		pivot: Vector3 = Vector3.Zero(), offset: Vector3 = Vector3.Zero(),
-		scaleOnEnter: number = 1,
-		state3Rotation?: Quaternion, state3DescriptionRotation?: Quaternion) {
+		private state1DescriptionRotation: Quaternion,
+		private state2Rotation: Quaternion, private state2DescriptionRotation: Quaternion,
+		private pivot: Vector3 = Vector3.Zero(), private offset: Vector3 = Vector3.Zero(),
+		private scaleOnEnter: number = 1,
+		private state3Rotation?: Quaternion, private state3DescriptionRotation?: Quaternion) {
 		const	dummy:	Mesh = new Mesh(mesh.name + " transform", mesh.getScene(), {parent: mesh.parent});
 		dummy.position = mesh.position.clone();
 		dummy.setBoundingInfo(new BoundingInfo(mesh.getBoundingInfo().boundingBox.minimumWorld, mesh.getBoundingInfo().boundingBox.maximumWorld));
@@ -24,7 +26,7 @@ export default class SwitchButton3D extends MeshButton3D {
 
 		mesh.setPivotPoint(pivot);
 
-		const	ir:		Quaternion = mesh.rotationQuaternion!;
+		const	ir:		Quaternion = mesh.rotationQuaternion ? mesh.rotationQuaternion : Quaternion.FromEulerVector(mesh.rotation);
 		const	d1r:	Quaternion = ir.multiply(state1DescriptionRotation);
 		const	s2r:	Quaternion = ir.multiply(state2Rotation);
 		const	d2r:	Quaternion = ir.multiply(state2DescriptionRotation);
@@ -156,5 +158,10 @@ export default class SwitchButton3D extends MeshButton3D {
 			oldPointerUpAnimation();
 			this._state = (this._state + 1) % this._maxState;
 		};
+	}
+
+	public	clone():	Control3DClone {
+		const	actualMesh:	Mesh = this.mesh?.getChildMeshes()[0] as Mesh;
+		return {root: new SwitchButton3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation), children: []};
 	}
 }

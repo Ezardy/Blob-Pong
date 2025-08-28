@@ -76,7 +76,7 @@
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             },
                             "_leftIcon": {
                                 "type": "texture",
@@ -191,6 +191,11 @@
                             "_backIconAngle": {
                                 "type": "number",
                                 "value": 0
+                            },
+                            "_clonable": {
+                                "type": "boolean",
+                                "description": "Is this script will be cloned during cloneNodeWithScripts execution",
+                                "value": false
                             }
                         }
                     }
@@ -438,7 +443,7 @@
                 "outputTextureHeight": 0
             },
             "id": "c9573d7e-db22-4d91-ae73-f5d67c37509e",
-            "name": "entrance fee entry icon (Clone)",
+            "name": "game name entry icon",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -633,7 +638,7 @@
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     },
                     "_leftIcon": {
                         "type": "texture",
@@ -748,6 +753,11 @@
                     "_backIconAngle": {
                         "type": "number",
                         "value": 0
+                    },
+                    "_clonable": {
+                        "type": "boolean",
+                        "description": "Is this script will be cloned during cloneNodeWithScripts execution",
+                        "value": false
                     }
                 }
             }

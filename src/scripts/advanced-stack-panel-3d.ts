@@ -1,9 +1,11 @@
-import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, TransformNode, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
-import { getScriptByClassForObject } from "babylonjs-editor-tools";
+import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import IconDrawer from "./icon-drawer";
+import { IClonableControl3D, implementsIClonableControl3D } from "./clonning";
+import { Control3DClone } from "./typing-utils";
 
-export class AdvancedStackPanel3D extends Container3D {
+export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;
 	public static readonly	END_ALIGNMENT = 2;
 	public static readonly	CENTER_ALIGNMENT = 0;
@@ -36,7 +38,7 @@ export class AdvancedStackPanel3D extends Container3D {
 	 */
 	public margin = 0.1;
 
-	public offset = 1;
+	public padding = 1;
 
 	/**
 	 * Creates new StackPanel
@@ -50,6 +52,7 @@ export class AdvancedStackPanel3D extends Container3D {
 	}
 
 	protected override _arrangeChildren() {
+		this.node?.position.setAll(0);
 		let width = 0;
 		let height = 0;
 		let index = 0;
@@ -147,18 +150,32 @@ export class AdvancedStackPanel3D extends Container3D {
 	}
 
 	public override set	isVisible(value: boolean) {
-		this._isVisible = value;
-		for (const child of this.children) {
-			child.isVisible = value;
-			if (value && child.mesh) {
-				getScriptByClassForObject(child.mesh, IconDrawer)?.draw();
-				for (const childOfChild of child.mesh.getChildMeshes())
-					getScriptByClassForObject(childOfChild, IconDrawer)?.draw();
+		if (this._isVisible != value) {
+			this._isVisible = value;
+			for (const child of this.children) {
+				child.isVisible = value;
+				if (value && child.mesh) {
+					getScriptByClassForObject(child.mesh, IconDrawer)?.draw();
+					for (const childOfChild of child.mesh.getChildMeshes())
+						getScriptByClassForObject(childOfChild, IconDrawer)?.draw();
+				}
 			}
 		}
 	}
 
 	public override get	isVisible():	boolean {
 		return this._isVisible;
+	}
+
+	public	clone():	Control3DClone {
+		const	c:	AdvancedStackPanel3D = new AdvancedStackPanel3D(this._isVertical, this._alignment);
+		c.margin = this.margin;
+		c.padding = this.padding;
+		const	children:	Control3DClone[] = [];
+		for (const child of this.children) {
+			if (implementsIClonableControl3D(child))
+				children.push(child.clone());
+		}
+		return {root: c, children: children};
 	}
 }

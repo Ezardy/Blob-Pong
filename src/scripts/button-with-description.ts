@@ -1,7 +1,9 @@
 import { Mesh, Quaternion, Animation as BAnimation, Observer, Vector3, Space } from "@babylonjs/core";
-import { MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
+import { Control3D, MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
+import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
+import { Control3DClone } from "./typing-utils";
 
-export default class ButtonWithDescription extends MeshButton3D {
+export default class ButtonWithDescription extends MeshButton3D implements IClonableControl3D {
 	private readonly	_descRotAnim:			BAnimation;
 	private readonly	_descScaleAnim:			BAnimation;
 	private readonly	_disabledAnim:			BAnimation;
@@ -29,12 +31,12 @@ export default class ButtonWithDescription extends MeshButton3D {
 		this._isEnabled = enable;
 	}
 
-	public constructor(mesh: Mesh, name: string, descriptionRelativeRotation: Quaternion,
-		scaleOnEnter: number = 1, pivot: Vector3 = Vector3.Zero(),
-		disabledRelativeRotation?: Quaternion, enabledOnStart: boolean = true) {
+	public constructor(mesh: Mesh, name: string, private descriptionRelativeRotation: Quaternion,
+		private scaleOnEnter: number = 1, private pivot: Vector3 = Vector3.Zero(),
+		private disabledRelativeRotation?: Quaternion, private enabledOnStart: boolean = true) {
 		super(mesh, name);
 		mesh.setPivotPoint(pivot, Space.LOCAL);
-		const	initialRotation:		Quaternion = mesh.rotationQuaternion!;
+		const	initialRotation:		Quaternion = mesh.rotationQuaternion ? mesh.rotationQuaternion : Quaternion.FromEulerVector(mesh.rotation);
 		if (!disabledRelativeRotation)
 			disabledRelativeRotation = initialRotation;
 		const	endRotation:			Quaternion = initialRotation.multiply(descriptionRelativeRotation);
@@ -65,6 +67,10 @@ export default class ButtonWithDescription extends MeshButton3D {
 			value:	disabledRotation
 		}]);
 		this.isEnabled = enabledOnStart;
+	}
+
+	public	clone():	Control3DClone {
+		return {root: new ButtonWithDescription(cloneNodeWithScripts(this.mesh as Mesh) as Mesh, this.name + " clone", this.descriptionRelativeRotation, this.scaleOnEnter, this.pivot, this.disabledRelativeRotation, this.enabledOnStart), children: []};
 	}
 
 	private	_beginPointerEnterAnimation():	void {

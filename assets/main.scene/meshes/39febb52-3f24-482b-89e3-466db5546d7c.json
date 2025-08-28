@@ -1,25 +1,24 @@
 {
     "meshes": [
         {
-            "name": "play button mesh",
-            "id": "7fb2333d-a45c-42a8-8a32-0282fc30cc26",
-            "uniqueId": 1754476123725,
+            "name": "entrance fee entry mesh",
+            "id": "39febb52-3f24-482b-89e3-466db5546d7c",
+            "uniqueId": 1756289923302,
             "type": "Mesh",
             "position": [
-                328.57767636689493,
-                118.36638648812743,
-                -78.29254707259669
+                100.73859075290909,
+                0,
+                -56.72948274898957
             ],
-            "rotationQuaternion": [
+            "rotation": [
+                0.39269908169872353,
                 0,
-                0.10626407133623315,
-                0,
-                0.9943379441332046
+                0
             ],
             "scaling": [
-                27,
-                27,
-                27
+                1.42077633920144,
+                0.5468687546872836,
+                1
             ],
             "localMatrix": [
                 1,
@@ -60,150 +59,28 @@
             ],
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
-            "sideOrientation": 0,
+            "sideOrientation": 1,
             "isUnIndexed": false,
-            "geometryUniqueId": 1754476123726,
-            "geometryId": "fde73236-4120-4949-a8ba-888f0ab22164",
+            "geometryUniqueId": 1756289923301,
+            "geometryId": "01fc6a6b-335f-4e40-b905-82b25ab929fa",
             "subMeshes": null,
-            "materialUniqueId": 1754476108641,
-            "materialId": "6aac16e3-85e8-48d6-ac29-f9896c6025dc",
+            "materialUniqueId": 1755783165536,
+            "materialId": "ad7c96ea-9657-4327-a2c7-a68cc2153972",
             "metadata": {
+                "type": "Plane",
+                "size": 100,
                 "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/icon-drawer.ts",
-                        "values": {
-                            "_leftIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_leftIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_leftIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_rightIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_topIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_frontIcon": {
-                                "type": "texture",
-                                "value": {
-                                    "tags": null,
-                                    "url": "assets/textures/play.png",
-                                    "uOffset": 0,
-                                    "vOffset": 0,
-                                    "uScale": 1,
-                                    "vScale": 1,
-                                    "uAng": 0,
-                                    "vAng": 0,
-                                    "wAng": 0,
-                                    "uRotationCenter": 0.5,
-                                    "vRotationCenter": 0.5,
-                                    "wRotationCenter": 0.5,
-                                    "homogeneousRotationInUVTransform": false,
-                                    "isBlocking": true,
-                                    "name": "assets/textures/play.png",
-                                    "hasAlpha": false,
-                                    "getAlphaFromRGB": false,
-                                    "level": 1,
-                                    "coordinatesIndex": 0,
-                                    "optimizeUVAllocation": true,
-                                    "coordinatesMode": 0,
-                                    "wrapU": 1,
-                                    "wrapV": 1,
-                                    "wrapR": 1,
-                                    "anisotropicFilteringLevel": 4,
-                                    "isCube": false,
-                                    "is3D": false,
-                                    "is2DArray": false,
-                                    "gammaSpace": true,
-                                    "invertZ": false,
-                                    "lodLevelInAlpha": false,
-                                    "lodGenerationOffset": 0,
-                                    "lodGenerationScale": 0,
-                                    "linearSpecularLOD": false,
-                                    "isRenderTarget": false,
-                                    "animations": [],
-                                    "invertY": true,
-                                    "samplingMode": 3,
-                                    "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/play.png",
-                                    "noMipmap": false
-                                }
-                            },
-                            "_frontIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_frontIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_backIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_renderOnStart": {
-                                "type": "boolean",
-                                "value": false
-                            }
-                        }
-                    },
                     {
                         "enabled": true,
                         "key": "scripts/text-block.ts",
                         "values": {
                             "_frontText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "100"
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 30
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -249,11 +126,11 @@
                             },
                             "_rightText": {
                                 "type": "string",
-                                "value": "play"
+                                "value": ""
                             },
                             "_rightFontSize": {
                                 "type": "number",
-                                "value": 25
+                                "value": 1
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -516,46 +393,46 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/fde73236-4120-4949-a8ba-888f0ab22164.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/01fc6a6b-335f-4e40-b905-82b25ab929fa.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1,
-                1,
-                1
+                50,
+                50,
+                0
             ],
             "boundingBoxMinimum": [
-                -1,
-                -1,
-                -1
+                -50,
+                -50,
+                0
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 12,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 12,
                     "stride": 3,
-                    "offset": 288,
+                    "offset": 48,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 48,
+                    "count": 8,
                     "stride": 2,
-                    "offset": 576,
+                    "offset": 96,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 6,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 128,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 152,
                     "dataType": 0
                 }
             },
@@ -577,6 +454,55 @@
             "environmentIntensity": 1,
             "specularIntensity": 1,
             "disableBumpMap": false,
+            "albedoTexture": {
+                "tags": null,
+                "url": "assets/textures/solar-field.jpg",
+                "uOffset": 0,
+                "vOffset": 0,
+                "uScale": 0.7999999999999998,
+                "vScale": 0.2999999999999994,
+                "uAng": 0,
+                "vAng": 0,
+                "wAng": 0,
+                "uRotationCenter": 0.5,
+                "vRotationCenter": 0.5,
+                "wRotationCenter": 0.5,
+                "homogeneousRotationInUVTransform": false,
+                "isBlocking": true,
+                "name": "assets/textures/solar-field.jpg",
+                "metadata": {
+                    "baseSize": {
+                        "width": 612,
+                        "height": 612
+                    }
+                },
+                "hasAlpha": false,
+                "getAlphaFromRGB": false,
+                "level": 1,
+                "coordinatesIndex": 0,
+                "optimizeUVAllocation": true,
+                "coordinatesMode": 0,
+                "wrapU": 1,
+                "wrapV": 1,
+                "wrapR": 1,
+                "anisotropicFilteringLevel": 4,
+                "isCube": false,
+                "is3D": false,
+                "is2DArray": false,
+                "gammaSpace": true,
+                "invertZ": false,
+                "lodLevelInAlpha": false,
+                "lodGenerationOffset": 0,
+                "lodGenerationScale": 0,
+                "linearSpecularLOD": false,
+                "isRenderTarget": false,
+                "animations": [],
+                "invertY": true,
+                "samplingMode": 3,
+                "_useSRGBBuffer": false,
+                "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/solar-field.jpg",
+                "noMipmap": false
+            },
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
             "metallic": 0,
@@ -593,9 +519,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
-                0,
-                0
+                1,
+                1,
+                1
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -609,9 +535,9 @@
                 1
             ],
             "emissive": [
-                0,
-                0,
-                0
+                0.1365561831153389,
+                0.1365561831153389,
+                0.7543103448275862
             ],
             "microSurface": 1,
             "useLightmapAsShadowmap": false,
@@ -693,8 +619,8 @@
                 "outputTextureWidth": 0,
                 "outputTextureHeight": 0
             },
-            "id": "6aac16e3-85e8-48d6-ac29-f9896c6025dc",
-            "name": "icon",
+            "id": "ad7c96ea-9657-4327-a2c7-a68cc2153972",
+            "name": "list entry",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -714,7 +640,6 @@
             "zOffsetUnits": 0,
             "pointsCloud": false,
             "fillMode": 0,
-            "transparencyMode": 0,
             "stencil": {
                 "tags": null,
                 "func": 519,
@@ -726,7 +651,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754476108641,
+            "uniqueId": 1755783165536,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -881,142 +806,20 @@
         "vertexData": []
     },
     "metadata": {
+        "type": "Plane",
+        "size": 100,
         "scripts": [
-            {
-                "enabled": true,
-                "key": "scripts/icon-drawer.ts",
-                "values": {
-                    "_leftIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_leftIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_leftIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_rightIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_topIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_frontIcon": {
-                        "type": "texture",
-                        "value": {
-                            "tags": null,
-                            "url": "assets/textures/play.png",
-                            "uOffset": 0,
-                            "vOffset": 0,
-                            "uScale": 1,
-                            "vScale": 1,
-                            "uAng": 0,
-                            "vAng": 0,
-                            "wAng": 0,
-                            "uRotationCenter": 0.5,
-                            "vRotationCenter": 0.5,
-                            "wRotationCenter": 0.5,
-                            "homogeneousRotationInUVTransform": false,
-                            "isBlocking": true,
-                            "name": "assets/textures/play.png",
-                            "hasAlpha": false,
-                            "getAlphaFromRGB": false,
-                            "level": 1,
-                            "coordinatesIndex": 0,
-                            "optimizeUVAllocation": true,
-                            "coordinatesMode": 0,
-                            "wrapU": 1,
-                            "wrapV": 1,
-                            "wrapR": 1,
-                            "anisotropicFilteringLevel": 4,
-                            "isCube": false,
-                            "is3D": false,
-                            "is2DArray": false,
-                            "gammaSpace": true,
-                            "invertZ": false,
-                            "lodLevelInAlpha": false,
-                            "lodGenerationOffset": 0,
-                            "lodGenerationScale": 0,
-                            "linearSpecularLOD": false,
-                            "isRenderTarget": false,
-                            "animations": [],
-                            "invertY": true,
-                            "samplingMode": 3,
-                            "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/play.png",
-                            "noMipmap": false
-                        }
-                    },
-                    "_frontIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_frontIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_backIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_renderOnStart": {
-                        "type": "boolean",
-                        "value": false
-                    }
-                }
-            },
             {
                 "enabled": true,
                 "key": "scripts/text-block.ts",
                 "values": {
                     "_frontText": {
                         "type": "string",
-                        "value": ""
+                        "value": "100"
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 30
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -1062,11 +865,11 @@
                     },
                     "_rightText": {
                         "type": "string",
-                        "value": "play"
+                        "value": ""
                     },
                     "_rightFontSize": {
                         "type": "number",
-                        "value": 25
+                        "value": 1
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1316,17 +1119,17 @@
         "parentId": 1753456789352
     },
     "basePoseMatrix": [
-        -2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,

@@ -1,29 +1,30 @@
-import { Color3, Color4, int, MeshBuilder, Vector3 } from "@babylonjs/core";
+import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
-import { IScript, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
+import { IScript, registerScriptInstance, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
+import { IClonableScript } from "./clonning";
 
-export default class InputField3D implements IScript {
+export default class InputField3D implements IScript, IClonableScript {
 	@visibleAsNumber("texture resolution scaler", {min: 1, max: 10, step: 1})
-	private readonly	_textureResolutionScaler:	int = 1;
+	private	_textureResolutionScaler:	int = 1;
 	@visibleAsString("hint")
 	private	_hint:	string = "";
 	@visibleAsNumber("hint size", {min: 1, max: 300, step: 1})
-	private readonly	_hintSize:	number = 12;
+	private	_hintSize:	number = 12;
 	@visibleAsColor4("hint color")
-	private readonly	_hintColor:	Color4 = Color4.FromColor3(Color3.Gray());
+	private	_hintColor:	Color4 = Color4.FromColor3(Color3.Gray());
 	@visibleAsNumber("text size", {min: 1, max: 300, step: 1})
-	private readonly	_textSize:	number = 12;
+	private	_textSize:	number = 12;
 	@visibleAsColor4("text color")
-	private readonly	_textColor:	Color4 = Color4.FromColor3(Color3.White());
+	private	_textColor:	Color4 = Color4.FromColor3(Color3.White());
 	@visibleAsColor4("background color")
-	private readonly	_backgroundColor:	Color4 = Color4.FromColor3(Color3.Black());
+	private	_backgroundColor:	Color4 = Color4.FromColor3(Color3.Black());
 	@visibleAsColor4("focused background color")
-	private readonly	_focusedBackgroundColor:	Color4 = Color4.FromColor3(Color3.Black());
+	private	_focusedBackgroundColor:	Color4 = Color4.FromColor3(Color3.Black());
 	@visibleAsColor4("highlight color")
-	private readonly	_highlightColor:	Color4 = new Color4(1, 1, 1, 0.4);
+	private	_highlightColor:	Color4 = new Color4(1, 1, 1, 0.4);
 	@visibleAsNumber("border thickness", {min: 0, max: 20, step: 1})
-	private readonly	_borderThickness:	int = 1;
+	private	_borderThickness:	int = 1;
 
 	private readonly	_inputText:			InputTextArea;
 	private readonly	_plane:				Mesh;
@@ -37,10 +38,14 @@ export default class InputField3D implements IScript {
 		return this._inputText;
 	}
 
-	public constructor(public mesh: Mesh) {
+	public constructor(public mesh: Mesh | InstancedMesh) {
 		const	extendSize:			Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
-		this._extendSizeScaled = extendSize.multiply(mesh.absoluteScaling);
+		if (mesh instanceof InstancedMesh)
+			this._extendSizeScaled = extendSize.multiply(mesh.sourceMesh.absoluteScaling);
+		else
+			this._extendSizeScaled = extendSize.multiply(mesh.absoluteScaling);
 		this._plane = MeshBuilder.CreatePlane(this.mesh.name + "_front_text", {width: extendSize.x * 2, height: extendSize.y * 2});
+		Tags.AddTagsTo(this._plane, "noClone");
 		this._plane.parent = mesh;
 		this._plane.position.z -= extendSize.z + 0.01;
 		this._inputText = new InputTextArea(mesh.name + " input");
@@ -63,6 +68,24 @@ export default class InputField3D implements IScript {
 					this._inputText.text = this.parser(this._inputText.text);
 			}
 		});
+	}
+	public	clone(root: Node | IParticleSystem | Scene):	IScript {
+		if (!(root instanceof Mesh))
+			throw TypeError("Mesh type was expected by InputField3D");
+		const	field:	InputField3D = new InputField3D(root);
+		field._textureResolutionScaler = this._textureResolutionScaler;
+		field._hint = this._hint;
+		field._hintSize = this._hintSize;
+		field._hintColor = this._hintColor.clone();
+		field._textSize = this._textSize;
+		field._textColor = this._textColor.clone();
+		field._backgroundColor = this._backgroundColor.clone();
+		field._focusedBackgroundColor = this._focusedBackgroundColor.clone();
+		field._highlightColor = this._highlightColor.clone();
+		field._borderThickness = this._borderThickness;
+		registerScriptInstance(root, field, "scripts/input-field.ts");
+		root.getScene()?.onBeforeRenderObservable.addOnce(() => field.onStart());
+		return field;
 	}
 
 	public	onStart():	void {

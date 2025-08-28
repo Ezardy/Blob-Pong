@@ -125,7 +125,7 @@
                             },
                             "_entranceFeeEntryMesh": {
                                 "type": "entity",
-                                "value": "06939a5c-9555-40ba-8868-533099cbf5ce"
+                                "value": "39febb52-3f24-482b-89e3-466db5546d7c"
                             },
                             "_gameListPreviousButtonMesh": {
                                 "type": "entity",
@@ -592,7 +592,7 @@
                     },
                     "_entranceFeeEntryMesh": {
                         "type": "entity",
-                        "value": "06939a5c-9555-40ba-8868-533099cbf5ce"
+                        "value": "39febb52-3f24-482b-89e3-466db5546d7c"
                     },
                     "_gameListPreviousButtonMesh": {
                         "type": "entity",

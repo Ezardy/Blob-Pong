@@ -60,7 +60,6 @@
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
             "sideOrientation": 1,
-            "parentInstanceIndex": 0,
             "isUnIndexed": false,
             "geometryUniqueId": 1755866469470,
             "geometryId": "57b040d4-ffde-40dc-8325-6a769a6e3fbf",
@@ -77,7 +76,7 @@
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             },
                             "_leftIcon": {
                                 "type": "texture",
@@ -192,11 +191,16 @@
                             "_backIconAngle": {
                                 "type": "number",
                                 "value": 0
+                            },
+                            "_clonable": {
+                                "type": "boolean",
+                                "description": "Is this script will be cloned during cloneNodeWithScripts execution",
+                                "value": false
                             }
                         }
                     }
                 ],
-                "parentId": 1755868571697
+                "parentId": 1756289923302
             },
             "instances": [],
             "animations": [],
@@ -634,7 +638,7 @@
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     },
                     "_leftIcon": {
                         "type": "texture",
@@ -749,11 +753,16 @@
                     "_backIconAngle": {
                         "type": "number",
                         "value": 0
+                    },
+                    "_clonable": {
+                        "type": "boolean",
+                        "description": "Is this script will be cloned during cloneNodeWithScripts execution",
+                        "value": false
                     }
                 }
             }
         ],
-        "parentId": 1755868571697
+        "parentId": 1756289923302
     },
     "basePoseMatrix": [
         1,
