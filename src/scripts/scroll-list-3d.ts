@@ -27,7 +27,6 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 					const	clones:	Control3DClone = (<AdvancedStackPanel3D>this.children[0]).clone();
 					super.addControl(clones.root);
 					parentClones(clones);
-					clones.root.isVisible = false;
 				}
 			this.blockLayout = false;
 		}
@@ -45,7 +44,6 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 
 	public override	addControl(control: AdvancedStackPanel3D):	ScrollList3D {
 		if (this.children.length == 0) {
-			control.isVisible = false;
 			super.addControl(control);
 		}
 		return this;

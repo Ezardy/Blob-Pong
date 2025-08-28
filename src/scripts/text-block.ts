@@ -1,7 +1,7 @@
 import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
-import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./clonning";
 
 export default class TextBlockDrawer implements IScript, IClonableScript {

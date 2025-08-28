@@ -227,16 +227,28 @@ export default class Ui implements IScript {
 			fee: 10000
 		}], (entry, control) => {
 			const	meshes:	Mesh[] | undefined = control.node?.getChildMeshes<Mesh>(true);
+			/*
 			if (meshes) {
-				const	playerCountDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "player count entry mesh"), TextBlockDrawer);
-				if (playerCountDrawer)
+				for (const mesh of meshes) {
+					console.log(mesh.name);
+				}
+			}
+			*/
+			if (meshes) {
+				const	playerCountDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer);
+				if (playerCountDrawer) {
 					playerCountDrawer.frontTextBlock.text = entry.players + '/' + entry.max_players;
-				const	entranceFeeDrawewr:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "entrance fee entry mesh"), TextBlockDrawer);
-				if (entranceFeeDrawewr)
-					entranceFeeDrawewr.frontTextBlock.text = "" + entry.fee;
-				const	gameNameDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "name entry mesh"), TextBlockDrawer);
-				if (gameNameDrawer)
+					//console.log(playerCountDrawer.frontTextBlock.text);
+				}
+				const	entranceFeeDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer);
+				if (entranceFeeDrawer) {
+					entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
+					//console.log(entranceFeeDrawer.frontTextBlock.text);
+				}
+				const	gameNameDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer);
+				if (gameNameDrawer) {
 					gameNameDrawer.frontTextBlock.text = "" + entry.id;
+				}
 			}
 		});
 	}
