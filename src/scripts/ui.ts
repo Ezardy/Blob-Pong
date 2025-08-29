@@ -1,4 +1,4 @@
-import { Axis, Mesh, Node, Quaternion, Vector3 } from "@babylonjs/core";
+import { Axis, Mesh, Node, Quaternion, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
@@ -227,23 +227,14 @@ export default class Ui implements IScript {
 			fee: 10000
 		}], (entry, control) => {
 			const	meshes:	Mesh[] | undefined = control.node?.getChildMeshes<Mesh>(true);
-			/*
-			if (meshes) {
-				for (const mesh of meshes) {
-					console.log(mesh.name);
-				}
-			}
-			*/
 			if (meshes) {
 				const	playerCountDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer);
 				if (playerCountDrawer) {
 					playerCountDrawer.frontTextBlock.text = entry.players + '/' + entry.max_players;
-					//console.log(playerCountDrawer.frontTextBlock.text);
 				}
 				const	entranceFeeDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer);
 				if (entranceFeeDrawer) {
 					entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
-					//console.log(entranceFeeDrawer.frontTextBlock.text);
 				}
 				const	gameNameDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer);
 				if (gameNameDrawer) {

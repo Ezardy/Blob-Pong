@@ -237,7 +237,11 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 		drawer._bottomAngle = this._bottomAngle;
 		drawer._isBottomInverted = this._isBottomInverted;
 		registerScriptInstance(root, drawer, "scripts/text-block.ts");
-		root.getScene()?.onBeforeRenderObservable.addOnce(() => drawer.onStart());
+		const	scene:	Scene = root.getScene();
+		if (scene.isLoading)
+			scene.onBeforeRenderObservable.addOnce(() => drawer.onStart());
+		else
+			drawer.onStart();
 		return drawer;
 	}
 

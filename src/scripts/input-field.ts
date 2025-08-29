@@ -84,7 +84,11 @@ export default class InputField3D implements IScript, IClonableScript {
 		field._highlightColor = this._highlightColor.clone();
 		field._borderThickness = this._borderThickness;
 		registerScriptInstance(root, field, "scripts/input-field.ts");
-		root.getScene()?.onBeforeRenderObservable.addOnce(() => field.onStart());
+		const	scene:	Scene = root.getScene();
+		if (scene.isLoading)
+			root.getScene()?.onBeforeRenderObservable.addOnce(() => field.onStart());
+		else
+			field.onStart();
 		return field;
 	}
 
