@@ -1,4 +1,4 @@
-import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, Axis, MeshBuilder, BoundingInfo } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, TmpVectors } from "@babylonjs/core";
 import { Control3D, MeshButton3D } from "@babylonjs/gui";
 import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
 import { Control3DClone } from "./typing-utils";
@@ -19,8 +19,7 @@ export default class SwitchButton3D extends MeshButton3D implements IClonableCon
 		private state3Rotation?: Quaternion, private state3DescriptionRotation?: Quaternion) {
 		const	dummy:	Mesh = new Mesh(mesh.name + " transform", mesh.getScene(), {parent: mesh.parent});
 		dummy.position = mesh.position.clone();
-		dummy.setBoundingInfo(new BoundingInfo(mesh.getBoundingInfo().boundingBox.minimumWorld, mesh.getBoundingInfo().boundingBox.maximumWorld));
-		mesh.setParent(dummy);
+		mesh.parent = dummy;
 		mesh.position.setAll(0);
 		super(dummy, name);
 
@@ -161,7 +160,11 @@ export default class SwitchButton3D extends MeshButton3D implements IClonableCon
 	}
 
 	public	clone():	Control3DClone {
-		const	actualMesh:	Mesh = this.mesh?.getChildMeshes()[0] as Mesh;
-		return {root: new SwitchButton3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation), children: []};
+		const	dummyMesh:	Mesh = this.mesh as Mesh;
+		const	actualMesh:	Mesh = dummyMesh.getChildMeshes()[0] as Mesh;
+		actualMesh.position.set(dummyMesh.position.x, dummyMesh.position.y, dummyMesh.position.z);
+		const	c:	SwitchButton3D = new SwitchButton3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation);
+		actualMesh.position.setAll(0);
+		return {root: c, children: []};
 	}
 }

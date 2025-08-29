@@ -1,9 +1,10 @@
-import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, TransformNode, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, AbstractMesh, BoundingInfo, Camera, Color3, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, TransformNode, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import IconDrawer from "./icon-drawer";
 import { IClonableControl3D, implementsIClonableControl3D } from "./clonning";
 import { Control3DClone } from "./typing-utils";
+import { updateBoundingBoxRecursively } from "./bounding-box";
 
 export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;
@@ -72,6 +73,8 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 					&& Math.abs(boundingVectors.max.z) != Number.MAX_VALUE) {
 					let	extendSize:	Vector3;
 					if (child.mesh) {
+						child.mesh.showBoundingBox = true;
+						updateBoundingBoxRecursively(child.mesh);
 						child.mesh.getWorldMatrix().multiplyToRef(currentInverseWorld, TmpVectors.Matrix[0]);
 						const	boundingBox:	Vector3 = child.mesh.getBoundingInfo().boundingBox.extendSize;
 						extendSize = Vector3.TransformNormal(boundingBox, TmpVectors.Matrix[0]);
@@ -132,7 +135,6 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 					this._positionNode(1, 0.5, -1, 0, currentInverseWorld);
 			}
 		}
-
 	}
 
 	private	_positionNode(pX: number, pY: number, oX: number, oY: number, nodeInverseWorld: Matrix):	void {

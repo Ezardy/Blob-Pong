@@ -136,6 +136,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 	private				_drew:				boolean = false;
 
 	public constructor(public mesh: Mesh | InstancedMesh) {
+		if (mesh instanceof InstancedMesh)
+			mesh.refreshBoundingInfo();
 		this._extendSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		if (mesh instanceof InstancedMesh)
 			this._extendSizeScaled = this._extendSize.multiply(mesh.sourceMesh.absoluteScaling);

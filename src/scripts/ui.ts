@@ -1,4 +1,4 @@
-import { Axis, Mesh, Node, Quaternion, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, BoundingInfo, Mesh, Node, Quaternion, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import MeshControl from "./mesh-control";
@@ -112,7 +112,7 @@ export default class Ui implements IScript {
 		getScriptByClassForObject(this._gameListHeaderMesh, TextBlockDrawer)?.draw();
 		getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)?.draw();
 		this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
-		this._gameListPreviousButtonHeaderPanel.margin = 5;
+		this._gameListPreviousButtonHeaderPanel.margin = 0;
 		this._gameListPreviousButtonHeaderPanel.blockLayout = true;
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
@@ -181,6 +181,7 @@ export default class Ui implements IScript {
 
 	private	_setGameListPanel():	void {
 		this._gameListLayout.addControl(this._gameListScroll);
+		this._gameListScroll.blockLayout = true;
 		this._gameListScroll.addControl(this._entryPanel);
 		this._entryPanel.margin = 10;
 		this._entryPanel.blockLayout = true;
@@ -189,7 +190,10 @@ export default class Ui implements IScript {
 			const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
 			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, undefined, new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
-		this._gameListScroll.margin = 5;
+		console.log(this._playerCountEntryMesh.position);
+		console.log(this._entranceFeeEntryMesh.position);
+		console.log((this._gameNameEntryMesh.parent as AbstractMesh).position);
+		this._gameListScroll.margin = 10;
 		this._gameListScroll.fillList([{
 			id: "peatacho world",
 			players: 8,
@@ -242,5 +246,6 @@ export default class Ui implements IScript {
 				}
 			}
 		});
+		this._gameListScroll.blockLayout = false;
 	}
 }

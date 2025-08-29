@@ -42,7 +42,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -225,6 +225,156 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_frontPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomFontFamily": {
+                                "type": "string",
+                                "value": ""
                             }
                         }
                     }
@@ -409,6 +559,156 @@
                                     "_isBottomInverted": {
                                         "type": "boolean",
                                         "value": false
+                                    },
+                                    "_frontPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomFontFamily": {
+                                        "type": "string",
+                                        "value": ""
                                     }
                                 }
                             }
@@ -548,6 +848,204 @@
                                             1,
                                             1
                                         ]
+                                    },
+                                    "_frontPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_frontAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isFrontInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBackInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isRightInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isLeftInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isTopInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBottomInverted": {
+                                        "type": "boolean",
+                                        "value": false
                                     }
                                 }
                             }
@@ -1095,6 +1593,156 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_frontPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomFontFamily": {
+                        "type": "string",
+                        "value": ""
                     }
                 }
             }

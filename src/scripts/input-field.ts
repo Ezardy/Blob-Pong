@@ -39,6 +39,8 @@ export default class InputField3D implements IScript, IClonableScript {
 	}
 
 	public constructor(public mesh: Mesh | InstancedMesh) {
+		if (mesh instanceof InstancedMesh)
+			mesh.refreshBoundingInfo();
 		const	extendSize:			Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		if (mesh instanceof InstancedMesh)
 			this._extendSizeScaled = extendSize.multiply(mesh.sourceMesh.absoluteScaling);
@@ -69,6 +71,7 @@ export default class InputField3D implements IScript, IClonableScript {
 			}
 		});
 	}
+
 	public	clone(root: Node | IParticleSystem | Scene):	IScript {
 		if (!(root instanceof Mesh))
 			throw TypeError("Mesh type was expected by InputField3D");
