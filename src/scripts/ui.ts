@@ -190,9 +190,6 @@ export default class Ui implements IScript {
 			const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
 			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, undefined, new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
-		console.log(this._playerCountEntryMesh.position);
-		console.log(this._entranceFeeEntryMesh.position);
-		console.log((this._gameNameEntryMesh.parent as AbstractMesh).position);
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.fillList([{
 			id: "peatacho world",
