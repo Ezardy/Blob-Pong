@@ -190,6 +190,11 @@
                             "_renderOnStart": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_clonable": {
+                                "type": "boolean",
+                                "description": "Is this script will be cloned during cloneNodeWithScripts execution",
+                                "value": false
                             }
                         }
                     },
@@ -1002,6 +1007,11 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
+                        "value": false
+                    },
+                    "_clonable": {
+                        "type": "boolean",
+                        "description": "Is this script will be cloned during cloneNodeWithScripts execution",
                         "value": false
                     }
                 }
