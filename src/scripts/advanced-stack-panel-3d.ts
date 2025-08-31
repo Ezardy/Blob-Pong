@@ -73,7 +73,6 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 					&& Math.abs(boundingVectors.max.z) != Number.MAX_VALUE) {
 					let	extendSize:	Vector3;
 					if (child.mesh) {
-						updateBoundingBoxRecursively(child.mesh);
 						child.mesh.getWorldMatrix().multiplyToRef(currentInverseWorld, TmpVectors.Matrix[0]);
 						const	boundingBox:	Vector3 = child.mesh.getBoundingInfo().boundingBox.extendSize;
 						extendSize = Vector3.TransformNormal(boundingBox, TmpVectors.Matrix[0]);

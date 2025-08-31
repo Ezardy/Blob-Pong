@@ -3,10 +3,12 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { Control, Control3D } from "@babylonjs/gui";
 import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
 import { Control3DClone } from "./typing-utils";
+import { updateBoundingBoxRecursively } from "./bounding-box";
 
 export default class MeshControl extends Control3D implements IClonableControl3D {
-	public constructor(private meshToUse: Mesh, name: string, private content?:	Control) {
+	public constructor(private meshToUse: AbstractMesh, name: string, private content?:	Control) {
 		super(name);
+		updateBoundingBoxRecursively(meshToUse);
 		this.onPointerUpObservable.add(() => content?.focus());
 	}
 

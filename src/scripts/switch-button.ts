@@ -1,7 +1,8 @@
-import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, TmpVectors } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Animation as BAnimation, Vector3, TmpVectors, AbstractMesh, InstancedMesh, BoundingInfo } from "@babylonjs/core";
 import { Control3D, MeshButton3D } from "@babylonjs/gui";
 import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
 import { Control3DClone } from "./typing-utils";
+import { updateBoundingBoxRecursively } from "./bounding-box";
 
 export default class SwitchButton3D extends MeshButton3D implements IClonableControl3D {
 	public get	state() {
@@ -11,7 +12,7 @@ export default class SwitchButton3D extends MeshButton3D implements IClonableCon
 	private				_state:		int = 0;
 	private readonly	_maxState:	int;
 
-	public constructor(mesh: Mesh, name: string,
+	public constructor(mesh: AbstractMesh, name: string,
 		private state1DescriptionRotation: Quaternion,
 		private state2Rotation: Quaternion, private state2DescriptionRotation: Quaternion,
 		private pivot: Vector3 = Vector3.Zero(), private offset: Vector3 = Vector3.Zero(),
@@ -21,6 +22,8 @@ export default class SwitchButton3D extends MeshButton3D implements IClonableCon
 		dummy.position = mesh.position.clone();
 		mesh.parent = dummy;
 		mesh.position.setAll(0);
+		updateBoundingBoxRecursively(mesh);
+		updateBoundingBoxRecursively(dummy);
 		super(dummy, name);
 
 		mesh.setPivotPoint(pivot);

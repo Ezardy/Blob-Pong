@@ -9,6 +9,7 @@ import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
 import ScrollList3D from "./scroll-list-3d";
+import { updateBoundingBoxRecursively } from "./bounding-box";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -188,7 +189,7 @@ export default class Ui implements IScript {
 			this._entryPanel.addControl(new MeshControl(this._playerCountEntryMesh, "player count entry"));
 			this._entryPanel.addControl(new MeshControl(this._entranceFeeEntryMesh, "entrance fee entry"));
 			const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
-			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, undefined, new Vector3(0, 0, -10), 1.2));
+			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.fillList([{

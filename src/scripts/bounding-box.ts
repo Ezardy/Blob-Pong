@@ -1,4 +1,4 @@
-import { AbstractMesh, BoundingInfo, Color3, LinesMesh, Matrix, MeshBuilder, Scene, TmpVectors, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, BoundingInfo, Color3, InstancedMesh, LinesMesh, Matrix, MeshBuilder, Scene, TmpVectors, Vector3 } from "@babylonjs/core";
 
 export function	drawBoundingBox(name: string, scene: Scene, color: Color3, min: Vector3, max: Vector3): LinesMesh {
 	const	aXiYiZ:	Vector3 = new Vector3(max.x, min.y, min.z);
@@ -29,16 +29,23 @@ export function	drawBoundingBox(name: string, scene: Scene, color: Color3, min: 
 export function	updateBoundingBoxRecursively(mesh: AbstractMesh):	void {
 	const	children:	AbstractMesh[] = mesh.getChildMeshes(false, (n) => n instanceof AbstractMesh && n.isEnabled() && n.isVisible);
 	if (children.length > 0) {
-		const	worldToMesh:	Matrix = Matrix.Invert(mesh.getWorldMatrix());
-		const	min:			Vector3 = mesh.getBoundingInfo().boundingBox.minimum;
-		const	max:			Vector3 = mesh.getBoundingInfo().boundingBox.maximum;
-		for (let i = 0; i < children.length; i += 1) {
-			children[i].getWorldMatrix().multiplyToRef(worldToMesh, TmpVectors.Matrix[0]);
-			const	meshMin:	Vector3 =  Vector3.TransformCoordinates(children[i].getBoundingInfo().boundingBox.minimum, TmpVectors.Matrix[0]);
-			const	meshMax:	Vector3 =  Vector3.TransformCoordinates(children[i].getBoundingInfo().boundingBox.maximum, TmpVectors.Matrix[0]);
-			min.minimizeInPlace(meshMin);
-			max.maximizeInPlace(meshMax);
+		if (mesh instanceof InstancedMesh) {
+			const	v:	{min: Vector3, max: Vector3} = mesh.getHierarchyBoundingVectors();
+			const	worldToMesh:	Matrix = Matrix.Invert(mesh.getWorldMatrix());
+			const	center:	Vector3 = Vector3.TransformCoordinates(v.max.add(v.min).scaleInPlace(0.5), worldToMesh);
+			mesh.getBoundingInfo().centerOn(center, mesh.sourceMesh.getBoundingInfo().boundingBox.extendSize);
+		} else {
+			const	worldToMesh:	Matrix = Matrix.Invert(mesh.getWorldMatrix());
+			const	min:			Vector3 = mesh.getRawBoundingInfo().boundingBox.minimum;
+			const	max:			Vector3 = mesh.getRawBoundingInfo().boundingBox.maximum;
+			for (let i = 0; i < children.length; i += 1) {
+				children[i].getWorldMatrix().multiplyToRef(worldToMesh, TmpVectors.Matrix[0]);
+				const	meshMin:	Vector3 =  Vector3.TransformCoordinates(children[i].getRawBoundingInfo().boundingBox.minimum, TmpVectors.Matrix[0]);
+				const	meshMax:	Vector3 =  Vector3.TransformCoordinates(children[i].getRawBoundingInfo().boundingBox.maximum, TmpVectors.Matrix[0]);
+				min.minimizeInPlace(meshMin);
+				max.maximizeInPlace(meshMax);
+			}
+			mesh.setBoundingInfo(new BoundingInfo(min, max));
 		}
-		mesh.setBoundingInfo(new BoundingInfo(min, max));
 	}
 }

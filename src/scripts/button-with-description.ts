@@ -2,6 +2,7 @@ import { Mesh, Quaternion, Animation as BAnimation, Observer, Vector3, Space } f
 import { Control3D, MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
 import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
 import { Control3DClone } from "./typing-utils";
+import { updateBoundingBoxRecursively } from "./bounding-box";
 
 export default class ButtonWithDescription extends MeshButton3D implements IClonableControl3D {
 	private readonly	_descRotAnim:			BAnimation;
@@ -35,6 +36,7 @@ export default class ButtonWithDescription extends MeshButton3D implements IClon
 		private scaleOnEnter: number = 1, private pivot: Vector3 = Vector3.Zero(),
 		private disabledRelativeRotation?: Quaternion, private enabledOnStart: boolean = true) {
 		super(mesh, name);
+		updateBoundingBoxRecursively(mesh);
 		mesh.setPivotPoint(pivot, Space.LOCAL);
 		const	initialRotation:		Quaternion = mesh.rotationQuaternion ? mesh.rotationQuaternion : Quaternion.FromEulerVector(mesh.rotation);
 		if (!disabledRelativeRotation)
