@@ -1,10 +1,12 @@
 import { Mesh, Quaternion, Animation as BAnimation, Observer, Vector3, Space } from "@babylonjs/core";
-import { Control3D, MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
-import { cloneNodeWithScripts, IClonableControl3D } from "./clonning";
-import { Control3DClone } from "./typing-utils";
-import { updateBoundingBoxRecursively } from "./bounding-box";
+import { MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
+import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
+import { IDisablable } from "../interfaces/idisablable";
+import { updateBoundingBoxRecursively } from "../functions/bounding-box";
+import { Control3DClone } from "../functions/typing-utils";
+import { cloneNodeWithScripts } from "../functions/cloning";
 
-export default class ButtonWithDescription extends MeshButton3D implements IClonableControl3D {
+export default class ButtonWithDescription extends MeshButton3D implements IClonableControl3D, IDisablable {
 	private readonly	_descRotAnim:			BAnimation;
 	private readonly	_descScaleAnim:			BAnimation;
 	private readonly	_disabledAnim:			BAnimation;
@@ -15,21 +17,23 @@ export default class ButtonWithDescription extends MeshButton3D implements IClon
 		return this._isEnabled;
 	}
 
-	public set	isEnabled(enable:	boolean) {
-		if (enable) {
-			this.pointerEnterAnimation = this._beginPointerEnterAnimation;
-			this.pointerOutAnimation = this._beginPointerOutAnimation;
-			this.onPointerUpObservable.observers.push(...this._onPointerUpObservers);
-			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 5, 0);
-		} else {
-			this.pointerEnterAnimation = () => {};
-			this.pointerOutAnimation = () => {};
-			this._onPointerUpObservers.length = 0;
-			this._onPointerUpObservers.push(...this.onPointerUpObservable.observers);
-			this.onPointerUpObservable.clear();
-			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 0, 5);
+	public set	isEnabled(enable: boolean) {
+		if (this._isEnabled != enable) {
+			if (enable) {
+				this.pointerEnterAnimation = this._beginPointerEnterAnimation;
+				this.pointerOutAnimation = this._beginPointerOutAnimation;
+				this.onPointerUpObservable.observers.push(...this._onPointerUpObservers);
+				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 5, 0);
+			} else {
+				this.pointerEnterAnimation = () => {};
+				this.pointerOutAnimation = () => {};
+				this._onPointerUpObservers.length = 0;
+				this._onPointerUpObservers.push(...this.onPointerUpObservable.observers);
+				this.onPointerUpObservable.clear();
+				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 0, 5);
+			}
+			this._isEnabled = enable;
 		}
-		this._isEnabled = enable;
 	}
 
 	public constructor(mesh: Mesh, name: string, private descriptionRelativeRotation: Quaternion,

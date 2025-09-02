@@ -1,15 +1,14 @@
-import { AbstractMesh, Axis, BoundingInfo, Mesh, Node, Quaternion, Tools, Vector3 } from "@babylonjs/core";
-import { Container3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
+import { AbstractMesh, Axis, Mesh, Node, Nullable, Quaternion, Vector3 } from "@babylonjs/core";
+import { AbstractButton3D, Container3D, Control3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
-import MeshControl from "./mesh-control";
-import IconDrawer from "./icon-drawer";
-import ButtonWithDescription from "./button-with-description";
-import SwitchButton3D from "./switch-button";
-import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
-import ScrollList3D from "./scroll-list-3d";
-import { updateBoundingBoxRecursively } from "./bounding-box";
+import { ISelectable } from "./interfaces/iselectable";
+import { AdvancedStackPanel3D } from "./controls/advanced-stack-panel-3d";
+import ScrollRaioList3D from "./controls/scroll-radio-list";
+import SwitchButton3D from "./controls/switch-button";
+import ButtonWithDescription from "./controls/button-with-description";
+import MeshControl from "./controls/mesh-control";
 
 export default class Ui implements IScript {
 	// main layout elements
@@ -51,7 +50,7 @@ export default class Ui implements IScript {
 	private readonly	_entranceFeeOrderButtonInputPanel:	AdvancedStackPanel3D;
 	private readonly	_entryPanel:						AdvancedStackPanel3D;
 	private readonly	_gameListControlPanel:				AdvancedStackPanel3D;
-	private readonly	_gameListScroll:					ScrollList3D;
+	private readonly	_gameListScroll:					ScrollRaioList3D;
 	private readonly	_gameListLayout:					AdvancedStackPanel3D;
 
 	private readonly	_manager:	GUI3DManager;
@@ -69,7 +68,19 @@ export default class Ui implements IScript {
 		this._playerCountOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._entranceFeeOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._entryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
-		this._gameListScroll = new ScrollList3D(true, 5);
+		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
+			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
+			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer)!;
+			playerCountDrawer.frontTextBlock.text = entry.players + '/' + entry.max_players;
+			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
+			entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
+			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
+			gameNameDrawer.frontTextBlock.text = "" + entry.id;
+		}, Ui._gameControlSelector);
+	}
+
+	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
+		return <SwitchButton3D>(<Container3D>control).children[2];
 	}
 
 	public onStart(): void {
@@ -139,6 +150,8 @@ export default class Ui implements IScript {
 			this._gameListControlPanel.addControl(refreshButton);
 			this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
+
+		this._gameListScroll.onSelectObservable.add((c: Nullable<Control3D>) => playButton.isEnabled = c != null);
 	}
 
 	private	_setPlayerCountOrderButtonInputPanel():	void {
@@ -227,23 +240,7 @@ export default class Ui implements IScript {
 			players: 1,
 			max_players: 2,
 			fee: 10000
-		}], (entry, control) => {
-			const	meshes:	Mesh[] | undefined = control.node?.getChildMeshes<Mesh>(true);
-			if (meshes) {
-				const	playerCountDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer);
-				if (playerCountDrawer) {
-					playerCountDrawer.frontTextBlock.text = entry.players + '/' + entry.max_players;
-				}
-				const	entranceFeeDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer);
-				if (entranceFeeDrawer) {
-					entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
-				}
-				const	gameNameDrawer:	TextBlockDrawer | null = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer);
-				if (gameNameDrawer) {
-					gameNameDrawer.frontTextBlock.text = "" + entry.id;
-				}
-			}
-		});
+		}]);
 		this._gameListScroll.blockLayout = false;
 	}
 }

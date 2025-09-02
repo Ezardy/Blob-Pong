@@ -1,10 +1,9 @@
 import { AbstractEngine, AbstractMesh, BoundingInfo, Camera, Color3, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, TransformNode, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
-import IconDrawer from "./icon-drawer";
-import { IClonableControl3D, implementsIClonableControl3D } from "./clonning";
-import { Control3DClone } from "./typing-utils";
-import { updateBoundingBoxRecursively } from "./bounding-box";
+import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
+import IconDrawer from "../icon-drawer";
+import { Control3DClone } from "../functions/typing-utils";
 
 export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;
@@ -174,7 +173,7 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		c.padding = this.padding;
 		const	children:	Control3DClone[] = [];
 		for (const child of this.children) {
-			if (implementsIClonableControl3D(child))
+			if (isclonablecontrol3d(child))
 				children.push(child.clone());
 		}
 		return {root: c, children: children};

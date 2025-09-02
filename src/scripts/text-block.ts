@@ -1,8 +1,8 @@
-import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh } from "@babylonjs/core";
+import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
-import { getScriptByClassForObject, IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
-import { IClonableScript } from "./clonning";
+import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
+import { IClonableScript } from "./interfaces/iclonablescript";
 
 export default class TextBlockDrawer implements IScript, IClonableScript {
 	@visibleAsString("front text")
@@ -135,7 +135,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 	private readonly	_extendSizeScaled:	Vector3;
 	private				_drew:				boolean = false;
 
-	public constructor(public mesh: Mesh | InstancedMesh) {
+	public constructor(public mesh: AbstractMesh) {
 		if (mesh instanceof InstancedMesh)
 			mesh.refreshBoundingInfo();
 		this._extendSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
@@ -175,8 +175,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 		this._bottomPlane.parent = this.mesh;
 	}
 
-	public	clone(root: Node | IParticleSystem | Scene): IScript {
-		if (!(root instanceof Mesh || root instanceof InstancedMesh))
+	public	clone(root: Node | IParticleSystem | Scene):	IScript {
+		if (!(root instanceof AbstractMesh))
 			throw TypeError("Mesh type was expected by TextBlockDrawer");
 		const	drawer:	TextBlockDrawer = new TextBlockDrawer(root);
 		drawer._frontText = this._frontText;
@@ -239,8 +239,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 		drawer._bottomAngle = this._bottomAngle;
 		drawer._isBottomInverted = this._isBottomInverted;
 		registerScriptInstance(root, drawer, "scripts/text-block.ts");
-		const	scene:	Scene = root.getScene();
 		/*
+		const	scene:	Scene = root.getScene();
 		if (scene.isLoading)
 			scene.onBeforeRenderObservable.addOnce(() => drawer.onStart());
 		else

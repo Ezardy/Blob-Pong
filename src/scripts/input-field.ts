@@ -2,7 +2,7 @@ import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
 import { IScript, registerScriptInstance, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
-import { IClonableScript } from "./clonning";
+import { IClonableScript } from "./interfaces/iclonablescript";
 
 export default class InputField3D implements IScript, IClonableScript {
 	@visibleAsNumber("texture resolution scaler", {min: 1, max: 10, step: 1})

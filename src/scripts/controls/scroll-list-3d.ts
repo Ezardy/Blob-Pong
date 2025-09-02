@@ -1,8 +1,8 @@
 import { EventState, int, PointerEventTypes, PointerInfo, Vector3 } from "@babylonjs/core";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
-import { Container3D, Control3D } from "@babylonjs/gui";
-import { Control3DClone, JSONArray, JSONObject } from "./typing-utils";
-import { parentClones } from "./clonning";
+import { Control3D } from "@babylonjs/gui";
+import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils";
+import { parentClones } from "../functions/cloning";
 
 export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_firstPos:		number = 0;
@@ -12,14 +12,14 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_entries?:		JSONArray;
 	private	_initialized:	boolean = false;
 
-	constructor(isVertical: boolean, private readonly pageSize: int) {
+	constructor(isVertical: boolean, private readonly pageSize: int, private readonly fillerFunc: (entry: JSONObject, control: Control3D) => void) {
 		super(isVertical);
 		if (pageSize < 0)
 			throw RangeError("page size must be greater than 0");
 		this.node?.getScene().onPointerObservable.add(this._scrollCallback);
 	}
 
-	public	fillList(entries: JSONArray, fillerFunc: (entry: JSONObject, control: Control3D) => void):	void {
+	public	fillList(entries: JSONArray):	void {
 		const	bl:	boolean = this.blockLayout;
 		if (!this._initialized) {
 			this._initialized = true;
@@ -37,7 +37,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		const	lastPos:	int = this.children.length - Math.min(entries.length, this.children.length - 1) - 1;
 		let i;
 		for (i = this.children.length - 1; i > lastPos; i -= 1) {
-			fillerFunc(entries[i], this.children[i]);
+			this.fillerFunc(entries[i], this.children[i]);
 			this.children[i].isVisible = true;
 		}
 		for (; i >= 0; i -= 1) {
