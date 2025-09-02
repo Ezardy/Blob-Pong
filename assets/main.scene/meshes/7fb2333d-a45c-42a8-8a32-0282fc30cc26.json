@@ -181,7 +181,7 @@
                             },
                             "_backIconSize": {
                                 "type": "number",
-                                "value": 0
+                                "value": 0.98
                             },
                             "_backIconAngle": {
                                 "type": "number",
@@ -999,7 +999,7 @@
                     },
                     "_backIconSize": {
                         "type": "number",
-                        "value": 0
+                        "value": 0.98
                     },
                     "_backIconAngle": {
                         "type": "number",

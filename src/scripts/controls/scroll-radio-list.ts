@@ -22,14 +22,13 @@ export default class ScrollRaioList3D extends ScrollList3D {
 		super.fillList(entries);
 		for (const child of this.children) {
 			const	button:	AbstractButton3D & ISelectable = this.buttonSelector(child);
-			button.onPointerClickObservable.add((_, s) => {
-				if (this._selectedControl)
-					this.buttonSelector(child).deselect();
+			button.onPointerUpObservable.add((_, s) => {
 				if (this._selectedControl == child)
 					this._selectedControl = null;
 				else {
+					if (this._selectedControl)
+						this.buttonSelector(this._selectedControl).deselect();
 					this._selectedControl = child;
-					this.buttonSelector(child).select();
 				}
  				this.onSelectObservable.notifyObservers(this._selectedControl, -1, s.target, this._selectedControl);
 			});

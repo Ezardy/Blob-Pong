@@ -10,7 +10,7 @@ export default class ButtonWithDescription extends MeshButton3D implements IClon
 	private readonly	_descRotAnim:			BAnimation;
 	private readonly	_descScaleAnim:			BAnimation;
 	private readonly	_disabledAnim:			BAnimation;
-	private				_isEnabled:				boolean = false;
+	private				_isEnabled:				boolean = true;
 	private readonly	_onPointerUpObservers:	Observer<Vector3WithInfo>[] = [];
 
 	public get	isEnabled():	boolean {
@@ -72,6 +72,8 @@ export default class ButtonWithDescription extends MeshButton3D implements IClon
 			frame:	5,
 			value:	disabledRotation
 		}]);
+		this.pointerEnterAnimation = this._beginPointerEnterAnimation;
+		this.pointerOutAnimation = this._beginPointerOutAnimation;
 		this.isEnabled = enabledOnStart;
 	}
 
