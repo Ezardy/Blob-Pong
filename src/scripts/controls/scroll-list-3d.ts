@@ -14,6 +14,8 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 
 	constructor(isVertical: boolean, private readonly pageSize: int, private readonly fillerFunc: (entry: JSONObject, control: Control3D) => void) {
 		super(isVertical);
+		if (!isVertical)
+			throw Error("ScrollList3D horizontal mode is not implemented");
 		if (pageSize < 0)
 			throw RangeError("page size must be greater than 0");
 		this.node?.getScene().onPointerObservable.add(this._scrollCallback);
@@ -34,10 +36,11 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			this.blockLayout = bl;
 		}
 		this._entries = entries;
-		const	lastPos:	int = this.children.length - Math.min(entries.length, this.children.length - 1) - 1;
-		let i;
-		for (i = this.children.length - 1; i > lastPos; i -= 1) {
-			this.fillerFunc(entries[i], this.children[i]);
+		const	lastPos:	int = this.children.length - Math.min(entries.length, this.children.length) - 1;
+		let	i:	number;
+		let	j:	number = 0;
+		for (i = this.children.length - 1; i > lastPos; i -= 1, j += 1) {
+			this.fillerFunc(entries[j], this.children[i]);
 			this.children[i].isVisible = true;
 		}
 		for (; i >= 0; i -= 1) {
@@ -63,7 +66,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			Object.getOwnPropertyDescriptor(AdvancedStackPanel3D.prototype, "isVisible")!.set!.call(this, value);
 			if (value) {
 				this.node?.getScene().onPointerObservable.add(this._scrollCallback);
-				const	entLen:	int = Math.min(this._entries ? this._entries.length : 0, this.children.length - 1);
+				const	entLen:	int = Math.min(this._entries ? this._entries.length : 0, this.children.length);
 				const	len:	int = this.children.length - entLen;
 				for (let i = 0; i < len; i += 1)
 					this.children[i].isVisible = false;

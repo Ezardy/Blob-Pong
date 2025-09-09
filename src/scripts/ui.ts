@@ -121,8 +121,8 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameListPreviousButtonHeaderPanel():	void {
-		getScriptByClassForObject(this._gameListHeaderMesh, TextBlockDrawer)?.draw();
-		getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)?.draw();
+		getScriptByClassForObject(this._gameListHeaderMesh, TextBlockDrawer)?.render();
+		getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
 		this._gameListPreviousButtonHeaderPanel.margin = 0;
 		this._gameListPreviousButtonHeaderPanel.blockLayout = true;
@@ -138,8 +138,8 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameListControlPanel():	void {
-		getScriptByClassForObject(this._refreshButtonMesh, TextBlockDrawer)?.draw();
-		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.draw();
+		getScriptByClassForObject(this._refreshButtonMesh, TextBlockDrawer)?.render();
+		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
 		this._gameListControlPanel.margin = 70;
 		this._gameListControlPanel.blockLayout = true;
@@ -155,7 +155,7 @@ export default class Ui implements IScript {
 	}
 
 	private	_setPlayerCountOrderButtonInputPanel():	void {
-		getScriptByClassForObject(this._playerCountOrderButtonMesh, TextBlockDrawer)?.draw();
+		getScriptByClassForObject(this._playerCountOrderButtonMesh, TextBlockDrawer)?.render();
 		this._gameListControlPanel.addControl(this._playerCountOrderButtonInputPanel);
 		this._playerCountOrderButtonInputPanel.margin = 0;
 		this._playerCountOrderButtonInputPanel.blockLayout = true;
@@ -174,7 +174,7 @@ export default class Ui implements IScript {
 	}
 
 	private	_setEntranceFeeOrderButtonInputPanel():	void {
-		getScriptByClassForObject(this._entranceFeeOrderButtonMesh, TextBlockDrawer)?.draw();
+		getScriptByClassForObject(this._entranceFeeOrderButtonMesh, TextBlockDrawer)?.render();
 		this._gameListControlPanel.addControl(this._entranceFeeOrderButtonInputPanel);
 		this._entranceFeeOrderButtonInputPanel.margin = 1;
 		this._entranceFeeOrderButtonInputPanel.blockLayout = true;
@@ -199,6 +199,9 @@ export default class Ui implements IScript {
 		this._gameListScroll.addControl(this._entryPanel);
 		this._entryPanel.margin = 10;
 		this._entryPanel.blockLayout = true;
+			getScriptByClassForObject(this._playerCountEntryMesh, TextBlockDrawer)?.render();
+			getScriptByClassForObject(this._entranceFeeEntryMesh, TextBlockDrawer)?.render();
+			getScriptByClassForObject(this._gameNameEntryMesh, TextBlockDrawer)?.render();
 			this._entryPanel.addControl(new MeshControl(this._playerCountEntryMesh, "player count entry"));
 			this._entryPanel.addControl(new MeshControl(this._entranceFeeEntryMesh, "entrance fee entry"));
 			const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);

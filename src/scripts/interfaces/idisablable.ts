@@ -6,7 +6,7 @@ export interface IDisablable {
 export function	isdisablable(obj: any):	obj is IDisablable {
 	let	result:	boolean = false;
 
-	if (result != null) {
+	if (obj != null) {
 		let proto = obj;
 		while (proto && !result) {
 			const desc = Object.getOwnPropertyDescriptor(proto, "isEnabled");

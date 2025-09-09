@@ -3,8 +3,12 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
+import { IRenderOnStart } from "./interfaces/irenderonstart";
 
-export default class TextBlockDrawer implements IScript, IClonableScript {
+export default class TextBlockDrawer implements IScript, IClonableScript, IRenderOnStart {
+	@visibleAsBoolean("render on start")
+	private	_renderOnStart:	boolean = true;
+
 	@visibleAsString("front text")
 	private	_frontText:	string = "";
 	@visibleAsNumber("front font size", {min: 1, max: 300, step: 1})
@@ -135,6 +139,22 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 	private readonly	_extendSizeScaled:	Vector3;
 	private				_drew:				boolean = false;
 
+	public get	isRendered():	boolean {
+		return this._drew;
+	}
+
+	public set	isRendered(value: boolean) {
+		this._drew = value;
+	}
+
+	public get	renderOnStart():	boolean {
+		return this._renderOnStart;
+	}
+
+	public set	renderOnStart(value: boolean) {
+		this._renderOnStart = value;
+	}
+
 	public constructor(public mesh: AbstractMesh) {
 		if (mesh instanceof InstancedMesh)
 			mesh.refreshBoundingInfo();
@@ -250,10 +270,15 @@ export default class TextBlockDrawer implements IScript, IClonableScript {
 	}
 
 	public	onStart():	void {
-		this.draw();
+		if (this.renderOnStart)
+			this._draw();
 	}
 
-	public	draw():	void {
+	public	render():	void {
+		this._draw();
+	}
+
+	private	_draw():	void {
 		if (!this._drew) {
 			this._frontText = JSON.parse(`"${this._frontText}"`);
 			this._backText = JSON.parse(`"${this._backText}"`);

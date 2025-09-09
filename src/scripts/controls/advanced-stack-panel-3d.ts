@@ -155,9 +155,9 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 			for (const child of this.children) {
 				child.isVisible = value;
 				if (value && child.mesh) {
-					getScriptByClassForObject(child.mesh, IconDrawer)?.draw();
+					getScriptByClassForObject(child.mesh, IconDrawer)?.render();
 					for (const childOfChild of child.mesh.getChildMeshes())
-						getScriptByClassForObject(childOfChild, IconDrawer)?.draw();
+						getScriptByClassForObject(childOfChild, IconDrawer)?.render();
 				}
 			}
 		}

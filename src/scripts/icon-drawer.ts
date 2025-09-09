@@ -1,10 +1,11 @@
 import { Axis, Color3, Color4, ISize, MeshUVSpaceRenderer, PBRMaterial, Quaternion, Texture, Vector3 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { IScript, visibleAsBoolean, visibleAsNumber, visibleAsTexture } from "babylonjs-editor-tools";
+import { IRenderOnStart } from "./interfaces/irenderonstart";
 
-export default class IconDrawer implements IScript {
+export default class IconDrawer implements IScript, IRenderOnStart {
 	@visibleAsBoolean("render on start")
-	private readonly	_renderOnStart = true;
+	private	_renderOnStart = true;
 	@visibleAsTexture("left icon")
 	private readonly	_leftIcon?:		Texture;
 	@visibleAsNumber("left icon size", {min: 0, max: 1, step: 0.005})
@@ -46,6 +47,26 @@ export default class IconDrawer implements IScript {
 
 	private				_isDrew:				boolean = false;
 
+	public get	isRendered(): boolean {
+		return this._isDrew;
+	}
+
+	public set	isRendered(value: boolean) {
+		this._isDrew = value;
+	}
+
+	public get	renderOnStart():	boolean {
+		return this._renderOnStart;
+	}
+
+	public set	renderOnStart(value: boolean) {
+		this._renderOnStart = value;
+	}
+
+	public render():	void {
+		this._draw();
+	}
+
 	public constructor(public mesh: Mesh) {
 		if (Vector3.Cross(this.mesh.up, Vector3.Up()).length() == 0)
 			this.mesh.rotate(Axis.Z, 1e-6);
@@ -60,11 +81,11 @@ export default class IconDrawer implements IScript {
 	}
 
 	public	onStart(): void {
-		if (this._renderOnStart)
-			this.draw();
+		if (this.renderOnStart)
+			this._draw();
 	}
 
-	public	draw():	void {
+	private	_draw():	void {
 		if (!this._isDrew) {
 			const	extendSize:	Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
 			const	meshSize:	Vector3 = new Vector3(extendSize.x * this.mesh.absoluteScaling.x, extendSize.y * this.mesh.absoluteScaling.y, extendSize.z * this.mesh.absoluteScaling.z);
