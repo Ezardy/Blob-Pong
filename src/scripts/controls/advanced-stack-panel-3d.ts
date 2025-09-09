@@ -10,9 +10,9 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 	public static readonly	END_ALIGNMENT = 2;
 	public static readonly	CENTER_ALIGNMENT = 0;
 
-	private	_isVertical:	boolean;
-	private	_alignment:		int;
-	private	_extendSizes:	Map<int, Vector3> = new Map();
+	private		_isVertical:	boolean;
+	private		_alignment:		int;
+	protected	_extendSizes:	Map<int, Vector3> = new Map();
 
 	/**
 	 * Gets or sets a boolean indicating if the stack panel is vertical or horizontal (horizontal by default)

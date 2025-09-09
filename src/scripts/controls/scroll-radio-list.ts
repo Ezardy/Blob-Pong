@@ -1,5 +1,5 @@
 import ScrollList3D from "./scroll-list-3d";
-import { int, Nullable, Observable } from "@babylonjs/core";
+import { int, Nullable, Observable, Scene } from "@babylonjs/core";
 import { AbstractButton3D, Control3D } from "@babylonjs/gui";
 import { JSONArray, JSONObject } from "../functions/typing-utils";
 import { ISelectable } from "../interfaces/iselectable";
@@ -9,8 +9,8 @@ export default class ScrollRaioList3D extends ScrollList3D {
 
 	public readonly	onSelectObservable:	Observable<Nullable<Control3D>>;
 
-	public constructor(isVertical: boolean, pageSize: int, fillerFunc: (entry: JSONObject, control: Control3D) => void, private buttonSelector: (control: Control3D) => AbstractButton3D & ISelectable) {
-		super(isVertical, pageSize, fillerFunc);
+	public constructor(isVertical: boolean, pageSize: int, fillerFunc: (entry: JSONObject, control: Control3D) => void, private buttonSelector: (control: Control3D) => AbstractButton3D & ISelectable, scene: Scene) {
+		super(isVertical, pageSize, fillerFunc, scene);
 		this.onSelectObservable = new Observable<Nullable<Control3D>>();
 	}
 

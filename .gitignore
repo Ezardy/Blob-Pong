@@ -6,3 +6,4 @@ public/
 assets/.export-cache.json
 assets/main.scene/preview.png
 src/scripts.ts
+public

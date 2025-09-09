@@ -76,7 +76,7 @@ export default class Ui implements IScript {
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.id;
-		}, Ui._gameControlSelector);
+		}, Ui._gameControlSelector, node.getScene());
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
