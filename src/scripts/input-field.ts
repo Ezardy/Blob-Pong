@@ -1,4 +1,4 @@
-import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh } from "@babylonjs/core";
+import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
 import { IScript, registerScriptInstance, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
@@ -32,13 +32,15 @@ export default class InputField3D implements IScript, IClonableScript {
 	private				_hintShowed:		boolean = true;
 	private				_drew:				boolean = false;
 
+	private static readonly	_inputTextAreas:	Array<InputTextArea> = [];
+
 	public	parser:	(input: string) => string = (i) => i;
 
 	public get	inputTextArea():	InputTextArea {
 		return this._inputText;
 	}
 
-	public constructor(public mesh: Mesh | InstancedMesh) {
+	public constructor(public mesh: AbstractMesh) {
 		if (mesh instanceof InstancedMesh)
 			mesh.refreshBoundingInfo();
 		const	extendSize:			Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
@@ -51,7 +53,12 @@ export default class InputField3D implements IScript, IClonableScript {
 		this._plane.parent = mesh;
 		this._plane.position.z -= extendSize.z + 0.01;
 		this._inputText = new InputTextArea(mesh.name + " input");
+		InputField3D._inputTextAreas.push(this._inputText);
 		this._inputText.onFocusObservable.add(() => {
+			for (const field of InputField3D._inputTextAreas) {
+				if (field !== this._inputText)
+					field.blur();
+			}
 			if (this._hintShowed) {
 				this._inputText.fontSize = this._textSize * this._textureResolutionScaler;
 				this._inputText.color = this._textColor.toHexString();
