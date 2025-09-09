@@ -188,7 +188,7 @@ export default class Ui implements IScript {
 			const	input:				InputField3D = getScriptByClassForObject(this._entranceFeeInputMesh, InputField3D)!;
 			input.draw();
 			const	entranceFeeInput:	MeshControl = new MeshControl(this._entranceFeeInputMesh, "entrance fee input", input.inputTextArea);
-			input.parser = (s: string) => Number.parseFloat(s).toString();
+			input.parser = (s: string) => Math.abs(Number.parseFloat(s)).toString();
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeInput);
 		this._entranceFeeOrderButtonInputPanel.blockLayout = false;
 	}

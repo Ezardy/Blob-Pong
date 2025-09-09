@@ -8,17 +8,19 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_firstPos:		number = 0;
 	private	_lastPos:		number = 0;
 	private	_extendSize:	Vector3 = Vector3.Zero();
-	private	_topIndex:		int = 0;
 	private	_entries?:		JSONArray;
 	private	_initialized:	boolean = false;
 
+	private readonly	_callback: (info: PointerInfo, state: EventState) => void;
+
 	constructor(isVertical: boolean, private readonly pageSize: int, private readonly fillerFunc: (entry: JSONObject, control: Control3D) => void) {
 		super(isVertical);
+		this._callback = this._scrollCallback.bind(this);
 		if (!isVertical)
 			throw Error("ScrollList3D horizontal mode is not implemented");
 		if (pageSize < 0)
 			throw RangeError("page size must be greater than 0");
-		this.node?.getScene().onPointerObservable.add(this._scrollCallback);
+		this.node?.getScene().onPointerObservable.add(this._callback, PointerEventTypes.POINTERWHEEL);
 	}
 
 	public	fillList(entries: JSONArray):	void {
@@ -65,19 +67,20 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		if (this._isVisible != value) {
 			Object.getOwnPropertyDescriptor(AdvancedStackPanel3D.prototype, "isVisible")!.set!.call(this, value);
 			if (value) {
-				this.node?.getScene().onPointerObservable.add(this._scrollCallback);
+				this.node?.getScene().onPointerObservable.add(this._callback, PointerEventTypes.POINTERWHEEL);
 				const	entLen:	int = Math.min(this._entries ? this._entries.length : 0, this.children.length);
 				const	len:	int = this.children.length - entLen;
 				for (let i = 0; i < len; i += 1)
 					this.children[i].isVisible = false;
 			} else {
-				this.node?.getScene().onPointerObservable.removeCallback(this._scrollCallback);
+				this.node?.getScene().onPointerObservable.removeCallback(this._callback);
 			}
 		}
 	}
 
-	private	_scrollCallback(info: PointerInfo, state: EventState) {
-		if (info.type == PointerEventTypes.POINTERWHEEL) {
+	private	_scrollCallback(info: PointerInfo, state: EventState):	void {
+		for (const control of this.children) {
+			control.node?.position.addInPlaceFromFloats(0, 5, 0);
 		}
 	}
 }
