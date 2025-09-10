@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Mesh, Node, Nullable, Quaternion, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, Mesh, Node, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
@@ -55,8 +55,8 @@ export default class Ui implements IScript {
 
 	private readonly	_manager:	GUI3DManager;
 
-	public constructor(public node: Node) {
-		this._manager = new GUI3DManager(this.node.getScene());
+	public constructor(public scene: Scene) {
+		this._manager = new GUI3DManager(scene);
 
 		// main layout initialization
 		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
@@ -76,7 +76,7 @@ export default class Ui implements IScript {
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.id;
-		}, Ui._gameControlSelector, node.getScene());
+		}, Ui._gameControlSelector, scene);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {

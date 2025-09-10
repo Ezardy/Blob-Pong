@@ -1255,7 +1255,9 @@
             "alpha": 1,
             "backFaceCulling": true,
             "cullBackFaces": true,
-            "alphaMode": 2,
+            "_alphaMode": [
+                2
+            ],
             "_needDepthPrePass": false,
             "disableDepthWrite": false,
             "disableColorWrite": false,
@@ -1268,15 +1270,20 @@
             "zOffsetUnits": 0,
             "pointsCloud": false,
             "fillMode": 0,
+            "_setVertexOutputInvariant": false,
             "transparencyMode": 0,
             "stencil": {
                 "tags": null,
                 "func": 519,
+                "backFunc": 519,
                 "funcRef": 1,
                 "funcMask": 255,
                 "opStencilFail": 7680,
                 "opDepthFail": 7680,
                 "opStencilDepthPass": 7681,
+                "backOpStencilFail": 7680,
+                "backOpDepthFail": 7680,
+                "backOpStencilDepthPass": 7681,
                 "mask": 255,
                 "enabled": false
             },
@@ -1410,13 +1417,6 @@
                     "isEnabled": false,
                     "name": "DetailMap",
                     "priority": 140,
-                    "resolveIncludes": false,
-                    "registerForExtraEvents": false
-                },
-                "DepthSensingMaterialPlugin": {
-                    "tags": null,
-                    "name": "DepthSensing",
-                    "priority": 222,
                     "resolveIncludes": false,
                     "registerForExtraEvents": false
                 }

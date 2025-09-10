@@ -122,7 +122,70 @@
         }
     ],
     "metadata": {
-        "scripts": [],
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/ui.ts",
+                "values": {
+                    "_joinPublicGameButtonMesh": {
+                        "type": "entity",
+                        "value": "9de33c5d-d058-46de-8210-789d3858dee1"
+                    },
+                    "_joinPrivateGameButtonMesh": {
+                        "type": "entity",
+                        "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
+                    },
+                    "_createGameButtonMesh": {
+                        "type": "entity",
+                        "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
+                    },
+                    "_gameListPreviousButtonMesh": {
+                        "type": "entity",
+                        "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
+                    },
+                    "_gameListHeaderMesh": {
+                        "type": "entity",
+                        "value": "15fcc637-2e49-443c-bbcd-b04a8e86cb37"
+                    },
+                    "_playerCountOrderButtonMesh": {
+                        "type": "entity",
+                        "value": "4971c2a6-b062-4f5b-bfbb-da18af77dce5"
+                    },
+                    "_playerCountInputMesh": {
+                        "type": "entity",
+                        "value": "e8c6ce1c-eb46-4c89-98f8-aa4846c082be"
+                    },
+                    "_entranceFeeOrderButtonMesh": {
+                        "type": "entity",
+                        "value": "d61eee2d-3b31-4e02-b491-4001a8e5e148"
+                    },
+                    "_entranceFeeInputMesh": {
+                        "type": "entity",
+                        "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
+                    },
+                    "_refreshButtonMesh": {
+                        "type": "entity",
+                        "value": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690"
+                    },
+                    "_playButtonMesh": {
+                        "type": "entity",
+                        "value": "7fb2333d-a45c-42a8-8a32-0282fc30cc26"
+                    },
+                    "_gameNameEntryMesh": {
+                        "type": "entity",
+                        "value": "7344f721-01a1-43de-a24f-ab496aff57b0"
+                    },
+                    "_playerCountEntryMesh": {
+                        "type": "entity",
+                        "value": "4f9d5ee7-e19a-432d-af0c-93ab1c121e7a"
+                    },
+                    "_entranceFeeEntryMesh": {
+                        "type": "entity",
+                        "value": "39febb52-3f24-482b-89e3-466db5546d7c"
+                    }
+                }
+            }
+        ],
         "rendering": [
             {
                 "cameraId": "3ee0f345-7bea-4f59-a657-28c90a7d5e74",

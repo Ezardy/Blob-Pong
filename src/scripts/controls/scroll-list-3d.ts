@@ -114,10 +114,13 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 					startPlane = new Plane(-1, 0, 0, vv.min.x);
 					endPlane = new Plane(1, 0, 0, -vv.max.x);
 				}
-				for (const mesh of this._rollControls[0].node!.getChildMeshes(false)) {
+				for (const mesh of this.node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.material != null)) {
 					if (mesh instanceof InstancedMesh) {
 						mesh.sourceMesh.material!.clipPlane = startPlane;
 						mesh.sourceMesh.material!.clipPlane2 = endPlane;
+					} else {
+						mesh.material!.clipPlane = startPlane;
+						mesh.material!.clipPlane2 = endPlane;
 					}
 				}
 			});
