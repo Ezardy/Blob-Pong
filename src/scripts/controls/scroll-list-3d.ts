@@ -1,4 +1,4 @@
-import { EventState, int, PointerEventTypes, PointerInfo, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, EventState, int, Plane, PointerEventTypes, PointerInfo, Scene, Vector3 } from "@babylonjs/core";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import { Control3D } from "@babylonjs/gui";
 import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils";
@@ -103,7 +103,20 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this._firstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
 				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x + this._extendSize.x * 2 + this.margin;
 			}
-			// Clip planes setting
+			const	vv:			{min: Vector3, max: Vector3} = this.node!.getHierarchyBoundingVectors(true, m => m.isEnabled() && m.isVisible);
+			let		startPlane:	Plane;
+			let		endPlane:	Plane;
+			if (this.isVertical) {
+				startPlane = new Plane(0, -1, 0, vv.max.y);
+				endPlane = new Plane(0, 1, 0, -vv.min.y);
+			} else {
+				startPlane = new Plane(1, 0, 0, -vv.min.x);
+				endPlane = new Plane(-1, 0, 0, vv.max.x);
+			}
+			for (const mesh of this._rollControls[0].node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.isEnabled() && n.isVisible)) {
+				mesh.material!.clipPlane = startPlane;
+				mesh.material!.clipPlane2 = endPlane;
+			}
 		}
 	}
 
