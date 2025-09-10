@@ -5,10 +5,15 @@ import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils
 import { parentClones } from "../functions/cloning";
 
 export default class ScrollList3D extends AdvancedStackPanel3D {
-	private	_firstPos:		number = 0;
-	private	_lastPos:		number = 0;
-	private	_entries?:		JSONArray;
-	private	_initialized:	boolean = false;
+	private	_firstPos:			number = 0;
+	private	_lastPos:			number = 0;
+	private	_scrollSum:			number = 0;
+	private	_rollControls:		Array<Control3D> = [];
+	private	_extendSize:		Vector3 = Vector3.Zero();
+	private	_extendSizeKeys:	Array<int> = [];
+	private	_index:				int = 0;
+	private	_entries?:			JSONArray;
+	private	_initialized:		boolean = false;
 
 	private readonly	_callback: (info: PointerInfo, state: EventState) => void;
 
@@ -86,15 +91,17 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		super._arrangeChildren();
 		if (!this._initialized) {
 			this._initialized = true;
-			const	minKey:	int = Math.min(this._extendSizes.keys().reduce((a, b) => Math.min(a, b)));
-			const	maxKey:	int = Math.min(this._extendSizes.keys().reduce((a, b) => Math.max(a, b)));
-			const	extendSize:	Vector3 = this._extendSizes.get(minKey)!;
+			this._index = 0;
+			this._extendSizeKeys = Array.from(this._extendSizes.keys());
+			for (const i of this._extendSizeKeys)
+				this._rollControls.push(this.children[i]);
+			this._extendSize.copyFrom(this._extendSizes.get(this._extendSizeKeys[0])!);
 			if (this.isVertical) {
-				this._firstPos = this.children[maxKey].node!.position.y + extendSize.y;
-				this._lastPos = this.children[minKey].node!.position.y - extendSize.y;
+				this._firstPos = this._rollControls[this._rollControls.length - 1].position.y + this._extendSize.y * 2 + this.margin;
+				this._lastPos = this._rollControls[0].position.y - this._extendSize.y * 2 - this.margin;
 			} else {
-				this._firstPos = this.children[minKey].node!.position.x - extendSize.x;
-				this._lastPos = this.children[maxKey].node!.position.x + extendSize.x;
+				this._firstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
+				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x + this._extendSize.x * 2 + this.margin;
 			}
 			// Clip planes setting
 		}
@@ -103,8 +110,43 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_scrollCallback(info: PointerInfo, state: EventState):	void {
 		const	ev:	WheelEvent = info.event as WheelEvent
 		const	speed:	number = 0.1;
-		for (const control of this.children) {
-			control.node?.position.addInPlaceFromFloats(0, ev.deltaY * speed, 0);
+		if (this._entries
+			&& ((ev.deltaY > 0 && this._index + this.pageSize < this._entries.length)
+				|| (ev.deltaY < 0 && (this._index || this._scrollSum > 0)))) {
+			this._scrollSum += ev.deltaY;
+			for (const controlIndex of Array.from(this._extendSizes.keys())) {
+				const control = this.children[controlIndex];
+				if (this.isVertical)
+					control.position.addInPlaceFromFloats(0, ev.deltaY * speed, 0);
+				else
+					control.position.addInPlaceFromFloats(-ev.deltaY * speed, 0, 0);
+			}
+			const	lastIndex:	int = this._rollControls.length - 1;
+			if (this.isVertical) {
+				if (ev.deltaY > 0 && this._rollControls[lastIndex].position.y > this._firstPos) {
+					this._rollControls[lastIndex].position.y = this._rollControls[0].position.y - this._extendSize.y * 2 - this.margin;
+					this._rollControls.unshift(this._rollControls.pop()!);
+					const	i:	int = ++this._index + this.pageSize;
+					if (i < this._entries.length)
+						this.fillerFunc(this._entries[i], this._rollControls[0]);
+				} else if (ev.deltaY < 0 && this._rollControls[0].position.y < this._lastPos) {
+					this._rollControls[0].position.y = this._rollControls[lastIndex].position.y + this._extendSize.y * 2 + this.margin;
+					this._rollControls.push(this._rollControls.shift()!);
+					this.fillerFunc(this._entries[--this._index], this._rollControls[lastIndex]);
+				}
+			} else {
+				if (ev.deltaY > 0 && this._rollControls[0].position.x < this._firstPos) {
+					this._rollControls[0].position.x = this._rollControls[lastIndex].position.x + this._extendSize.x * 2 + this.margin;
+					this._rollControls.push(this._rollControls.shift()!);
+					const	i:	int = ++this._index + this.pageSize;
+					if (i < this._entries.length)
+						this.fillerFunc(this._entries[i], this._rollControls[lastIndex]);
+				} else if (ev.deltaY < 0 && this._rollControls[lastIndex].position.x > this._lastPos) {
+					this._rollControls[lastIndex].position.x = this._rollControls[0].position.x - this._extendSize.x * 2 + this.margin;
+					this._rollControls.unshift(this._rollControls.pop()!);
+					this.fillerFunc(this._entries[--this._index], this._rollControls[0]);
+				}
+			}
 		}
 	}
 }
