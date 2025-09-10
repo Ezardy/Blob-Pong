@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Mesh, Node, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
