@@ -1,4 +1,4 @@
-import { AbstractMesh, EventState, int, Plane, PointerEventTypes, PointerInfo, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, EventState, InstancedMesh, int, Mesh, PBRMaterial, Plane, PointerEventTypes, PointerInfo, Scene, Tools, Vector3 } from "@babylonjs/core";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import { Control3D } from "@babylonjs/gui";
 import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils";
@@ -103,26 +103,30 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this._firstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
 				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x + this._extendSize.x * 2 + this.margin;
 			}
-			const	vv:			{min: Vector3, max: Vector3} = this.node!.getHierarchyBoundingVectors(true, m => m.isEnabled() && m.isVisible);
-			let		startPlane:	Plane;
-			let		endPlane:	Plane;
-			if (this.isVertical) {
-				startPlane = new Plane(0, -1, 0, vv.max.y);
-				endPlane = new Plane(0, 1, 0, -vv.min.y);
-			} else {
-				startPlane = new Plane(1, 0, 0, -vv.min.x);
-				endPlane = new Plane(-1, 0, 0, vv.max.x);
-			}
-			for (const mesh of this._rollControls[0].node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.isEnabled() && n.isVisible)) {
-				mesh.material!.clipPlane = startPlane;
-				mesh.material!.clipPlane2 = endPlane;
-			}
+			Tools.SetImmediate(() => {
+				const	vv:			{min: Vector3, max: Vector3} = this.isVertical ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(this._rollControls[0].node!)) : this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(this._rollControls[this._rollControls.length - 1].node!));
+				let		startPlane:	Plane;
+				let		endPlane:	Plane;
+				if (this.isVertical) {
+					startPlane = new Plane(0, 1, 0, -vv.max.y);
+					endPlane = new Plane(0, -1, 0, vv.min.y);
+				} else {
+					startPlane = new Plane(-1, 0, 0, vv.min.x);
+					endPlane = new Plane(1, 0, 0, -vv.max.x);
+				}
+				for (const mesh of this._rollControls[0].node!.getChildMeshes(false)) {
+					if (mesh instanceof InstancedMesh) {
+						mesh.sourceMesh.material!.clipPlane = startPlane;
+						mesh.sourceMesh.material!.clipPlane2 = endPlane;
+					}
+				}
+			});
 		}
 	}
 
 	private	_scrollCallback(info: PointerInfo, state: EventState):	void {
 		const	ev:	WheelEvent = info.event as WheelEvent
-		const	speed:	number = 0.1;
+		const	speed:	number = 15;
 		if (this._entries
 			&& ((ev.deltaY > 0 && this._index + this.pageSize < this._entries.length)
 				|| (ev.deltaY < 0 && (this._index || this._scrollSum > 0)))) {
@@ -130,9 +134,9 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			for (const controlIndex of Array.from(this._extendSizes.keys())) {
 				const control = this.children[controlIndex];
 				if (this.isVertical)
-					control.position.addInPlaceFromFloats(0, ev.deltaY * speed, 0);
+					control.position.addInPlaceFromFloats(0, Math.sign(ev.deltaY) * speed, 0);
 				else
-					control.position.addInPlaceFromFloats(-ev.deltaY * speed, 0, 0);
+					control.position.addInPlaceFromFloats(-Math.sign(ev.deltaY) * speed, 0, 0);
 			}
 			const	lastIndex:	int = this._rollControls.length - 1;
 			if (this.isVertical) {
