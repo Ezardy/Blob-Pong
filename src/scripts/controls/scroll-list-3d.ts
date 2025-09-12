@@ -1,4 +1,4 @@
-import { AbstractMesh, EventState, InstancedMesh, int, Mesh, PBRMaterial, Plane, PointerEventTypes, PointerInfo, Scene, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, EventState, InstancedMesh, int, Plane, PointerEventTypes, PointerInfo, Scene, Tools, Vector3 } from "@babylonjs/core";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import { Control3D } from "@babylonjs/gui";
 import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils";
@@ -9,15 +9,15 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_lastPos:			number = 0;
 	private	_extendSize:		Vector3 = Vector3.Zero();
 	private	_extendSizeKeys:	Array<int> = [];
-	private	_index:				int = 0;
-	private	_entries?:			JSONArray;
 	private	_initialized:		boolean = false;
-
+	
+	protected	_entries?:		JSONArray;
+	protected	_index:			int = 0;
 	protected	_rollControls:	Array<Control3D> = [];
 
 	private readonly	_callback: (info: PointerInfo, state: EventState) => void;
 
-	constructor(isVertical: boolean, private readonly pageSize: int, private readonly fillerFunc: (entry: JSONObject, control: Control3D) => void, private readonly scene: Scene) {
+	constructor(isVertical: boolean, protected readonly pageSize: int, private readonly fillerFunc: (entry: JSONObject, control: Control3D) => void, protected readonly scene: Scene) {
 		super(isVertical);
 		this._callback = this._scrollCallback.bind(this);
 		if (pageSize < 0)

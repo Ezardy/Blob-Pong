@@ -1,4 +1,4 @@
-import { AbstractEngine, AbstractMesh, BoundingInfo, Camera, Color3, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, TransformNode, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
