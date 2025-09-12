@@ -34,9 +34,12 @@ export default class ScrollRaioList3D extends ScrollList3D {
 		for (const child of this.children) {
 			const	button:	AbstractButton3D & ISelectable = this.buttonSelector(child);
 			button.onPointerUpObservable.add((_, s) => {
-				if (this._selectedControl == child)
-					this._selectedControl = null;
-				else {
+				if (this._selectedControl == child) {
+					if (this._index == this._indexOnSelection)
+						this._selectedControl = null;
+					else
+						this._indexOnSelection = this._index;
+				} else {
 					if (this._selectedControl)
 						this.buttonSelector(this._selectedControl).deselect();
 					this._selectedControl = child;
