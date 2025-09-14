@@ -18,11 +18,6 @@
         "jsx": "preserve",
         "experimentalDecorators": true,
         "incremental": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
         "paths": {
             "@/*": [
                 "./src/*"
@@ -30,12 +25,9 @@
         }
     },
     "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts"
+        "**/*.ts"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules", "dist"
     ]
 }

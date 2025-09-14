@@ -1,0 +1,11 @@
+.bjseditor/
+assets/
+dist/
+node_modules/
+.dockerignore
+.git/
+.gitattributes
+.gitignore
+Dockerfile
+package-lock.json
+project.bjseditor
