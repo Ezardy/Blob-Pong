@@ -146,7 +146,8 @@ export default class Ui implements IScript {
 			this._setPlayerCountOrderButtonInputPanel();
 			this._setEntranceFeeOrderButtonInputPanel();
 			const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
-			const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4), false);
+			const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+			playButton.isEnabled = false;
 			this._gameListControlPanel.addControl(refreshButton);
 			this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
