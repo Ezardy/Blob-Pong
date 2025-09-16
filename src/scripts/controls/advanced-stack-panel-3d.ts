@@ -12,16 +12,25 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 
 	private		_isVertical:	boolean;
 	private		_alignment:		int;
+	private		_isArrangable:	boolean = true;
 	protected	_extendSizes:	Map<int, Vector3> = new Map();
 
-	/**
-	 * Gets or sets a boolean indicating if the stack panel is vertical or horizontal (horizontal by default)
-	 */
-	public get isVertical(): boolean {
+	public get	isArrangable():	boolean {
+		return this._isArrangable;
+	}
+
+	public set	isArrangable(value: boolean) {
+		if (value != this._isArrangable) {
+			this._isArrangable = value;
+			this.parent?.updateLayout();
+		}
+	}
+
+	public get	isVertical():	boolean {
 		return this._isVertical;
 	}
 
-	public set isVertical(value: boolean) {
+	public set	isVertical(value: boolean) {
 		if (this._isVertical === value) {
 			return;
 		}
@@ -33,17 +42,10 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		});
 	}
 
-	/**
-	 * Gets or sets the distance between elements
-	 */
-	public margin = 0.1;
+	public	margin:		number = 0.1;
+	public	padding:	number = 0;
+	public	shift:		number = 0;
 
-	public padding = 1;
-
-	/**
-	 * Creates new StackPanel
-	 * @param isVertical
-	 */
 	public constructor(isVertical: boolean = false, alignment: int = 0) {
 		super();
 
@@ -61,7 +63,7 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		const	currentInverseWorld = Matrix.Invert(this.node!.computeWorldMatrix(true));
 
 		for (const child of this._children) {
-			if (child.node && child.isVisible) {
+			if ((!(child instanceof AdvancedStackPanel3D) || child.isArrangable) && child.node && child.isVisible) {
 				child.node.computeWorldMatrix(true);
 				const	boundingVectors:	{min: Vector3, max: Vector3} = child.node.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
 				if (Math.abs(boundingVectors.min.x) != Number.MAX_VALUE
@@ -122,14 +124,14 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		if (this._alignment != AdvancedStackPanel3D.CENTER_ALIGNMENT) {
 			if (this._alignment == AdvancedStackPanel3D.START_ALIGNMENT) {
 				if (this._isVertical)
-					this._positionNode(0.5, 0, 0, -1, currentInverseWorld);
+					this._positionNode(0.5 + this.shift, this.padding, 0, -1, currentInverseWorld);
 				else
-					this._positionNode(0, 0.5, 1, 0, currentInverseWorld);
+					this._positionNode(this.padding, 0.5 + this.shift, 1, 0, currentInverseWorld);
 			} else {
 				if (this._isVertical)
-					this._positionNode(0.5, 1, 0, 1, currentInverseWorld);
+					this._positionNode(0.5 + this.shift, 1 - this.padding, 0, 1, currentInverseWorld);
 				else
-					this._positionNode(1, 0.5, -1, 0, currentInverseWorld);
+					this._positionNode(1 - this.padding, 0.5 + this.shift, -1, 0, currentInverseWorld);
 			}
 		}
 	}
@@ -140,7 +142,7 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		const	scene:					Scene = this.node!.getScene();
 		const	camera:					Camera = scene.activeCamera!;
 		const	engine:					AbstractEngine = scene.getEngine();
-		const	rect	= engine.getRenderingCanvasClientRect()!;
+		const	rect = engine.getRenderingCanvasClientRect()!;
 		const	ray:					Ray = scene.createPickingRay(rect.width * pX, rect.height * pY, this.node!.getWorldMatrix(), camera);
 		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, new Vector3(0, 0, -1));
 		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
