@@ -1,8 +1,8 @@
 {
     "tags": null,
     "position": [
-        -1294.7108490312376,
-        478.93995799021013,
+        590.745673994589,
+        0,
         0
     ],
     "rotation": [
@@ -20,14 +20,12 @@
     "infiniteDistance": false,
     "ignoreNonUniformScaling": false,
     "reIntegrateRotationIntoRotationQuaternion": false,
-    "name": "game-list-layout",
-    "id": "1f1029ee-d5de-4a41-a194-5e2eb5df6cff",
+    "name": "create-game-layout",
+    "id": "82ebdd6f-af06-422e-84ce-ce829216b628",
     "state": "",
-    "metadata": {
-        "isLocked": true
-    },
+    "metadata": {},
     "type": "TransformNode",
-    "uniqueId": 1753456789352,
+    "uniqueId": 1758052214954,
     "localMatrix": [
         1,
         0,
