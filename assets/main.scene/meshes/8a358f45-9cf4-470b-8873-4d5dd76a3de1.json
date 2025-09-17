@@ -42,7 +42,7 @@
             "isEnabled": true,
             "isVisible": true,
             "infiniteDistance": false,
-            "pickable": false,
+            "pickable": true,
             "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
@@ -372,6 +372,10 @@
                             "_bottomFontFamily": {
                                 "type": "string",
                                 "value": ""
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     },
@@ -1190,6 +1194,10 @@
                     "_bottomFontFamily": {
                         "type": "string",
                         "value": ""
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": false
                     }
                 }
             },

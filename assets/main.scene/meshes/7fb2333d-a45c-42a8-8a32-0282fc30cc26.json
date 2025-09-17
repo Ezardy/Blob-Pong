@@ -501,6 +501,10 @@
                             "_bottomFontFamily": {
                                 "type": "string",
                                 "value": ""
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
@@ -1319,6 +1323,10 @@
                     "_bottomFontFamily": {
                         "type": "string",
                         "value": ""
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": false
                     }
                 }
             }

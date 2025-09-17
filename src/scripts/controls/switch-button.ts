@@ -1,12 +1,12 @@
 import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation } from "@babylonjs/core";
-import { MeshButton3D } from "@babylonjs/gui";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { ISelectable } from "../interfaces/iselectable";
 import { updateBoundingBoxRecursively } from "../functions/bounding-box";
 import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
+import MeshButton3DDisablable from "./mesh-button-3d-disablable";
 
-export default class SwitchButton3D extends MeshButton3D implements IClonableControl3D, ISelectable {
+export default class SwitchButton3D extends MeshButton3DDisablable implements IClonableControl3D, ISelectable {
 	public get	state() {
 		return this._state;
 	}

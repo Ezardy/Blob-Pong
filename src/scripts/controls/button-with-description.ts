@@ -1,44 +1,33 @@
 import { Mesh, Quaternion, Animation as BAnimation, Observer, Vector3, Space } from "@babylonjs/core";
-import { MeshButton3D, Vector3WithInfo } from "@babylonjs/gui";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { IDisablable } from "../interfaces/idisablable";
 import { updateBoundingBoxRecursively } from "../functions/bounding-box";
 import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
+import MeshButton3DDisablable from "./mesh-button-3d-disablable";
 
-export default class ButtonWithDescription extends MeshButton3D implements IClonableControl3D, IDisablable {
+export default class ButtonWithDescription extends MeshButton3DDisablable implements IClonableControl3D, IDisablable {
 	private readonly	_descRotAnim:			BAnimation;
 	private readonly	_descScaleAnim:			BAnimation;
 	private readonly	_disabledAnim:			BAnimation;
-	private				_isEnabled:				boolean = true;
-	private readonly	_onPointerUpObservers:	Observer<Vector3WithInfo>[] = [];
 
-	public get	isEnabled():	boolean {
+	public override get	isEnabled():	boolean {
 		return this._isEnabled;
 	}
 
-	public set	isEnabled(enable: boolean) {
+	public override set	isEnabled(enable: boolean) {
 		if (this._isEnabled != enable) {
-			if (enable) {
-				this.pointerEnterAnimation = this._beginPointerEnterAnimation;
-				this.pointerOutAnimation = this._beginPointerOutAnimation;
-				this.onPointerUpObservable.observers.push(...this._onPointerUpObservers);
+			Object.getOwnPropertyDescriptor(MeshButton3DDisablable.prototype, "isEnabled")!.set!.call(this, enable);
+			if (enable)
 				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 5, 0);
-			} else {
-				this.pointerEnterAnimation = () => {};
-				this.pointerOutAnimation = () => {};
-				this._onPointerUpObservers.length = 0;
-				this._onPointerUpObservers.push(...this.onPointerUpObservable.observers);
-				this.onPointerUpObservable.clear();
+			else
 				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disabledAnim], 0, 5);
-			}
-			this._isEnabled = enable;
 		}
 	}
 
 	public constructor(mesh: Mesh, name: string, private descriptionRelativeRotation: Quaternion,
 		private scaleOnEnter: number = 1, private pivot: Vector3 = Vector3.Zero(),
-		private disabledRelativeRotation?: Quaternion, private enabledOnStart: boolean = true) {
+		private disabledRelativeRotation?: Quaternion) {
 		super(mesh, name);
 		updateBoundingBoxRecursively(mesh);
 		mesh.setPivotPoint(pivot, Space.LOCAL);
@@ -72,20 +61,11 @@ export default class ButtonWithDescription extends MeshButton3D implements IClon
 			frame:	5,
 			value:	disabledRotation
 		}]);
-		this.pointerEnterAnimation = this._beginPointerEnterAnimation;
-		this.pointerOutAnimation = this._beginPointerOutAnimation;
-		this.isEnabled = enabledOnStart;
+		this.pointerEnterAnimation = () => this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descRotAnim, this._descScaleAnim], 0, 5);
+		this.pointerOutAnimation = () => this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descRotAnim, this._descScaleAnim], 5, 0);
 	}
 
 	public	clone():	Control3DClone {
-		return {root: new ButtonWithDescription(cloneNodeWithScripts(this.mesh as Mesh) as Mesh, this.name + " clone", this.descriptionRelativeRotation, this.scaleOnEnter, this.pivot, this.disabledRelativeRotation, this.enabledOnStart), children: []};
-	}
-
-	private	_beginPointerEnterAnimation():	void {
-		this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descRotAnim, this._descScaleAnim], 0, 5)
-	}
-
-	private	_beginPointerOutAnimation():	void {
-		this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descRotAnim, this._descScaleAnim], 5, 0);
+		return {root: new ButtonWithDescription(cloneNodeWithScripts(this.mesh as Mesh) as Mesh, this.name + " clone", this.descriptionRelativeRotation, this.scaleOnEnter, this.pivot, this.disabledRelativeRotation), children: []};
 	}
 }

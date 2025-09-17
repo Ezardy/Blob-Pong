@@ -23,7 +23,9 @@
     "name": "main-layout",
     "id": "5e07393e-ccac-42b9-9579-ca0418ea061b",
     "state": "",
-    "metadata": {},
+    "metadata": {
+        "isLocked": true
+    },
     "type": "TransformNode",
     "uniqueId": 1753456838837,
     "localMatrix": [
