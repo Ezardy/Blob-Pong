@@ -60,21 +60,18 @@ export default class InputField3D implements IScript, IClonableScript {
 					field.blur();
 			}
 			if (this._hintShowed) {
+				this._inputText.placeholderText = "";
 				this._inputText.fontSize = this._textSize * this._textureResolutionScaler;
-				this._inputText.color = this._textColor.toHexString();
-				this._inputText.text = "";
 				this._hintShowed = false;
 			}
 		});
 		this._inputText.onBlurObservable.add(() => {
 			if (!this._hintShowed) {
 				if (this._inputText.text.length == 0) {
+					this._inputText.placeholderText = this._hint;
 					this._hintShowed = true;
 					this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
-					this._inputText.color = this._hintColor.toHexString();
-					this._inputText.text = this._hint;
-				} else
-					this._inputText.text = this.parser(this._inputText.text);
+				}
 			}
 		});
 	}
@@ -112,13 +109,14 @@ export default class InputField3D implements IScript, IClonableScript {
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler, false);
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
+			this._inputText.placeholderText = this._hint;
+			this._inputText.placeholderColor = this._hintColor.toHexString();
 			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
 			this._inputText.highligherOpacity = this._highlightColor.a;
-			this._inputText.text = this._hint;
 			this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
 			this._inputText.background = this._backgroundColor.toHexString();
 			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
-			this._inputText.color = this._hintColor.toHexString();
+			this._inputText.color = this._textColor.toHexString();
 			this._inputText.autoStretchWidth = true;
 			this._inputText.autoStretchHeight = true;
 			this._inputText.margin = "1px";
