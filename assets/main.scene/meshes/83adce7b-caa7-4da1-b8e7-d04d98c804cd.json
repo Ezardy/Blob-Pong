@@ -375,7 +375,7 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             }
                         }
                     },
@@ -385,7 +385,7 @@
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             },
                             "_leftIcon": {
                                 "type": "texture",
@@ -1197,7 +1197,7 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     }
                 }
             },
@@ -1207,7 +1207,7 @@
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     },
                     "_leftIcon": {
                         "type": "texture",

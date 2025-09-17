@@ -11,6 +11,8 @@ import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
 
 export default class Ui implements IScript {
+	private readonly	_manager:	GUI3DManager;
+
 	// main layout elements
 	@visibleAsEntity("node", "Join public game button mesh")
 	private readonly	_joinPublicGameButtonMesh!:	Mesh;
@@ -53,7 +55,25 @@ export default class Ui implements IScript {
 	private readonly	_gameListScroll:					ScrollRaioList3D;
 	private readonly	_gameListLayout:					AdvancedStackPanel3D;
 
-	private readonly	_manager:	GUI3DManager;
+	// game creation layout elements
+	@visibleAsEntity("node", "game creation header mesh")
+	private readonly	_gameCreationHeaderMesh!:	Mesh;
+	@visibleAsEntity("node", "game creation previous button mesh")
+	private readonly	_gameCreationPreviousButtonMesh!:	Mesh;
+	@visibleAsEntity("node", "game creation game name input mesh")
+	private readonly	_gameCreationGameNameInputMesh!:	Mesh;
+	@visibleAsEntity("node", "game creation player count input mesh")
+	private readonly	_gameCreationPlayerCountInputMesh!:	Mesh;
+	@visibleAsEntity("node", "game creation entrance fee input mesh")
+	private readonly	_gameCreationEntranceFeeInputMesh!:	Mesh;
+	@visibleAsEntity("node", "create button mesh")
+	private readonly	_createButtonMesh!:	Mesh;
+
+	private readonly	_gameCreationLayout:					AdvancedStackPanel3D;
+	private readonly	_gameCreationPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
+	private readonly	_gameCreationPlayerCountInputPanel:		AdvancedStackPanel3D;
+	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
+	private readonly	_createPanel:							AdvancedStackPanel3D;
 
 	public constructor(public scene: Scene) {
 		this._manager = new GUI3DManager(scene);
@@ -77,6 +97,13 @@ export default class Ui implements IScript {
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.id;
 		}, Ui._gameControlSelector, scene);
+
+		// game creation layout initialization
+		this._gameCreationLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
+		this._gameCreationPreviousButtonHeaderPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -86,7 +113,7 @@ export default class Ui implements IScript {
 	public onStart(): void {
 		this._setMainLayout();
 		this._setGameListLayout();
-		this._gameListLayout.isVisible = false;
+		this._setGameCreationLayout();
 	}
 
 	private	_setMainLayout():	void {
@@ -101,6 +128,11 @@ export default class Ui implements IScript {
 			this._mainLayout.isVisible = false;
 			this._gameListLayout.isVisible = true;
 		});
+
+		createGameButton.onPointerUpObservable.add(() => {
+			this._mainLayout.isVisible = false;
+			this._gameCreationLayout.isVisible = true;
+		});
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
@@ -112,12 +144,87 @@ export default class Ui implements IScript {
 	private	_setGameListLayout():	void {
 		this._manager.addControl(this._gameListLayout);
 		this._gameListLayout.margin = 20;
-		this._gameListLayout.padding = 0;
+		this._gameListLayout.padding = 0.05;
 		this._gameListLayout.blockLayout = true;
 			this._setGameListPanel();
 			this._setGameListControlPanel();
 			this._setGameListPreviousButtonHeaderPanel();
 		this._gameListLayout.blockLayout = false;
+		this._gameListLayout.isVisible = false;
+	}
+
+	private	_setGameCreationLayout():	void {
+		this._manager.addControl(this._gameCreationLayout);
+		this._gameCreationLayout.margin = 20;
+		this._gameCreationLayout.padding = 0.05;
+		this._gameCreationLayout.blockLayout = true;
+			this._setCreatePanel();
+			this._setGameCreationEntranceFeeInputPanel();
+			this._setGameCreationPlayerCountInputPanel();
+			const	gameNameInput:			InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
+			const	gameNameInputControl:	MeshControl = new MeshControl(this._gameCreationGameNameInputMesh, "game creation game name input", gameNameInput.inputTextArea);
+			gameNameInput.parser = (input: string) => input.length > 15 ? input.slice(0, 15) : input;
+			this._gameCreationLayout.addControl(gameNameInputControl);
+			this._setGameCreationPreviousButtonHeaderPanel();
+		this._gameCreationLayout.blockLayout = false;
+		this._gameCreationLayout.isVisible = false;
+	}
+
+	private	_setCreatePanel():	void {
+		this._gameCreationLayout.addControl(this._createPanel);
+		this._createPanel.padding = 0;
+		this._createPanel.padding = 0.01;
+		this._createPanel.blockLayout = true;
+			getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
+			const	createButton:	ButtonWithDescription = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+			this._createPanel.addControl(createButton);
+		this._createPanel.blockLayout = false;
+	}
+
+	private	_setGameCreationEntranceFeeInputPanel():	void {
+		this._gameCreationLayout.addControl(this._gameCreationEntranceFeeInputPanel);
+		this._gameCreationEntranceFeeInputPanel.margin = 10;
+		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
+			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
+			input.parser = (input: string) => {
+				const	n:	number = Number.parseFloat(input);
+				return (n > 1000 ? 1000 : (n < 1 ? 1 : n)).toString();
+			}
+			const	inputControl:	MeshControl = new MeshControl(this._gameCreationEntranceFeeInputMesh, "game creation entrance fee input", input.inputTextArea);
+			this._gameCreationEntranceFeeInputPanel.addControl(inputControl);
+		this._gameCreationEntranceFeeInputPanel.blockLayout = false;
+	}
+
+	private	_setGameCreationPlayerCountInputPanel():	void {
+		this._gameCreationLayout.addControl(this._gameCreationPlayerCountInputPanel);
+		this._gameCreationPlayerCountInputPanel.margin = 10;
+		this._gameCreationPlayerCountInputPanel.blockLayout = true;
+			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
+			input.parser = (input: string) => {
+				const	n:	number = Number.parseInt(input);
+				return (n > 10 ? 10 : (n < 2 ? 2 : n)).toString();
+			}
+			const	inputControl:	MeshControl = new MeshControl(this._gameCreationPlayerCountInputMesh, "game creation entrance fee input", input.inputTextArea);
+			this._gameCreationPlayerCountInputPanel.addControl(inputControl);
+		this._gameCreationPlayerCountInputPanel.blockLayout = false;
+	}
+
+	private	_setGameCreationPreviousButtonHeaderPanel():	void {
+		this._gameCreationLayout.addControl(this._gameCreationPreviousButtonHeaderPanel);
+		this._gameCreationPreviousButtonHeaderPanel.margin = 0;
+		this._gameCreationPreviousButtonHeaderPanel.blockLayout = true;
+			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
+			const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
+			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
+			button.onPointerUpObservable.add(() => {
+				this._gameCreationLayout.isVisible = false;
+				this._mainLayout.isVisible = true;
+			});
+			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
+			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
+			const	headerControl:	MeshControl = new MeshControl(this._gameCreationHeaderMesh, "game creation header");
+			this._gameCreationPreviousButtonHeaderPanel.addControl(headerControl);
+		this._gameCreationPreviousButtonHeaderPanel.blockLayout = false;
 	}
 
 	private	_setGameListPreviousButtonHeaderPanel():	void {
