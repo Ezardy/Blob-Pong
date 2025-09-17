@@ -82,3 +82,14 @@ export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse |
 
 	return undefined;
 }
+
+export async function logoutAsync() : Promise<void>
+{
+	const response = await request(
+		process.env.SERVER_API_LOG_OUT ?? "http://localhost:4000/api/users/logout")
+
+	if (response.statusCode === 200)
+	{
+		console.log("Logout successful");
+	}
+}
