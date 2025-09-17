@@ -1,4 +1,4 @@
-import { request } from "undici";
+import { request, fetch } from "undici";
 
 interface LoginInfo
 {
@@ -22,15 +22,17 @@ type SignUpResponse =
 	}
 }
 
+type UserInfo =
+{
+	id:			string;
+	username:	string;
+	email:		string;
+}
+
 type LoginResponse =
 {
 	message:	string;
-	user:
-	{
-		id:			string;
-		username:	string;
-		email:		string;
-	}
+	user:		UserInfo
 }
 
 export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | undefined>
@@ -68,7 +70,8 @@ export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse |
 	{
 		const json : any = await response.body.json();
 		return {
-			user: {
+			user:
+			{
 				id: json.id,
 				email: json.email,
 				username: json.username,
@@ -89,4 +92,20 @@ export async function logoutAsync() : Promise<void>
 	{
 		console.log("Logout successful");
 	}
+}
+
+// Check if session exists and update it when access token expires
+export async function doesSessionExist() : Promise<boolean>
+{
+	const response = await fetch("http://localhost:4000/api/users/tokens",
+		{
+			method: "GET",
+			credentials: "include"
+		}
+	);
+
+	if (response.ok)
+		return true;
+
+	return false;
 }
