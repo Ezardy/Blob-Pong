@@ -1,7 +1,4 @@
 import { int } from "@babylonjs/core";
-import { config } from "dotenv";
-
-config();
 
 type RoomState = "waiting" | "ready";
 

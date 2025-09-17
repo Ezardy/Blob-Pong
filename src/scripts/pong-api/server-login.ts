@@ -1,7 +1,4 @@
 import { request } from "undici";
-import { config } from "dotenv";
-
-config();
 
 interface LoginInfo
 {
