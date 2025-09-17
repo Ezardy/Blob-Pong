@@ -1,9 +1,9 @@
 {
     "tags": null,
     "position": [
-        590.745673994589,
-        0,
-        0
+        -583.2931327752973,
+        968.7564959279999,
+        4.547473508864641e-13
     ],
     "rotation": [
         0,
@@ -23,7 +23,9 @@
     "name": "create-game-layout",
     "id": "82ebdd6f-af06-422e-84ce-ce829216b628",
     "state": "",
-    "metadata": {},
+    "metadata": {
+        "isLocked": true
+    },
     "type": "TransformNode",
     "uniqueId": 1758052214954,
     "localMatrix": [
