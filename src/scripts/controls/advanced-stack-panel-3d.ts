@@ -137,18 +137,22 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 	}
 
 	private	_positionNode(pX: number, pY: number, oX: number, oY: number, nodeInverseWorld: Matrix):	void {
-		const	worldBoundingPoints:	{min: Vector3, max: Vector3} = this.node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
-		const	minBoundingPoint:		Vector3 = Vector3.TransformCoordinates(worldBoundingPoints.min, nodeInverseWorld);
+		const	extendSizeKeys:			Array<int> = Array.from(this._extendSizes.keys());
+		const	worldBoundingPoints:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[0]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+		const	minBoundingPoint:		Vector3 = worldBoundingPoints.min;
 		const	scene:					Scene = this.node!.getScene();
 		const	camera:					Camera = scene.activeCamera!;
 		const	engine:					AbstractEngine = scene.getEngine();
 		const	rect = engine.getRenderingCanvasClientRect()!;
-		const	ray:					Ray = scene.createPickingRay(rect.width * pX, rect.height * pY, this.node!.getWorldMatrix(), camera);
-		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, new Vector3(0, 0, -1));
+		const	ray:					Ray = scene.createPickingRay(rect.width * pX, rect.height * pY, null, camera);
+		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, this.node!.forward.negate());
 		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
 
-		if (distance)
-			this.node!.position = ray.origin.add(ray.direction.scale(distance)).subtractFromFloats(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z);
+		if (distance) {
+			const	shift:	Vector3 = Vector3.TransformNormal(ray.origin.add(ray.direction.scale(distance)).subtractFromFloats(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z).subtractInPlace(this.node!.position), nodeInverseWorld);
+			for (const i of extendSizeKeys)
+				this.children[i].position.addInPlace(shift);
+		}
 	}
 
 	public override set	isVisible(value: boolean) {

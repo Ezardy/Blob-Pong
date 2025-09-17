@@ -12,14 +12,14 @@
             ],
             "rotationQuaternion": [
                 0,
-                0.10626407133623315,
+                0.19812569873065508,
                 0,
-                0.9943379441332046
+                0.9801766205651357
             ],
             "scaling": [
+                27.000000000000018,
                 27,
-                27,
-                27
+                27.000000000000018
             ],
             "localMatrix": [
                 1,
@@ -375,7 +375,7 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             }
                         }
                     },
@@ -385,7 +385,7 @@
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
                             },
                             "_leftIcon": {
                                 "type": "texture",
@@ -1197,7 +1197,7 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     }
                 }
             },
@@ -1207,7 +1207,7 @@
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
                     },
                     "_leftIcon": {
                         "type": "texture",

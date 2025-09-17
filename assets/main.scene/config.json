@@ -182,6 +182,30 @@
                     "_entranceFeeEntryMesh": {
                         "type": "entity",
                         "value": "39febb52-3f24-482b-89e3-466db5546d7c"
+                    },
+                    "_gameCreationHeaderMesh": {
+                        "type": "entity",
+                        "value": "41489335-cafb-4baf-832e-4812034923d2"
+                    },
+                    "_gameCreationPreviousButtonMesh": {
+                        "type": "entity",
+                        "value": "83adce7b-caa7-4da1-b8e7-d04d98c804cd"
+                    },
+                    "_gameCreationGameNameInputMesh": {
+                        "type": "entity",
+                        "value": "2cc86f80-14f6-4450-96db-206853166fb4"
+                    },
+                    "_gameCreationPlayerCountInputMesh": {
+                        "type": "entity",
+                        "value": "3cf1c7e8-3eaf-4981-b66b-32f0d95145d5"
+                    },
+                    "_gameCreationEntranceFeeInputMesh": {
+                        "type": "entity",
+                        "value": "5beccf2d-b0aa-4e51-824a-5afa465589aa"
+                    },
+                    "_createButtonMesh": {
+                        "type": "entity",
+                        "value": "157a6553-1554-4a9a-b696-c7778794b1c1"
                     }
                 }
             }
