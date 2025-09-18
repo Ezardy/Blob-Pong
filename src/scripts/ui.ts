@@ -124,6 +124,7 @@ export default class Ui implements IScript {
 	}
 
 	public onStart(): void {
+		this._serverGame.init();
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -350,7 +351,45 @@ export default class Ui implements IScript {
 
 		this._serverGame.refreshRooms();
 		console.log(this._serverGame.getRooms);
-		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)));
+		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
+		else
+			this._gameListScroll.fillList([{
+			id: "peatacho world",
+			players: 8,
+			max_players: 16,
+			fee: 100
+		}, {
+			id: "money maker crussaders",
+			players: 15,
+			max_players: 16,
+			fee: 100
+		}, {
+			id: "10",
+			players: 1,
+			max_players: 2,
+			fee: 1000
+		}, {
+			id: "real gamer",
+			players: 1,
+			max_players: 16,
+			fee: 10
+		}, {
+			id: "ie533-3523-2ffs-3ddf2",
+			players: 3,
+			max_players: 7,
+			fee: 34
+		}, {
+			id: "nevermind kirk",
+			players: 2,
+			max_players: 3,
+			fee: 1000
+		}, {
+			id: "3rrf0-3r3f2-fffs3-3523",
+			players: 1,
+			max_players: 2,
+			fee: 10000
+		}]);
 		this._gameListScroll.blockLayout = false;
 	}
 }
