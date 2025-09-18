@@ -1,5 +1,5 @@
 import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
-import { AbstractButton3D, Container3D, Control3D, GUI3DManager, MeshButton3D } from "@babylonjs/gui";
+import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
@@ -9,6 +9,9 @@ import ScrollRaioList3D from "./controls/scroll-radio-list";
 import SwitchButton3D from "./controls/switch-button";
 import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
+import { ServerGame } from "./web-api/server-game";
+import { JSONArray } from "./functions/typing-utils";
+import { throws } from "assert";
 
 export default class Ui implements IScript {
 	private readonly	_manager:	GUI3DManager;
@@ -69,11 +72,17 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "create button mesh")
 	private readonly	_createButtonMesh!:	Mesh;
 
+	private				_gameCreationGameNameInput!:				InputTextArea;
+	private				_gameCreationEntranceFeeInput!:			InputTextArea;
+	private				_gameCreationPlayerCountInput!:			InputTextArea;
+
 	private readonly	_gameCreationLayout:					AdvancedStackPanel3D;
 	private readonly	_gameCreationPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
 	private readonly	_gameCreationPlayerCountInputPanel:		AdvancedStackPanel3D;
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
+
+	private _serverGame:	ServerGame;
 
 	public constructor(public scene: Scene) {
 		this._manager = new GUI3DManager(scene);
@@ -91,9 +100,10 @@ export default class Ui implements IScript {
 		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
 			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
 			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer)!;
-			playerCountDrawer.frontTextBlock.text = entry.players + '/' + entry.max_players;
+			const	playerCount = (entry.players as JSONArray).length;
+			playerCountDrawer.frontTextBlock.text = playerCount + '/' + entry.maxPlayers;
 			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
-			entranceFeeDrawer.frontTextBlock.text = "" + entry.fee;
+			entranceFeeDrawer.frontTextBlock.text = "" + entry.entryFee;
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.id;
 		}, Ui._gameControlSelector, scene);
@@ -104,6 +114,9 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
+
+		// ServerGame creation
+		this._serverGame = new ServerGame();
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -162,6 +175,7 @@ export default class Ui implements IScript {
 			this._setGameCreationEntranceFeeInputPanel();
 			this._setGameCreationPlayerCountInputPanel();
 			const	gameNameInput:			InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
+			this._gameCreationGameNameInput = gameNameInput.inputTextArea;
 			const	gameNameInputControl:	MeshControl = new MeshControl(this._gameCreationGameNameInputMesh, "game creation game name input", gameNameInput.inputTextArea);
 			gameNameInput.parser = (input: string) => input.length > 15 ? input.slice(0, 15) : input;
 			this._gameCreationLayout.addControl(gameNameInputControl);
@@ -177,7 +191,16 @@ export default class Ui implements IScript {
 		this._createPanel.blockLayout = true;
 			getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
 			const	createButton:	ButtonWithDescription = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+			createButton.onPointerUpObservable.add(() =>
+			{
+				this._serverGame.createRoomWs(
+					this._gameCreationGameNameInput.text,
+					Number.parseFloat(this._gameCreationEntranceFeeInput.text),
+					Number.parseInt(this._gameCreationPlayerCountInput.text)
+				);
+			})
 			this._createPanel.addControl(createButton);
+			createButton.isEnabled = false;
 		this._createPanel.blockLayout = false;
 	}
 
@@ -186,6 +209,7 @@ export default class Ui implements IScript {
 		this._gameCreationEntranceFeeInputPanel.margin = 10;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
+			this._gameCreationPlayerCountInput = input.inputTextArea;
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseFloat(input);
 				return (n > 1000 ? 1000 : (n < 1 ? 1 : n)).toString();
@@ -200,6 +224,7 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel.margin = 10;
 		this._gameCreationPlayerCountInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
+			this._gameCreationEntranceFeeInput = input.inputTextArea;
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseInt(input);
 				return (n > 10 ? 10 : (n < 2 ? 2 : n)).toString();
@@ -253,6 +278,12 @@ export default class Ui implements IScript {
 			this._setPlayerCountOrderButtonInputPanel();
 			this._setEntranceFeeOrderButtonInputPanel();
 			const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
+
+			refreshButton.onPointerUpObservable.add(() =>
+			{
+				this._serverGame.refreshRooms();
+			});
+
 			const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 			playButton.isEnabled = false;
 			this._gameListControlPanel.addControl(refreshButton);
@@ -316,42 +347,10 @@ export default class Ui implements IScript {
 			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
-		this._gameListScroll.fillList([{
-			id: "peatacho world",
-			players: 8,
-			max_players: 16,
-			fee: 100
-		}, {
-			id: "money maker crussaders",
-			players: 15,
-			max_players: 16,
-			fee: 100
-		}, {
-			id: "10",
-			players: 1,
-			max_players: 2,
-			fee: 1000
-		}, {
-			id: "real gamer",
-			players: 1,
-			max_players: 16,
-			fee: 10
-		}, {
-			id: "ie533-3523-2ffs-3ddf2",
-			players: 3,
-			max_players: 7,
-			fee: 34
-		}, {
-			id: "nevermind kirk",
-			players: 2,
-			max_players: 3,
-			fee: 1000
-		}, {
-			id: "3rrf0-3r3f2-fffs3-3523",
-			players: 1,
-			max_players: 2,
-			fee: 10000
-		}]);
+
+		this._serverGame.refreshRooms();
+		console.log(this._serverGame.getRooms);
+		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)));
 		this._gameListScroll.blockLayout = false;
 	}
 }

@@ -80,6 +80,11 @@ export class ServerGame
 		this.requestSessionIdFromParent();
 	}
 
+	public init()
+	{
+		this.requestSessionIdFromParent();
+	}
+
 	public lobbyWs() : void
 	{
 		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?userId=${this._sessionId}`);
@@ -93,6 +98,7 @@ export class ServerGame
 		{
 			try
 			{
+				console.log(event.data);
 				const data: LobbyConnect = JSON.parse(event.data);
 				this._currentRoomId = data.currentRoomId;
 				this._rooms = data.rooms;
@@ -289,19 +295,18 @@ export class ServerGame
 		if (this.isWebSocketOpen(this._lobbyWs))
 			this._lobbyWs!.send("PING");
 	}
-	
+
 	public handleClientEvent()
 	{
 		window.addEventListener("message", (event: MessageEvent) =>
 		{
-			// Do not allow messages from sources coming from different origins
-			if (event.origin !== window.location.origin)
-				return;
-
 			switch (event.data.type)
 			{
 				case "SESSION_ID_RESPONSE":
+					console.log('received session');
+					console.log(`session is ${event.data.sessionId}`);
 					this._sessionId = event.data.sessionId;
+					this.lobbyWs();
 					break;
 				default:
 					break;
@@ -311,9 +316,13 @@ export class ServerGame
 
 	public requestSessionIdFromParent()
 	{
+		const parentOrigin = window.location.ancestorOrigins 
+			? window.location.ancestorOrigins[0] 
+			: '*';
+
 		window.parent.postMessage(
 			{ type: 'REQUEST_SESSION' },
-			window.location.origin
+			parentOrigin
 		);
 	}
 
