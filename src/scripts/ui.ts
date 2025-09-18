@@ -190,18 +190,19 @@ export default class Ui implements IScript {
 		this._createPanel.padding = 0;
 		this._createPanel.padding = 0.01;
 		this._createPanel.blockLayout = true;
-			getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
-			const	createButton:	ButtonWithDescription = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
-			createButton.onPointerUpObservable.add(() =>
-			{
-				this._serverGame.createRoomWs(
-					this._gameCreationGameNameInput.text,
-					Number.parseFloat(this._gameCreationEntranceFeeInput.text),
-					Number.parseInt(this._gameCreationPlayerCountInput.text)
-				);
-			})
-			this._createPanel.addControl(createButton);
-			createButton.isEnabled = false;
+
+		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
+		const	createButton:	ButtonWithDescription = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		createButton.onPointerUpObservable.add(() =>
+		{
+			this._serverGame.createRoomWs(
+				this._gameCreationGameNameInput.text,
+				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
+				Number.parseInt(this._gameCreationPlayerCountInput.text)
+			);
+		})
+		this._createPanel.addControl(createButton);
+		createButton.isEnabled = false;
 		this._createPanel.blockLayout = false;
 	}
 
@@ -353,43 +354,8 @@ export default class Ui implements IScript {
 		console.log(this._serverGame.getRooms);
 		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
-		else
-			this._gameListScroll.fillList([{
-			id: "peatacho world",
-			players: 8,
-			max_players: 16,
-			fee: 100
-		}, {
-			id: "money maker crussaders",
-			players: 15,
-			max_players: 16,
-			fee: 100
-		}, {
-			id: "10",
-			players: 1,
-			max_players: 2,
-			fee: 1000
-		}, {
-			id: "real gamer",
-			players: 1,
-			max_players: 16,
-			fee: 10
-		}, {
-			id: "ie533-3523-2ffs-3ddf2",
-			players: 3,
-			max_players: 7,
-			fee: 34
-		}, {
-			id: "nevermind kirk",
-			players: 2,
-			max_players: 3,
-			fee: 1000
-		}, {
-			id: "3rrf0-3r3f2-fffs3-3523",
-			players: 1,
-			max_players: 2,
-			fee: 10000
-		}]);
+		// else
+		// 	this._gameListScroll.fillList([]);
 		this._gameListScroll.blockLayout = false;
 	}
 }
