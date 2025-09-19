@@ -80,11 +80,6 @@ export class ServerGame
 		this.requestSessionIdFromParent();
 	}
 
-	public init()
-	{
-		this.requestSessionIdFromParent();
-	}
-
 	public lobbyWs() : void
 	{
 		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?userId=${this._sessionId}`);
@@ -136,6 +131,7 @@ export class ServerGame
 
 		ws.onmessage = (event: MessageEvent) =>
 		{
+			console.log(event.data);
 			const data : CreateRoom = event.data;
 			this._currentRoomId = data.room.id;
 
@@ -328,6 +324,7 @@ export class ServerGame
 
 	public get getRooms() : RoomInfo[]
 	{
+		console.log(`rooms: ${this._rooms}`);
 		return this._rooms!;
 	}
 

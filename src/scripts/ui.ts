@@ -87,7 +87,8 @@ export default class Ui implements IScript {
 
 	public constructor(public scene: Scene) {
 		this._manager = new GUI3DManager(scene);
-
+		// ServerGame creation
+		this._serverGame = new ServerGame();
 		// main layout initialization
 		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 
@@ -115,9 +116,6 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
-
-		// ServerGame creation
-		this._serverGame = new ServerGame();
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -125,7 +123,6 @@ export default class Ui implements IScript {
 	}
 
 	public onStart(): void {
-		this._serverGame.init();
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -280,19 +277,19 @@ export default class Ui implements IScript {
 		this._gameListLayout.addControl(this._gameListControlPanel);
 		this._gameListControlPanel.margin = 70;
 		this._gameListControlPanel.blockLayout = true;
-			this._setPlayerCountOrderButtonInputPanel();
-			this._setEntranceFeeOrderButtonInputPanel();
-			const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
+		this._setPlayerCountOrderButtonInputPanel();
+		this._setEntranceFeeOrderButtonInputPanel();
+		const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
 
-			refreshButton.onPointerUpObservable.add(() =>
-			{
-				this._serverGame.refreshRooms();
-			});
+		refreshButton.onPointerUpObservable.add(() =>
+		{
+			this._serverGame.refreshRooms();
+		});
 
-			const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
-			playButton.isEnabled = false;
-			this._gameListControlPanel.addControl(refreshButton);
-			this._gameListControlPanel.addControl(playButton);
+		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		playButton.isEnabled = false;
+		this._gameListControlPanel.addControl(refreshButton);
+		this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
 
 		this._gameListScroll.onSelectObservable.add((c: Nullable<Control3D>) => playButton.isEnabled = c != null);
@@ -338,22 +335,23 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameListPanel():	void {
+		this._serverGame.refreshRooms();
+
 		this._gameListLayout.addControl(this._gameListScroll);
 		this._gameListScroll.blockLayout = true;
 		this._gameListScroll.addControl(this._entryPanel);
 		this._entryPanel.margin = 10;
 		this._entryPanel.blockLayout = true;
-			getScriptByClassForObject(this._playerCountEntryMesh, TextBlockDrawer)?.render();
-			getScriptByClassForObject(this._entranceFeeEntryMesh, TextBlockDrawer)?.render();
-			getScriptByClassForObject(this._gameNameEntryMesh, TextBlockDrawer)?.render();
-			this._entryPanel.addControl(new MeshControl(this._playerCountEntryMesh, "player count entry"));
-			this._entryPanel.addControl(new MeshControl(this._entranceFeeEntryMesh, "entrance fee entry"));
-			const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
-			this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
+		getScriptByClassForObject(this._playerCountEntryMesh, TextBlockDrawer)?.render();
+		getScriptByClassForObject(this._entranceFeeEntryMesh, TextBlockDrawer)?.render();
+		getScriptByClassForObject(this._gameNameEntryMesh, TextBlockDrawer)?.render();
+		this._entryPanel.addControl(new MeshControl(this._playerCountEntryMesh, "player count entry"));
+		this._entryPanel.addControl(new MeshControl(this._entranceFeeEntryMesh, "entrance fee entry"));
+		const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
+		this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 
-		this._serverGame.refreshRooms();
 		console.log(this._serverGame.getRooms);
 		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
