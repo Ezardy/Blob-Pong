@@ -72,9 +72,10 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "create button mesh")
 	private readonly	_createButtonMesh!:	Mesh;
 
-	private				_gameCreationGameNameInput!:				InputTextArea;
-	private				_gameCreationEntranceFeeInput!:			InputTextArea;
-	private				_gameCreationPlayerCountInput!:			InputTextArea;
+	private	_gameCreationGameNameInput!:	InputTextArea;
+	private	_gameCreationEntranceFeeInput!:	InputTextArea;
+	private	_gameCreationPlayerCountInput!:	InputTextArea;
+	private	_createButton!:					ButtonWithDescription;
 
 	private readonly	_gameCreationLayout:					AdvancedStackPanel3D;
 	private readonly	_gameCreationPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
@@ -177,6 +178,7 @@ export default class Ui implements IScript {
 			this._setGameCreationPlayerCountInputPanel();
 			const	gameNameInput:			InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
 			this._gameCreationGameNameInput = gameNameInput.inputTextArea;
+			this._gameCreationGameNameInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			const	gameNameInputControl:	MeshControl = new MeshControl(this._gameCreationGameNameInputMesh, "game creation game name input", gameNameInput.inputTextArea);
 			gameNameInput.parser = (input: string) => input.length > 15 ? input.slice(0, 15) : input;
 			this._gameCreationLayout.addControl(gameNameInputControl);
@@ -192,17 +194,16 @@ export default class Ui implements IScript {
 		this._createPanel.blockLayout = true;
 
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
-		const	createButton:	ButtonWithDescription = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
-		createButton.onPointerUpObservable.add(() =>
-		{
+		this._createButton = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		this._createButton.onPointerUpObservable.add(() => {
 			this._serverGame.createRoomWs(
 				this._gameCreationGameNameInput.text,
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
 				Number.parseInt(this._gameCreationPlayerCountInput.text)
 			);
 		})
-		this._createPanel.addControl(createButton);
-		createButton.isEnabled = false;
+		this._createPanel.addControl(this._createButton);
+		this._createButton.isEnabled = false;
 		this._createPanel.blockLayout = false;
 	}
 
@@ -212,6 +213,7 @@ export default class Ui implements IScript {
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
 			this._gameCreationPlayerCountInput = input.inputTextArea;
+			this._gameCreationPlayerCountInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseFloat(input);
 				return (n > 1000 ? 1000 : (n < 1 ? 1 : n)).toString();
@@ -227,6 +229,7 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
 			this._gameCreationEntranceFeeInput = input.inputTextArea;
+			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseInt(input);
 				return (n > 10 ? 10 : (n < 2 ? 2 : n)).toString();
@@ -354,8 +357,11 @@ export default class Ui implements IScript {
 		console.log(this._serverGame.getRooms);
 		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
-		// else
-		// 	this._gameListScroll.fillList([]);
 		this._gameListScroll.blockLayout = false;
+	}
+
+	// Observers' functions
+	private	_enableCreateButton():	void {
+		this._createButton.isEnabled = this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0;
 	}
 }
