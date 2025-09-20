@@ -50,12 +50,13 @@ type RoomPlayer =
 
 interface RoomInfo
 {
-	id:					string;
-	entryFee:			number;
-	players:			Set<RoomPlayer>;
-	maxPlayers:			number;
-	createdAt:			Date;
-	state:				RoomState;
+	id:			string;
+	name:		string;
+	entryFee:	number;
+	players:	Set<RoomPlayer>;
+	maxPlayers:	number;
+	createdAt:	Date;
+	state:		RoomState;
 }
 
 interface FullRoomInfo extends RoomInfo
@@ -68,11 +69,11 @@ interface FullRoomInfo extends RoomInfo
 
 export class ServerGame
 {
-	private _lobbyWs?:				WebSocket;
-	private _gameWs?:				WebSocket;
-	private _sessionId?:			string;
-	private _currentRoomId?:		string;
-	private _rooms?:				FullRoomInfo[];
+	private _lobbyWs?:			WebSocket;
+	private _gameWs?:			WebSocket;
+	private _sessionId?:		string;
+	private _currentRoomId?:	string;
+	private _rooms?:			FullRoomInfo[];
 
 	constructor()
 	{
@@ -126,7 +127,7 @@ export class ServerGame
 		ws.onopen = () =>
 		{
 			console.log("Connected to CreateRoom WebSocket");
-			ws.send(JSON.stringify({ maxPlayers, entryFee }));
+			ws.send(JSON.stringify({ maxPlayers, entryFee, name }));
 		}
 
 		ws.onmessage = (event: MessageEvent) =>
