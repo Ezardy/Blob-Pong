@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Tools, Vector3 } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
@@ -138,8 +138,8 @@ export default class Ui implements IScript {
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._mainLayout.isVisible = false;
-			this._refreshGameList();
 			this._gameListLayout.isVisible = true;
+			this._refreshGameList();
 		});
 
 		createGameButton.onPointerUpObservable.add(() => {
@@ -156,7 +156,7 @@ export default class Ui implements IScript {
 
 	private	_setGameListLayout():	void {
 		this._manager.addControl(this._gameListLayout);
-		this._gameListLayout.margin = 20;
+		this._gameListLayout.margin = 10;
 		this._gameListLayout.padding = 0.05;
 		this._gameListLayout.blockLayout = true;
 			this._setGameListPanel();
@@ -353,6 +353,7 @@ export default class Ui implements IScript {
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.blockLayout = false;
+		this._gameListScroll.initialize();
 	}
 
 	// Observers' functions
@@ -364,6 +365,8 @@ export default class Ui implements IScript {
 		this._serverGame.refreshRooms();
 		this._serverGame.onRoomsUpdatedObservable.add((rooms: any) => {
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(rooms)) ?? []);
+			this._gameListLayout.updateLayout();
+			this._gameListScroll.setClipped(true);
 		});
 	}
 }

@@ -1,9 +1,10 @@
-import { AbstractEngine, AbstractMesh, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, AbstractMesh, Camera, Color3, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
 import IconDrawer from "../icon-drawer";
 import { Control3DClone } from "../functions/typing-utils";
+import { drawBoundingBox } from "../functions/bounding-box";
 
 export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;

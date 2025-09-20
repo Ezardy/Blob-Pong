@@ -1,7 +1,7 @@
-import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation, Color3 } from "@babylonjs/core";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { ISelectable } from "../interfaces/iselectable";
-import { updateBoundingBoxRecursively } from "../functions/bounding-box";
+import { drawBoundingBox, updateBoundingBoxRecursively } from "../functions/bounding-box";
 import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
 import MeshButton3DDisablable from "./mesh-button-3d-disablable";
@@ -135,7 +135,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 
 	public	clone():	Control3DClone {
 		const	dummyMesh:	Mesh = this.mesh as Mesh;
-		const	actualMesh:	Mesh = dummyMesh.getChildMeshes()[0] as Mesh;
+		const	actualMesh:	AbstractMesh = dummyMesh.getChildMeshes()[0] as AbstractMesh;
 		actualMesh.position.set(dummyMesh.position.x, dummyMesh.position.y, dummyMesh.position.z);
 		const	c:	SwitchButton3D = new SwitchButton3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation);
 		actualMesh.position.setAll(0);
