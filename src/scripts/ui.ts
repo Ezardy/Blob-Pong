@@ -138,8 +138,8 @@ export default class Ui implements IScript {
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._mainLayout.isVisible = false;
-			this._refreshGameList();
 			this._gameListLayout.isVisible = true;
+			this._refreshGameList();
 		});
 
 		createGameButton.onPointerUpObservable.add(() => {
@@ -156,7 +156,7 @@ export default class Ui implements IScript {
 
 	private	_setGameListLayout():	void {
 		this._manager.addControl(this._gameListLayout);
-		this._gameListLayout.margin = 20;
+		this._gameListLayout.margin = 10;
 		this._gameListLayout.padding = 0.05;
 		this._gameListLayout.blockLayout = true;
 			this._setGameListPanel();
@@ -350,6 +350,7 @@ export default class Ui implements IScript {
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.blockLayout = false;
+		this._gameListScroll.initialize();
 	}
 
 	// Observers' functions
@@ -360,9 +361,7 @@ export default class Ui implements IScript {
 	private	_refreshGameList():	void {
 		this._serverGame.refreshRooms();
 		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
-		Tools.SetImmediate(() => {
-			this._gameListLayout.updateLayout();
-			this._gameListScroll.setClipped(true);
-		});
+		this._gameListLayout.updateLayout();
+		this._gameListScroll.setClipped(true);
 	}
 }

@@ -27,7 +27,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		scene.onPointerObservable.add(this._callback, PointerEventTypes.POINTERWHEEL);
 	}
 
-	public	fillList(entries: JSONArray):	void {
+	public	initialize():	void {
 		const	bl:	boolean = this.blockLayout;
 		if (!this._initialized) {
 			this._initialized = true;
@@ -41,6 +41,9 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 					this.children.push(this.children.shift()!);
 			this.blockLayout = bl;
 		}
+	}
+
+	public	fillList(entries: JSONArray):	void {
 		this._entries = entries;
 		let	i:	number;
 		let	lastPos:	int = Math.min(entries.length, this.children.length);
@@ -61,8 +64,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 			for (; i < this.children.length; i += 1)
 				this.children[i].isVisible = false;
 		}
-		if (!bl)
-			this._arrangeChildren();
+		this._arrangeChildren();
 	}
 
 	public override	addControl(control: AdvancedStackPanel3D):	ScrollList3D {
