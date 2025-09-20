@@ -14,8 +14,8 @@ export default class ScrollRaioList3D extends ScrollList3D {
 
 	public readonly	onSelectObservable:	Observable<Nullable<Control3D>>;
 
-	public get	selectedEntryIndex():	int {
-		return this._controlIndex;
+	public get	selectedEntry():	JSONObject {
+		return this._entries ? this._entries[this._controlIndex] : {};
 	}
 
 	public constructor(isVertical: boolean, pageSize: int, fillerFunc: (entry: JSONObject, control: Control3D) => void, private buttonSelector: (control: Control3D) => AbstractButton3D & ISelectable, scene: Scene) {
