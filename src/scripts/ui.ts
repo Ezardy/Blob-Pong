@@ -138,9 +138,8 @@ export default class Ui implements IScript {
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._mainLayout.isVisible = false;
+			this._refreshGameList();
 			this._gameListLayout.isVisible = true;
-			this._serverGame.refreshRooms();
-			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 		});
 
 		createGameButton.onPointerUpObservable.add(() => {
@@ -283,10 +282,8 @@ export default class Ui implements IScript {
 		this._setEntranceFeeOrderButtonInputPanel();
 		const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
 
-		refreshButton.onPointerUpObservable.add(() =>
-		{
-			this._serverGame.refreshRooms();
-			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
+		refreshButton.onPointerUpObservable.add(() => {
+			this._refreshGameList();
 		});
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
@@ -358,5 +355,10 @@ export default class Ui implements IScript {
 	// Observers' functions
 	private	_enableCreateButton():	void {
 		this._createButton.isEnabled = this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0;
+	}
+
+	private	_refreshGameList():	void {
+		this._serverGame.refreshRooms();
+		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 	}
 }

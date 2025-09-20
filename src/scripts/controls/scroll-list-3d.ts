@@ -30,6 +30,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	public	fillList(entries: JSONArray):	void {
 		const	bl:	boolean = this.blockLayout;
 		if (!this._initialized) {
+			this._initialized = true;
 			this.blockLayout = true;
 				for (let i = 0; i < this.pageSize; i += 1) {
 					const	clones:	Control3DClone = (<AdvancedStackPanel3D>this.children[0]).clone();
@@ -102,7 +103,6 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	protected override	_arrangeChildren():	void {
 		super._arrangeChildren();
 		if (!this._initialized) {
-			this._initialized = true;
 			this._index = 0;
 			this._extendSizeKeys = Array.from(this._extendSizes.keys());
 			for (const i of this._extendSizeKeys)
@@ -116,9 +116,10 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
 			}
 		}
+		/*
 		Tools.SetImmediate(() => {
 			const	lastControlNode:	TransformNode = this.isVertical ? this._rollControls[0].node! : this._rollControls[this._rollControls.length - 1].node!;
-			const	vv:					{min: Vector3, max: Vector3} = this._entries && this._entries.length > 1 ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(lastControlNode)) : this.node!.getHierarchyBoundingVectors();
+			const	vv:					{min: Vector3, max: Vector3} = this._entries && this._entries.length > this.pageSize ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(lastControlNode)) : this.node!.getHierarchyBoundingVectors();
 			let		startPlane:			Plane;
 			let		endPlane:			Plane;
 			if (this.isVertical) {
@@ -138,6 +139,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				}
 			}
 		});
+		*/
 	}
 
 	private	_scrollCallback(info: PointerInfo, state: EventState):	void {
