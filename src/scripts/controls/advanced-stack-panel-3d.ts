@@ -1,4 +1,4 @@
-import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, AbstractMesh, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
@@ -161,9 +161,9 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 			for (const child of this.children) {
 				child.isVisible = value;
 				if (value && child.mesh) {
-					getScriptByClassForObject(child.mesh, IconDrawer)?.render();
+					Tools.SetImmediate(() => getScriptByClassForObject(child.mesh, IconDrawer)?.render());
 					for (const childOfChild of child.mesh.getChildMeshes())
-						getScriptByClassForObject(childOfChild, IconDrawer)?.render();
+						Tools.SetImmediate(() => getScriptByClassForObject(childOfChild, IconDrawer)?.render());
 				}
 			}
 		}

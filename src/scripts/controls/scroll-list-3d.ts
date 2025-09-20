@@ -1,8 +1,10 @@
-import { AbstractMesh, EventState, InstancedMesh, int, Plane, PointerEventTypes, PointerInfo, Scene, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, EventState, InstancedMesh, int, Plane, PointerEventTypes, PointerInfo, Scene, Tools, TransformNode, Vector3 } from "@babylonjs/core";
 import { AdvancedStackPanel3D } from "./advanced-stack-panel-3d";
 import { Control3D } from "@babylonjs/gui";
 import { Control3DClone, JSONArray, JSONObject } from "../functions/typing-utils";
 import { parentClones } from "../functions/cloning";
+import { getScriptByClassForObject } from "babylonjs-editor-tools";
+import IconDrawer from "../icon-drawer";
 
 export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_preFirstPos:		number = 0;
@@ -75,15 +77,25 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	
 	public override set	isVisible(value: boolean) {
 		if (this._isVisible != value) {
-			Object.getOwnPropertyDescriptor(AdvancedStackPanel3D.prototype, "isVisible")!.set!.call(this, value);
+			this._isVisible = value;
 			if (value) {
 				this.scene.onPointerObservable.add(this._callback, PointerEventTypes.POINTERWHEEL);
 				const	entLen:	int = Math.min(this._entries ? this._entries.length : 0, this.children.length);
-				const	len:	int = this.children.length - entLen;
-				for (let i = 0; i < len; i += 1)
-					this.children[i].isVisible = false;
-			} else
+				const	len:	int = (this.isVertical ? this.children.length - entLen : 0) - 1;
+				for (let i = (this.isVertical ? this.children.length : entLen) - 1; i > len; i -= 1) {
+					const	child:	Control3D = this.children[i];
+					child.isVisible = true;
+					if (child.mesh) {
+						Tools.SetImmediate(() => getScriptByClassForObject(child.mesh, IconDrawer)?.render());
+						for (const childOfChild of child.mesh.getChildMeshes())
+							Tools.SetImmediate(() => getScriptByClassForObject(childOfChild, IconDrawer)?.render());
+					}
+				}
+			} else {
 				this.scene.onPointerObservable.removeCallback(this._callback);
+				for (const child of this.children)
+					child.isVisible = false;
+			}
 		}
 	}
 
@@ -103,28 +115,29 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this._preFirstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
 				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
 			}
-			Tools.SetImmediate(() => {
-				const	vv:			{min: Vector3, max: Vector3} = this.isVertical ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(this._rollControls[0].node!)) : this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(this._rollControls[this._rollControls.length - 1].node!));
-				let		startPlane:	Plane;
-				let		endPlane:	Plane;
-				if (this.isVertical) {
-					startPlane = new Plane(0, 1, 0, -vv.max.y);
-					endPlane = new Plane(0, -1, 0, vv.min.y);
-				} else {
-					startPlane = new Plane(-1, 0, 0, vv.min.x);
-					endPlane = new Plane(1, 0, 0, -vv.max.x);
-				}
-				for (const mesh of this.node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.material != null)) {
-					if (mesh instanceof InstancedMesh) {
-						mesh.sourceMesh.material!.clipPlane = startPlane;
-						mesh.sourceMesh.material!.clipPlane2 = endPlane;
-					} else {
-						mesh.material!.clipPlane = startPlane;
-						mesh.material!.clipPlane2 = endPlane;
-					}
-				}
-			});
 		}
+		Tools.SetImmediate(() => {
+			const	lastControlNode:	TransformNode = this.isVertical ? this._rollControls[0].node! : this._rollControls[this._rollControls.length - 1].node!;
+			const	vv:					{min: Vector3, max: Vector3} = this._entries && this._entries.length > 1 ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(lastControlNode)) : this.node!.getHierarchyBoundingVectors();
+			let		startPlane:			Plane;
+			let		endPlane:			Plane;
+			if (this.isVertical) {
+				startPlane = new Plane(0, 1, 0, -vv.max.y);
+				endPlane = new Plane(0, -1, 0, vv.min.y);
+			} else {
+				startPlane = new Plane(-1, 0, 0, vv.min.x);
+				endPlane = new Plane(1, 0, 0, -vv.max.x);
+			}
+			for (const mesh of this.node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.material != null)) {
+				if (mesh instanceof InstancedMesh) {
+					mesh.sourceMesh.material!.clipPlane = startPlane;
+					mesh.sourceMesh.material!.clipPlane2 = endPlane;
+				} else {
+					mesh.material!.clipPlane = startPlane;
+					mesh.material!.clipPlane2 = endPlane;
+				}
+			}
+		});
 	}
 
 	private	_scrollCallback(info: PointerInfo, state: EventState):	void {

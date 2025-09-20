@@ -71,7 +71,8 @@ export default class InputField3D implements IScript, IClonableScript {
 					this._inputText.placeholderText = this._hint;
 					this._hintShowed = true;
 					this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
-				}
+				} else
+					this._inputText.text = this.parser(this._inputText.text);
 			}
 		});
 	}

@@ -126,7 +126,7 @@ export class ServerGame
 		ws.onopen = () =>
 		{
 			console.log("Connected to CreateRoom WebSocket");
-			ws.send(JSON.stringify({ entryFee, maxPlayers }));
+			ws.send(JSON.stringify({ maxPlayers, entryFee }));
 		}
 
 		ws.onmessage = (event: MessageEvent) =>
