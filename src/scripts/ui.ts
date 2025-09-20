@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Tools, Vector3 } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
@@ -360,5 +360,9 @@ export default class Ui implements IScript {
 	private	_refreshGameList():	void {
 		this._serverGame.refreshRooms();
 		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
+		Tools.SetImmediate(() => {
+			this._gameListLayout.updateLayout();
+			this._gameListScroll.setClipped(true);
+		});
 	}
 }

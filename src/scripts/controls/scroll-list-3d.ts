@@ -116,8 +116,10 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
 			}
 		}
-		/*
-		Tools.SetImmediate(() => {
+	}
+
+	public	setClipped(value: boolean):	void {
+		if (value) {
 			const	lastControlNode:	TransformNode = this.isVertical ? this._rollControls[0].node! : this._rollControls[this._rollControls.length - 1].node!;
 			const	vv:					{min: Vector3, max: Vector3} = this._entries && this._entries.length > this.pageSize ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(lastControlNode)) : this.node!.getHierarchyBoundingVectors();
 			let		startPlane:			Plane;
@@ -138,8 +140,17 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 					mesh.material!.clipPlane2 = endPlane;
 				}
 			}
-		});
-		*/
+		} else {
+			for (const mesh of this.node!.getChildMeshes(false, n => n instanceof AbstractMesh && n.material != null)) {
+				if (mesh instanceof InstancedMesh) {
+					mesh.sourceMesh.material!.clipPlane = null;
+					mesh.sourceMesh.material!.clipPlane2 = null;
+				} else {
+					mesh.material!.clipPlane = null;
+					mesh.material!.clipPlane2 = null;
+				}
+			}
+		}
 	}
 
 	private	_scrollCallback(info: PointerInfo, state: EventState):	void {
