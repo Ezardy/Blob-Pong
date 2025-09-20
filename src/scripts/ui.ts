@@ -284,6 +284,9 @@ export default class Ui implements IScript {
 		refreshButton.onPointerUpObservable.add(() =>
 		{
 			this._serverGame.refreshRooms();
+			if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
+				this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
+			this._gameListScroll.blockLayout = false;
 		});
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
@@ -352,7 +355,6 @@ export default class Ui implements IScript {
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 
-		console.log(this._serverGame.getRooms);
 		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 		this._gameListScroll.blockLayout = false;
