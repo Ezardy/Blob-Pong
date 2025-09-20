@@ -1,4 +1,4 @@
-import { int } from "@babylonjs/core";
+import { int, Observable } from "@babylonjs/core";
 
 type RoomState = "waiting" | "ready";
 
@@ -10,25 +10,62 @@ type LobbyConnect =
 
 type CreateRoom =
 {
+	room:		RoomInfo;
+	success:	boolean;
+	isCreator:	boolean;
+}
+
+type JoinRoom = CreateRoom;
+
+type LeaveRoom = 
+{
 	success:	boolean;
 	room:		RoomInfo;
 }
 
-type JoinRoom =
+type StartGame =
 {
 	success:	boolean;
-	isCreator:	boolean;
-	roomId:		string;
-	room:		FullRoomInfo;
+	message:	string;
 }
 
-type LeaveRoom =
+type GameInit =
 {
-	userLeft:
+	type:	string;
+	roomId:	string;
+}
+
+type GameState =
+{
+	state:				"countdown" | "finished" | "playing";
+	players:			GamePlayer[];
+	ballPosition:		[number, number];
+	countdownSeconds:	number | undefined;
+}
+
+type GamePlayer =
+{
+	id:				string;
+	username:		string;
+	position:		number;
+	isActive:		boolean;
+}
+
+type GameResult =
+{
+	gameResult:
 	{
-		userId:		string;
-		username:	string;
-		room:		RoomInfo;
+		players:	Array<
+		{
+			id:				string;
+			score:			number
+			place:			string;
+			username:		string;
+			isActive:		boolean;
+			playersKicked:	number;
+		}>;
+		fee:		number
+		state:		'finished' | 'aborted';
 	}
 }
 
@@ -52,31 +89,34 @@ interface RoomInfo
 {
 	id:			string;
 	name:		string;
-	entryFee:	number;
-	players:	Set<RoomPlayer>;
-	maxPlayers:	number;
-	createdAt:	Date;
 	state:		RoomState;
+	players:	Set<RoomPlayer>;
+	entryFee:	number;
+	createdAt:	Date;
+	maxPlayers:	number;
 }
 
 interface FullRoomInfo extends RoomInfo
 {
 	createdBy:			string;
-	creatorUsername:	string;
-	isCurrentRoom:		boolean;
 	isCreator:			boolean;
+	isCurrentRoom:		boolean;
+	creatorUsername:	string;
 }
 
 export class ServerGame
 {
-	private _lobbyWs?:			WebSocket;
-	private _gameWs?:			WebSocket;
-	private _sessionId?:		string;
-	private _currentRoomId?:	string;
-	private _rooms?:			FullRoomInfo[];
+	private _rooms?:					FullRoomInfo[];
+	private _gameWs?:					WebSocket;
+	private _lobbyWs?:					WebSocket;
+	private _gameState?:				GameState;
+	private _sessionId?:				string;
+	private _currentRoomId?:			string;
+	public onRoomsUpdatedObservable:	Observable<FullRoomInfo[]>;
 
 	constructor()
 	{
+		this.onRoomsUpdatedObservable = new Observable<FullRoomInfo[]>();
 		this.handleClientEvent();
 		this.requestSessionIdFromParent();
 	}
@@ -94,10 +134,11 @@ export class ServerGame
 		{
 			try
 			{
-				console.log(event.data);
 				const data: LobbyConnect = JSON.parse(event.data);
 				this._currentRoomId = data.currentRoomId;
 				this._rooms = data.rooms;
+
+				this.onRoomsUpdatedObservable.notifyObservers(this._rooms);
 			}
 			catch (error)
 			{
@@ -128,7 +169,7 @@ export class ServerGame
 		{
 			console.log("Connected to CreateRoom WebSocket");
 			ws.send(JSON.stringify({ maxPlayers, entryFee, name }));
-		}
+		};
 
 		ws.onmessage = (event: MessageEvent) =>
 		{
@@ -136,16 +177,18 @@ export class ServerGame
 			const data : CreateRoom = event.data;
 	
 			if (data.success)
+			{
 				this._currentRoomId = data.room.id;
-
+				// data.isCreator
+			}
 			// TODO: connect to a Game WebSocket
 
-			this.refreshRooms();
+			// this.refreshRooms();
 			ws.close();
-		}
+		};
 
 		ws.onclose = () =>
-		{}
+		{};
 	}
 
 	public leaveRoomWs() : void
@@ -162,7 +205,7 @@ export class ServerGame
 		{
 			const data: LeaveRoom = JSON.parse(event.data);
 
-			if (data.userLeft)
+			if (data.success)
 			{
 				this._currentRoomId = undefined;
 
@@ -172,7 +215,7 @@ export class ServerGame
 					this._gameWs = undefined;
 				}
 			}
-			// this.handleLobbyMessage(data);
+
 			ws.close();
 		};
 
@@ -186,21 +229,27 @@ export class ServerGame
 		{
 			console.log("Connected to JoinRoom WebSocket");
 			ws.send(JSON.stringify({ roomId }));
-		}
+		};
 
 		ws.onmessage = (event: MessageEvent) =>
 		{
 			const data : JoinRoom = event.data;
-			this._currentRoomId = data.room.id;
+
+			if (data.success)
+			{
+				console.log("see im here");
+				this._currentRoomId = data.room.id;
+				// data.isCreator
+			}
 
 			// TODO: connect to a Game WebSocket
 
 			this.refreshRooms();
 			ws.close();
-		}
+		};
 
 		ws.onclose = () =>
-		{}
+		{};
 	}
 
 	public gameWs() : void
@@ -210,10 +259,24 @@ export class ServerGame
 		this._gameWs.onopen = () =>
 		{
 			console.log("Connected to Game WebSocket");
-		}
+		};
 
+		this._gameWs.onmessage = (event: MessageEvent) =>
+		{
+			const data : GameState | GameResult = JSON.parse(event.data);
+
+			if ("ballPosition" in data)
+			{
+				console.log("Received game state:", data);
+			}
+			else if ("gameResult" in data)
+			{
+				console.log("Received game result:", data.gameResult.state);
+			}
+		};
+	
 		this._gameWs.onclose = () =>
-		{}
+		{};
 	}
 
 	public startGameWs() : void
@@ -227,17 +290,16 @@ export class ServerGame
 
 		ws.onmessage = (event) =>
 		{
-			const data = JSON.parse(event.data);
+			const data : StartGame = JSON.parse(event.data);
 			if (data.success)
-				console.log("Game started");
+				console.log(data.message);
 			else
 				console.log("Failed to start the game");
 			ws.close();
 		};
 
 		ws.onclose = () =>
-		{
-		}
+		{};
 	}
 
 	public markRoomWaitingWs() : void
@@ -260,7 +322,7 @@ export class ServerGame
 		};
 
 		ws.onclose = () =>
-		{}
+		{};
 	}
 
 	public markRoomReadyWs() : void
@@ -286,13 +348,16 @@ export class ServerGame
 		};
 
 		ws.onclose = () =>
-		{}
+		{};
 	}
+
 
 	public refreshRooms() : void
 	{
 		if (this.isWebSocketOpen(this._lobbyWs))
 			this._lobbyWs!.send("PING");
+		else
+			console.warn("Lobby WebSocket is not open. Cannot refresh rooms.");
 	}
 
 	public handleClientEvent()
@@ -302,8 +367,6 @@ export class ServerGame
 			switch (event.data.type)
 			{
 				case "SESSION_ID_RESPONSE":
-					console.log('received session');
-					console.log(`session is ${event.data.sessionId}`);
 					this._sessionId = event.data.sessionId;
 					this.lobbyWs();
 					break;
