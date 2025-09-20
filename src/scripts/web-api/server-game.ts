@@ -133,7 +133,9 @@ export class ServerGame
 		{
 			console.log(event.data);
 			const data : CreateRoom = event.data;
-			this._currentRoomId = data.room.id;
+	
+			if (data.success)
+				this._currentRoomId = data.room.id;
 
 			// TODO: connect to a Game WebSocket
 
