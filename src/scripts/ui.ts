@@ -139,6 +139,8 @@ export default class Ui implements IScript {
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._mainLayout.isVisible = false;
 			this._gameListLayout.isVisible = true;
+			this._serverGame.refreshRooms();
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 		});
 
 		createGameButton.onPointerUpObservable.add(() => {
@@ -191,7 +193,7 @@ export default class Ui implements IScript {
 		this._createPanel.blockLayout = true;
 
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
-		this._createButton = new ButtonWithDescription(this._createButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		this._createButton.onPointerUpObservable.add(() => {
 			this._serverGame.createRoomWs(
 				this._gameCreationGameNameInput.text,
@@ -284,9 +286,7 @@ export default class Ui implements IScript {
 		refreshButton.onPointerUpObservable.add(() =>
 		{
 			this._serverGame.refreshRooms();
-			if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
-				this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
-			this._gameListScroll.blockLayout = false;
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 		});
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
@@ -338,8 +338,6 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameListPanel():	void {
-		this._serverGame.refreshRooms();
-
 		this._gameListLayout.addControl(this._gameListScroll);
 		this._gameListScroll.blockLayout = true;
 		this._gameListScroll.addControl(this._entryPanel);
@@ -354,9 +352,6 @@ export default class Ui implements IScript {
 		this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
-
-		if (this._serverGame.getRooms && this._serverGame.getRooms.length > 0)
-			this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
 		this._gameListScroll.blockLayout = false;
 	}
 
