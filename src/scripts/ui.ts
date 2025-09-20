@@ -107,7 +107,7 @@ export default class Ui implements IScript {
 			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.entryFee;
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
-			gameNameDrawer.frontTextBlock.text = "" + entry.id;
+			gameNameDrawer.frontTextBlock.text = "" + entry.name;
 		}, Ui._gameControlSelector, scene);
 
 		// game creation layout initialization
@@ -287,6 +287,9 @@ export default class Ui implements IScript {
 		});
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		playButton.onPointerUpObservable.add(() => {
+			this._serverGame.joinRoomWs(this._gameListScroll.selectedEntry.id!.toString());
+		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(refreshButton);
 		this._gameListControlPanel.addControl(playButton);
@@ -359,6 +362,8 @@ export default class Ui implements IScript {
 
 	private	_refreshGameList():	void {
 		this._serverGame.refreshRooms();
-		this._gameListScroll.fillList(JSON.parse(JSON.stringify(this._serverGame.getRooms)) ?? []);
+		this._serverGame.onRoomsUpdatedObservable.add((rooms: any) => {
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(rooms)) ?? []);
+		});
 	}
 }
