@@ -252,56 +252,6 @@ export class ServerGame
 		{};
 	}
 
-	public gameWs() : void
-	{
-		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?userId=${this._sessionId}`);
-
-		this._gameWs.onopen = () =>
-		{
-			console.log("Connected to Game WebSocket");
-		};
-
-		this._gameWs.onmessage = (event: MessageEvent) =>
-		{
-			const data : GameState | GameResult = JSON.parse(event.data);
-
-			if ("ballPosition" in data)
-			{
-				console.log("Received game state:", data);
-			}
-			else if ("gameResult" in data)
-			{
-				console.log("Received game result:", data.gameResult.state);
-			}
-		};
-	
-		this._gameWs.onclose = () =>
-		{};
-	}
-
-	public startGameWs() : void
-	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?userId=${this._sessionId}`);
-
-		ws.onopen = () =>
-		{
-			ws.send('START GAME');
-		};
-
-		ws.onmessage = (event) =>
-		{
-			const data : StartGame = JSON.parse(event.data);
-			if (data.success)
-				console.log(data.message);
-			else
-				console.log("Failed to start the game");
-			ws.close();
-		};
-
-		ws.onclose = () =>
-		{};
-	}
-
 	public markRoomWaitingWs() : void
 	{
 		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markWaiting?userId=${this._sessionId}`);
@@ -351,13 +301,68 @@ export class ServerGame
 		{};
 	}
 
+	public startGameWs() : void
+	{
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?userId=${this._sessionId}`);
+
+		ws.onopen = () =>
+		{
+			ws.send('START GAME');
+		};
+
+		ws.onmessage = (event) =>
+		{
+			const data : StartGame = JSON.parse(event.data);
+			if (data.success)
+				console.log(data.message);
+			else
+				console.log("Failed to start the game");
+			ws.close();
+		};
+
+		ws.onclose = () =>
+		{};
+	}
+
+	public gameWs() : void
+	{
+		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?userId=${this._sessionId}`);
+
+		this._gameWs.onopen = () =>
+		{
+			console.log("Connected to Game WebSocket");
+		};
+
+		this._gameWs.onmessage = (event: MessageEvent) =>
+		{
+			const data : GameState | GameResult = JSON.parse(event.data);
+
+			if ("ballPosition" in data)
+			{
+				this._gameState = data;
+			}
+			else if ("gameResult" in data)
+			{
+				console.log("Received game result:", data.gameResult.state);
+			}
+		};
+	
+		this._gameWs.onclose = () =>
+		{};
+	}
+
+	public sendDragToServer(dragValue: number)
+	{
+		if (this.isWebSocketOpen(this._gameWs) && this._gameState!.players.length == 2)
+			this._gameWs!.send((dragValue * 1000).toString());
+		else if (this.isWebSocketOpen(this._gameWs) && this._gameState!.players.length > 2)
+			this._gameWs!.send((dragValue * 500).toString());
+	}
 
 	public refreshRooms() : void
 	{
 		if (this.isWebSocketOpen(this._lobbyWs))
 			this._lobbyWs!.send("PING");
-		else
-			console.warn("Lobby WebSocket is not open. Cannot refresh rooms.");
 	}
 
 	public handleClientEvent()
@@ -390,8 +395,12 @@ export class ServerGame
 
 	public get getRooms() : RoomInfo[]
 	{
-		console.log(`rooms: ${this._rooms}`);
 		return this._rooms!;
+	}
+
+	public get getGameState() : GameState
+	{
+		return this._gameState!;
 	}
 
 	private isWebSocketOpen(ws: WebSocket | undefined): boolean
