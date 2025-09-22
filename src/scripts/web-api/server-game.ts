@@ -109,6 +109,7 @@ export class ServerGame
 	private _rooms?:					FullRoomInfo[];
 	private _gameWs?:					WebSocket;
 	private _lobbyWs?:					WebSocket;
+	private _isCreator:					boolean;
 	private _gameState?:				GameState;
 	private _sessionId?:				string;
 	private _currentRoomId?:			string;
@@ -116,6 +117,7 @@ export class ServerGame
 
 	constructor()
 	{
+		this._isCreator = false;
 		this.onRoomsUpdatedObservable = new Observable<FullRoomInfo[]>();
 		this.handleClientEvent();
 		this.requestSessionIdFromParent();
@@ -168,20 +170,22 @@ export class ServerGame
 		ws.onopen = () =>
 		{
 			console.log("Connected to CreateRoom WebSocket");
-			ws.send(JSON.stringify({ maxPlayers, entryFee, name }));
+			if (!this._currentRoomId)
+				ws.send(JSON.stringify({ maxPlayers, entryFee, name }));
 		};
 
 		ws.onmessage = (event: MessageEvent) =>
 		{
 			console.log(event.data);
-			const data : CreateRoom = event.data;
+			const data : CreateRoom = JSON.parse(event.data);
 	
 			if (data.success)
 			{
 				this._currentRoomId = data.room.id;
-				// data.isCreator
+				this._isCreator = data.isCreator
+				console.log("connect to game ws after creating room");
+				this.gameWs();
 			}
-			// TODO: connect to a Game WebSocket
 
 			// this.refreshRooms();
 			ws.close();
@@ -208,6 +212,7 @@ export class ServerGame
 			if (data.success)
 			{
 				this._currentRoomId = undefined;
+				this._isCreator = false;
 
 				if (this._gameWs)
 				{
@@ -228,23 +233,23 @@ export class ServerGame
 		ws.onopen = () =>
 		{
 			console.log("Connected to JoinRoom WebSocket");
-			ws.send(JSON.stringify({ roomId }));
+			if (!this._currentRoomId)
+				ws.send(JSON.stringify({ roomId }));
 		};
 
 		ws.onmessage = (event: MessageEvent) =>
 		{
-			const data : JoinRoom = event.data;
+			const data : JoinRoom = JSON.parse(event.data);
 
 			if (data.success)
 			{
-				console.log("see im here");
 				this._currentRoomId = data.room.id;
-				// data.isCreator
+				this._isCreator = data.isCreator
+				console.log("connecting to game ws");
+				this.gameWs();
+				this.refreshRooms();
 			}
 
-			// TODO: connect to a Game WebSocket
-
-			this.refreshRooms();
 			ws.close();
 		};
 
@@ -313,10 +318,8 @@ export class ServerGame
 		ws.onmessage = (event) =>
 		{
 			const data : StartGame = JSON.parse(event.data);
-			if (data.success)
-				console.log(data.message);
-			else
-				console.log("Failed to start the game");
+			console.log(data.message);
+			// this.gameWs();
 			ws.close();
 		};
 
@@ -326,6 +329,9 @@ export class ServerGame
 
 	public gameWs() : void
 	{
+		if (!this._currentRoomId)
+			return;
+
 		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?userId=${this._sessionId}`);
 
 		this._gameWs.onopen = () =>
@@ -393,14 +399,32 @@ export class ServerGame
 		);
 	}
 
-	public get getRooms() : RoomInfo[]
+	public get rooms() : RoomInfo[]
 	{
 		return this._rooms!;
 	}
 
-	public get getGameState() : GameState
+	public get gameState() : GameState
 	{
 		return this._gameState!;
+	}
+
+	private reconnectToGame(data: any)
+	{
+		if (this._currentRoomId)
+		{
+			const currentRoom = data.rooms.find((r: { isCurrentRoom: any; }) => r.isCurrentRoom);
+			if (currentRoom)
+			{
+				this._isCreator = currentRoom.isCreator;
+
+				if (!this.isWebSocketOpen(this._gameWs))
+				{
+					console.log('Auto-reconnecting to game after page refresh');
+					this.gameWs();
+				}
+			}
+		}
 	}
 
 	private isWebSocketOpen(ws: WebSocket | undefined): boolean
