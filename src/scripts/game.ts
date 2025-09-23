@@ -6,7 +6,7 @@ export default class Game implements IScript {
 	private readonly	_webApi:	WebApi;
 
 	private				_playerCount:	int = -1;
-	private readonly	_playerColors:	Array<Color3> = [];
+	private readonly	_playerColors:	Map<string, Color3> = new Map();
 
 	private	_field:	Nullable<GreasedLineBaseMesh> = null;
 
@@ -23,14 +23,16 @@ export default class Game implements IScript {
 
 	public onUpdate(): void {
 		if (this._webApi.serverGame.inGame) {
-			const	gameState = this._webApi.serverGame.getGameState;
+			const	gameState = this._webApi.serverGame.gameState;
 			const	players = gameState.players;
-			if (this._playerColors.length === 0) {
+			if (this._playerColors.size === 0) {
 				for (let i = 0; i < players.length; i += 1)
-					this._playerColors.push(Color3.Random());
+					this._playerColors.set(players[i].id, Color3.Random());
 			}
 			if (this._playerCount !== players.length) {
-				gameState.players[0].
+				const	keysIter:	MapIterator<string> = this._playerColors.keys();
+				let	id = keysIter.next();
+				
 				this._playerCount = players.length;
 				if (this._field)
 					this._field.dispose();
