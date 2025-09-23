@@ -1,23 +1,59 @@
-import { Mesh } from "@babylonjs/core/Meshes/mesh";
+import { Color3, CreateGreasedLine, GreasedLineBaseMesh, GreasedLineTools, int, Mesh, Nullable, Scene } from "@babylonjs/core";
+import WebApi from "./web-api";
+import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
 
-export default class Game {
-	public constructor(public mesh: Mesh) { }
+export default class Game implements IScript {
+	private readonly	_webApi:	WebApi;
+
+	private				_playerCount:	int = -1;
+	private readonly	_playerColors:	Array<Color3> = [];
+
+	private	_field:	Nullable<GreasedLineBaseMesh> = null;
+
+	@visibleAsEntity("node", "racket mesh")
+	private readonly	_racketMesh:	Nullable<Mesh> = null;
+
+	public constructor(public scene: Scene) {
+		this._webApi = getScriptByClassForObject(scene, WebApi)!;
+	}
 
 	public onStart(): void {
 		// Do something when the script is loaded
 	}
 
 	public onUpdate(): void {
-		this.mesh.rotation.y += 0.04 * this.mesh.getScene().getAnimationRatio();
-	}
-
-
-	startRenderLoop() {
-		const render = () => {
-			// this.renderGame();
-			requestAnimationFrame(render);
-		};
-		render();
+		if (this._webApi.serverGame.inGame) {
+			const	gameState = this._webApi.serverGame.getGameState;
+			const	players = gameState.players;
+			if (this._playerColors.length === 0) {
+				for (let i = 0; i < players.length; i += 1)
+					this._playerColors.push(Color3.Random());
+			}
+			if (this._playerCount !== players.length) {
+				gameState.players[0].
+				this._playerCount = players.length;
+				if (this._field)
+					this._field.dispose();
+				const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
+				const	diameter:	number = Math.min(rect.width, rect.height);
+				this._field = CreateGreasedLine("field", {
+						points: GreasedLineTools.GetCircleLinePoints(diameter / 2, players.length)
+					}, {
+						useColors: true,
+						colors: this._playerColors,
+						useDash: true,
+						dashCount: 15,
+					})
+			}
+		} else {
+			if (this._field) {
+				this._field.dispose();
+				this._field = null;
+			}
+			this._playerCount = -1;
+			if (this._playerColors.length)
+				this._playerColors.pop();
+		}
 	}
 
 	drawArena(ctx: any, canvas: any) {

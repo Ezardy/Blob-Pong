@@ -399,6 +399,10 @@ export class ServerGame
 		);
 	}
 
+	public get	inGame():	boolean {
+		return this._gameState !== null;
+	}
+
 	public get rooms() : RoomInfo[]
 	{
 		return this._rooms!;
