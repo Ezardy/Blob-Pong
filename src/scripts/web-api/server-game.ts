@@ -127,7 +127,7 @@ export class ServerGame
 
 	public lobbyWs() : void
 	{
-		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=`);
+		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
 
 		this._lobbyWs.onopen = () =>
 		{
@@ -167,7 +167,7 @@ export class ServerGame
 		maxPlayers: int,
 	)
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/create?sId=`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/create?sId=${this._sessionId}`);
 
 		ws.onopen = () =>
 		{
@@ -203,7 +203,7 @@ export class ServerGame
 
 	public leaveRoomWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/leave?sId=`)
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/leave?sId=${this._sessionId}`)
 
 		ws.onopen = () =>
 		{
@@ -234,7 +234,7 @@ export class ServerGame
 
 	public joinRoomWs(roomId: string) : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/join?sId=`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/join?sId=${this._sessionId}`);
 
 		ws.onopen = () =>
 		{
@@ -269,7 +269,7 @@ export class ServerGame
 
 	public markRoomPlayerWaitingWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markWaiting?sId=`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markWaiting?sId=${this._sessionId}`);
 		
 		ws.onopen = () =>
 		{
@@ -293,7 +293,7 @@ export class ServerGame
 
 	public markRoomPlayerReadyWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markReady?sId=`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markReady?sId=${this._sessionId}`);
 		
 		ws.onopen = () =>
 		{
@@ -317,8 +317,7 @@ export class ServerGame
 
 	public startGameWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?sId=
-			`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?sId=${this._sessionId}`);
 
 		ws.onopen = () =>
 		{
@@ -342,7 +341,7 @@ export class ServerGame
 		if (!this._currentRoomId)
 			return;
 
-		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?sId=`);
+		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?sId=${this._sessionId}`);
 
 		this._gameWs.onopen = () =>
 		{
