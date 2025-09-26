@@ -120,13 +120,14 @@ export class ServerGame
 	{
 		this._isCreator = false;
 		this.onRoomsUpdatedObservable = new Observable<FullRoomInfo[]>();
-		this.handleClientEvent();
-		this.requestSessionIdFromParent();
+		this.lobbyWs();
+		// this.handleClientEvent();
+		// this.requestSessionIdFromParent();
 	}
 
 	public lobbyWs() : void
 	{
-		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
+		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=`);
 
 		this._lobbyWs.onopen = () =>
 		{
@@ -166,7 +167,7 @@ export class ServerGame
 		maxPlayers: int,
 	)
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/create?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/create?sId=`);
 
 		ws.onopen = () =>
 		{
@@ -202,7 +203,7 @@ export class ServerGame
 
 	public leaveRoomWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/leave?sId=${this._sessionId}`)
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/leave?sId=`)
 
 		ws.onopen = () =>
 		{
@@ -233,7 +234,7 @@ export class ServerGame
 
 	public joinRoomWs(roomId: string) : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/join?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/join?sId=`);
 
 		ws.onopen = () =>
 		{
@@ -268,7 +269,7 @@ export class ServerGame
 
 	public markRoomPlayerWaitingWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markWaiting?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markWaiting?sId=`);
 		
 		ws.onopen = () =>
 		{
@@ -292,7 +293,7 @@ export class ServerGame
 
 	public markRoomPlayerReadyWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markReady?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/markReady?sId=`);
 		
 		ws.onopen = () =>
 		{
@@ -316,7 +317,8 @@ export class ServerGame
 
 	public startGameWs() : void
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}/start?sId=
+			`);
 
 		ws.onopen = () =>
 		{
@@ -340,7 +342,7 @@ export class ServerGame
 		if (!this._currentRoomId)
 			return;
 
-		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?sId=${this._sessionId}`);
+		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?sId=`);
 
 		this._gameWs.onopen = () =>
 		{
@@ -379,33 +381,33 @@ export class ServerGame
 			this._lobbyWs!.send("PING");
 	}
 
-	public handleClientEvent()
-	{
-		window.addEventListener("message", (event: MessageEvent) =>
-		{
-			switch (event.data.type)
-			{
-				case "SESSION_ID_RESPONSE":
-					this._sessionId = event.data.sessionId;
-					this.lobbyWs();
-					break;
-				default:
-					break;
-			}
-		});
-	}
+	// public handleClientEvent()
+	// {
+	// 	window.addEventListener("message", (event: MessageEvent) =>
+	// 	{
+	// 		switch (event.data.type)
+	// 		{
+	// 			case "SESSION_ID_RESPONSE":
+	// 				this._sessionId = event.data.sessionId;
+	// 				this.lobbyWs();
+	// 				break;
+	// 			default:
+	// 				break;
+	// 		}
+	// 	});
+	// }
 
-	public requestSessionIdFromParent()
-	{
-		const parentOrigin = window.location.ancestorOrigins 
-			? window.location.ancestorOrigins[0] 
-			: '*';
+	// public requestSessionIdFromParent()
+	// {
+	// 	const parentOrigin = window.location.ancestorOrigins 
+	// 		? window.location.ancestorOrigins[0] 
+	// 		: '*';
 
-		window.parent.postMessage(
-			{ type: 'REQUEST_SESSION' },
-			parentOrigin
-		);
-	}
+	// 	window.parent.postMessage(
+	// 		{ type: 'REQUEST_SESSION' },
+	// 		parentOrigin
+	// 	);
+	// }
 
 	public get rooms() : RoomInfo[]
 	{
