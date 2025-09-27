@@ -2,8 +2,8 @@ import { int, Observable } from "@babylonjs/core";
 
 type LobbyConnect =
 {
-	rooms:			FullRoomInfo[];
-	currentRoomId:	string
+	rooms:			RoomInfo[];
+	currentRoomId:	string;
 }
 
 type StartGame =
@@ -31,7 +31,6 @@ type GamePlayer =
 	id:				string;
 	username:		string;
 	position:		number;
-	isActive:		boolean;
 }
 
 type GameResult =
@@ -41,7 +40,7 @@ type GameResult =
 		players:	Array<
 		{
 			id:				string;
-			score:			number
+			score:			number;
 			place:			string;
 			username:		string;
 			isActive:		boolean;
@@ -56,9 +55,8 @@ type RoomState = "waiting" | "ready";
 
 type CreateRoom =
 {
-	room:		RoomInfo;
+	roomId:		string;
 	success:	boolean;
-	isCreator:	boolean;
 }
 
 type JoinRoom = CreateRoom;
@@ -90,36 +88,32 @@ interface RoomInfo
 {
 	id:			string;
 	name:		string;
+	count:		number;
 	state:		RoomState;
-	players:	Set<RoomPlayer>;
 	entryFee:	number;
-	createdAt:	Date;
 	maxPlayers:	number;
 }
 
-interface FullRoomInfo extends RoomInfo
+interface RoomDetails
 {
-	createdBy:			string;
-	isCreator:			boolean;
-	isCurrentRoom:		boolean;
-	creatorUsername:	string;
+	players:	Set<RoomPlayer>;
+	creator:	RoomPlayer;
+	createdAt:	Date;
 }
 
 export class ServerGame
 {
-	private _rooms?:					FullRoomInfo[];
+	private _rooms?:					RoomInfo[];
 	private _gameWs?:					WebSocket;
 	private _lobbyWs?:					WebSocket;
-	private _isCreator:					boolean;
 	private _gameState?:				GameState;
 	private _sessionId?:				string;
 	private _currentRoomId?:			string;
-	public onRoomsUpdatedObservable:	Observable<FullRoomInfo[]>;
+	public onRoomsUpdatedObservable:	Observable<RoomInfo[]>;
 
 	constructor()
 	{
-		this._isCreator = false;
-		this.onRoomsUpdatedObservable = new Observable<FullRoomInfo[]>();
+		this.onRoomsUpdatedObservable = new Observable<RoomInfo[]>();
 		this.lobbyWs();
 		// this.handleClientEvent();
 		// this.requestSessionIdFromParent();
@@ -161,6 +155,47 @@ export class ServerGame
 		};
 	}
 
+	public async roomDetails(roomId: string): Promise<RoomDetails>
+	{
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/details?sId=${this._sessionId}`);
+
+		return new Promise((resolve, reject) =>
+		{
+			ws.onopen = () =>
+			{
+				console.log("Connected to RoomDetails WebSocket");
+				ws.send(JSON.stringify({ roomId }));
+			};
+
+			ws.onmessage = (event: MessageEvent) =>
+			{
+				try
+				{
+					const data: RoomDetails = JSON.parse(event.data);
+					ws.close();
+
+					// Resolve the promise with the data
+					resolve(data);
+				}
+				catch (error)
+				{
+					reject(error);
+				}
+			};
+
+			ws.onerror = (error) =>
+			{
+				console.error("RoomDetails WebSocket error:", error);
+				reject(error);
+			};
+
+			ws.onclose = () =>
+			{
+				console.log("RoomDetails ws has closed");
+			};
+		});
+	}
+
 	public createRoomWs(
 		name: string,
 		entryFee: int,
@@ -185,9 +220,8 @@ export class ServerGame
 	
 			if (data.success)
 			{
-				this._currentRoomId = data.room.id;
-				this._isCreator = data.isCreator
-				console.log("connect to game ws after creating room");
+				this._currentRoomId = data.roomId;
+
 				this.gameWs();
 			}
 
@@ -197,7 +231,7 @@ export class ServerGame
 
 		ws.onclose = () =>
 		{
-			console.log("create ws has closed");
+			console.log("CreateWs has closed");
 		};
 	}
 
@@ -218,7 +252,6 @@ export class ServerGame
 			if (data.success)
 			{
 				this._currentRoomId = undefined;
-				this._isCreator = false;
 
 				if (this._gameWs)
 				{
@@ -251,8 +284,7 @@ export class ServerGame
 
 			if (data.success)
 			{
-				this._currentRoomId = data.room.id;
-				this._isCreator = data.isCreator
+				this._currentRoomId = data.roomId;
 				console.log("connecting to game ws");
 				this.gameWs();
 				this.refreshRooms();
@@ -262,9 +294,7 @@ export class ServerGame
 		};
 
 		ws.onclose = () =>
-		{
-			console.log("im actually closed");
-		};
+		{};
 	}
 
 	public markRoomPlayerWaitingWs() : void
@@ -341,7 +371,7 @@ export class ServerGame
 		if (!this._currentRoomId)
 			return;
 
-		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game/${this._currentRoomId}?sId=${this._sessionId}`);
+		this._gameWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/game?sId=${this._sessionId}`);
 
 		this._gameWs.onopen = () =>
 		{
@@ -418,23 +448,23 @@ export class ServerGame
 		return this._gameState!;
 	}
 
-	private reconnectToGame(data: any)
-	{
-		if (this._currentRoomId)
-		{
-			const currentRoom = data.rooms.find((r: { isCurrentRoom: any; }) => r.isCurrentRoom);
-			if (currentRoom)
-			{
-				this._isCreator = currentRoom.isCreator;
+	// private reconnectToGame(data: any)
+	// {
+	// 	if (this._currentRoomId)
+	// 	{
+	// 		const currentRoom = data.rooms.find((r: { isCurrentRoom: any; }) => r.isCurrentRoom);
+	// 		if (currentRoom)
+	// 		{
+	// 			this._isCreator = currentRoom.isCreator;
 
-				if (!this.isWebSocketOpen(this._gameWs))
-				{
-					console.log('Auto-reconnecting to game after page refresh');
-					this.gameWs();
-				}
-			}
-		}
-	}
+	// 			if (!this.isWebSocketOpen(this._gameWs))
+	// 			{
+	// 				console.log('Auto-reconnecting to game after page refresh');
+	// 				this.gameWs();
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	private isWebSocketOpen(ws: WebSocket | undefined): boolean
 	{
