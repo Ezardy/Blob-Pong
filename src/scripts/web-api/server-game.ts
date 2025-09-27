@@ -64,7 +64,6 @@ type JoinRoom = CreateRoom;
 type LeaveRoom = 
 {
 	success:	boolean;
-	room:		RoomInfo;
 }
 
 type RoomStateChanged =
@@ -72,8 +71,6 @@ type RoomStateChanged =
 	roomStateChanged:
 	{
 		roomId:		string;
-		// newState:	string;
-		room:		RoomInfo;
 	}
 }
 
@@ -103,17 +100,19 @@ interface RoomDetails
 
 export class ServerGame
 {
-	private _rooms?:					RoomInfo[];
-	private _gameWs?:					WebSocket;
-	private _lobbyWs?:					WebSocket;
-	private _gameState?:				GameState;
-	private _sessionId?:				string;
-	private _currentRoomId?:			string;
-	public onRoomsUpdatedObservable:	Observable<RoomInfo[]>;
+	private _rooms?:						RoomInfo[];
+	private _gameWs?:						WebSocket;
+	private _lobbyWs?:						WebSocket;
+	private _gameState?:					GameState;
+	private _sessionId?:					string;
+	private _currentRoomId?:				string;
+	public onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
+	public onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
 
 	constructor()
 	{
 		this.onRoomsUpdatedObservable = new Observable<RoomInfo[]>();
+		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
 		this.lobbyWs();
 		// this.handleClientEvent();
 		// this.requestSessionIdFromParent();
@@ -155,46 +154,43 @@ export class ServerGame
 		};
 	}
 
-	public async roomDetails(roomId: string): Promise<RoomDetails>
+	public roomDetails(roomId: string): void
 	{
 		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/${roomId}/details?sId=${this._sessionId}`);
 
-		return new Promise((resolve, reject) =>
+		ws.onopen = () =>
 		{
-			ws.onopen = () =>
-			{
-				console.log("Connected to RoomDetails WebSocket");
-				ws.send(JSON.stringify({ roomId }));
-			};
+			console.log("Connected to RoomDetails WebSocket");
+			ws.send(JSON.stringify({ roomId }));
+		};
 
-			ws.onmessage = (event: MessageEvent) =>
+		ws.onmessage = (event: MessageEvent) =>
+		{
+			try
 			{
-				try
-				{
-					const data: RoomDetails = JSON.parse(event.data);
-					ws.close();
+				const data: RoomDetails = JSON.parse(event.data);
+				ws.close();
 
-					// Resolve the promise with the data
-					resolve(data);
-				}
-				catch (error)
-				{
-					reject(error);
-				}
-			};
-
-			ws.onerror = (error) =>
+				// Notify observers with the new details
+				this.onRoomDetailsUpdatedObservable.notifyObservers(data);
+			}
+			catch (error)
 			{
-				console.error("RoomDetails WebSocket error:", error);
-				reject(error);
-			};
+				console.error("Error parsing room details:", error);
+			}
+		};
 
-			ws.onclose = () =>
-			{
-				console.log("RoomDetails ws has closed");
-			};
-		});
+		ws.onerror = (error) =>
+		{
+			console.error("RoomDetails WebSocket error:", error);
+		};
+
+		ws.onclose = () =>
+		{
+			console.log("RoomDetails ws has closed");
+		};
 	}
+
 
 	public createRoomWs(
 		name: string,
@@ -223,9 +219,9 @@ export class ServerGame
 				this._currentRoomId = data.roomId;
 
 				this.gameWs();
+				this.refreshRooms();
 			}
 
-			// this.refreshRooms();
 			ws.close();
 		};
 
@@ -251,8 +247,9 @@ export class ServerGame
 
 			if (data.success)
 			{
-				this._currentRoomId = undefined;
+				this.refreshRoom();
 
+				this._currentRoomId = undefined;
 				if (this._gameWs)
 				{
 					this._gameWs.close();
@@ -287,7 +284,9 @@ export class ServerGame
 				this._currentRoomId = data.roomId;
 				console.log("connecting to game ws");
 				this.gameWs();
-				this.refreshRooms();
+				// Maybe it's meaningless to update all rooms when someone joins one?
+				// this.refreshRooms();
+				this.refreshRoom();
 			}
 
 			ws.close();
@@ -311,7 +310,7 @@ export class ServerGame
 			const data: RoomStateChanged = JSON.parse(event.data);
 
 			if (data.roomStateChanged)
-				this.refreshRooms();
+				this.refreshRoom();
 
 			// console.log();
 			ws.close();
@@ -335,7 +334,7 @@ export class ServerGame
 			const data: RoomStateChanged = JSON.parse(event.data);
 
 			if (data.roomStateChanged)
-				this.refreshRooms();
+				this.refreshRoom();
 
 			// console.log();
 			ws.close();
@@ -408,6 +407,14 @@ export class ServerGame
 	{
 		if (this.isWebSocketOpen(this._lobbyWs))
 			this._lobbyWs!.send("PING");
+	}
+
+	public refreshRoom() : void
+	{
+		if (this._currentRoomId)
+			this.roomDetails(this._currentRoomId);
+		else
+			console.log("Not in a room");
 	}
 
 	// public handleClientEvent()
