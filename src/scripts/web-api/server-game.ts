@@ -157,7 +157,7 @@ export class ServerGame
 
 	public async roomDetails(roomId: string): Promise<RoomDetails>
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/details?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/${roomId}/details?sId=${this._sessionId}`);
 
 		return new Promise((resolve, reject) =>
 		{
