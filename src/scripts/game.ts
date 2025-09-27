@@ -133,7 +133,9 @@ export default class Game implements IScript {
 					}
 					break;
 				case 1:
-					this._drawField(this._webApi.serverGame.ro);
+					this._drawField(this._webApi.serverGame.currentRoomInfo!.maxPlayers);
+					this._webApi.serverGame.getRoomDetails().then()
+					break;
 			}
 		}
 	}

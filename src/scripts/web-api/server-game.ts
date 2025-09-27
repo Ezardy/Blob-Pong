@@ -103,13 +103,14 @@ interface RoomDetails
 
 export class ServerGame
 {
-	private _rooms?:					RoomInfo[];
-	private _gameWs?:					WebSocket;
-	private _lobbyWs?:					WebSocket;
-	private _gameState?:				GameState;
-	private _sessionId?:				string;
-	private _currentRoomId?:			string;
-	public onRoomsUpdatedObservable:	Observable<RoomInfo[]>;
+	private readonly	_roomsMap:					Map<string, RoomInfo> = new Map();
+	private				_rooms?:					RoomInfo[];
+	private				_gameWs?:					WebSocket;
+	private				_lobbyWs?:					WebSocket;
+	private				_gameState?:				GameState;
+	private				_sessionId?:				string;
+	private				_currentRoomId?:			string;
+	public				onRoomsUpdatedObservable:	Observable<RoomInfo[]>;
 
 	constructor()
 	{
@@ -135,7 +136,9 @@ export class ServerGame
 				const data: LobbyConnect = JSON.parse(event.data);
 				this._currentRoomId = data.currentRoomId;
 				this._rooms = data.rooms;
-
+				this._roomsMap.clear();
+				for (const room of this._rooms)
+					this._roomsMap.set(room.id, room);
 				this.onRoomsUpdatedObservable.notifyObservers(this._rooms);
 			}
 			catch (error)
@@ -155,16 +158,16 @@ export class ServerGame
 		};
 	}
 
-	public async roomDetails(roomId: string): Promise<RoomDetails>
+	public getRoomDetails(): Promise<RoomDetails>
 	{
-		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/${roomId}/details?sId=${this._sessionId}`);
+		const ws = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/room/${this._currentRoomId}/details?sId=${this._sessionId}`);
 
 		return new Promise((resolve, reject) =>
 		{
 			ws.onopen = () =>
 			{
 				console.log("Connected to RoomDetails WebSocket");
-				ws.send(JSON.stringify({ roomId }));
+				ws.send(JSON.stringify({ roomId : this._currentRoomId }));
 			};
 
 			ws.onmessage = (event: MessageEvent) =>
@@ -440,6 +443,10 @@ export class ServerGame
 
 	public get	inGame():	boolean {
 		return this._gameState !== null;
+	}
+
+	public get	currentRoomInfo():	RoomInfo | undefined {
+		return this._currentRoomId ? this._roomsMap.get(this._currentRoomId) : undefined;
 	}
 
 	public get rooms() : RoomInfo[]
