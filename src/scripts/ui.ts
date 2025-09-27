@@ -82,12 +82,10 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
 
-	private readonly	_webApi:	WebApi;
+	private	_webApi!:	WebApi;
 
 	public constructor(public scene: Scene) {
 		this._manager = new GUI3DManager(scene);
-		// ServerGame creation
-		this._webApi = getScriptByClassForObject(scene, WebApi)!;
 		// main layout initialization
 		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 
@@ -122,6 +120,8 @@ export default class Ui implements IScript {
 	}
 
 	public onStart(): void {
+		// ServerGame creation
+		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();

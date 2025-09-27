@@ -1,61 +1,147 @@
-import { Color3, CreateGreasedLine, GreasedLineBaseMesh, GreasedLineTools, int, Mesh, Nullable, Scene } from "@babylonjs/core";
+import { AbstractMesh, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Scene, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
-import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 
 export default class Game implements IScript {
-	private readonly	_webApi:	WebApi;
+	public static readonly	NONE_MODE:	int = 0;
+	public static readonly	LOBBY_MODE:	int = 1;
+	public static readonly	GAME_MODE:	int = 2;
+
+	@visibleAsNumber("distance from camera", {min: 0})
+	private readonly	_distance:	number = 500;
+	@visibleAsNumber("padding", {min: 0, max: 1})
+	private readonly	_padding:	number = 0.1;
+	@visibleAsColor3("wall color")
+	private readonly	_wallColor:	Color3 = new Color3(89, 89, 89);
+	@visibleAsNumber("racket size", {description: "percentage of wall size", min: 1, max: 100})
+	private readonly	_racketSize:	number = 20;
+	@visibleAsNumber("ball size", {description: "percentage of wall size", min: 1, max: 100})
+	private readonly	_ballSize:	number = 1.6;
+
+	private	_webApi!:	WebApi;
 
 	private				_playerCount:	int = -1;
 	private readonly	_playerColors:	Map<string, Color3> = new Map();
+	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
+	private readonly	_racketPool:	Array<InstancedMesh> = [];
+	private readonly	_colorPool:		Array<Color3> = [];
 
-	private	_field:	Nullable<GreasedLineBaseMesh> = null;
+	private	_field!:	GreasedLineBaseMesh;
+	private	_ball!:		GreasedLineBaseMesh;
+
+	private	_z:					number = 0;
+	private	_y:					number = 1;
+	private	_racketMeshSize:	number = 1;
+	private	_ballMeshSize:		number = 1;
 
 	@visibleAsEntity("node", "racket mesh")
-	private readonly	_racketMesh:	Nullable<Mesh> = null;
+	private readonly	_racketMesh!:	Mesh;
+	@visibleAsEntity("node", "ball mesh")
+	private readonly	_ballMesh!:	Mesh;
+
+	private	_mode:	int = 0;
+
+	private readonly	_glow:	GlowLayer;
 
 	public constructor(public scene: Scene) {
-		this._webApi = getScriptByClassForObject(scene, WebApi)!;
+		for (let i = 0; i < 16; i += 1)
+			this._colorPool.push(Color3.Random());
+		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
+		this._glow.intensity = 1.2;
 	}
 
 	public onStart(): void {
-		// Do something when the script is loaded
+		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
+		const	pivot = bb.center.clone();
+		pivot.y = bb.maximum.y;
+		this._racketMesh.setPivotPoint(pivot);
+		this._racketMeshSize = bb.extendSize.x * 2;
+		for (let i = 0; i < 16; i += 1) {
+			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
+			this._racketPool.push(inst);
+		}
+		const	bbs:	BoundingSphere = this._ballMesh.getBoundingInfo().boundingSphere;
+		this._ballMeshSize = bbs.radius * 2;
+		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], Game._omitDuplicateWrapper);
+		this._ball = CreateGreasedLine("ball", {points: lines}, {
+			color: Color3.White(),
+			sizeAttenuation: true,
+			width: 1,
+			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
+		});
+		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
+		const	camera:	Camera = this.scene.activeCamera!;
+		this._z = camera.globalPosition.z - this._distance;
+		this._y = this._z * Math.tan(camera.fov / 2) * this._padding;
 	}
 
 	public onUpdate(): void {
-		if (this._webApi.serverGame.inGame) {
-			const	gameState = this._webApi.serverGame.gameState;
-			const	players = gameState.players;
-			if (this._playerColors.size === 0) {
-				for (let i = 0; i < players.length; i += 1)
-					this._playerColors.set(players[i].id, Color3.Random());
-			}
-			if (this._playerCount !== players.length) {
-				const	keysIter:	MapIterator<string> = this._playerColors.keys();
-				let	id = keysIter.next();
-				
-				this._playerCount = players.length;
-				if (this._field)
-					this._field.dispose();
-				const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-				const	diameter:	number = Math.min(rect.width, rect.height);
-				this._field = CreateGreasedLine("field", {
-						points: GreasedLineTools.GetCircleLinePoints(diameter / 2, players.length)
-					}, {
-						useColors: true,
-						colors: this._playerColors,
-						useDash: true,
-						dashCount: 15,
-					})
-			}
+	}
+
+	private	_drawField(playerCount: int):	void {
+		let	points:	Vector3[];
+		let	colors:	Color3[];
+		if (this._playerCount > 2) {
+			points = GreasedLineTools.GetCircleLinePoints(this._y, playerCount, this._z);
+			colors = Array.from(this._playerColors.values());
 		} else {
-			if (this._field) {
-				this._field.dispose();
-				this._field = null;
-			}
-			this._playerCount = -1;
-			if (this._playerColors.length)
-				this._playerColors.pop();
+			const	x:		number = this._y * 2.2;
+			const	start:	Vector3 = new Vector3(x, this._y, this._z);
+			points = [
+				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
+				new Vector3(-x, this._y, this._z), start
+			];
+			const	colorIter:	MapIterator<Color3> = this._playerColors.values();
+			const	color1:	Color3 = colorIter.next().value!;
+			const	color2:	Color3 = colorIter.next().value!;
+			colors = [
+				color2, this._wallColor,
+				color1, this._wallColor
+			];
 		}
+		this._field = CreateGreasedLine("field", {
+				points: points
+			}, {
+				useColors: true,
+				colors: colors,
+				useDash: true,
+				dashCount: 15,
+				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
+				});
+	}
+
+	public get	mode():	int {
+		return this._mode;
+	}
+
+	public set	mode(value: int) {
+		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
+			switch (value) {
+				case 0:
+					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
+					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._ball);
+					this._field.dispose(false, true);
+					this._playerColors.clear();
+					const	it:	MapIterator<string> = this._playerRackets.keys();
+					let		str:	IteratorResult<string | undefined> = it.next();
+					while (!str.done) {
+						this._colorPool.push(this._playerColors.get(str.value!)!);
+						this._playerColors.delete(str.value!);
+						this._racketPool.push(this._playerRackets.get(str.value!)!);
+						this._playerRackets.delete(str.value!);
+						str = it.next();
+					}
+					break;
+				case 1:
+					this._drawField(this._webApi.serverGame.ro);
+			}
+		}
+	}
+
+	private static	_omitDuplicateWrapper(p1: Vector3, p2: Vector3, p3: Vector3, points: Vector3[][],
+						indiceIndex: number, vertexIndex: number, mesh: AbstractMesh,
+						meshIndex: number, vertices: FloatArray, indices: IndicesArray):	Vector3[][] {
+		return GreasedLineTools.OmitDuplicatesPredicate(p1, p2, p3, points) || [];
 	}
 
 	drawArena(ctx: any, canvas: any) {

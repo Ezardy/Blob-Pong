@@ -208,6 +208,10 @@
                         "value": "157a6553-1554-4a9a-b696-c7778794b1c1"
                     }
                 }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/web-api.ts"
             }
         ],
         "rendering": [
@@ -242,15 +246,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.15520297766114005,
-            -0.228788077161038,
+            0.03679717492675075,
+            -0.12078758887978742,
             0
         ],
         "speed": 200,
         "position": [
-            432.9513970832481,
-            191.6075643842564,
-            -1991.0932025098837
+            158.84566093476204,
+            41.232984188416964,
+            -776.4983334773691
         ],
         "upVector": [
             0,
@@ -273,7 +277,7 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 5,
+        "uniqueId": 32,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {
