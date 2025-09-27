@@ -102,7 +102,7 @@ export default class Ui implements IScript {
 		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
 			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
 			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer)!;
-			const	playerCount = (entry.players as JSONArray).length;
+			const	playerCount = entry.count;
 			playerCountDrawer.frontTextBlock.text = playerCount + '/' + entry.maxPlayers;
 			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.entryFee;
@@ -196,8 +196,8 @@ export default class Ui implements IScript {
 		this._createButton.onPointerUpObservable.add(() => {
 			this._serverGame.createRoomWs(
 				this._gameCreationGameNameInput.text,
-				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
-				Number.parseInt(this._gameCreationPlayerCountInput.text)
+				Number.parseInt(this._gameCreationPlayerCountInput.text),
+				Number.parseFloat(this._gameCreationEntranceFeeInput.text)
 			);
 		})
 		this._createPanel.addControl(this._createButton);
