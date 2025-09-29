@@ -193,10 +193,10 @@ export default class Ui implements IScript {
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
 		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		this._createButton.onPointerUpObservable.add(() => {
-			this._webApi.serverGame.createRoomWs(
+			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
-				Number.parseInt(this._gameCreationPlayerCountInput.text),
-				Number.parseFloat(this._gameCreationEntranceFeeInput.text)
+				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
+				Number.parseInt(this._gameCreationPlayerCountInput.text)
 			);
 		})
 		this._createPanel.addControl(this._createButton);
@@ -287,7 +287,7 @@ export default class Ui implements IScript {
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		playButton.onPointerUpObservable.add(() => {
-			this._webApi.serverGame.joinRoomWs(this._gameListScroll.selectedEntry.id!.toString());
+			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id!.toString());
 		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(refreshButton);
@@ -361,7 +361,7 @@ export default class Ui implements IScript {
 	}
 
 	private	_refreshGameList():	void {
-		this._webApi.serverGame.refreshRooms();
+		this._webApi.serverGame.getRooms();
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((rooms: any) => {
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(rooms)) ?? []);
 			this._gameListLayout.updateLayout();
