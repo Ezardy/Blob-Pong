@@ -73,13 +73,14 @@ export default class Game implements IScript {
 		});
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
+		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
 		const	camera:	Camera = this.scene.activeCamera!;
 		this._z = camera.globalPosition.z - this._distance;
 		this._y = this._z * Math.tan(camera.fov / 2) * this._padding;
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
-
+		
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
@@ -97,6 +98,23 @@ export default class Game implements IScript {
 
 	private	_drawPlayers(players: GamePlayer[]):	void {
 
+	}
+
+	private	_syncRoomPlayers(players: GamePlayer[]):	void {
+		const	oldPlayerColor:	Map<string, Color3> = new Map();
+		const	newPlayer:		GamePlayer[] = [];
+		for (const p of players) {
+			if (this._playerColors.has(p.id)) {
+				oldPlayerColor.set(p.id, this._playerColors.get(p.id)!);
+				this._playerColors.delete(p.id);
+			} else
+				newPlayer.push(p);
+		}
+		this._playerColors.forEach((v, k) =>  {
+			const m:	InstancedMesh = this._playerRackets.get(k)!;
+			m.isVisible = false;  // Release unused rackets and colors
+		});
+		this._playerColors.clear();
 	}
 
 	private	_drawField():	void {
