@@ -9,8 +9,8 @@ import ScrollRaioList3D from "./controls/scroll-radio-list";
 import SwitchButton3D from "./controls/switch-button";
 import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
-import { JSONArray } from "./functions/typing-utils";
 import WebApi from "./web-api";
+import Game from "./game";
 
 export default class Ui implements IScript {
 	private readonly	_manager:	GUI3DManager;
@@ -38,8 +38,8 @@ export default class Ui implements IScript {
 	private readonly	_entranceFeeOrderButtonMesh!:	Mesh;
 	@visibleAsEntity("node", "entrance fee input mesh")
 	private readonly	_entranceFeeInputMesh!:			Mesh;
-	@visibleAsEntity("node", "refresh button mesh")
-	private readonly	_refreshButtonMesh!:			Mesh;
+	/*@visibleAsEntity("node", "refresh button mesh")
+	private readonly	_refreshButtonMesh!:			Mesh;*/
 	@visibleAsEntity("node", "play button mesh")
 	private readonly	_playButtonMesh!:				Mesh;
 	@visibleAsEntity("node", "game name entry mesh")
@@ -83,6 +83,7 @@ export default class Ui implements IScript {
 	private readonly	_createPanel:							AdvancedStackPanel3D;
 
 	private	_webApi!:	WebApi;
+	private	_game!:		Game;
 
 	public constructor(public scene: Scene) {
 		this._manager = new GUI3DManager(scene);
@@ -122,6 +123,13 @@ export default class Ui implements IScript {
 	public onStart(): void {
 		// ServerGame creation
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
+		this._game = getScriptByClassForObject(this.scene, Game)!;
+		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
+			this._gameListLayout.updateLayout();
+			this._gameListScroll.setClipped(true);
+		});
+		this._webApi.serverGame.lobbyWs();
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -138,7 +146,7 @@ export default class Ui implements IScript {
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._mainLayout.isVisible = false;
 			this._gameListLayout.isVisible = true;
-			this._refreshGameList();
+			this._webApi.serverGame.subscribeToLobby();
 		});
 
 		createGameButton.onPointerUpObservable.add(() => {
@@ -265,6 +273,7 @@ export default class Ui implements IScript {
 		gameListPreviousButton.onPointerUpObservable.add(() => {
 			this._gameListLayout.isVisible = false;
 			this._mainLayout.isVisible = true;
+			this._webApi.serverGame.unsubscribeFromLobby();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
 		this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game list header"));
@@ -272,25 +281,22 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameListControlPanel():	void {
-		getScriptByClassForObject(this._refreshButtonMesh, TextBlockDrawer)?.render();
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
 		this._gameListControlPanel.margin = 70;
 		this._gameListControlPanel.blockLayout = true;
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
-		const	refreshButton:	ButtonWithDescription = new ButtonWithDescription(this._refreshButtonMesh, "refresh button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5);
-
-		refreshButton.onPointerUpObservable.add(() => {
-			this._refreshGameList();
-		});
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		playButton.onPointerUpObservable.add(() => {
-			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id!.toString());
+			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
+			this._webApi.serverGame.unsubscribeFromLobby();
+			this._webApi.serverGame.subscribeToRoom();
+			this._game.maxPlayers = this._gameListScroll.selectedEntry.maxPlayers as number;
+			this._game.mode = 1;
 		});
 		playButton.isEnabled = false;
-		this._gameListControlPanel.addControl(refreshButton);
 		this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
 
@@ -360,6 +366,7 @@ export default class Ui implements IScript {
 		this._createButton.isEnabled = this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0;
 	}
 
+	/*
 	private	_refreshGameList():	void {
 		this._webApi.serverGame.getRooms();
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((rooms: any) => {
@@ -368,4 +375,5 @@ export default class Ui implements IScript {
 			this._gameListScroll.setClipped(true);
 		});
 	}
+	*/
 }

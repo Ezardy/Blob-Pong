@@ -1,11 +1,14 @@
 import { AbstractMesh, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Scene, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
+import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
 	public static readonly	LOBBY_MODE:	int = 1;
 	public static readonly	GAME_MODE:	int = 2;
+
+	public	maxPlayers:	int = 2;
 
 	@visibleAsNumber("distance from camera", {min: 0})
 	private readonly	_distance:	number = 500;
@@ -22,9 +25,10 @@ export default class Game implements IScript {
 
 	private				_playerCount:	int = -1;
 	private readonly	_playerColors:	Map<string, Color3> = new Map();
+	private readonly	_colorPool:		Array<Color3> = [];
+	private readonly	_wallColors:	Map<Color3, int> = new Map();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
 	private readonly	_racketPool:	Array<InstancedMesh> = [];
-	private readonly	_colorPool:		Array<Color3> = [];
 
 	private	_field!:	GreasedLineBaseMesh;
 	private	_ball!:		GreasedLineBaseMesh;
@@ -44,8 +48,6 @@ export default class Game implements IScript {
 	private readonly	_glow:	GlowLayer;
 
 	public constructor(public scene: Scene) {
-		for (let i = 0; i < 16; i += 1)
-			this._colorPool.push(Color3.Random());
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
 	}
@@ -70,20 +72,39 @@ export default class Game implements IScript {
 			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
 		});
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
+		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
 		const	camera:	Camera = this.scene.activeCamera!;
 		this._z = camera.globalPosition.z - this._distance;
 		this._y = this._z * Math.tan(camera.fov / 2) * this._padding;
 	}
 
-	public onUpdate(): void {
+	private	_gameUpdateCallback(gs: GameState):	void {
+
 	}
 
-	private	_drawField(playerCount: int):	void {
+	private	_roomDetailsCallback(d: RoomDetails):	void {
+		const	gamePlayers:	GamePlayer[] = [];
+		d.players.forEach(v => {
+			const	gamePlayer:	GamePlayer = {
+				id: v.id,
+				username: v.username,
+				position: 0.5
+			}
+			gamePlayers.push(gamePlayer);
+		});
+		this._drawPlayers(gamePlayers);
+	}
+
+	private	_drawPlayers(players: GamePlayer[]):	void {
+
+	}
+
+	private	_drawField():	void {
 		let	points:	Vector3[];
 		let	colors:	Color3[];
-		if (this._playerCount > 2) {
-			points = GreasedLineTools.GetCircleLinePoints(this._y, playerCount, this._z);
-			colors = Array.from(this._playerColors.values());
+		if (this._wallColors.size > 2) {
+			points = GreasedLineTools.GetCircleLinePoints(this._y, this._wallColors.size, this._z);
+			colors = Array.from(this._wallColors.keys());
 		} else {
 			const	x:		number = this._y * 2.2;
 			const	start:	Vector3 = new Vector3(x, this._y, this._z);
@@ -91,7 +112,7 @@ export default class Game implements IScript {
 				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
 				new Vector3(-x, this._y, this._z), start
 			];
-			const	colorIter:	MapIterator<Color3> = this._playerColors.values();
+			const	colorIter:	MapIterator<Color3> = this._wallColors.keys();
 			const	color1:	Color3 = colorIter.next().value!;
 			const	color2:	Color3 = colorIter.next().value!;
 			colors = [
@@ -118,14 +139,17 @@ export default class Game implements IScript {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
 				case 0:
+					if (this._mode === 1)
+						this._webApi.serverGame.usubscribeFromRoom();
+					else
+						this._webApi.serverGame.unsubscribeFromGame();
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._ball);
 					this._field.dispose(false, true);
 					this._playerColors.clear();
-					const	it:	MapIterator<string> = this._playerRackets.keys();
+					const	it:		MapIterator<string> = this._playerRackets.keys();
 					let		str:	IteratorResult<string | undefined> = it.next();
 					while (!str.done) {
-						this._colorPool.push(this._playerColors.get(str.value!)!);
 						this._playerColors.delete(str.value!);
 						this._racketPool.push(this._playerRackets.get(str.value!)!);
 						this._playerRackets.delete(str.value!);
@@ -133,8 +157,16 @@ export default class Game implements IScript {
 					}
 					break;
 				case 1:
-					this._drawField(this._webApi.serverGame.currentRoomInfo!.maxPlayers);
-					this._webApi.serverGame.getRoomDetails().then()
+					for (let i = 0; i < this.maxPlayers; i += 1) {
+						const	color:	Color3 = Color3.Random();
+						this._wallColors.set(color, i);
+						this._colorPool.push(color);
+					}
+					this._drawField();
+					this._webApi.serverGame.subscribeToRoom();
+					break;
+				default:
+					this._webApi.serverGame.subscribeToGame();
 					break;
 			}
 		}

@@ -18,7 +18,7 @@ type GameInit =
 	roomId:	string;
 }
 
-type GameState =
+export type GameState =
 {
 	state:				"countdown" | "finished" | "playing";
 	players:			GamePlayer[];
@@ -26,7 +26,7 @@ type GameState =
 	countdownSeconds:	number | undefined;
 }
 
-type GamePlayer =
+export type GamePlayer =
 {
 	id:				string;
 	username:		string;
@@ -87,14 +87,14 @@ type RoomStateChanged =
 	}
 }
 
-type RoomPlayer =
+export type RoomPlayer =
 {
 	id:			string;
 	isReady:	boolean;
 	username:	string;
 };
 
-interface RoomInfo
+export interface RoomInfo
 {
 	id:			string;
 	name:		string;
@@ -104,7 +104,7 @@ interface RoomInfo
 	maxPlayers:	number;
 }
 
-interface RoomDetails
+export interface RoomDetails
 {
 	players:	Set<RoomPlayer>;
 	creator:	RoomPlayer;
@@ -134,7 +134,7 @@ export class ServerGame
 		// this.requestSessionIdFromParent();
 	}
 
-	public	connectToLobby(callback: () => void) : void {
+	public	lobbyWs() : void {
 		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
 
 		this._lobbyWs.onopen = () => {
@@ -271,7 +271,7 @@ export class ServerGame
 		const type = "SUBSCRIBE_ROOM";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId ?? undefined }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
 	}
 
 	public subscribeToGame() : void
@@ -279,23 +279,23 @@ export class ServerGame
 		const type = "SUBSCRIBE_GAME";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId ?? undefined }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
 	}
 
-	public usubscribeFromRoom(roomId: string)
+	public usubscribeFromRoom()
 	{
 		const type = "UNSUBSCRIBE_ROOM";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
 	}
 
-	public unsubscribeFromGame(roomId: string)
+	public unsubscribeFromGame()
 	{
 		const type = "UNSUBSCRIBE_GAME";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
 	}
 
 	public subscribeToLobby()
