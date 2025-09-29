@@ -98,63 +98,52 @@ interface RoomDetails
 	createdAt:	Date;
 }
 
-export class ServerGame
-{
-	private readonly	_roomsMap:						Map<string, RoomInfo> = new Map();
-	private				_rooms?:						RoomInfo[];
-	private				_gameWs?:						WebSocket;
-	private				_lobbyWs?:						WebSocket;
-	private				_gameState?:					GameState;
-	private				_sessionId?:					string;
-	private				_currentRoomId?:				string;
-	public				onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
-	public				onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
+export class ServerGame {
+	private readonly	_roomsMap:			Map<string, RoomInfo> = new Map();
+	private				_rooms?:			RoomInfo[];
+	private				_gameWs?:			WebSocket;
+	private				_lobbyWs?:			WebSocket;
+	private				_gameState?:		GameState;
+	private				_sessionId?:		string;
+	private				_currentRoomId?:	string;
 
-	constructor()
-	{
-		this.onRoomsUpdatedObservable = new Observable<RoomInfo[]>();
-		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
-		this.lobbyWs();
+	constructor() {
 		// this.handleClientEvent();
 		// this.requestSessionIdFromParent();
 	}
 
-	public lobbyWs() : void
-	{
+	public	connectToLobby(callback: () => void) : void {
 		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
 
-		this._lobbyWs.onopen = () =>
-		{
+		this._lobbyWs.onopen = () => {
 			console.log("Connected to Lobby WebSocket ");
 		};
 
-		this._lobbyWs.onmessage = (event: MessageEvent) =>
-		{
-			try
-			{
+		this._lobbyWs.onmessage = (event: MessageEvent) => {
+			try {
 				const data: LobbyConnect = JSON.parse(event.data);
 				this._currentRoomId = data.currentRoomId;
 				this._rooms = data.rooms;
 				this._roomsMap.clear();
 				for (const room of this._rooms)
 					this._roomsMap.set(room.id, room);
-				this.onRoomsUpdatedObservable.notifyObservers(this._rooms);
-			}
-			catch (error)
-			{
+				callback();
+			} catch (error) {
 				console.error('Error parsing lobby message:', error);
 			}
 		};
 
-		this._lobbyWs.onclose = () =>
-		{
+		this._lobbyWs.onclose = () => {
 			console.log("Disconnected Lobby WebSocket");
 		};
 
-		this._lobbyWs.onerror = (error) =>
-		{
+		this._lobbyWs.onerror = (error) => {
 			console.log("Lobby WebSocket error: ", error);
 		};
+	}
+
+	public	disconnectFromLobby():	void {
+		this._lobbyWs?.close();
 	}
 
 	public getRoomDetails(): void
