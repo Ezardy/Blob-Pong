@@ -210,6 +210,14 @@ export class ServerGame
 			this._lobbyWs?.send(JSON.stringify({ type }));
 	}
 
+	public getRoomDetails() : void
+	{
+		const type = "GET_ROOM";
+
+		if (this.isWebSocketOpen(this._lobbyWs))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
+	}
+
 	public createRoom(
 		name: string,
 		entryFee: int,
