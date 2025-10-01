@@ -1,4 +1,4 @@
-import { AbstractMesh, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
@@ -7,6 +7,8 @@ export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
 	public static readonly	LOBBY_MODE:	int = 1;
 	public static readonly	GAME_MODE:	int = 2;
+
+	public static readonly	MAX_PLAYERS:	int = 16;
 
 	public	maxPlayers:	int = 2;
 
@@ -33,10 +35,16 @@ export default class Game implements IScript {
 	private	_field!:	GreasedLineBaseMesh;
 	private	_ball!:		GreasedLineBaseMesh;
 
-	private	_z:					number = 0;
-	private	_y:					number = 1;
-	private	_racketMeshSize:	number = 1;
-	private	_ballMeshSize:		number = 1;
+	private				_z:					number = 0;
+	private				_y:					number = 1;
+	private				_racketMeshSize:	number = 1;
+	private				_ballMeshSize:		number = 1;
+	private				_wallSize:			number = 1;
+	private				_alpha:				number = 0;
+	private				_height:			number = 0;
+	private readonly	_betaSins:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
+	private readonly	_betaCoss:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
+	private readonly	_rotations:			Array<Quaternion> = new Array<Quaternion>(Game.MAX_PLAYERS);
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -58,6 +66,7 @@ export default class Game implements IScript {
 		pivot.y = bb.maximum.y;
 		this._racketMesh.setPivotPoint(pivot);
 		this._racketMeshSize = bb.extendSize.x * 2;
+		this._racketMesh.isVisible = false;
 		for (let i = 0; i < 16; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
 			this._racketPool.push(inst);
@@ -80,7 +89,9 @@ export default class Game implements IScript {
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
-		
+		this._syncGame(gs.players);
+		this._drawPlayers(gs.players);
+		this._ball.position.set(gs.ballPosition[0] * this._wallSize, gs.ballPosition[1] * this._wallSize, this._z);
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
@@ -93,11 +104,60 @@ export default class Game implements IScript {
 			}
 			gamePlayers.push(gamePlayer);
 		});
+		this._syncRoomPlayers(gamePlayers);
 		this._drawPlayers(gamePlayers);
 	}
 
 	private	_drawPlayers(players: GamePlayer[]):	void {
+		/*
+		const alpha = (Math.PI * 2) / playerCount;
+		const height = 0.5 / Math.tan(alpha / 2);
+		const paddleWidth = 0.1;
 
+		const beta = alpha * index;
+		const gamma = beta - (Math.PI / 2);
+
+		const distance = player.position - 0.5;
+		const distance_x = distance * Math.cos(beta);
+		const distance_y = distance * Math.sin(beta);
+		const x_center = height * Math.cos(gamma);
+		const y_center = height * Math.sin(gamma);
+		const paddleX = x_center + distance_x;
+		const paddleY = y_center + distance_y;
+		*/
+		for (const player of players) {
+			const	color:	Color3 = this._playerColors.get(player.id)!;
+			const	wall:	int = this._wallColors.get(color)!;
+			const	racket:	InstancedMesh = this._playerRackets.get(player.id)!;
+			racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
+								this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
+								this._z);
+			racket.rotationQuaternion = this._rotations[wall];
+		}
+	}
+
+	private	_syncGame(players: GamePlayer[]):	void {
+		if (this._playerColors.size > players.length) {
+			const	oldPlayerColors:	Map<string, Color3> = new Map();
+			players.forEach(player => {
+				oldPlayerColors.set(player.id, this._playerColors.get(player.id)!);
+				this._playerColors.delete(player.id)
+			});
+			this._playerColors.forEach((color, id) => {
+				this._wallColors.delete(color);
+				this._playerColors.delete(id);
+				const	racket:	InstancedMesh = this._playerRackets.get(id)!;
+				this._playerRackets.delete(id);
+				racket.isVisible = false;
+				this._racketPool.push(racket);
+				this._colorPool.push(color);
+			});
+			this._playerColors.clear();
+			oldPlayerColors.forEach((color, id) => this._playerColors.set(id, color));
+			this._updateFieldParams(players.length);
+			this._drawField();
+			this._scaleMeshes();
+		}
 	}
 
 	private	_syncRoomPlayers(players: GamePlayer[]):	void {
@@ -111,10 +171,23 @@ export default class Game implements IScript {
 				newPlayer.push(p);
 		}
 		this._playerColors.forEach((v, k) =>  {
-			const m:	InstancedMesh = this._playerRackets.get(k)!;
-			m.isVisible = false;  // Release unused rackets and colors
+			const m:	InstancedMesh = this._playerRackets.get(k)!
+			this._playerRackets.delete(k);
+			this._playerColors.delete(k);
+			m.isVisible = false;
+			this._colorPool.push(v);
+			this._racketPool.push(m);
 		});
 		this._playerColors.clear();
+		newPlayer.forEach(player => {
+			const	r:	InstancedMesh = this._racketPool.pop()!;
+			const	c:	Color3 = this._colorPool.pop()!;
+			r.instancedBuffers.color = c;
+			r.isVisible = true;
+			this._playerColors.set(player.id, c);
+			this._playerRackets.set(player.id, r);
+		});
+		oldPlayerColor.forEach((c, id) => this._playerColors.set(id, c));
 	}
 
 	private	_drawField():	void {
@@ -159,20 +232,22 @@ export default class Game implements IScript {
 				case 0:
 					if (this._mode === 1)
 						this._webApi.serverGame.usubscribeFromRoom();
-					else
+					else {
 						this._webApi.serverGame.unsubscribeFromGame();
+						this._ball.isVisible = false;
+					}
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._ball);
 					this._field.dispose(false, true);
+					this._wallColors.clear();
+					this._playerColors.forEach((color, id) => {
+						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
+						racket.isVisible = false;
+						this._racketPool.push(racket);
+						this._colorPool.push(color);
+					});
 					this._playerColors.clear();
-					const	it:		MapIterator<string> = this._playerRackets.keys();
-					let		str:	IteratorResult<string | undefined> = it.next();
-					while (!str.done) {
-						this._playerColors.delete(str.value!);
-						this._racketPool.push(this._playerRackets.get(str.value!)!);
-						this._playerRackets.delete(str.value!);
-						str = it.next();
-					}
+					this._playerRackets.clear();
 					break;
 				case 1:
 					for (let i = 0; i < this.maxPlayers; i += 1) {
@@ -181,13 +256,27 @@ export default class Game implements IScript {
 						this._colorPool.push(color);
 					}
 					this._drawField();
+					this._updateFieldParams(this.maxPlayers);
+					this._scaleMeshes();
 					this._webApi.serverGame.subscribeToRoom();
 					break;
 				default:
+					this._ball.isVisible = true;
+					this._webApi.serverGame.unsubscribeFromGame();
 					this._webApi.serverGame.subscribeToGame();
 					break;
 			}
 		}
+	}
+
+	private	_scaleMeshes():	void {
+		const	racketScale:	number = this._racketSize / 100 * this._wallSize / this._racketMeshSize;
+		const	ballScale:		number = this._ballSize / 100 * this._wallSize / this._ballMeshSize;
+		this._ballMeshSize *= ballScale;
+		this._racketMeshSize *= racketScale;
+		this._ball.scaling.scaleInPlace(ballScale);
+		this._playerRackets.forEach(racket => racket.scaling.scaleInPlace(racketScale));
+		this._racketPool.forEach(racket => racket.scaling.scaleInPlace(racketScale));
 	}
 
 	private static	_omitDuplicateWrapper(p1: Vector3, p2: Vector3, p3: Vector3, points: Vector3[][],
@@ -196,200 +285,15 @@ export default class Game implements IScript {
 		return GreasedLineTools.OmitDuplicatesPredicate(p1, p2, p3, points) || [];
 	}
 
-	drawArena(ctx: any, canvas: any) {
-		const centerX = canvas.width / 2;
-		const centerY = canvas.height / 2;
-		const radius = 300;
-
-		// Check if we're in 2-player mode for square arena
-		// if (this.gameState && this.gameState.players && this.gameState.players.length === 2) {
-			// Draw square arena for 2-player mode
-			ctx.strokeStyle = '#00ff00';
-			ctx.lineWidth = 3;
-			ctx.beginPath();
-			ctx.rect(centerX - radius, centerY - radius * 0.5, radius * 2, radius);
-			ctx.stroke();
-		// } else {
-			// Draw circular arena for multi-player mode
-			ctx.strokeStyle = '#00ff00';
-			ctx.lineWidth = 3;
-			ctx.beginPath();
-			ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-			ctx.stroke();
-
-		// Draw center dot
-		ctx.fillStyle = '#00ff00';
-		ctx.beginPath();
-		ctx.arc(centerX, centerY, 3, 0, Math.PI * 2);
-		ctx.fill();
-	}
-
-	drawBall(ctx: any, canvas: any, ballPos: any) {
-		const centerX = canvas.width / 2;
-		const centerY = canvas.height / 2;
-		const radius = 300;
-
-		const ballX = centerX + ballPos[0] * radius;
-		const ballY = centerY + ballPos[1] * radius;
-
-		ctx.fillStyle = '#ffffff';
-		ctx.beginPath();
-		ctx.arc(ballX, ballY, 8, 0, Math.PI * 2);
-		ctx.fill();
-	}
-
-	drawPlayers(ctx: any, canvas: any, players: any) {
-		if (!players || players.length === 0) {
-			console.log('No players to draw');
-			return;
+	private	_updateFieldParams(playerCount: int):	void {
+		this._alpha = 2 * Math.PI / playerCount;
+		this._wallSize = 2 * this._y * Math.cos(Math.PI / 2 - Math.PI / playerCount);
+		this._height = this._wallSize / 2 / Math.tan(this._alpha / 2);
+		for (let i = 0; i < playerCount; i += 1) {
+			const	beta:	number = this._alpha * i;
+			this._betaSins[i] = Math.sin(beta);
+			this._betaCoss[i] = Math.cos(beta);
+			this._rotations[i] = Quaternion.RotationAxis(Axis.Z, -beta);
 		}
-
-		const centerX = canvas.width / 2;
-		const centerY = canvas.height / 2;
-		const radius = 300;
-
-		// Special case for 2 players - use left/right virtual positions (x = -1 and x = 1)
-		if (players.length === 2) {
-			const paddleWidth = 0.1;
-			
-			players.forEach((player: any, index: any) => {
-				// Apply server-side logic: calculateTwoPlayersPositions
-				const playerDist = player.position - 0.5;
-				let virtualX, virtualY;
-				
-				if (index === 0) {
-					// Left player
-					virtualX = -1;
-					virtualY = playerDist;
-				} else {
-					// Right player
-					virtualX = 1;
-					virtualY = playerDist;
-				}
-
-				// Map virtual coords to screen (paddle center)
-				const screenX = centerX + virtualX * radius;
-				const screenY = centerY + virtualY * radius;
-
-				// Calculate paddle endpoints (vertical paddle)
-				const paddleHalfLength = paddleWidth * radius;
-				const leftX = screenX;
-				const leftY = screenY - paddleHalfLength;
-				const rightX = screenX;
-				const rightY = screenY + paddleHalfLength;
-				
-				// Draw paddle using moveTo/lineTo pattern
-				ctx.strokeStyle = player.isActive ? '#00ff00' : '#ff4444';
-				ctx.lineWidth = 6;
-				ctx.beginPath();
-				ctx.moveTo(leftX, leftY);
-				ctx.lineTo(rightX, rightY);
-				ctx.stroke();
-
-				// Draw player name
-				ctx.fillStyle = player.isActive ? '#00ff00' : '#ff4444';
-				ctx.font = '12px Courier New';
-				ctx.textAlign = 'center';
-				ctx.fillText(player.username, screenX, screenY - paddleHalfLength - 10);
-			});
-			return;
-		}
-
-		// Original multi-player circular arrangement
-		const playerCount = players.length;
-		const alpha = (Math.PI * 2) / playerCount;
-		const height = 0.5 / Math.tan(alpha / 2);
-		const paddleWidth = 0.1;
-
-		players.forEach((player: any, index: number) => {
-			const beta = alpha * index;
-			const gamma = beta - (Math.PI / 2);
-
-			// Calculate paddle position
-			const distance = player.position - 0.5;
-			const distance_x = distance * Math.cos(beta);
-			const distance_y = distance * Math.sin(beta);
-			const x_center = height * Math.cos(gamma);
-			const y_center = height * Math.sin(gamma);
-			const paddleX = x_center + distance_x;
-			const paddleY = y_center + distance_y;
-
-			// Draw paddle
-			const screenX = centerX + paddleX * radius;
-			const screenY = centerY + paddleY * radius;
-
-			const leftX = screenX - paddleWidth * Math.cos(beta) * radius;
-			const leftY = screenY - paddleWidth * Math.sin(beta) * radius;
-			const rightX = screenX + paddleWidth * Math.cos(beta) * radius;
-			const rightY = screenY + paddleWidth * Math.sin(beta) * radius;
-
-			ctx.strokeStyle = player.isActive ? '#00ff00' : '#ff4444';
-			ctx.lineWidth = 6;
-			ctx.beginPath();
-			ctx.moveTo(leftX, leftY);
-			ctx.lineTo(rightX, rightY);
-			ctx.stroke();
-
-			// Draw player name
-			ctx.fillStyle = player.isActive ? '#00ff00' : '#ff4444';
-			ctx.font = '12px Courier New';
-			ctx.textAlign = 'center';
-			ctx.fillText(player.username, screenX, screenY - 20);
-		});
 	}
-
-	/** mousemove event listener
-	this.canvas.addEventListener('mousemove', (e) => {
-		const rect = this.canvas.getBoundingClientRect();
-		const newMouseX = (e.clientX - rect.left) / rect.width;
-
-		// Calculate drag delta
-		const dragDelta = newMouseX - this.mouseX;
-		this.mouseX = newMouseX;
-
-		// Only send input if game is in playing state
-		if (!this.gameState || this.gameState.state !== 'playing') {
-			return;
-		}
-	**/
-
-	// 	// Only send if game WebSocket is ready and delta is meaningful
-	// 	if (this.gameWs && this.gameWs.readyState === WebSocket.OPEN && Math.abs(dragDelta) > 0.001) {
-	// 		// Send drag delta (scaled for sensitivity)
-	// 		if (this.gameState.players.length == 2)
-	// 			this.gameWs.send((dragDelta * 1000).toString());
-	// 		else
-	// 			this.gameWs.send((dragDelta * 500).toString());
-	// 	}
-	// });
-
-	// renderGame() {
-	// 	const ctx = this.ctx;
-	// 	const canvas = this.canvas;
-		
-	// 	// Clear canvas
-	// 	ctx.fillStyle = '#000';
-	// 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-	// 	if (!this.gameState) {
-	// 		// Draw empty arena
-	// 		this.drawArena(ctx, canvas);
-	// 		return;
-	// 	}
-
-	// 	// Draw arena
-	// 	this.drawArena(ctx, canvas);
-
-	// 	// Draw ball
-	// 	if (this.gameState.ballPosition) {
-	// 		this.drawBall(ctx, canvas, this.gameState.ballPosition);
-	// 	}
-
-	// 	// Draw players
-	// 	if (this.gameState.players) {
-	// 		this.drawPlayers(ctx, canvas, this.gameState.players);
-	// 	}
-	// }
 }
-
-
