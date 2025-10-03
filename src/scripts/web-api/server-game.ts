@@ -200,14 +200,6 @@ export class ServerGame
 		};
 	}
 
-	public getRooms() : void
-	{
-		const type = "GET_ROOMS";
-
-		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type }));
-	}
-
 	public getRoomDetails() : void
 	{
 		const type = "GET_ROOM";
