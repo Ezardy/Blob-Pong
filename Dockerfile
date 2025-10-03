@@ -14,7 +14,7 @@ COPY --chown=www . /opt/blob-pong
 WORKDIR /opt/blob-pong
 
 RUN npm install && rm package-lock.json
-RUN sed -i "s/port: 3000/port: ${PONG_PORT}/" server.js && apk del sed
+RUN sed -i "s/port: 3000/port: ${PONG_PORT}/" server.mjs && apk del sed
 RUN npm run build && rm -rf public/ src/ index.html tsconfig.json vite.config.ts && npm prune --omit=dev
 
 USER www

@@ -125,6 +125,7 @@ export default class Ui implements IScript {
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._game = getScriptByClassForObject(this.scene, Game)!;
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
+			console.log("rooms update");
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
@@ -206,6 +207,8 @@ export default class Ui implements IScript {
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
 				Number.parseInt(this._gameCreationPlayerCountInput.text)
 			);
+			this._gameCreationLayout.isVisible = false;
+			this._game.mode = 1;
 		})
 		this._createPanel.addControl(this._createButton);
 		this._createButton.isEnabled = false;

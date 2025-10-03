@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "entrance fee input mesh",
-            "id": "5beccf2d-b0aa-4e51-824a-5afa465589aa",
-            "uniqueId": 1758101347265,
+            "name": "Icosphere",
+            "id": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7",
+            "uniqueId": 1759419346314,
             "type": "Mesh",
             "position": [
-                49.59413707761137,
-                -84.74408081314807,
-                0
+                331.40572986210316,
+                0,
+                -116.3654237853832
             ],
             "rotationQuaternion": [
                 0,
@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                27.000000000000004,
-                27,
-                27.000000000000004
+                100,
+                100,
+                100
             ],
             "localMatrix": [
                 1,
@@ -42,7 +42,7 @@
             "isEnabled": true,
             "isVisible": true,
             "infiniteDistance": false,
-            "pickable": false,
+            "pickable": true,
             "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
@@ -62,87 +62,12 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1754739902865,
-            "geometryId": "db8ab8ff-6e21-4fd3-baa9-485e35cf928e",
+            "geometryUniqueId": 1759419346315,
+            "geometryId": "79b1c73f-6230-42d4-a9aa-7b9688cda0fa",
             "subMeshes": null,
-            "materialUniqueId": 1754739854561,
-            "materialId": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "metadata": {
-                "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/input-field.ts",
-                        "values": {
-                            "_hint": {
-                                "type": "string",
-                                "value": "entrance fee"
-                            },
-                            "_hintColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    0.796078431372549
-                                ]
-                            },
-                            "_textColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_backgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.20392156862745098
-                                ]
-                            },
-                            "_focusedBackgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.4117647058823529
-                                ]
-                            },
-                            "_highlightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    0,
-                                    0,
-                                    0.5137254901960784
-                                ]
-                            },
-                            "_borderThickness": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_hintSize": {
-                                "type": "number",
-                                "value": 6
-                            },
-                            "_textSize": {
-                                "type": "number",
-                                "value": 11
-                            },
-                            "_textureResolutionScaler": {
-                                "type": "number",
-                                "value": 2
-                            }
-                        }
-                    }
-                ],
-                "parentId": 1758052214954
-            },
+            "materialUniqueId": 1759419346316,
+            "materialId": "bf34e82f-0521-4755-8bef-1778462016ef",
+            "metadata": {},
             "instances": [],
             "animations": [],
             "ranges": [],
@@ -157,46 +82,46 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/db8ab8ff-6e21-4fd3-baa9-485e35cf928e.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/79b1c73f-6230-42d4-a9aa-7b9688cda0fa.babylonbinarymeshdata",
             "boundingBoxMaximum": [
+                0.9510578513145447,
                 1,
-                1,
-                1
+                0.9999999403953552
             ],
             "boundingBoxMinimum": [
+                -0.9510578513145447,
                 -1,
-                -1,
-                -1
+                -0.9999999403953552
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 720,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 720,
                     "stride": 3,
-                    "offset": 288,
+                    "offset": 2880,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 48,
+                    "count": 480,
                     "stride": 2,
-                    "offset": 576,
+                    "offset": 5760,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 240,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 7680,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 8640,
                     "dataType": 0
                 }
             },
@@ -220,7 +145,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 1,
+            "roughness": 1,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -234,9 +160,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
-                0,
-                0
+                1,
+                1,
+                1
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -283,13 +209,13 @@
             "useAlphaFresnel": false,
             "useLinearAlphaFresnel": false,
             "forceNormalForward": false,
-            "enableSpecularAntiAliasing": false,
+            "enableSpecularAntiAliasing": true,
             "useHorizonOcclusion": true,
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "name": "icon",
+            "id": "bf34e82f-0521-4755-8bef-1778462016ef",
+            "name": "__GLTFLoader._default",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -328,7 +254,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754739854561,
+            "uniqueId": 1759419346316,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -475,94 +401,19 @@
         "torusKnots": [],
         "vertexData": []
     },
-    "metadata": {
-        "scripts": [
-            {
-                "enabled": true,
-                "key": "scripts/input-field.ts",
-                "values": {
-                    "_hint": {
-                        "type": "string",
-                        "value": "entrance fee"
-                    },
-                    "_hintColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            0.796078431372549
-                        ]
-                    },
-                    "_textColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_backgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.20392156862745098
-                        ]
-                    },
-                    "_focusedBackgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.4117647058823529
-                        ]
-                    },
-                    "_highlightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            0,
-                            0,
-                            0.5137254901960784
-                        ]
-                    },
-                    "_borderThickness": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_hintSize": {
-                        "type": "number",
-                        "value": 6
-                    },
-                    "_textSize": {
-                        "type": "number",
-                        "value": 11
-                    },
-                    "_textureResolutionScaler": {
-                        "type": "number",
-                        "value": 2
-                    }
-                }
-            }
-        ],
-        "parentId": 1758052214954
-    },
+    "metadata": {},
     "basePoseMatrix": [
-        -2,
+        -1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,

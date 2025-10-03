@@ -69,6 +69,7 @@ export default class Game implements IScript {
 		this._racketMesh.isVisible = false;
 		for (let i = 0; i < 16; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
+			inst.isVisible = false;
 			this._racketPool.push(inst);
 		}
 		const	bbs:	BoundingSphere = this._ballMesh.getBoundingInfo().boundingSphere;
@@ -80,6 +81,8 @@ export default class Game implements IScript {
 			width: 1,
 			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
 		});
+		this._ballMesh.isVisible = false;
+		this._ball.isVisible = false;
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
@@ -95,17 +98,20 @@ export default class Game implements IScript {
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
-		const	gamePlayers:	GamePlayer[] = [];
-		d.players.forEach(v => {
-			const	gamePlayer:	GamePlayer = {
-				id: v.id,
-				username: v.username,
-				position: 0.5
-			}
-			gamePlayers.push(gamePlayer);
-		});
-		this._syncRoomPlayers(gamePlayers);
-		this._drawPlayers(gamePlayers);
+		console.log(d.players.size);
+		if (d.players) {
+			const	gamePlayers:	GamePlayer[] = [];
+			d.players.forEach(v => {
+				const	gamePlayer:	GamePlayer = {
+					id: v.id,
+					username: v.username,
+					position: 0.5
+				}
+				gamePlayers.push(gamePlayer);
+			});
+			this._syncRoomPlayers(gamePlayers);
+			this._drawPlayers(gamePlayers);
+		}
 	}
 
 	private	_drawPlayers(players: GamePlayer[]):	void {

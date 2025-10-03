@@ -112,7 +112,7 @@
             "iblShadowsRenderPipeline": null
         },
         {
-            "cameraId": "3ee0f345-7bea-4f59-a657-28c90a7d5e74",
+            "cameraId": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
             "ssao2RenderingPipeline": null,
             "vlsPostProcess": null,
             "ssrRenderingPipeline": null,
@@ -163,10 +163,6 @@
                         "type": "entity",
                         "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
                     },
-                    "_refreshButtonMesh": {
-                        "type": "entity",
-                        "value": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690"
-                    },
                     "_playButtonMesh": {
                         "type": "entity",
                         "value": "7fb2333d-a45c-42a8-8a32-0282fc30cc26"
@@ -212,11 +208,51 @@
             {
                 "enabled": true,
                 "key": "scripts/web-api.ts"
+            },
+            {
+                "enabled": true,
+                "key": "scripts/game.ts",
+                "values": {
+                    "_distance": {
+                        "type": "number",
+                        "value": 200
+                    },
+                    "_padding": {
+                        "type": "number",
+                        "value": 0.1
+                    },
+                    "_wallColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_racketSize": {
+                        "type": "number",
+                        "description": "percentage of wall size",
+                        "value": 20
+                    },
+                    "_ballSize": {
+                        "type": "number",
+                        "description": "percentage of wall size",
+                        "value": 1.6
+                    },
+                    "_racketMesh": {
+                        "type": "entity",
+                        "value": "68606411-620d-4663-be4a-fe57b0cbbfcf"
+                    },
+                    "_ballMesh": {
+                        "type": "entity",
+                        "value": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7"
+                    }
+                }
             }
         ],
         "rendering": [
             {
-                "cameraId": "3ee0f345-7bea-4f59-a657-28c90a7d5e74",
+                "cameraId": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
                 "ssao2RenderingPipeline": null,
                 "vlsPostProcess": null,
                 "ssrRenderingPipeline": null,
@@ -246,15 +282,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.03679717492675075,
-            -0.12078758887978742,
+            -0.04120300817873218,
+            6.017525445178238,
             0
         ],
         "speed": 200,
         "position": [
-            158.84566093476204,
-            41.232984188416964,
-            -776.4983334773691
+            760.4901178402397,
+            -43.79369992356362,
+            -3928.362864704656
         ],
         "upVector": [
             0,
