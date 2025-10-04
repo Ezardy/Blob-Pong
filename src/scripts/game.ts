@@ -25,14 +25,13 @@ export default class Game implements IScript {
 
 	private	_webApi!:	WebApi;
 
-	private				_playerCount:	int = -1;
 	private readonly	_playerColors:	Map<string, Color3> = new Map();
 	private readonly	_colorPool:		Array<Color3> = [];
 	private readonly	_wallColors:	Map<Color3, int> = new Map();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
 	private readonly	_racketPool:	Array<InstancedMesh> = [];
 
-	private	_field!:	GreasedLineBaseMesh;
+	private	_field:	Nullable<GreasedLineBaseMesh> = null;
 	private	_ball!:		GreasedLineBaseMesh;
 
 	private				_z:					number = 0;
@@ -81,6 +80,8 @@ export default class Game implements IScript {
 			width: 1,
 			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
 		});
+		this._glow.addIncludedOnlyMesh(this._ball);
+		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
 		this._ball.isVisible = false;
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
@@ -197,6 +198,11 @@ export default class Game implements IScript {
 	}
 
 	private	_drawField():	void {
+		if (this._field) {
+			this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
+			this._glow.removeIncludedOnlyMesh(this._field);
+			this._field.dispose(false, true);
+		}
 		let	points:	Vector3[];
 		let	colors:	Color3[];
 		if (this._wallColors.size > 2) {
@@ -226,6 +232,8 @@ export default class Game implements IScript {
 				dashCount: 15,
 				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
 				});
+		this._glow.addIncludedOnlyMesh(this._field);
+		this._glow.referenceMeshToUseItsOwnMaterial(this._field);
 	}
 
 	public get	mode():	int {
@@ -242,9 +250,8 @@ export default class Game implements IScript {
 						this._webApi.serverGame.unsubscribeFromGame();
 						this._ball.isVisible = false;
 					}
-					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
-					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._ball);
-					this._field.dispose(false, true);
+					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field!);
+					this._glow.removeIncludedOnlyMesh(this._field!);
 					this._wallColors.clear();
 					this._playerColors.forEach((color, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
