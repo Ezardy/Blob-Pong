@@ -1,7 +1,7 @@
 {
     "meshes": [
         {
-            "name": "Icosphere",
+            "name": "ball",
             "id": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7",
             "uniqueId": 1759419346314,
             "type": "Mesh",

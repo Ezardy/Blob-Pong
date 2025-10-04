@@ -1,6 +1,6 @@
-import { AbstractMesh, Axis, Mesh, Nullable, Quaternion, Scene, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, int, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D } from "@babylonjs/gui";
-import { getScriptByClassForObject, IScript, visibleAsEntity } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
 import { ISelectable } from "./interfaces/iselectable";
@@ -71,6 +71,14 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "create button mesh")
 	private readonly	_createButtonMesh!:	Mesh;
 
+	// game parameters
+	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
+	private readonly	_maxPlayers:	int = 10;
+	@visibleAsNumber("min fee", {min: 0.0001})
+	private readonly	_minFee:	number = 1;
+	@visibleAsNumber("max fee", {min: 0.0001})
+	private readonly	_maxFee:	number = 1000;
+
 	private	_gameCreationGameNameInput!:	InputTextArea;
 	private	_gameCreationEntranceFeeInput!:	InputTextArea;
 	private	_gameCreationPlayerCountInput!:	InputTextArea;
@@ -125,7 +133,6 @@ export default class Ui implements IScript {
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._game = getScriptByClassForObject(this.scene, Game)!;
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
-			console.log("rooms update");
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
@@ -207,6 +214,7 @@ export default class Ui implements IScript {
 				Number.parseInt(this._gameCreationPlayerCountInput.text)
 			);
 			this._gameCreationLayout.isVisible = false;
+			this._game.maxPlayers = Number.parseInt(this._gameCreationPlayerCountInput.text);
 			this._game.mode = 1;
 		})
 		this._createPanel.addControl(this._createButton);
@@ -219,11 +227,11 @@ export default class Ui implements IScript {
 		this._gameCreationEntranceFeeInputPanel.margin = 10;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
-			this._gameCreationPlayerCountInput = input.inputTextArea;
-			this._gameCreationPlayerCountInput.onTextChangedObservable.add(() => this._enableCreateButton());
+			this._gameCreationEntranceFeeInput = input.inputTextArea;
+			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseFloat(input);
-				return (n > 1000 ? 1000 : (n < 1 ? 1 : n)).toString();
+				return (n > this._maxFee ? this._maxFee : (n < this._minFee ? this._minFee : n)).toString();
 			}
 			const	inputControl:	MeshControl = new MeshControl(this._gameCreationEntranceFeeInputMesh, "game creation entrance fee input", input.inputTextArea);
 			this._gameCreationEntranceFeeInputPanel.addControl(inputControl);
@@ -235,11 +243,11 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel.margin = 10;
 		this._gameCreationPlayerCountInputPanel.blockLayout = true;
 			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
-			this._gameCreationEntranceFeeInput = input.inputTextArea;
-			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
+			this._gameCreationPlayerCountInput = input.inputTextArea;
+			this._gameCreationPlayerCountInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseInt(input);
-				return (n > 10 ? 10 : (n < 2 ? 2 : n)).toString();
+				return (n > this._maxPlayers ? this._maxPlayers : (n < 2 ? 2 : n)).toString();
 			}
 			const	inputControl:	MeshControl = new MeshControl(this._gameCreationPlayerCountInputMesh, "game creation entrance fee input", input.inputTextArea);
 			this._gameCreationPlayerCountInputPanel.addControl(inputControl);
@@ -296,6 +304,7 @@ export default class Ui implements IScript {
 			this._webApi.serverGame.unsubscribeFromLobby();
 			this._webApi.serverGame.subscribeToRoom();
 			this._game.maxPlayers = this._gameListScroll.selectedEntry.maxPlayers as number;
+			this._gameListLayout.isVisible = false;
 			this._game.mode = 1;
 		});
 		playButton.isEnabled = false;
@@ -365,7 +374,12 @@ export default class Ui implements IScript {
 
 	// Observers' functions
 	private	_enableCreateButton():	void {
-		this._createButton.isEnabled = this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0;
+		if (this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0) {
+			const	playerCount = Number.parseInt(this._gameCreationPlayerCountInput.text);
+			const	fee = Number.parseFloat(this._gameCreationEntranceFeeInput.text);
+			console.log(this._gameCreationEntranceFeeInput.text + " " + fee);
+			this._createButton.isEnabled = playerCount > 1 && playerCount <= this._maxPlayers && fee >= this._minFee && fee <= this._maxFee;
+		}
 	}
 
 	/*

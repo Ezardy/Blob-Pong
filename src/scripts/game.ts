@@ -65,6 +65,8 @@ export default class Game implements IScript {
 		pivot.y = bb.maximum.y;
 		this._racketMesh.setPivotPoint(pivot);
 		this._racketMeshSize = bb.extendSize.x * 2;
+		this._racketMesh.registerInstancedBuffer("instanceColor", 3);
+		this._racketMesh.instancedBuffers.instanceColor = Color3.Random();
 		this._racketMesh.isVisible = false;
 		for (let i = 0; i < 16; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
@@ -88,8 +90,8 @@ export default class Game implements IScript {
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
 		const	camera:	Camera = this.scene.activeCamera!;
-		this._z = camera.globalPosition.z - this._distance;
-		this._y = this._z * Math.tan(camera.fov / 2) * this._padding;
+		this._z = camera.globalPosition.z + this._distance;
+		this._y = this._distance * Math.tan(camera.fov / 2) * (1 - this._padding);
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
@@ -189,7 +191,7 @@ export default class Game implements IScript {
 		newPlayer.forEach(player => {
 			const	r:	InstancedMesh = this._racketPool.pop()!;
 			const	c:	Color3 = this._colorPool.pop()!;
-			r.instancedBuffers.color = c;
+			r.instancedBuffers.instanceColor = c;
 			r.isVisible = true;
 			this._playerColors.set(player.id, c);
 			this._playerRackets.set(player.id, r);
@@ -206,6 +208,7 @@ export default class Game implements IScript {
 		let	points:	Vector3[];
 		let	colors:	Color3[];
 		if (this._wallColors.size > 2) {
+			console.log(this._y + ' ' + this._z);
 			points = GreasedLineTools.GetCircleLinePoints(this._y, this._wallColors.size, this._z);
 			colors = Array.from(this._wallColors.keys());
 		} else {
@@ -229,7 +232,8 @@ export default class Game implements IScript {
 				useColors: true,
 				colors: colors,
 				useDash: true,
-				dashCount: 15,
+				width: 10,
+				dashCount: 50,
 				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
 				});
 		this._glow.addIncludedOnlyMesh(this._field);
@@ -253,12 +257,13 @@ export default class Game implements IScript {
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field!);
 					this._glow.removeIncludedOnlyMesh(this._field!);
 					this._wallColors.clear();
-					this._playerColors.forEach((color, id) => {
+					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
 						racket.isVisible = false;
 						this._racketPool.push(racket);
-						this._colorPool.push(color);
 					});
+					while (this._colorPool.length)
+						this._colorPool.pop();
 					this._playerColors.clear();
 					this._playerRackets.clear();
 					break;

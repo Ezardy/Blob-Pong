@@ -58,14 +58,14 @@
     "layerMask": 268435455,
     "fovMode": 0,
     "cameraRigMode": 0,
-    "name": "New Arc-Rotate Camera",
+    "name": "camera",
     "id": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
     "state": "",
     "metadata": {
         "sensorSize": 36,
         "focalLength": 42.574003560703986
     },
-    "uniqueId": 1759424029988,
+    "uniqueId": 139,
     "type": "ArcRotateCamera",
     "inputsmgr": {
         "ArcRotateCameraKeyboardMoveInput": {
