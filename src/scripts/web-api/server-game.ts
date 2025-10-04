@@ -265,7 +265,7 @@ export class ServerGame
 		const type = "SUBSCRIBE_ROOM";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public subscribeToGame() : void
@@ -273,7 +273,7 @@ export class ServerGame
 		const type = "SUBSCRIBE_GAME";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public usubscribeFromRoom()
@@ -281,7 +281,7 @@ export class ServerGame
 		const type = "UNSUBSCRIBE_ROOM";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public unsubscribeFromGame()
@@ -289,7 +289,7 @@ export class ServerGame
 		const type = "UNSUBSCRIBE_GAME";
 
 		if (this.isWebSocketOpen(this._lobbyWs))
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }))
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public subscribeToLobby()

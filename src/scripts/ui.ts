@@ -130,7 +130,6 @@ export default class Ui implements IScript {
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
 		});
-		this._webApi.serverGame.lobbyWs();
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();

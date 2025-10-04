@@ -98,7 +98,7 @@ export default class Game implements IScript {
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
-		console.log(d.players.size);
+		console.log(JSON.stringify(d));
 		if (d.players) {
 			const	gamePlayers:	GamePlayer[] = [];
 			d.players.forEach(v => {
