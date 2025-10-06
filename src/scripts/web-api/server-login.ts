@@ -109,3 +109,25 @@ export async function doesSessionExist() : Promise<boolean>
 
 	return false;
 }
+
+export async function getCurrentUser() : Promise<UserInfo | undefined>
+{
+	const response = await fetch("http://localhost:4000/api/users/current",
+		{
+			method: "GET",
+			credentials: "include"
+		}
+	);
+
+	if (response.ok)
+	{
+		const json : any = response.json();
+		return {
+			id: json.id,
+			email: json.email,
+			username: json.username,
+		};
+	}
+
+	return undefined;
+}
