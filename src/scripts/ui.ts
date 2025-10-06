@@ -377,7 +377,6 @@ export default class Ui implements IScript {
 		if (this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0) {
 			const	playerCount = Number.parseInt(this._gameCreationPlayerCountInput.text);
 			const	fee = Number.parseFloat(this._gameCreationEntranceFeeInput.text);
-			console.log(this._gameCreationEntranceFeeInput.text + " " + fee);
 			this._createButton.isEnabled = playerCount > 1 && playerCount <= this._maxPlayers && fee >= this._minFee && fee <= this._maxFee;
 		}
 	}

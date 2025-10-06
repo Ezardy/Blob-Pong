@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
@@ -10,6 +10,15 @@ export default class Game implements IScript {
 
 	public static readonly	MAX_PLAYERS:	int = 16;
 
+	private static readonly	_colorPool:		Array<Color3> = [
+		new Color3(230 / 255, 25 / 255, 75 / 255), new Color3(60 / 255, 180 / 255, 75 / 255), new Color3(255 / 255, 225 / 255, 25 / 255),
+		new Color3(0 / 255, 130 / 255, 200 / 255), new Color3(245 / 255, 130 / 255, 48 / 255), new Color3(145 / 255, 30 / 255, 180 / 255),
+		new Color3(70 / 255, 240 / 255, 240 / 255), new Color3(240 / 255, 50 / 255, 230 / 255), new Color3(210 / 255, 245 / 255, 60 / 255),
+		new Color3(250 / 255, 190 / 255, 212 / 255), new Color3(0 / 255, 128 / 255, 128 / 255), new Color3(220 / 255, 190 / 255, 255 / 255),
+		new Color3(170 / 255, 110 / 255, 40 / 255), new Color3(255 / 255, 250 / 255, 200 / 255), new Color3(128 / 255, 0 / 255, 0 / 255),
+		new Color3(170 / 255, 255 / 255, 195 / 255), new Color3(128 / 255, 128 / 255, 0 / 255), new Color3(255 / 255, 215 / 255, 180 / 255),
+		new Color3(0 / 255, 0 / 255, 128 / 255), new Color3(128 / 255, 128 / 255, 128 / 255)];
+
 	public	maxPlayers:	int = 2;
 
 	@visibleAsNumber("distance from camera", {min: 0})
@@ -17,7 +26,7 @@ export default class Game implements IScript {
 	@visibleAsNumber("padding", {min: 0, max: 1})
 	private readonly	_padding:	number = 0.1;
 	@visibleAsColor3("wall color")
-	private readonly	_wallColor:	Color3 = new Color3(89, 89, 89);
+	private readonly	_wallColor:	Color3 = new Color3(0.4, 0.4, 0.4);
 	@visibleAsNumber("racket size", {description: "percentage of wall size", min: 1, max: 100})
 	private readonly	_racketSize:	number = 20;
 	@visibleAsNumber("ball size", {description: "percentage of wall size", min: 1, max: 100})
@@ -26,8 +35,8 @@ export default class Game implements IScript {
 	private	_webApi!:	WebApi;
 
 	private readonly	_playerColors:	Map<string, Color3> = new Map();
-	private readonly	_colorPool:		Array<Color3> = [];
-	private readonly	_wallColors:	Map<Color3, int> = new Map();
+	private readonly	_wallColorPool:	Array<Color3> = [];
+	private readonly	_colorWalls:	Map<Color3, int> = new Map();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
 	private readonly	_racketPool:	Array<InstancedMesh> = [];
 
@@ -45,6 +54,8 @@ export default class Game implements IScript {
 	private readonly	_betaCoss:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
 	private readonly	_rotations:			Array<Quaternion> = new Array<Quaternion>(Game.MAX_PLAYERS);
 
+	private readonly	_fieldAnimation:	() => void;
+
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
 	@visibleAsEntity("node", "ball mesh")
@@ -57,6 +68,9 @@ export default class Game implements IScript {
 	public constructor(public scene: Scene) {
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
+		this._fieldAnimation = () => {
+			this._field!.greasedLineMaterial!.dashOffset += 0.001;
+		};
 	}
 
 	public onStart(): void {
@@ -134,14 +148,18 @@ export default class Game implements IScript {
 		const paddleX = x_center + distance_x;
 		const paddleY = y_center + distance_y;
 		*/
-		for (const player of players) {
-			const	color:	Color3 = this._playerColors.get(player.id)!;
-			const	wall:	int = this._wallColors.get(color)!;
-			const	racket:	InstancedMesh = this._playerRackets.get(player.id)!;
-			racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
-								this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
-								this._z);
-			racket.rotationQuaternion = this._rotations[wall];
+		if (players.length > 2) {
+			for (const player of players) {
+				const	color:	Color3 = this._playerColors.get(player.id)!;
+				const	wall:	int = this._colorWalls.get(color)!;
+				const	racket:	InstancedMesh = this._playerRackets.get(player.id)!;
+				racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
+									this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
+									this._z);
+				racket.rotationQuaternion = this._rotations[wall];
+			}
+		} else {
+
 		}
 	}
 
@@ -153,14 +171,16 @@ export default class Game implements IScript {
 				this._playerColors.delete(player.id)
 			});
 			this._playerColors.forEach((color, id) => {
-				this._wallColors.delete(color);
+				this._colorWalls.delete(color);
 				this._playerColors.delete(id);
 				const	racket:	InstancedMesh = this._playerRackets.get(id)!;
 				this._playerRackets.delete(id);
 				racket.isVisible = false;
 				this._racketPool.push(racket);
-				this._colorPool.push(color);
+				this._wallColorPool.push(color);
 			});
+			let i = 0;
+			this._colorWalls.forEach((_, color, map) => map.set(color, i++));
 			this._playerColors.clear();
 			oldPlayerColors.forEach((color, id) => this._playerColors.set(id, color));
 			this._updateFieldParams(players.length);
@@ -184,13 +204,13 @@ export default class Game implements IScript {
 			this._playerRackets.delete(k);
 			this._playerColors.delete(k);
 			m.isVisible = false;
-			this._colorPool.push(v);
+			this._wallColorPool.push(v);
 			this._racketPool.push(m);
 		});
 		this._playerColors.clear();
 		newPlayer.forEach(player => {
 			const	r:	InstancedMesh = this._racketPool.pop()!;
-			const	c:	Color3 = this._colorPool.pop()!;
+			const	c:	Color3 = this._wallColorPool.pop()!;
 			r.instancedBuffers.instanceColor = c;
 			r.isVisible = true;
 			this._playerColors.set(player.id, c);
@@ -203,14 +223,14 @@ export default class Game implements IScript {
 		if (this._field) {
 			this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
 			this._glow.removeIncludedOnlyMesh(this._field);
+			this.scene.onBeforeRenderObservable.removeCallback(this._fieldAnimation);
 			this._field.dispose(false, true);
 		}
 		let	points:	Vector3[];
 		let	colors:	Color3[];
-		if (this._wallColors.size > 2) {
-			console.log(this._y + ' ' + this._z);
-			points = GreasedLineTools.GetCircleLinePoints(this._y, this._wallColors.size, this._z);
-			colors = Array.from(this._wallColors.keys());
+		if (this._colorWalls.size > 2) {
+			points = GreasedLineTools.GetCircleLinePoints(this._y, this._colorWalls.size, this._z);
+			colors = Array.from(this._colorWalls.keys());
 		} else {
 			const	x:		number = this._y * 2.2;
 			const	start:	Vector3 = new Vector3(x, this._y, this._z);
@@ -218,12 +238,12 @@ export default class Game implements IScript {
 				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
 				new Vector3(-x, this._y, this._z), start
 			];
-			const	colorIter:	MapIterator<Color3> = this._wallColors.keys();
+			const	colorIter:	MapIterator<Color3> = this._colorWalls.keys();
 			const	color1:	Color3 = colorIter.next().value!;
 			const	color2:	Color3 = colorIter.next().value!;
 			colors = [
-				color2, this._wallColor,
-				color1, this._wallColor
+				color1, this._wallColor,
+				color2, this._wallColor
 			];
 		}
 		this._field = CreateGreasedLine("field", {
@@ -234,10 +254,14 @@ export default class Game implements IScript {
 				useDash: true,
 				width: 10,
 				dashCount: 50,
-				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
+				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE,
+				colorDistributionType: GreasedLineMeshColorDistributionType.COLOR_DISTRIBUTION_TYPE_SEGMENT,
+				colorDistribution: GreasedLineMeshColorDistribution.COLOR_DISTRIBUTION_NONE
 				});
+		this._field.rotate(Axis.Z, 3 * Math.PI / 2 - this._alpha / 2);
 		this._glow.addIncludedOnlyMesh(this._field);
 		this._glow.referenceMeshToUseItsOwnMaterial(this._field);
+		this.scene.onBeforeRenderObservable.add(this._fieldAnimation);
 	}
 
 	public get	mode():	int {
@@ -256,25 +280,25 @@ export default class Game implements IScript {
 					}
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field!);
 					this._glow.removeIncludedOnlyMesh(this._field!);
-					this._wallColors.clear();
+					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
 						racket.isVisible = false;
 						this._racketPool.push(racket);
 					});
-					while (this._colorPool.length)
-						this._colorPool.pop();
+					while(this._wallColorPool.length)
+						this._wallColorPool.pop();
 					this._playerColors.clear();
 					this._playerRackets.clear();
 					break;
 				case 1:
 					for (let i = 0; i < this.maxPlayers; i += 1) {
-						const	color:	Color3 = Color3.Random();
-						this._wallColors.set(color, i);
-						this._colorPool.push(color);
+						const	color:	Color3 = Game._colorPool[i];
+						this._wallColorPool.push(color);
+						this._colorWalls.set(color, i);
 					}
-					this._drawField();
 					this._updateFieldParams(this.maxPlayers);
+					this._drawField();
 					this._scaleMeshes();
 					this._webApi.serverGame.subscribeToRoom();
 					break;
