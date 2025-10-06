@@ -1,4 +1,5 @@
 import { int, Observable } from "@babylonjs/core";
+import { getCurrentUser } from "./server-login";
 
 type LobbyRooms =
 {
@@ -191,7 +192,8 @@ export class ServerGame
 			}
 		};
 
-		this._lobbyWs.onclose = () => {
+		this._lobbyWs.onclose = () =>
+		{
 			console.log("Disconnected Lobby WebSocket");
 		};
 
@@ -232,7 +234,7 @@ export class ServerGame
 	{
 		const type = "LEAVE_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen(this._lobbyWs) && this._currentRoomId)
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
