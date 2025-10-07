@@ -1,5 +1,5 @@
 import { AbstractMesh, Axis, int, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
-import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D } from "@babylonjs/gui";
+import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
@@ -71,14 +71,6 @@ export default class Ui implements IScript {
 	@visibleAsEntity("node", "create button mesh")
 	private readonly	_createButtonMesh!:	Mesh;
 
-	// game parameters
-	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
-	private readonly	_maxPlayers:	int = 10;
-	@visibleAsNumber("min fee", {min: 0.0001})
-	private readonly	_minFee:	number = 1;
-	@visibleAsNumber("max fee", {min: 0.0001})
-	private readonly	_maxFee:	number = 1000;
-
 	private	_gameCreationGameNameInput!:	InputTextArea;
 	private	_gameCreationEntranceFeeInput!:	InputTextArea;
 	private	_gameCreationPlayerCountInput!:	InputTextArea;
@@ -89,6 +81,20 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationPlayerCountInputPanel:		AdvancedStackPanel3D;
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
+
+	// game lobby layout
+	@visibleAsEntity("node", "exit button mesh")
+	private readonly	_exitButtonMesh!:	Mesh;
+
+	private readonly	_lobbyLayout:	AdvancedStackPanel3D;
+
+	// game parameters
+	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
+	private readonly	_maxPlayers:	int = 10;
+	@visibleAsNumber("min fee", {min: 0.0001})
+	private readonly	_minFee:	number = 1;
+	@visibleAsNumber("max fee", {min: 0.0001})
+	private readonly	_maxFee:	number = 1000;
 
 	private	_webApi!:	WebApi;
 	private	_game!:		Game;
@@ -122,6 +128,9 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
+
+		// lobby layout initialization
+		this._lobbyLayout = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -140,6 +149,24 @@ export default class Ui implements IScript {
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
+		this._setLobbyLayout();
+	}
+
+	private	_setLobbyLayout():	void {
+		this._manager.addControl(this._lobbyLayout);
+		this._lobbyLayout.blockLayout = true;
+		this._lobbyLayout.shift = -0.4;
+		const	textBlock:	TextBlock = getScriptByClassForObject(this._exitButtonMesh, TextBlockDrawer)!.rightTextBlock;
+		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
+		button.onPointerUpObservable.add(() => {
+			this._game.mode = 0;
+			this._webApi.serverGame.leaveRoom();
+			this._lobbyLayout.isVisible = false;
+			this._mainLayout.isVisible = true;
+		});
+		this._lobbyLayout.addControl(button);
+		this._lobbyLayout.blockLayout = false;
+		this._lobbyLayout.isVisible = false;
 	}
 
 	private	_setMainLayout():	void {
@@ -206,16 +233,17 @@ export default class Ui implements IScript {
 		this._createPanel.blockLayout = true;
 
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
-		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 3), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		this._createButton.onPointerUpObservable.add(() => {
+			this._gameCreationLayout.isVisible = false;
+			this._lobbyLayout.isVisible = true;
+			this._game.maxPlayers = Number.parseInt(this._gameCreationPlayerCountInput.text);
+			this._game.mode = 1;
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
 				Number.parseInt(this._gameCreationPlayerCountInput.text)
 			);
-			this._gameCreationLayout.isVisible = false;
-			this._game.maxPlayers = Number.parseInt(this._gameCreationPlayerCountInput.text);
-			this._game.mode = 1;
 		})
 		this._createPanel.addControl(this._createButton);
 		this._createButton.isEnabled = false;
@@ -305,6 +333,7 @@ export default class Ui implements IScript {
 			this._webApi.serverGame.subscribeToRoom();
 			this._game.maxPlayers = this._gameListScroll.selectedEntry.maxPlayers as number;
 			this._gameListLayout.isVisible = false;
+			this._lobbyLayout.isVisible = true;
 			this._game.mode = 1;
 		});
 		playButton.isEnabled = false;
@@ -378,17 +407,7 @@ export default class Ui implements IScript {
 			const	playerCount = Number.parseInt(this._gameCreationPlayerCountInput.text);
 			const	fee = Number.parseFloat(this._gameCreationEntranceFeeInput.text);
 			this._createButton.isEnabled = playerCount > 1 && playerCount <= this._maxPlayers && fee >= this._minFee && fee <= this._maxFee;
-		}
+		} else
+			this._createButton.isEnabled = false;
 	}
-
-	/*
-	private	_refreshGameList():	void {
-		this._webApi.serverGame.getRooms();
-		this._webApi.serverGame.onRoomsUpdatedObservable.add((rooms: any) => {
-			this._gameListScroll.fillList(JSON.parse(JSON.stringify(rooms)) ?? []);
-			this._gameListLayout.updateLayout();
-			this._gameListScroll.setClipped(true);
-		});
-	}
-	*/
 }

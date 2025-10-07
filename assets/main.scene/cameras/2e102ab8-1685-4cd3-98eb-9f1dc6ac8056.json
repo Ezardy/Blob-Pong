@@ -2,11 +2,11 @@
     "tags": null,
     "alpha": 4.71238898038469,
     "beta": 1.5707963267948966,
-    "radius": 660,
+    "radius": 200,
     "target": [
         0,
         0,
-        0
+        -460
     ],
     "inertialAlphaOffset": 0,
     "inertialBetaOffset": 0,
@@ -40,8 +40,8 @@
     ],
     "speed": 2,
     "position": [
-        -1.2124003311558795e-13,
-        4.0413344371862656e-14,
+        -3.6739403974420595e-14,
+        1.2246467991473532e-14,
         -660
     ],
     "upVector": [
@@ -63,9 +63,10 @@
     "state": "",
     "metadata": {
         "sensorSize": 36,
-        "focalLength": 42.574003560703986
+        "focalLength": 42.574003560703986,
+        "isLocked": true
     },
-    "uniqueId": 139,
+    "uniqueId": 1030,
     "type": "ArcRotateCamera",
     "inputsmgr": {
         "ArcRotateCameraKeyboardMoveInput": {

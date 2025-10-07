@@ -1,5 +1,4 @@
 import { int, Observable } from "@babylonjs/core";
-import { getCurrentUser } from "./server-login";
 
 type LobbyRooms =
 {
@@ -114,20 +113,21 @@ export interface RoomDetails
 
 export class ServerGame
 {
-	private _lobbyWs?:						WebSocket;
-	private _gameState?:					GameState;
-	private _sessionId?:					string;
-	private _currentRoomId?:				string;
-	public onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
-	public onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
-	public onGameStateUpdatedObservable:	Observable<GameState>;
+	private			_lobbyWs?:						WebSocket;
+	private			_gameState?:					GameState;
+	private			_sessionId?:					string;
+	private			_currentRoomId?:				string;
+	public readonly	onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
+	public readonly	onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
+	public readonly	onGameStateUpdatedObservable:	Observable<GameState>;
+	public readonly	onWebSocketOpenedObservable:	Observable<void>;
 
 	constructor()
 	{
 		this.onRoomsUpdatedObservable = new Observable<RoomInfo[]>();
 		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
 		this.onGameStateUpdatedObservable = new Observable<GameState>();
-		this.lobbyWs();
+		this.onWebSocketOpenedObservable = new Observable<void>();
 
 		// Resubscription logic
 		// this.resubscribeToRoom();
@@ -137,11 +137,12 @@ export class ServerGame
 		// this.requestSessionIdFromParent();
 	}
 
-	public	lobbyWs() : void {
+	public	open() : void {
 		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
 
 		this._lobbyWs.onopen = () => {
 			console.log("Connected to Lobby WebSocket ");
+			this.onWebSocketOpenedObservable.notifyObservers();
 		};
 
 		this._lobbyWs.onmessage = (event: MessageEvent) =>

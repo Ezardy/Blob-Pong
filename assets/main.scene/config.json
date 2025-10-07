@@ -214,6 +214,10 @@
                     "_maxFee": {
                         "type": "number",
                         "value": 1000
+                    },
+                    "_exitButtonMesh": {
+                        "type": "entity",
+                        "value": "d79372c3-3a07-4153-a352-43b21be71994"
                     }
                 }
             },
@@ -258,6 +262,10 @@
                     "_ballMesh": {
                         "type": "entity",
                         "value": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7"
+                    },
+                    "_rectangleRatio": {
+                        "type": "number",
+                        "value": 2.2
                     }
                 }
             }
@@ -294,15 +302,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.04120300817873386,
-            -0.26565986200140024,
+            -0.22120294714357763,
+            0.1318403821392253,
             0
         ],
         "speed": 200,
         "position": [
-            692.6893728687592,
-            -58.745736616697684,
-            -3946.1720185909658
+            -559.3412308578141,
+            77.12147391382582,
+            -2199.1791894983785
         ],
         "upVector": [
             0,
@@ -325,7 +333,7 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 32,
+        "uniqueId": 920,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {

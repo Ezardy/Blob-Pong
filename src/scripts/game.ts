@@ -31,6 +31,8 @@ export default class Game implements IScript {
 	private readonly	_racketSize:	number = 20;
 	@visibleAsNumber("ball size", {description: "percentage of wall size", min: 1, max: 100})
 	private readonly	_ballSize:	number = 1.6;
+	@visibleAsNumber("rectangle ratio", {min: 1})
+	private readonly	_rectangleRatio:	number = 2.2;
 
 	private	_webApi!:	WebApi;
 
@@ -39,6 +41,8 @@ export default class Game implements IScript {
 	private readonly	_colorWalls:	Map<Color3, int> = new Map();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
 	private readonly	_racketPool:	Array<InstancedMesh> = [];
+
+	private readonly	_cameraRotation:	Quaternion;
 
 	private	_field:	Nullable<GreasedLineBaseMesh> = null;
 	private	_ball!:		GreasedLineBaseMesh;
@@ -71,9 +75,11 @@ export default class Game implements IScript {
 		this._fieldAnimation = () => {
 			this._field!.greasedLineMaterial!.dashOffset += 0.001;
 		};
+		this._cameraRotation = scene.activeCamera!.absoluteRotation;
 	}
 
 	public onStart(): void {
+		this._webApi.serverGame.open();
 		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
 		const	pivot = bb.center.clone();
 		pivot.y = bb.maximum.y;
@@ -116,19 +122,17 @@ export default class Game implements IScript {
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
 		console.log(JSON.stringify(d));
-		if (d.players) {
-			const	gamePlayers:	GamePlayer[] = [];
-			d.players.forEach(v => {
-				const	gamePlayer:	GamePlayer = {
-					id: v.id,
-					username: v.username,
-					position: 0.5
-				}
-				gamePlayers.push(gamePlayer);
-			});
-			this._syncRoomPlayers(gamePlayers);
-			this._drawPlayers(gamePlayers);
-		}
+		const	gamePlayers:	GamePlayer[] = [];
+		d.players.forEach(v => {
+			const	gamePlayer:	GamePlayer = {
+				id: v.id,
+				username: v.username,
+				position: 0.5
+			}
+			gamePlayers.push(gamePlayer);
+		});
+		this._syncRoomPlayers(gamePlayers);
+		this._drawPlayers(gamePlayers);
 	}
 
 	private	_drawPlayers(players: GamePlayer[]):	void {
@@ -156,10 +160,27 @@ export default class Game implements IScript {
 				racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
 									this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
 									this._z);
+				console.log(racket.position);
 				racket.rotationQuaternion = this._rotations[wall];
 			}
 		} else {
+				const	color1:		Color3 = this._playerColors.get(players[0].id)!;
+				const	wall1:		int = this._colorWalls.get(color1)!;
+				const	racket1:	InstancedMesh = this._playerRackets.get(players[0].id)!;
+				const	color2:		Color3 = this._playerColors.get(players[1].id)!;
+				const	wall2:		int = this._colorWalls.get(color2)!;
+				const	racket2:	InstancedMesh = this._playerRackets.get(players[1].id)!;
+				const	width:		number = this._y * this._rectangleRatio;
 
+				if (wall1) {
+					racket1.position.set(width, (players[0].position - 0.5) * this._y * 2, this._z);
+					racket2.position.set(-width, (0.5 - players[1].position) * this._y * 2, this._z);
+				} else {
+					racket1.position.set(-width, (0.5 - players[0].position) * this._y * 2, this._z);
+					racket2.position.set(width, (players[1].position - 0.5) * this._y * 2, this._z);
+				}
+				racket1.rotationQuaternion = this._rotations[wall1];
+				racket2.rotationQuaternion = this._rotations[wall2];
 		}
 	}
 
@@ -232,7 +253,7 @@ export default class Game implements IScript {
 			points = GreasedLineTools.GetCircleLinePoints(this._y, this._colorWalls.size, this._z);
 			colors = Array.from(this._colorWalls.keys());
 		} else {
-			const	x:		number = this._y * 2.2;
+			const	x:		number = this._y * this._rectangleRatio;
 			const	start:	Vector3 = new Vector3(x, this._y, this._z);
 			points = [
 				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
@@ -280,6 +301,8 @@ export default class Game implements IScript {
 					}
 					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field!);
 					this._glow.removeIncludedOnlyMesh(this._field!);
+					this.scene.onBeforeRenderObservable.removeCallback(this._fieldAnimation);
+					this._field?.dispose(false, true);
 					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
@@ -308,6 +331,7 @@ export default class Game implements IScript {
 					this._webApi.serverGame.subscribeToGame();
 					break;
 			}
+			this._mode = value;
 		}
 	}
 
