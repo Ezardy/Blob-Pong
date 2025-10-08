@@ -88,6 +88,9 @@ export default class Ui implements IScript {
 
 	private readonly	_lobbyLayout:	AdvancedStackPanel3D;
 
+	private	_currentLayout:	Container3D;
+	private	_subscribedToLobby:	boolean = false;
+
 	// game parameters
 	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
 	private readonly	_maxPlayers:	int = 10;
@@ -103,6 +106,7 @@ export default class Ui implements IScript {
 		this._manager = new GUI3DManager(scene);
 		// main layout initialization
 		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._currentLayout = this._mainLayout;
 
 		// game list layout initialization
 		this._gameListLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
@@ -146,6 +150,19 @@ export default class Ui implements IScript {
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
 		});
+		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(() => {
+			console.log("first details");
+			if (this._game.mode === 0) {
+				this._unsubscribeFromLobby();
+				this._switchLayout(this._currentLayout, this._lobbyLayout);
+				this._game.mode = 1;
+			}
+		}, undefined, true);
+		this._webApi.serverGame.onWebSocketOpenedObservable.add(() => {this._webApi.serverGame.subscribeToRoom(); console.log("subscribed")});
+		if (this._webApi.serverGame.isWebSocketOpen()) {
+			this._webApi.serverGame.subscribeToRoom();
+			console.log("force subscribe");
+		}
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -161,8 +178,7 @@ export default class Ui implements IScript {
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
 			this._webApi.serverGame.leaveRoom();
-			this._lobbyLayout.isVisible = false;
-			this._mainLayout.isVisible = true;
+			this._switchLayout(this._lobbyLayout, this._mainLayout);
 		});
 		this._lobbyLayout.addControl(button);
 		this._lobbyLayout.blockLayout = false;
@@ -178,15 +194,11 @@ export default class Ui implements IScript {
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
-			this._mainLayout.isVisible = false;
-			this._gameListLayout.isVisible = true;
-			this._webApi.serverGame.subscribeToLobby();
+			this._switchLayout(this._mainLayout, this._gameListLayout);
+			this._subscribeToLobby();
 		});
 
-		createGameButton.onPointerUpObservable.add(() => {
-			this._mainLayout.isVisible = false;
-			this._gameCreationLayout.isVisible = true;
-		});
+		createGameButton.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._gameCreationLayout));
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
@@ -235,10 +247,7 @@ export default class Ui implements IScript {
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
 		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 3), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		this._createButton.onPointerUpObservable.add(() => {
-			this._gameCreationLayout.isVisible = false;
-			this._lobbyLayout.isVisible = true;
 			this._game.maxPlayers = Number.parseInt(this._gameCreationPlayerCountInput.text);
-			this._game.mode = 1;
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
@@ -254,7 +263,7 @@ export default class Ui implements IScript {
 		this._gameCreationLayout.addControl(this._gameCreationEntranceFeeInputPanel);
 		this._gameCreationEntranceFeeInputPanel.margin = 10;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
-			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
+			const	input:	InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
 			this._gameCreationEntranceFeeInput = input.inputTextArea;
 			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
@@ -289,10 +298,7 @@ export default class Ui implements IScript {
 			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
 			const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
-			button.onPointerUpObservable.add(() => {
-				this._gameCreationLayout.isVisible = false;
-				this._mainLayout.isVisible = true;
-			});
+			button.onPointerUpObservable.add(() => this._switchLayout(this._gameCreationLayout, this._mainLayout));
 			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
 			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
 			const	headerControl:	MeshControl = new MeshControl(this._gameCreationHeaderMesh, "game creation header");
@@ -309,9 +315,8 @@ export default class Ui implements IScript {
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
 		gameListPreviousButton.onPointerUpObservable.add(() => {
-			this._gameListLayout.isVisible = false;
-			this._mainLayout.isVisible = true;
-			this._webApi.serverGame.unsubscribeFromLobby();
+			this._switchLayout(this._gameListLayout, this._mainLayout);
+			this._unsubscribeFromLobby();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
 		this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game list header"));
@@ -329,12 +334,8 @@ export default class Ui implements IScript {
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		playButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
-			this._webApi.serverGame.unsubscribeFromLobby();
-			this._webApi.serverGame.subscribeToRoom();
 			this._game.maxPlayers = this._gameListScroll.selectedEntry.maxPlayers as number;
-			this._gameListLayout.isVisible = false;
-			this._lobbyLayout.isVisible = true;
-			this._game.mode = 1;
+			this._webApi.serverGame.subscribeToRoom();
 		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(playButton);
@@ -399,6 +400,29 @@ export default class Ui implements IScript {
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.blockLayout = false;
 		this._gameListScroll.initialize();
+	}
+
+	// Utilities
+	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D):	void {
+		if (oldLayout != newLayout) {
+			oldLayout.isVisible = false;
+			newLayout.isVisible = true;
+			this._currentLayout = newLayout;
+		}
+	}
+
+	private	_subscribeToLobby():	void {
+		if (!this._subscribedToLobby) {
+			this._webApi.serverGame.subscribeToLobby();
+			this._subscribedToLobby = true;
+		}
+	}
+
+	private	_unsubscribeFromLobby():	void {
+		if (this._subscribedToLobby) {
+			this._webApi.serverGame.unsubscribeFromLobby();
+			this._subscribedToLobby = false;
+		}
 	}
 
 	// Observers' functions

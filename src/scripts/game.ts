@@ -79,7 +79,6 @@ export default class Game implements IScript {
 	}
 
 	public onStart(): void {
-		this._webApi.serverGame.open();
 		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
 		const	pivot = bb.center.clone();
 		pivot.y = bb.maximum.y;

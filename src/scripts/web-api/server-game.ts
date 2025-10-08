@@ -207,7 +207,7 @@ export class ServerGame
 	{
 		const type = "GET_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -219,7 +219,7 @@ export class ServerGame
 	{
 		const type = "CREATE_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, maxPlayers, entryFee, name }));
 	}
 
@@ -227,7 +227,7 @@ export class ServerGame
 	{
 		const type = "JOIN_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId }));
 	}
 
@@ -235,7 +235,7 @@ export class ServerGame
 	{
 		const type = "LEAVE_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs) && this._currentRoomId)
+		if (this.isWebSocketOpen() && this._currentRoomId)
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -243,7 +243,7 @@ export class ServerGame
 	{
 		const type = "READY";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId }));
 	}
 
@@ -251,7 +251,7 @@ export class ServerGame
 	{
 		const type = "WAITING";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId }));
 	}
 
@@ -259,7 +259,7 @@ export class ServerGame
 	{
 		const type = "START_GAME";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -267,7 +267,7 @@ export class ServerGame
 	{
 		const type = "SUBSCRIBE_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -275,7 +275,7 @@ export class ServerGame
 	{
 		const type = "SUBSCRIBE_GAME";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -283,7 +283,7 @@ export class ServerGame
 	{
 		const type = "UNSUBSCRIBE_ROOM";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -291,7 +291,7 @@ export class ServerGame
 	{
 		const type = "UNSUBSCRIBE_GAME";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
@@ -299,7 +299,7 @@ export class ServerGame
 	{
 		const type = "SUBSCRIBE_LOBBY";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type }));
 	}
 	
@@ -307,7 +307,7 @@ export class ServerGame
 	{
 		const type = "UNSUBSCRIBE_LOBBY";
 
-		if (this.isWebSocketOpen(this._lobbyWs))
+		if (this.isWebSocketOpen())
 			this._lobbyWs?.send(JSON.stringify({ type }));
 	}
 
@@ -315,16 +315,16 @@ export class ServerGame
 	{
 		const type = "GAME_DATA";
 
-		if (this.isWebSocketOpen(this._lobbyWs) && this._gameState!.players.length == 2)
+		if (this.isWebSocketOpen() && this._gameState!.players.length == 2)
 			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue * 1000}));
-		else if (this.isWebSocketOpen(this._lobbyWs) && this._gameState!.players.length > 2)
+		else if (this.isWebSocketOpen() && this._gameState!.players.length > 2)
 			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue * 500}));
 	}
 
-	private isWebSocketOpen(ws: WebSocket | undefined): boolean
+	public isWebSocketOpen(): boolean
 	{
-		if (ws)
-			return ws.readyState === WebSocket.OPEN;
+		if (this._lobbyWs)
+			return this._lobbyWs.readyState === WebSocket.OPEN;
 
 		return false;
 	}
