@@ -88,8 +88,10 @@ export default class Ui implements IScript {
 
 	private readonly	_lobbyLayout:	AdvancedStackPanel3D;
 
-	private	_currentLayout:	Container3D;
-	private	_subscribedToLobby:	boolean = false;
+	private				_currentLayout:			Container3D;
+	private				_subscribedToLobby:		boolean = false;
+	private readonly	_updateLayoutCallback:	() => void;
+	private				_isLayoutUpdatable:		boolean = true;
 
 	// game parameters
 	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
@@ -103,6 +105,11 @@ export default class Ui implements IScript {
 	private	_game!:		Game;
 
 	public constructor(public scene: Scene) {
+		this._updateLayoutCallback = () => {
+			if (this._isLayoutUpdatable)
+				this._updateLayoutRecursively(this._currentLayout)
+		};
+
 		this._manager = new GUI3DManager(scene);
 		// main layout initialization
 		this._mainLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
@@ -165,7 +172,7 @@ export default class Ui implements IScript {
 		this._setGameListLayout();
 		this._setGameCreationLayout();
 		this._setLobbyLayout();
-		setTimeout(() => this.scene.getEngine().onResizeObservable.add(() => this._updateLayoutRecursively(this._currentLayout)), 5000);
+		this.scene.getEngine().onResizeObservable.add(this._updateLayoutCallback);
 	}
 
 	private	_setLobbyLayout():	void {
@@ -427,9 +434,11 @@ export default class Ui implements IScript {
 
 	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D):	void {
 		if (oldLayout != newLayout) {
+			this._isLayoutUpdatable = false;
 			oldLayout.isVisible = false;
 			newLayout.isVisible = true;
 			this._currentLayout = newLayout;
+			setTimeout(() => this._isLayoutUpdatable = true, 2000);
 		}
 	}
 
