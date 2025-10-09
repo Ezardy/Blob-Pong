@@ -109,6 +109,7 @@ export interface RoomDetails
 	players:	Set<RoomPlayer>;
 	creator:	RoomPlayer;
 	createdAt:	Date;
+	maxPlayers:	number;
 }
 
 export class ServerGame
