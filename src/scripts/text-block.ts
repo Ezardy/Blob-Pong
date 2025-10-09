@@ -4,6 +4,7 @@ import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
+import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 
 export default class TextBlockDrawer implements IScript, IClonableScript, IRenderOnStart {
 	@visibleAsBoolean("render on start")
@@ -158,12 +159,12 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	public constructor(public mesh: AbstractMesh) {
 		if (mesh instanceof InstancedMesh)
 			mesh.refreshBoundingInfo();
+		updateBoundingBoxRecursively(mesh);
 		this._extendSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		if (mesh instanceof InstancedMesh)
 			this._extendSizeScaled = this._extendSize.multiply(mesh.sourceMesh.absoluteScaling);
 		else
 			this._extendSizeScaled = this._extendSize.multiply(mesh.absoluteScaling);
-
 		this.frontTextBlock = new TextBlock(this.mesh.name + " front text");
 		this._frontPlane = MeshBuilder.CreatePlane(this.mesh.name + " front text", {width: this._extendSize.x * 2, height: this._extendSize.y * 2});
 		Tags.AddTagsTo(this._frontPlane, "noClone");

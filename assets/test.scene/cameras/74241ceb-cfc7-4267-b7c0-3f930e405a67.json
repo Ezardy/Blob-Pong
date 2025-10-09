@@ -18,7 +18,7 @@
         -1.6056594957904589,
         0
     ],
-    "speed": 2,
+    "speed": 200,
     "position": [
         479.45055412067273,
         218.23115974161547,
@@ -33,7 +33,7 @@
     "projectionPlaneTilt": 0,
     "minZ": 1,
     "maxZ": 10000,
-    "inertia": 0.9,
+    "inertia": 0.36999999999999955,
     "mode": 0,
     "layerMask": 268435455,
     "fovMode": 0,
@@ -45,28 +45,28 @@
         "sensorSize": 36,
         "focalLength": 42.574003560703986
     },
-    "uniqueId": 774,
+    "uniqueId": 189,
     "type": "UniversalCamera",
     "inputsmgr": {
         "FreeCameraKeyboardMoveInput": {
             "tags": null,
             "keysUp": [
-                38
+                87
             ],
             "keysUpward": [
-                33
+                69
             ],
             "keysDown": [
-                40
+                83
             ],
             "keysDownward": [
-                34
+                81
             ],
             "keysLeft": [
-                37
+                65
             ],
             "keysRight": [
-                39
+                68
             ],
             "rotationSpeed": 0.5,
             "keysRotateLeft": [],
@@ -81,7 +81,7 @@
                 1,
                 2
             ],
-            "angularSensibility": 2000
+            "angularSensibility": 500
         }
     },
     "animations": [],

@@ -173,6 +173,8 @@ export class ServerGame
 				}
 				else if ("creator" in data) // RoomDetails
 				{
+					if (!this._currentRoomId)
+						this._currentRoomId = data.id;
 					this.onRoomDetailsUpdatedObservable.notifyObservers(data);
 				}
 				else if ("roomStateChanged" in data) // RoomStateChanged

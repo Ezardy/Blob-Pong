@@ -40,12 +40,16 @@ export function	updateBoundingBoxRecursively(mesh: AbstractMesh):	void {
 			const	max:			Vector3 = mesh.getRawBoundingInfo().boundingBox.maximum;
 			for (let i = 0; i < children.length; i += 1) {
 				children[i].getWorldMatrix().multiplyToRef(worldToMesh, TmpVectors.Matrix[0]);
-				const	meshMin:	Vector3 =  Vector3.TransformCoordinates(children[i].getRawBoundingInfo().boundingBox.minimum, TmpVectors.Matrix[0]);
-				const	meshMax:	Vector3 =  Vector3.TransformCoordinates(children[i].getRawBoundingInfo().boundingBox.maximum, TmpVectors.Matrix[0]);
+				const	localMeshMin:	Vector3 = children[i].getRawBoundingInfo().boundingBox.minimum;
+				const	localMeshMax:	Vector3 = children[i].getRawBoundingInfo().boundingBox.maximum;
+				const	meshMin:	Vector3 =  Vector3.TransformCoordinates(localMeshMin, TmpVectors.Matrix[0]);
+				const	meshMax:	Vector3 =  Vector3.TransformCoordinates(localMeshMax, TmpVectors.Matrix[0]);
 				min.minimizeInPlace(meshMin);
+				min.minimizeInPlace(meshMax);
+				max.maximizeInPlace(meshMin);
 				max.maximizeInPlace(meshMax);
 			}
-			mesh.setBoundingInfo(new BoundingInfo(min, max));
+			mesh.setBoundingInfo(new BoundingInfo(min, max, mesh.getWorldMatrix()));
 		}
 	}
 }

@@ -2,7 +2,7 @@
     "plugins": [],
     "version": "5.1.10",
     "packageManager": "npm",
-    "lastOpenedScene": "/assets/main.scene",
+    "lastOpenedScene": "/assets/test.scene",
     "compressedTexturesEnabled": false,
     "compressedTexturesEnabledInPreview": false
 }

@@ -150,30 +150,30 @@ export default class Ui implements IScript {
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
 		});
-		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(() => {
-			console.log("first details");
+		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
 				this._switchLayout(this._currentLayout, this._lobbyLayout);
+				this._game.maxPlayers = details.maxPlayers;
 				this._game.mode = 1;
 			}
 		}, undefined, true);
-		this._webApi.serverGame.onWebSocketOpenedObservable.add(() => {this._webApi.serverGame.subscribeToRoom(); console.log("subscribed")});
-		if (this._webApi.serverGame.isWebSocketOpen()) {
+		this._webApi.serverGame.onWebSocketOpenedObservable.add(() => this._webApi.serverGame.subscribeToRoom());
+		if (this._webApi.serverGame.isWebSocketOpen())
 			this._webApi.serverGame.subscribeToRoom();
-			console.log("force subscribe");
-		}
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
 		this._setLobbyLayout();
+		setTimeout(() => this.scene.getEngine().onResizeObservable.add(() => this._updateLayoutRecursively(this._currentLayout)), 5000);
 	}
 
 	private	_setLobbyLayout():	void {
 		this._manager.addControl(this._lobbyLayout);
 		this._lobbyLayout.blockLayout = true;
 		this._lobbyLayout.shift = -0.4;
-		const	textBlock:	TextBlock = getScriptByClassForObject(this._exitButtonMesh, TextBlockDrawer)!.rightTextBlock;
+		this._lobbyLayout.padding = 0.03;
+		const	textBlock:	TextBlock = getScriptByClassForObject(this._exitButtonMesh, TextBlockDrawer)!.frontTextBlock;
 		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
@@ -403,6 +403,28 @@ export default class Ui implements IScript {
 	}
 
 	// Utilities
+	private	_updateLayoutRecursively(root: Container3D):	void {
+		const	toUpdate:	Array<Container3D> = [root];
+		let		count:		int = 1;
+		let		length:		int;
+		while (count) {
+			length = toUpdate.length;
+			let i = length - count;
+			count = 0;
+			for (; i < length; i += 1) {
+				const	controls:	Control3D[] = toUpdate[i].children;
+				for (const control of controls) {
+					if (control instanceof Container3D) {
+						count += 1;
+						toUpdate.push(control);
+					}
+				}
+			}
+		}
+		while (toUpdate.length)
+			toUpdate.pop()!.updateLayout();
+	}
+
 	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D):	void {
 		if (oldLayout != newLayout) {
 			oldLayout.isVisible = false;

@@ -1,9 +1,9 @@
 {
     "meshes": [
         {
-            "name": "ground",
-            "id": "6f4c82d7-93c9-4beb-968f-c382ed2f5cbc",
-            "uniqueId": 1759836727210,
+            "name": "New Ground",
+            "id": "8090d0de-810e-4f63-b9f9-2235fb10c9ae",
+            "uniqueId": 1760002034861,
             "type": "GroundMesh",
             "position": [
                 0,
@@ -11,7 +11,7 @@
                 0
             ],
             "rotation": [
-                0,
+                -1.5707963267948966,
                 0,
                 0
             ],
@@ -61,15 +61,15 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "geometryUniqueId": 1759836727211,
-            "geometryId": "73b5fe85-a9af-4532-bb60-1b417409cf12",
+            "geometryUniqueId": 1760002034862,
+            "geometryId": "16272b9d-dfe5-42a0-8d3f-b2d6a4bf2d1a",
             "subMeshes": null,
-            "materialUniqueId": 776,
+            "materialUniqueId": 191,
             "materialId": "default material",
             "metadata": {
                 "type": "Ground",
-                "width": 1024,
-                "height": 1024,
+                "width": 4024,
+                "height": 4024,
                 "subdivisions": 32,
                 "heightMapTexturePath": null,
                 "minHeight": 0,
@@ -88,7 +88,7 @@
             "layerMask": 268435455,
             "alphaIndex": 1.7976931348623157e+308,
             "hasVertexAlpha": false,
-            "overlayAlpha": 0,
+            "overlayAlpha": 0.5,
             "overlayColor": [
                 0,
                 0,
@@ -104,16 +104,16 @@
             "maxZ": 512,
             "width": 1024,
             "height": 1024,
-            "delayLoadingFile": "assets/test.scene/geometries/73b5fe85-a9af-4532-bb60-1b417409cf12.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/test.scene/geometries/16272b9d-dfe5-42a0-8d3f-b2d6a4bf2d1a.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                512,
+                2012,
                 0,
-                512
+                2012
             ],
             "boundingBoxMinimum": [
-                -512,
+                -2012,
                 0,
-                -512
+                -2012
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
@@ -170,8 +170,8 @@
     },
     "metadata": {
         "type": "Ground",
-        "width": 1024,
-        "height": 1024,
+        "width": 4024,
+        "height": 4024,
         "subdivisions": 32,
         "heightMapTexturePath": null,
         "minHeight": 0,

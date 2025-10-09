@@ -217,7 +217,7 @@
                     },
                     "_exitButtonMesh": {
                         "type": "entity",
-                        "value": "d79372c3-3a07-4153-a352-43b21be71994"
+                        "value": "46ca556d-b165-43f8-9b2f-1c55debb7433"
                     }
                 }
             },
@@ -302,15 +302,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.22120294714357763,
-            0.1318403821392253,
+            -0.1492029471435776,
+            -0.1641594957904622,
             0
         ],
         "speed": 200,
         "position": [
-            -559.3412308578141,
-            77.12147391382582,
-            -2199.1791894983785
+            13.716532460282151,
+            260.1764038196821,
+            -1058.045687463723
         ],
         "upVector": [
             0,
@@ -333,7 +333,7 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 920,
+        "uniqueId": 3174,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {

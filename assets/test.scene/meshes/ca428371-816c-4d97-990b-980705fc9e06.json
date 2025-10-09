@@ -1,24 +1,25 @@
 {
     "meshes": [
         {
-            "name": "ground",
-            "id": "0fe36208-15f6-4366-a95f-7a324d858364",
-            "uniqueId": 1716121479529,
-            "type": "GroundMesh",
+            "name": "play",
+            "id": "ca428371-816c-4d97-990b-980705fc9e06",
+            "uniqueId": 1759933531737,
+            "type": "Mesh",
             "position": [
                 0,
-                -1.124764198128906e-14,
-                50.65487623573016
-            ],
-            "rotation": [
-                -1.5707963267948966,
                 0,
                 0
             ],
+            "rotationQuaternion": [
+                0,
+                0,
+                1,
+                6.123233995736766e-17
+            ],
             "scaling": [
-                1,
-                1,
-                1
+                100,
+                -100,
+                100
             ],
             "localMatrix": [
                 1,
@@ -42,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -59,28 +60,16 @@
             ],
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
-            "sideOrientation": 1,
+            "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1716121479530,
-            "geometryId": "fa4be5bf-7e53-4da5-8976-f2f037d975df",
+            "geometryUniqueId": 1759933531738,
+            "geometryId": "1515d49a-1eec-447a-8e01-5825307c44d1",
             "subMeshes": null,
-            "materialUniqueId": 1711813881026,
-            "materialId": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
+            "materialUniqueId": 1753191571293,
+            "materialId": "1335d3b6-4479-4c26-9206-a3041dbaa333",
             "metadata": {
-                "type": "Ground",
-                "width": 4096,
-                "height": 4096,
                 "scripts": [],
-                "minHeight": 0,
-                "maxHeight": 150,
-                "smoothFactor": 0,
-                "heightMapTexturePath": null,
-                "alphaFilter": 0,
-                "colorFilter": [
-                    1,
-                    1,
-                    1
-                ]
+                "parentId": 1759933531736
             },
             "instances": [],
             "animations": [],
@@ -88,7 +77,7 @@
             "layerMask": 268435455,
             "alphaIndex": 1.7976931348623157e+308,
             "hasVertexAlpha": false,
-            "overlayAlpha": 0.5,
+            "overlayAlpha": 0,
             "overlayColor": [
                 0,
                 0,
@@ -96,61 +85,45 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "subdivisionsX": 1,
-            "subdivisionsY": 1,
-            "minX": -512,
-            "maxX": 512,
-            "minZ": -512,
-            "maxZ": 512,
-            "width": 1024,
-            "height": 1024,
-            "delayLoadingFile": "assets/main.scene/geometries/fa4be5bf-7e53-4da5-8976-f2f037d975df.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/test.scene/geometries/1515d49a-1eec-447a-8e01-5825307c44d1.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                2048,
-                0,
-                2048
+                1.4939771890640259,
+                1.750928282737732,
+                1.1283771991729736
             ],
             "boundingBoxMinimum": [
-                -2048,
-                0,
-                -2048
+                -2.065126895904541,
+                -1.7036067247390747,
+                -1.1283336877822876
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 12,
+                    "count": 2544,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 12,
+                    "count": 2544,
                     "stride": 3,
-                    "offset": 48,
-                    "dataType": 1
-                },
-                "uvsAttrDesc": {
-                    "count": 8,
-                    "stride": 2,
-                    "offset": 96,
+                    "offset": 10176,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 6,
+                    "count": 5076,
                     "stride": 1,
-                    "offset": 128,
+                    "offset": 20352,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 152,
+                    "offset": 40656,
                     "dataType": 0
                 }
             },
             "positions": null,
             "normals": null,
-            "uvs": null,
-            "hasUVs": true,
             "indices": null
         }
     ],
@@ -168,7 +141,6 @@
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
             "metallic": 0,
-            "roughness": 1,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -182,9 +154,9 @@
                 0
             ],
             "albedo": [
-                1,
-                1,
-                1
+                0.6346607172924734,
+                0,
+                0
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -236,15 +208,14 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "27c18987-1817-46cd-bdb0-2328f55c7f8b",
-            "name": "ground",
+            "id": "1335d3b6-4479-4c26-9206-a3041dbaa333",
+            "name": "button",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
             "alpha": 1,
             "backFaceCulling": true,
             "cullBackFaces": true,
-            "sideOrientation": 1,
             "_alphaMode": [
                 2
             ],
@@ -277,7 +248,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1711813881026,
+            "uniqueId": 1753191571293,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -390,7 +361,7 @@
                         1
                     ],
                     "useMaskFromThicknessTexture": false,
-                    "useGltfStyleTextures": false,
+                    "useGltfStyleTextures": true,
                     "applyAlbedoAfterSubSurface": false,
                     "legacyTranslucency": false,
                     "name": "PBRSubSurface",
@@ -425,23 +396,11 @@
         "vertexData": []
     },
     "metadata": {
-        "type": "Ground",
-        "width": 4096,
-        "height": 4096,
         "scripts": [],
-        "minHeight": 0,
-        "maxHeight": 150,
-        "smoothFactor": 0,
-        "heightMapTexturePath": null,
-        "alphaFilter": 0,
-        "colorFilter": [
-            1,
-            1,
-            1
-        ]
+        "parentId": 1759933531736
     },
     "basePoseMatrix": [
-        1,
+        -1,
         0,
         0,
         0,
