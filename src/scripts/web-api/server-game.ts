@@ -106,6 +106,7 @@ export interface RoomInfo
 
 export interface RoomDetails
 {
+	id:			string;
 	players:	Set<RoomPlayer>;
 	creator:	RoomPlayer;
 	createdAt:	Date;
