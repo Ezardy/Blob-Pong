@@ -283,7 +283,7 @@ export class ServerGame
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
-	public usubscribeFromRoom()
+	public unsubscribeFromRoom()
 	{
 		const type = "UNSUBSCRIBE_ROOM";
 

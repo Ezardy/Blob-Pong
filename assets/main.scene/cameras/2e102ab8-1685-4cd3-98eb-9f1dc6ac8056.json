@@ -66,7 +66,7 @@
         "focalLength": 42.574003560703986,
         "isLocked": true
     },
-    "uniqueId": 3281,
+    "uniqueId": 190,
     "type": "ArcRotateCamera",
     "inputsmgr": {
         "ArcRotateCameraKeyboardMoveInput": {

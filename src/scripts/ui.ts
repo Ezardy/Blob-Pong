@@ -107,7 +107,7 @@ export default class Ui implements IScript {
 	public constructor(public scene: Scene) {
 		this._updateLayoutCallback = () => {
 			if (this._isLayoutUpdatable)
-				this._updateLayoutRecursively(this._currentLayout)
+				this._updateLayoutRecursively()
 		};
 
 		this._manager = new GUI3DManager(scene);
@@ -165,9 +165,10 @@ export default class Ui implements IScript {
 				this._game.mode = 1;
 			}
 		}, undefined, true);
-		this._webApi.serverGame.onWebSocketOpenedObservable.add(() => this._webApi.serverGame.subscribeToRoom());
 		if (this._webApi.serverGame.isWebSocketOpen())
 			this._webApi.serverGame.subscribeToRoom();
+		else
+			this._webApi.serverGame.onWebSocketOpenedObservable.add(() => this._webApi.serverGame.subscribeToRoom());
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -254,7 +255,6 @@ export default class Ui implements IScript {
 		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
 		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 3), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		this._createButton.onPointerUpObservable.add(() => {
-			this._game.maxPlayers = Number.parseInt(this._gameCreationPlayerCountInput.text);
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
@@ -341,7 +341,6 @@ export default class Ui implements IScript {
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
 		playButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
-			this._game.maxPlayers = this._gameListScroll.selectedEntry.maxPlayers as number;
 			this._webApi.serverGame.subscribeToRoom();
 		});
 		playButton.isEnabled = false;
@@ -410,8 +409,8 @@ export default class Ui implements IScript {
 	}
 
 	// Utilities
-	private	_updateLayoutRecursively(root: Container3D):	void {
-		const	toUpdate:	Array<Container3D> = [root];
+	private	_updateLayoutRecursively():	void {
+		const	toUpdate:	Array<Container3D> = [this._currentLayout];
 		let		count:		int = 1;
 		let		length:		int;
 		while (count) {
@@ -437,8 +436,12 @@ export default class Ui implements IScript {
 			this._isLayoutUpdatable = false;
 			oldLayout.isVisible = false;
 			newLayout.isVisible = true;
+
 			this._currentLayout = newLayout;
-			setTimeout(() => this._isLayoutUpdatable = true, 2000);
+			setTimeout(() => {
+				this._updateLayoutRecursively();
+				this._isLayoutUpdatable = true, 2000
+			});
 		}
 	}
 

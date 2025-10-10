@@ -19,8 +19,6 @@ export default class Game implements IScript {
 		new Color3(170 / 255, 255 / 255, 195 / 255), new Color3(128 / 255, 128 / 255, 0 / 255), new Color3(255 / 255, 215 / 255, 180 / 255),
 		new Color3(0 / 255, 0 / 255, 128 / 255), new Color3(128 / 255, 128 / 255, 128 / 255)];
 
-	public	maxPlayers:	int = 2;
-
 	@visibleAsNumber("distance from camera", {min: 0})
 	private readonly	_distance:	number = 500;
 	@visibleAsNumber("padding", {min: 0, max: 1})
@@ -65,7 +63,8 @@ export default class Game implements IScript {
 	@visibleAsEntity("node", "ball mesh")
 	private readonly	_ballMesh!:	Mesh;
 
-	private	_mode:	int = 0;
+	private	_mode:			int = 0;
+	private	_maxPlayers:	int = 0;
 
 	private readonly	_glow:	GlowLayer;
 
@@ -83,11 +82,11 @@ export default class Game implements IScript {
 		const	pivot = bb.center.clone();
 		pivot.y = bb.maximum.y;
 		this._racketMesh.setPivotPoint(pivot);
-		this._racketMeshSize = bb.extendSize.x * 2;
+		this._racketMeshSize = bb.extendSizeWorld.x * 2;
 		this._racketMesh.registerInstancedBuffer("instanceColor", 3);
 		this._racketMesh.instancedBuffers.instanceColor = Color3.Random();
 		this._racketMesh.isVisible = false;
-		for (let i = 0; i < 16; i += 1) {
+		for (let i = 0; i < Game.MAX_PLAYERS; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
 			inst.isVisible = false;
 			this._racketPool.push(inst);
@@ -120,7 +119,6 @@ export default class Game implements IScript {
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
-		console.log(JSON.stringify(d));
 		const	gamePlayers:	GamePlayer[] = [];
 		d.players.forEach(v => {
 			const	gamePlayer:	GamePlayer = {
@@ -135,23 +133,7 @@ export default class Game implements IScript {
 	}
 
 	private	_drawPlayers(players: GamePlayer[]):	void {
-		/*
-		const alpha = (Math.PI * 2) / playerCount;
-		const height = 0.5 / Math.tan(alpha / 2);
-		const paddleWidth = 0.1;
-
-		const beta = alpha * index;
-		const gamma = beta - (Math.PI / 2);
-
-		const distance = player.position - 0.5;
-		const distance_x = distance * Math.cos(beta);
-		const distance_y = distance * Math.sin(beta);
-		const x_center = height * Math.cos(gamma);
-		const y_center = height * Math.sin(gamma);
-		const paddleX = x_center + distance_x;
-		const paddleY = y_center + distance_y;
-		*/
-		if (players.length > 2) {
+		if (this._maxPlayers > 2) {
 			for (const player of players) {
 				const	color:	Color3 = this._playerColors.get(player.id)!;
 				const	wall:	int = this._colorWalls.get(color)!;
@@ -159,7 +141,6 @@ export default class Game implements IScript {
 				racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
 									this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
 									this._z);
-				console.log(racket.position);
 				racket.rotationQuaternion = this._rotations[wall];
 			}
 		} else {
@@ -184,6 +165,7 @@ export default class Game implements IScript {
 	}
 
 	private	_syncGame(players: GamePlayer[]):	void {
+		this._maxPlayers = players.length;
 		if (this._playerColors.size > players.length) {
 			const	oldPlayerColors:	Map<string, Color3> = new Map();
 			players.forEach(player => {
@@ -230,7 +212,7 @@ export default class Game implements IScript {
 		this._playerColors.clear();
 		newPlayer.forEach(player => {
 			const	r:	InstancedMesh = this._racketPool.pop()!;
-			const	c:	Color3 = this._wallColorPool.pop()!;
+			const	c:	Color3 = this._wallColorPool.shift()!;
 			r.instancedBuffers.instanceColor = c;
 			r.isVisible = true;
 			this._playerColors.set(player.id, c);
@@ -284,6 +266,16 @@ export default class Game implements IScript {
 		this.scene.onBeforeRenderObservable.add(this._fieldAnimation);
 	}
 
+	public get	maxPlayers():	int {
+		return this._maxPlayers;
+	}
+
+	public set	maxPlayers(value: int) {
+		if (!this._mode) {
+			this._maxPlayers = value;
+		}
+	}
+
 	public get	mode():	int {
 		return this._mode;
 	}
@@ -293,7 +285,7 @@ export default class Game implements IScript {
 			switch (value) {
 				case 0:
 					if (this._mode === 1)
-						this._webApi.serverGame.usubscribeFromRoom();
+						this._webApi.serverGame.unsubscribeFromRoom();
 					else {
 						this._webApi.serverGame.unsubscribeFromGame();
 						this._ball.isVisible = false;
@@ -314,19 +306,18 @@ export default class Game implements IScript {
 					this._playerRackets.clear();
 					break;
 				case 1:
-					for (let i = 0; i < this.maxPlayers; i += 1) {
+					for (let i = 0; i < this._maxPlayers; i += 1) {
 						const	color:	Color3 = Game._colorPool[i];
 						this._wallColorPool.push(color);
 						this._colorWalls.set(color, i);
 					}
-					this._updateFieldParams(this.maxPlayers);
+					this._updateFieldParams(this._maxPlayers);
 					this._drawField();
 					this._scaleMeshes();
-					this._webApi.serverGame.subscribeToRoom();
 					break;
 				default:
 					this._ball.isVisible = true;
-					this._webApi.serverGame.unsubscribeFromGame();
+					this._webApi.serverGame.unsubscribeFromRoom();
 					this._webApi.serverGame.subscribeToGame();
 					break;
 			}
@@ -358,7 +349,7 @@ export default class Game implements IScript {
 			const	beta:	number = this._alpha * i;
 			this._betaSins[i] = Math.sin(beta);
 			this._betaCoss[i] = Math.cos(beta);
-			this._rotations[i] = Quaternion.RotationAxis(Axis.Z, -beta);
+			this._rotations[i] = Quaternion.RotationAxis(Axis.Z, beta);
 		}
 	}
 }
