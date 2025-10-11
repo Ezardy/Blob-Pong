@@ -1,5 +1,3 @@
-import { request, fetch } from "undici";
-
 interface LoginInfo
 {
 	email:		string;
@@ -37,19 +35,20 @@ type LoginResponse =
 
 export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | undefined>
 {
-	const response = await request(
+	const response = await fetch(
 		process.env.SERVER_API_LOGIN ?? "http://localhost:4000/api/users/login",
 		{
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
+			credentials: 'include',
 			body: JSON.stringify(data) 
 		}
 	);
 
-	if (response.statusCode === 200)
+	if (response.ok)
 	{
-		const json : any = await response.body.json();
-		return json.user as LoginResponse;
+		const json = await response.json();
+		return json as LoginResponse;
 	}
 
 	return undefined;
@@ -57,18 +56,19 @@ export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | unde
 
 export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse | undefined>
 {
-	const response = await request(
+	const response = await fetch(
 		process.env.SERVER_API_SIGN_UP ?? "http://localhost:4000/api/users/register",
 		{
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
+			credentials: 'include',
 			body: JSON.stringify(data) 
 		}
 	)
 
-	if (response.statusCode === 200)
+	if (response.status === 200)
 	{
-		const json : any = await response.body.json();
+		const json = await response.json();
 		return {
 			user:
 			{
@@ -85,16 +85,20 @@ export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse |
 
 export async function logoutAsync() : Promise<void>
 {
-	const response = await request(
-		process.env.SERVER_API_LOG_OUT ?? "http://localhost:4000/api/users/logout")
+	const response = await fetch(
+		process.env.SERVER_API_LOG_OUT ?? "http://localhost:4000/api/users/logout",
+		{
+			method: 'POST',
+			credentials: 'include'
+		}
+	);
 
-	if (response.statusCode === 200)
+	if (response.status === 200)
 	{
 		console.log("Logout successful");
 	}
 }
 
-// Check if session exists and update it when access token expires
 export async function doesSessionExist() : Promise<boolean>
 {
 	const response = await fetch("http://localhost:4000/api/users/tokens",
@@ -121,7 +125,7 @@ export async function getCurrentUser() : Promise<UserInfo | undefined>
 
 	if (response.ok)
 	{
-		const json : any = response.json();
+		const json = await response.json();
 		return {
 			id: json.id,
 			email: json.email,
