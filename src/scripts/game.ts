@@ -1,7 +1,8 @@
-import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineRibbonMesh, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, NodeMaterial, Nullable, PBRMaterial, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
+import { getCurrentUser } from "./web-api/server-login";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -10,7 +11,7 @@ export default class Game implements IScript {
 
 	public static readonly	MAX_PLAYERS:	int = 16;
 
-	private static readonly	_colorPool:		Array<Color3> = [
+	private static readonly	_colors:		Array<Color3> = [
 		new Color3(230 / 255, 25 / 255, 75 / 255), new Color3(60 / 255, 180 / 255, 75 / 255), new Color3(255 / 255, 225 / 255, 25 / 255),
 		new Color3(0 / 255, 130 / 255, 200 / 255), new Color3(245 / 255, 130 / 255, 48 / 255), new Color3(145 / 255, 30 / 255, 180 / 255),
 		new Color3(70 / 255, 240 / 255, 240 / 255), new Color3(240 / 255, 50 / 255, 230 / 255), new Color3(210 / 255, 245 / 255, 60 / 255),
@@ -34,15 +35,14 @@ export default class Game implements IScript {
 
 	private	_webApi!:	WebApi;
 
+	private readonly	_fields:		Array<GreasedLineMesh> = new Array<GreasedLineMesh>(Game.MAX_PLAYERS - 1);
 	private readonly	_playerColors:	Map<string, Color3> = new Map();
-	private readonly	_wallColorPool:	Array<Color3> = [];
 	private readonly	_colorWalls:	Map<Color3, int> = new Map();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map();
-	private readonly	_racketPool:	Array<InstancedMesh> = [];
+	private readonly	_racketPool:	Array<InstancedMesh> = new Array<InstancedMesh>(Game.MAX_PLAYERS);
+	private readonly	_colorPool:		Array<Color3> = new Array<Color3>(Game.MAX_PLAYERS);
+	private				_id:			string = "";
 
-	private readonly	_cameraRotation:	Quaternion;
-
-	private	_field:	Nullable<GreasedLineBaseMesh> = null;
 	private	_ball!:		GreasedLineBaseMesh;
 
 	private				_z:					number = 0;
@@ -51,12 +51,11 @@ export default class Game implements IScript {
 	private				_ballMeshSize:		number = 1;
 	private				_wallSize:			number = 1;
 	private				_alpha:				number = 0;
+	private				_alphaShift:		int = 0;
 	private				_height:			number = 0;
 	private readonly	_betaSins:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
 	private readonly	_betaCoss:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
 	private readonly	_rotations:			Array<Quaternion> = new Array<Quaternion>(Game.MAX_PLAYERS);
-
-	private readonly	_fieldAnimation:	() => void;
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -64,20 +63,37 @@ export default class Game implements IScript {
 	private readonly	_ballMesh!:	Mesh;
 
 	private	_mode:			int = 0;
-	private	_maxPlayers:	int = 0;
+	private	_maxPlayers:	int = 2;
 
 	private readonly	_glow:	GlowLayer;
 
 	public constructor(public scene: Scene) {
+		// Rendering
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
-		this._fieldAnimation = () => {
-			this._field!.greasedLineMaterial!.dashOffset += 0.001;
-		};
-		this._cameraRotation = scene.activeCamera!.absoluteRotation;
+		for (let i = 0; i < Game.MAX_PLAYERS; i += 1)
+			this._colorPool[Game.MAX_PLAYERS - i - 1] = Game._colors[i];
+		// Web
+		this._webApi.serverGame.onWebSocketOpenedObservable.add(() => getCurrentUser().then((d) => this._id = d!.id));
 	}
 
 	public onStart(): void {
+		// Web
+		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
+		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
+		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
+		// Rendering
+		const	camera:	Camera = this.scene.activeCamera!;
+		this._z = camera.globalPosition.z + this._distance;
+		this._y = this._distance * Math.tan(camera.fov / 2) * (1 - this._padding);
+		const	x:		number = this._y * this._rectangleRatio;
+		const	start:	Vector3 = new Vector3(x, this._y, this._z);
+		this._fields[0] = this._createField([
+				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
+				new Vector3(-x, this._y, this._z), start]);
+		for (let i = 1; i < this._fields.length; i += 1)
+			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(this._y, i + 2, this._z));
+		this.scene.onBeforeRenderObservable.add(() => this._fields[this._maxPlayers - 2].greasedLineMaterial!.dashOffset += 0.001);
 		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
 		const	pivot = bb.center.clone();
 		pivot.y = bb.maximum.y;
@@ -89,7 +105,7 @@ export default class Game implements IScript {
 		for (let i = 0; i < Game.MAX_PLAYERS; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
 			inst.isVisible = false;
-			this._racketPool.push(inst);
+			this._racketPool[i] = inst;
 		}
 		const	bbs:	BoundingSphere = this._ballMesh.getBoundingInfo().boundingSphere;
 		this._ballMeshSize = bbs.radius * 2;
@@ -104,12 +120,6 @@ export default class Game implements IScript {
 		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
 		this._ball.isVisible = false;
-		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
-		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
-		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
-		const	camera:	Camera = this.scene.activeCamera!;
-		this._z = camera.globalPosition.z + this._distance;
-		this._y = this._distance * Math.tan(camera.fov / 2) * (1 - this._padding);
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
@@ -129,6 +139,7 @@ export default class Game implements IScript {
 			gamePlayers.push(gamePlayer);
 		});
 		this._syncRoomPlayers(gamePlayers);
+		this._colorizeField();
 		this._drawPlayers(gamePlayers);
 	}
 
@@ -167,103 +178,42 @@ export default class Game implements IScript {
 	private	_syncGame(players: GamePlayer[]):	void {
 		this._maxPlayers = players.length;
 		if (this._playerColors.size > players.length) {
-			const	oldPlayerColors:	Map<string, Color3> = new Map();
-			players.forEach(player => {
-				oldPlayerColors.set(player.id, this._playerColors.get(player.id)!);
-				this._playerColors.delete(player.id)
-			});
-			this._playerColors.forEach((color, id) => {
-				this._colorWalls.delete(color);
-				this._playerColors.delete(id);
-				const	racket:	InstancedMesh = this._playerRackets.get(id)!;
-				this._playerRackets.delete(id);
-				racket.isVisible = false;
-				this._racketPool.push(racket);
-				this._wallColorPool.push(color);
-			});
-			let i = 0;
-			this._colorWalls.forEach((_, color, map) => map.set(color, i++));
-			this._playerColors.clear();
-			oldPlayerColors.forEach((color, id) => this._playerColors.set(id, color));
+			this._fields[this._playerColors.size - 2].isVisible = false;
+			this._syncRoomPlayers(players);
+			this._fields[players.length - 2].isVisible = true;
+			this._colorizeField();
 			this._updateFieldParams(players.length);
-			this._drawField();
 			this._scaleMeshes();
 		}
 	}
 
 	private	_syncRoomPlayers(players: GamePlayer[]):	void {
-		const	oldPlayerColor:	Map<string, Color3> = new Map();
-		const	newPlayer:		GamePlayer[] = [];
-		for (const p of players) {
-			if (this._playerColors.has(p.id)) {
-				oldPlayerColor.set(p.id, this._playerColors.get(p.id)!);
-				this._playerColors.delete(p.id);
-			} else
-				newPlayer.push(p);
+		const	playerColors:	Map<string, Color3> = new Map(this._playerColors);
+		this._colorWalls.clear();
+		this._shiftPlayers(players);
+		let	i:	int = 0;
+		for (const player of players) {
+			if (this._playerColors.has(player.id)) {
+				this._colorWalls.set(this._playerColors.get(player.id)!, i++);
+				playerColors.delete(player.id);
+			} else {
+				const	color:	Color3 = this._colorPool.pop()!;
+				const	racket:	InstancedMesh = this._racketPool.pop()!;
+				racket.isVisible = true;
+				racket.instancedBuffers.instanceColor = color;
+				this._colorWalls.set(color, i++);
+				this._playerRackets.set(player.id, racket);
+				this._playerColors.set(player.id, color);
+			}
 		}
-		this._playerColors.forEach((v, k) =>  {
-			const m:	InstancedMesh = this._playerRackets.get(k)!
-			this._playerRackets.delete(k);
-			this._playerColors.delete(k);
-			m.isVisible = false;
-			this._wallColorPool.push(v);
-			this._racketPool.push(m);
+		playerColors.forEach((color, id) => {
+			const	racket:	InstancedMesh = this._playerRackets.get(id)!;
+			racket.isVisible = false;
+			this._playerRackets.delete(id);
+			this._playerColors.delete(id);
+			this._racketPool.push(racket);
+			this._colorPool.push(color);
 		});
-		this._playerColors.clear();
-		newPlayer.forEach(player => {
-			const	r:	InstancedMesh = this._racketPool.pop()!;
-			const	c:	Color3 = this._wallColorPool.shift()!;
-			r.instancedBuffers.instanceColor = c;
-			r.isVisible = true;
-			this._playerColors.set(player.id, c);
-			this._playerRackets.set(player.id, r);
-		});
-		oldPlayerColor.forEach((c, id) => this._playerColors.set(id, c));
-	}
-
-	private	_drawField():	void {
-		if (this._field) {
-			this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field);
-			this._glow.removeIncludedOnlyMesh(this._field);
-			this.scene.onBeforeRenderObservable.removeCallback(this._fieldAnimation);
-			this._field.dispose(false, true);
-		}
-		let	points:	Vector3[];
-		let	colors:	Color3[];
-		if (this._colorWalls.size > 2) {
-			points = GreasedLineTools.GetCircleLinePoints(this._y, this._colorWalls.size, this._z);
-			colors = Array.from(this._colorWalls.keys());
-		} else {
-			const	x:		number = this._y * this._rectangleRatio;
-			const	start:	Vector3 = new Vector3(x, this._y, this._z);
-			points = [
-				start, new Vector3(x, -this._y, this._z), new Vector3(-x, -this._y, this._z),
-				new Vector3(-x, this._y, this._z), start
-			];
-			const	colorIter:	MapIterator<Color3> = this._colorWalls.keys();
-			const	color1:	Color3 = colorIter.next().value!;
-			const	color2:	Color3 = colorIter.next().value!;
-			colors = [
-				color1, this._wallColor,
-				color2, this._wallColor
-			];
-		}
-		this._field = CreateGreasedLine("field", {
-				points: points
-			}, {
-				useColors: true,
-				colors: colors,
-				useDash: true,
-				width: 10,
-				dashCount: 50,
-				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE,
-				colorDistributionType: GreasedLineMeshColorDistributionType.COLOR_DISTRIBUTION_TYPE_SEGMENT,
-				colorDistribution: GreasedLineMeshColorDistribution.COLOR_DISTRIBUTION_NONE
-				});
-		this._field.rotate(Axis.Z, 3 * Math.PI / 2 - this._alpha / 2);
-		this._glow.addIncludedOnlyMesh(this._field);
-		this._glow.referenceMeshToUseItsOwnMaterial(this._field);
-		this.scene.onBeforeRenderObservable.add(this._fieldAnimation);
 	}
 
 	public get	maxPlayers():	int {
@@ -271,7 +221,7 @@ export default class Game implements IScript {
 	}
 
 	public set	maxPlayers(value: int) {
-		if (!this._mode) {
+		if (!this._mode && value > 1 && value <= Game.MAX_PLAYERS) {
 			this._maxPlayers = value;
 		}
 	}
@@ -290,30 +240,22 @@ export default class Game implements IScript {
 						this._webApi.serverGame.unsubscribeFromGame();
 						this._ball.isVisible = false;
 					}
-					this._glow.unReferenceMeshFromUsingItsOwnMaterial(this._field!);
-					this._glow.removeIncludedOnlyMesh(this._field!);
-					this.scene.onBeforeRenderObservable.removeCallback(this._fieldAnimation);
-					this._field?.dispose(false, true);
 					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
 						racket.isVisible = false;
 						this._racketPool.push(racket);
 					});
-					while(this._wallColorPool.length)
-						this._wallColorPool.pop();
 					this._playerColors.clear();
 					this._playerRackets.clear();
+					this._fields[this._maxPlayers - 2].isVisible = false;
 					break;
 				case 1:
-					for (let i = 0; i < this._maxPlayers; i += 1) {
-						const	color:	Color3 = Game._colorPool[i];
-						this._wallColorPool.push(color);
-						this._colorWalls.set(color, i);
-					}
+					for (let i = 0; i < this._maxPlayers; i += 1)
+						this._colorWalls.set(Game._colors[i], i);
 					this._updateFieldParams(this._maxPlayers);
-					this._drawField();
 					this._scaleMeshes();
+					this._fields[this._maxPlayers - 2].isVisible = true;
 					break;
 				default:
 					this._ball.isVisible = true;
@@ -351,5 +293,51 @@ export default class Game implements IScript {
 			this._betaCoss[i] = Math.cos(beta);
 			this._rotations[i] = Quaternion.RotationAxis(Axis.Z, beta);
 		}
+	}
+
+	private	_createField(points: Vector3[]):	GreasedLineMesh {
+		const	len = points.length - 1;
+		const	colors:	Array<Color3> = new Array<Color3>(len);
+		for (let i = 0; i < len; i += 1)
+			colors[i] = this._wallColor;
+		const	field:	GreasedLineMesh = CreateGreasedLine("field " + len, {
+				points: points
+			}, {
+				useColors: true,
+				colors: colors,
+				useDash: true,
+				width: 10,
+				dashCount: 50,
+				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE,
+				colorDistributionType: GreasedLineMeshColorDistributionType.COLOR_DISTRIBUTION_TYPE_SEGMENT,
+				colorDistribution: GreasedLineMeshColorDistribution.COLOR_DISTRIBUTION_NONE
+				}) as GreasedLineMesh;
+		field.rotate(Axis.Z, 3 * Math.PI / 2 - Math.PI / len);
+		this._glow.addIncludedOnlyMesh(field);
+		this._glow.referenceMeshToUseItsOwnMaterial(field);
+		field.isVisible = false;
+		return field;
+	}
+
+	private	_colorizeField():	void {
+		const	colors:	Array<Color3> = this._fields[this._maxPlayers - 2].greasedLineMaterial!.colors!;
+		if (this._maxPlayers > 2) {
+			let	i:	int = 0;
+			this._colorWalls.forEach((_, color) => colors[i++] = color);
+			for (; i < colors.length; i += 1)
+				colors[i] = this._wallColor;
+		} else {
+			const	iter:	MapIterator<Color3> = this._colorWalls.keys();
+			const	color1:	Color3 = iter.next().value!;
+			const	color2:	Color3 = iter.next().value!;
+			colors[0] = color1;
+			colors[1] = this._wallColor;
+			colors[2] = color2;
+			colors[3] = this._wallColor;
+		}
+	}
+
+	private	_shiftPlayers(players: GamePlayer[]):	void {
+		for (let i = 0; i < players.length && players[0].id !== this._id; i += 1, players.push(players.shift()!));
 	}
 }
