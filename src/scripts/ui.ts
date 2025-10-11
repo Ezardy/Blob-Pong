@@ -168,7 +168,7 @@ export default class Ui implements IScript {
 		if (this._webApi.serverGame.isWebSocketOpen())
 			this._webApi.serverGame.subscribeToRoom();
 		else
-			this._webApi.serverGame.onWebSocketOpenedObservable.add(() => this._webApi.serverGame.subscribeToRoom());
+			this._webApi.onServerGameReady.add(() => this._webApi.serverGame.subscribeToRoom());
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();

@@ -20,7 +20,7 @@ type SignUpResponse =
 	}
 }
 
-type UserInfo =
+export type UserInfo =
 {
 	id:			string;
 	username:	string;
