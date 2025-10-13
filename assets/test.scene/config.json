@@ -85,15 +85,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.21335494361798668,
-            0.04365671751420919,
+            -0.03464493431170087,
+            0.0786337816468988,
             0
         ],
         "speed": 200,
         "position": [
-            -34.36236879447916,
-            408.65256322298166,
-            -1403.4974445390149
+            -61.269257664736486,
+            302.86624704433507,
+            -3284.4235477101884
         ],
         "upVector": [
             0,
@@ -116,7 +116,7 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 176,
+        "uniqueId": 533,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {

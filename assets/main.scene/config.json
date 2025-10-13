@@ -218,6 +218,74 @@
                     "_exitButtonMesh": {
                         "type": "entity",
                         "value": "46ca556d-b165-43f8-9b2f-1c55debb7433"
+                    },
+                    "_background": {
+                        "type": "entity",
+                        "value": "0fe36208-15f6-4366-a95f-7a324d858364"
+                    },
+                    "_mainMenuMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.9176470588235294,
+                            0.6431372549019608,
+                            0.6431372549019608
+                        ]
+                    },
+                    "_mainMenuDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_joinPublicMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.8980392156862745,
+                            0.9254901960784314,
+                            0.6901960784313725
+                        ]
+                    },
+                    "_joinPublicDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            0.18823529411764706,
+                            0.8627450980392157,
+                            0.48627450980392156
+                        ]
+                    },
+                    "_createMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.6039215686274509,
+                            0.15294117647058825,
+                            0.35294117647058826
+                        ]
+                    },
+                    "_createDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            0.41568627450980394,
+                            0.10588235294117647
+                        ]
+                    },
+                    "_gameMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.4235294117647059,
+                            0,
+                            0
+                        ]
+                    },
+                    "_gameDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            0,
+                            0,
+                            0
+                        ]
                     }
                 }
             },
@@ -302,15 +370,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.0932030081787338,
-            0.08359038213922534,
+            -0.02920306921387869,
+            0.12457554296704892,
             0
         ],
         "speed": 200,
         "position": [
-            665.5494128684501,
-            223.7520007599759,
-            -1769.380665536717
+            -116.18925504104902,
+            -12.925274084656134,
+            -967.9943835546641
         ],
         "upVector": [
             0,
@@ -333,7 +401,7 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 79,
+        "uniqueId": 32,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {

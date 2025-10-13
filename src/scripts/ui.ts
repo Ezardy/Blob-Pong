@@ -1,6 +1,6 @@
-import { AbstractMesh, Axis, int, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
-import { getScriptByClassForObject, IScript, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
 import { ISelectable } from "./interfaces/iselectable";
@@ -11,9 +11,36 @@ import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
 import Game from "./game";
+import { setKeys } from "./functions/animations";
 
 export default class Ui implements IScript {
 	private readonly	_manager:	GUI3DManager;
+
+	// background
+	@visibleAsEntity("node", "background")
+	private readonly	_background!:	GroundMesh;
+	@visibleAsColor3("Main menu main color")
+	private readonly	_mainMenuMainColor!:	Color3;
+	@visibleAsColor3("Main menu depth color")
+	private readonly	_mainMenuDepthColor!:	Color3;
+	@visibleAsColor3("Join public main color")
+	private readonly	_joinPublicMainColor!:	Color3;
+	@visibleAsColor3("Join public depth color")
+	private readonly	_joinPublicDepthColor!:	Color3;
+	@visibleAsColor3("Create main color")
+	private readonly	_createMainColor!:		Color3;
+	@visibleAsColor3("Create depth color")
+	private readonly	_createDepthColor!:		Color3;
+	@visibleAsColor3("Game main color")
+	private readonly	_gameMainColor!:		Color3;
+	@visibleAsColor3("Game depth color")
+	private readonly	_gameDepthColor!:		Color3;
+
+	private	_backgroundMainColorBlock!:		InputBlock;
+	private	_backgroundDepthColorBlock!:	InputBlock;
+
+	private readonly	_backgroundMainAnim:	Animation;
+	private readonly	_backgroundDepthAnim:	Animation;
 
 	// main layout elements
 	@visibleAsEntity("node", "Join public game button mesh")
@@ -105,6 +132,8 @@ export default class Ui implements IScript {
 	private	_game!:		Game;
 
 	public constructor(public scene: Scene) {
+		this._backgroundMainAnim = new Animation("background main color", "value", 30, Animation.ANIMATIONTYPE_COLOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._backgroundDepthAnim = new Animation("background depth color", "value", 30, Animation.ANIMATIONTYPE_COLOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._updateLayoutCallback = () => {
 			if (this._isLayoutUpdatable)
 				this._updateLayoutRecursively()
@@ -160,15 +189,23 @@ export default class Ui implements IScript {
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
-				this._switchLayout(this._currentLayout, this._lobbyLayout);
+				this._switchLayout(this._currentLayout, this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
 				this._game.maxPlayers = details.maxPlayers;
 				this._game.mode = 1;
+
 			}
 		}, undefined, true);
 		if (this._webApi.serverGame.isWebSocketOpen())
 			this._webApi.serverGame.subscribeToRoom();
 		else
 			this._webApi.onServerGameReady.add(() => this._webApi.serverGame.subscribeToRoom());
+		// Background
+		const	backgroundMaterial:	NodeMaterial = this._background.material as NodeMaterial;
+		this._backgroundMainColorBlock = backgroundMaterial.getBlockByName("mainColor") as InputBlock;
+		this._backgroundDepthColorBlock = backgroundMaterial.getBlockByName("depthColor") as InputBlock;
+		this._backgroundMainColorBlock.value = this._mainMenuMainColor;
+		this._backgroundDepthColorBlock.value = this._mainMenuDepthColor;
+		// Layout
 		this._setMainLayout();
 		this._setGameListLayout();
 		this._setGameCreationLayout();
@@ -186,7 +223,7 @@ export default class Ui implements IScript {
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
 			this._webApi.serverGame.leaveRoom();
-			this._switchLayout(this._lobbyLayout, this._mainLayout);
+			this._switchLayout(this._lobbyLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 		});
 		this._lobbyLayout.addControl(button);
 		this._lobbyLayout.blockLayout = false;
@@ -202,11 +239,11 @@ export default class Ui implements IScript {
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
-			this._switchLayout(this._mainLayout, this._gameListLayout);
+			this._switchLayout(this._mainLayout, this._gameListLayout, this._joinPublicMainColor, this._joinPublicDepthColor);
 			this._subscribeToLobby();
 		});
 
-		createGameButton.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._gameCreationLayout));
+		createGameButton.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._gameCreationLayout, this._createMainColor, this._createDepthColor));
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
@@ -305,7 +342,7 @@ export default class Ui implements IScript {
 			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
 			const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
-			button.onPointerUpObservable.add(() => this._switchLayout(this._gameCreationLayout, this._mainLayout));
+			button.onPointerUpObservable.add(() => this._switchLayout(this._gameCreationLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
 			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
 			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
 			const	headerControl:	MeshControl = new MeshControl(this._gameCreationHeaderMesh, "game creation header");
@@ -322,7 +359,7 @@ export default class Ui implements IScript {
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
 		gameListPreviousButton.onPointerUpObservable.add(() => {
-			this._switchLayout(this._gameListLayout, this._mainLayout);
+			this._switchLayout(this._gameListLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
@@ -409,6 +446,13 @@ export default class Ui implements IScript {
 	}
 
 	// Utilities
+	private	_changeBackgroundColor(mainColor: Color3, depthColor: Color3):	void {
+		setKeys(this._backgroundMainAnim, this._backgroundMainColorBlock.value, mainColor, 30);
+		setKeys(this._backgroundDepthAnim, this._backgroundDepthColorBlock.value, depthColor, 30);
+		this.scene.beginDirectAnimation(this._backgroundMainColorBlock, [this._backgroundMainAnim], 0, 30);
+		this.scene.beginDirectAnimation(this._backgroundDepthColorBlock, [this._backgroundDepthAnim], 0, 30);
+	}
+
 	private	_updateLayoutRecursively():	void {
 		const	toUpdate:	Array<Container3D> = [this._currentLayout];
 		let		count:		int = 1;
@@ -431,7 +475,7 @@ export default class Ui implements IScript {
 			toUpdate.pop()!.updateLayout();
 	}
 
-	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D):	void {
+	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D, mainColor: Color3, depthColor: Color3):	void {
 		if (oldLayout != newLayout) {
 			this._isLayoutUpdatable = false;
 			oldLayout.isVisible = false;
@@ -442,6 +486,7 @@ export default class Ui implements IScript {
 				this._updateLayoutRecursively();
 				this._isLayoutUpdatable = true, 2000
 			});
+			this._changeBackgroundColor(mainColor, depthColor);
 		}
 	}
 

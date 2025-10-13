@@ -6,6 +6,7 @@ import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
 import MeshButton3DDisablable from "./mesh-button-3d-disablable";
 import { Control } from "@babylonjs/gui";
+import { setKeys } from "../functions/animations";
 
 export default class ButtonWithDescription extends MeshButton3DDisablable implements IClonableControl3D, IDisablable {
 	private readonly	_disAnim:			Animation;
@@ -21,10 +22,10 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 		if (this._isEnabled != enable) {
 			Object.getOwnPropertyDescriptor(MeshButton3DDisablable.prototype, "isEnabled")!.set!.call(this, enable);
 			if (enable) {
-				ButtonWithDescription._setKeys(this._descOutAnim, this._currentMesh.rotationQuaternion, this._initialRotation);
+				setKeys(this._descOutAnim, this._currentMesh.rotationQuaternion, this._initialRotation, 5);
 				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim], 0, 5);
 			} else {
-				ButtonWithDescription._setKeys(this._disAnim, this._currentMesh.rotationQuaternion, this._disabledRotation);
+				setKeys(this._disAnim, this._currentMesh.rotationQuaternion, this._disabledRotation, 5);
 				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disAnim], 0, 5);
 			}
 		}
@@ -53,13 +54,13 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 
 		this.pointerEnterAnimation = () =>  {
 			description && (description.isVisible = true);
-			ButtonWithDescription._setKeys(descInAnim, mesh.rotationQuaternion, endRotation);
-			ButtonWithDescription._setKeys(scInAnim, mesh.scaling, descScale);
+			setKeys(descInAnim, mesh.rotationQuaternion, endRotation, 5);
+			setKeys(scInAnim, mesh.scaling, descScale, 5);
 			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [descInAnim, scInAnim], 0, 5);
 		};
 		this.pointerOutAnimation = () => {
-			ButtonWithDescription._setKeys(this._descOutAnim, mesh.rotationQuaternion, this._initialRotation);
-			ButtonWithDescription._setKeys(scOutAnim, mesh.scaling, initialScale);
+			setKeys(this._descOutAnim, mesh.rotationQuaternion, this._initialRotation, 5);
+			setKeys(scOutAnim, mesh.scaling, initialScale, 5);
 			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim, scOutAnim], 0, 5).onAnimationEndObservable.addOnce(() => description && (description.isVisible = false));
 		};
 		description && (description.isVisible = false);
@@ -67,15 +68,5 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 
 	public	clone():	Control3DClone {
 		return {root: new ButtonWithDescription(cloneNodeWithScripts(this.mesh as Mesh) as Mesh, this.name + " clone", this.descriptionRelativeRotation, this.scaleOnEnter, this.pivot, this.disabledRelativeRotation), children: []};
-	}
-
-	private static	_setKeys(anim: Animation, start: any, end: any) {
-		anim.setKeys([{
-			frame: 0,
-			value: start
-		}, {
-			frame: 5,
-			value: end
-		}]);
 	}
 }

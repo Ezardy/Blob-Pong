@@ -5,6 +5,7 @@ import { drawBoundingBox, updateBoundingBoxRecursively } from "../functions/boun
 import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
 import MeshButton3DDisablable from "./mesh-button-3d-disablable";
+import { setKeys } from "../functions/animations";
 
 export default class SwitchButton3D extends MeshButton3DDisablable implements IClonableControl3D, ISelectable {
 	public get	state() {
@@ -61,37 +62,37 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 		} else
 			this._maxState = 2;
 		this.pointerEnterAnimation = () => {
-			SwitchButton3D._setKeys(scInAnim, mesh.scaling, scIn);
-			SwitchButton3D._setKeys(oInAnim, mesh.position, oIn);
+			setKeys(scInAnim, mesh.scaling, scIn, 5);
+			setKeys(oInAnim, mesh.position, oIn, 5);
 			switch (this._state) {
 				case 0:
-					SwitchButton3D._setKeys(d1Anim, mesh.rotationQuaternion, d1r);
+					setKeys(d1Anim, mesh.rotationQuaternion, d1r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d1Anim, scInAnim, oInAnim], 0, 5);
 					break;
 				case 1:
-					SwitchButton3D._setKeys(d2Anim, mesh.rotationQuaternion, d2r);
+					setKeys(d2Anim, mesh.rotationQuaternion, d2r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d2Anim, scInAnim, oInAnim], 0, 5);
 					break;
 				default:
-					SwitchButton3D._setKeys(d3Anim, mesh.rotationQuaternion, d3r);
+					setKeys(d3Anim, mesh.rotationQuaternion, d3r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d3Anim, scInAnim, oInAnim], 0, 5);
 					break;
 			}
 		};
 		this.pointerOutAnimation = () => {
-			SwitchButton3D._setKeys(oOutAnim, mesh.position, oOut);
-			SwitchButton3D._setKeys(scOutAnim, mesh.scaling, scOut);
+			setKeys(oOutAnim, mesh.position, oOut, 5);
+			setKeys(scOutAnim, mesh.scaling, scOut, 5);
 			switch (this._state) {
 				case 0:
-					SwitchButton3D._setKeys(s1Anim, mesh.rotationQuaternion, ir);
+					setKeys(s1Anim, mesh.rotationQuaternion, ir, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [s1Anim, scOutAnim, oOutAnim], 0, 5);
 					break;
 				case 1:
-					SwitchButton3D._setKeys(s2Anim, mesh.rotationQuaternion, s2r);
+					setKeys(s2Anim, mesh.rotationQuaternion, s2r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [s2Anim, scOutAnim, oOutAnim], 0, 5);
 					break;
 				default:
-					SwitchButton3D._setKeys(s3Anim, mesh.rotationQuaternion, s3r);
+					setKeys(s3Anim, mesh.rotationQuaternion, s3r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [s3Anim, scOutAnim, oOutAnim], 0, 5);
 					break;
 			}
@@ -102,35 +103,25 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 		};
 		const	oldPointerUpAnimation = this.pointerUpAnimation.bind(this);
 		this.pointerUpAnimation = () => {
-			SwitchButton3D._setKeys(oInAnim, mesh.position, oIn);
-			SwitchButton3D._setKeys(scInAnim, mesh.scaling, scIn);
+			setKeys(oInAnim, mesh.position, oIn, 5);
+			setKeys(scInAnim, mesh.scaling, scIn, 5);
 			switch (this._state) {
 				case 0:
-					SwitchButton3D._setKeys(d2Anim, mesh.rotationQuaternion, d2r);
+					setKeys(d2Anim, mesh.rotationQuaternion, d2r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d2Anim, scInAnim, oInAnim], 0, 5);
 					break;
 				case 1:
-					SwitchButton3D._setKeys(d3Anim, mesh.rotationQuaternion, d3r);
+					setKeys(d3Anim, mesh.rotationQuaternion, d3r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d3Anim, scInAnim, oInAnim], 0, 5);
 					break;
 				default:
-					SwitchButton3D._setKeys(d1Anim, mesh.rotationQuaternion, d1r);
+					setKeys(d1Anim, mesh.rotationQuaternion, d1r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d1Anim, scInAnim, oInAnim], 0, 5);
 					break;
 			}
 			oldPointerUpAnimation();
 			this._state = (this._state + 1) % this._maxState;
 		};
-	}
-
-	private static	_setKeys(anim: Animation, start: any, end: any) {
-		anim.setKeys([{
-			frame: 0,
-			value: start
-		}, {
-			frame: 5,
-			value: end
-		}]);
 	}
 
 	public	clone():	Control3DClone {
