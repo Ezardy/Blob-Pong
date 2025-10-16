@@ -202,7 +202,6 @@ export default class Ui implements IScript {
 			this._gameListScroll.setClipped(true);
 		});
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
-			console.log("data received");
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
 				this._switchLayout(this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
@@ -213,20 +212,20 @@ export default class Ui implements IScript {
 				this._game.maxPlayers = details.maxPlayers;
 				this._game.mode = 1;
 			} else {
-				console.log(details.players);
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
 						this._readyButton.isVisible = false;
 						this._countdownPanel.isVisible = true;
 						this._currentTimeout = setTimeout(() => {
-							this._countdown.select();
+							this._countdown.state = 1;
 							this._currentTimeout = setTimeout(() => {
-								this._countdown.select();
+								this._countdown.state = 2;
 								this._currentTimeout = setTimeout(() => {
-									this._countdown.select();
+									this._countdown.state = 0;
 									this._currentTimeout = null;
 									this._game.mode = 2;
 									this._webApi.serverGame.startGame();
+									this._countdown.isVisible = false;
 								}, 1000);
 							}, 1000);
 						}, 1000);

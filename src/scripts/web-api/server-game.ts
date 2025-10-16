@@ -245,7 +245,6 @@ export class ServerGame
 
 	public markRoomPlayerReady() : void
 	{
-		console.log("ready");
 		const type = "READY";
 
 		if (this.isWebSocketOpen())
@@ -254,7 +253,6 @@ export class ServerGame
 
 	public markRoomPlayerWaiting() : void
 	{
-		console.log("waiting");
 		const type = "WAITING";
 
 		if (this.isWebSocketOpen())

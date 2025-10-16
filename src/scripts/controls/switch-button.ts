@@ -1,4 +1,4 @@
-import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation, Observer } from "@babylonjs/core";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { ISelectable } from "../interfaces/iselectable";
 import { updateBoundingBoxRecursively } from "../functions/bounding-box";
@@ -14,6 +14,16 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 	public get	state() {
 		return this._state;
 	}
+
+	public set	state(value: int) {
+		while (this._state != value) {
+			this._pointerEnterFunc();
+			this._pointerDownFunc();
+			this.onPointerUpObservable.notifyObserver(this._selectObserver, SwitchButton3D._dummyInfo);
+			this._pointerUpFunc();
+			this._pointerOutFunc();
+		}
+	}
 	
 	private				_state:		int = 0;
 	private readonly	_maxState:	int;
@@ -22,6 +32,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 	private readonly	_pointerOutFunc: () => void;
 	private readonly	_pointerDownFunc: () => void;
 	private readonly	_pointerUpFunc: () => void;
+	private readonly	_selectObserver:	Observer<Vector3WithInfo>;
 
 	public constructor(mesh: AbstractMesh, name: string,
 		private state1DescriptionRotation: Quaternion,
@@ -110,7 +121,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 		this._pointerDownFunc = this.pointerDownAnimation.bind(this);
 		this.pointerDownAnimation = this._pointerDownFunc;
 		const	oldPointerUpAnimation = this.pointerUpAnimation.bind(this);
-		this.onPointerUpObservable.add(() => this._state = (this._state + 1) % this._maxState);
+		this._selectObserver = this.onPointerUpObservable.add(() => this._state = (this._state + 1) % this._maxState);
 		this._pointerUpFunc = () => {
 			setKeys(oInAnim, mesh.position, oIn, 5);
 			setKeys(scInAnim, mesh.scaling, scIn, 5);
@@ -143,28 +154,10 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 	}
 
 	public	select():	void {
-		if (this.state == 0) {
-			this.onPointerEnterObservable.notifyObservers(this);
-			this._pointerEnterFunc();
-			this.onPointerDownObservable.notifyObservers(SwitchButton3D._dummyInfo);
-			this._pointerDownFunc();
-			this.onPointerUpObservable.notifyObservers(SwitchButton3D._dummyInfo);
-			this._pointerUpFunc();
-			this.onPointerOutObservable.notifyObservers(this);
-			this._pointerOutFunc();
-		}
+		this.state = 1;
 	}
 
 	public	deselect():	void {
-		while (this.state) {
-			this.onPointerEnterObservable.notifyObservers(this);
-			this._pointerEnterFunc();
-			this.onPointerDownObservable.notifyObservers(SwitchButton3D._dummyInfo);
-			this._pointerDownFunc();
-			this.onPointerUpObservable.notifyObservers(SwitchButton3D._dummyInfo);
-			this._pointerUpFunc();
-			this.onPointerOutObservable.notifyObservers(this);
-			this._pointerOutFunc();
-		}
+		this.state = 0;
 	}
 }

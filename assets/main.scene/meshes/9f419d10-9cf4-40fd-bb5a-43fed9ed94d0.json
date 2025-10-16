@@ -130,7 +130,7 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": "not"
+                                "value": ""
                             },
                             "_leftFontSize": {
                                 "type": "number",
@@ -185,7 +185,7 @@
                             },
                             "_backAngle": {
                                 "type": "number",
-                                "value": 90
+                                "value": 180
                             },
                             "_isBackInverted": {
                                 "type": "boolean",
@@ -209,7 +209,7 @@
                             },
                             "_topAngle": {
                                 "type": "number",
-                                "value": 90
+                                "value": 0
                             },
                             "_isTopInverted": {
                                 "type": "boolean",
@@ -781,7 +781,7 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": "not"
+                        "value": ""
                     },
                     "_leftFontSize": {
                         "type": "number",
@@ -836,7 +836,7 @@
                     },
                     "_backAngle": {
                         "type": "number",
-                        "value": 90
+                        "value": 180
                     },
                     "_isBackInverted": {
                         "type": "boolean",
@@ -860,7 +860,7 @@
                     },
                     "_topAngle": {
                         "type": "number",
-                        "value": 90
+                        "value": 0
                     },
                     "_isTopInverted": {
                         "type": "boolean",
