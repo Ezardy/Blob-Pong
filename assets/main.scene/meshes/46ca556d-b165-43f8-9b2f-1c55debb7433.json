@@ -62,7 +62,7 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "materialUniqueId": 198,
+            "materialUniqueId": 197,
             "materialId": "default material",
             "metadata": {
                 "scripts": [
@@ -80,7 +80,7 @@
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 19
+                                "value": 9.5
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -373,6 +373,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
                             }
                         }
                     }
@@ -414,7 +418,7 @@
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 19
+                        "value": 9.5
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -707,6 +711,10 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
                     }
                 }
             }

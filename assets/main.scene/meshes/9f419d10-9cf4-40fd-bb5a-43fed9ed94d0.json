@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "refresh button mesh",
-            "id": "d94bca8d-1bf2-43ca-b957-9ed9b62c3690",
-            "uniqueId": 1754473643855,
+            "name": "countdown mesh",
+            "id": "9f419d10-9cf4-40fd-bb5a-43fed9ed94d0",
+            "uniqueId": 1760526752908,
             "type": "Mesh",
             "position": [
-                225.66877781293658,
-                116.32700045111349,
-                -40.26736790235148
+                334.6199460477241,
+                196.70431329842876,
+                -460
             ],
             "rotationQuaternion": [
+                0.08628636579792333,
                 0,
-                0.1010562971829463,
                 0,
-                0.9948807088287882
+                0.9962703764929413
             ],
             "scaling": [
-                26.999999999999993,
-                27,
-                26.999999999999993
+                20.00000000000002,
+                20,
+                20.00000000000004
             ],
             "localMatrix": [
                 1,
@@ -62,148 +62,24 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1754473643856,
-            "geometryId": "28f72fdd-5e38-4bd8-8053-ee9d09206025",
+            "geometryUniqueId": 1754057510021,
+            "geometryId": "3b83d2fd-8af7-4603-b07d-0422d8cb9410",
             "subMeshes": null,
-            "materialUniqueId": 1754473605319,
-            "materialId": "9db564dc-cee0-4790-a406-081c325549c1",
+            "materialUniqueId": 1758124179655,
+            "materialId": "8d82cd15-4a17-4e8c-b571-ff3f4da9fb12",
             "metadata": {
                 "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/icon-drawer.ts",
-                        "values": {
-                            "_leftIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_leftIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_leftIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_rightIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_topIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_frontIcon": {
-                                "type": "texture",
-                                "value": {
-                                    "tags": null,
-                                    "url": "assets/textures/refresh.png",
-                                    "uOffset": 0,
-                                    "vOffset": 0,
-                                    "uScale": 1,
-                                    "vScale": 1,
-                                    "uAng": 0,
-                                    "vAng": 0,
-                                    "wAng": 0,
-                                    "uRotationCenter": 0.5,
-                                    "vRotationCenter": 0.5,
-                                    "wRotationCenter": 0.5,
-                                    "homogeneousRotationInUVTransform": false,
-                                    "isBlocking": true,
-                                    "name": "assets/textures/refresh.png",
-                                    "hasAlpha": false,
-                                    "getAlphaFromRGB": false,
-                                    "level": 1,
-                                    "coordinatesIndex": 0,
-                                    "optimizeUVAllocation": true,
-                                    "coordinatesMode": 0,
-                                    "wrapU": 1,
-                                    "wrapV": 1,
-                                    "wrapR": 1,
-                                    "anisotropicFilteringLevel": 4,
-                                    "isCube": false,
-                                    "is3D": false,
-                                    "is2DArray": false,
-                                    "gammaSpace": true,
-                                    "invertZ": false,
-                                    "lodLevelInAlpha": false,
-                                    "lodGenerationOffset": 0,
-                                    "lodGenerationScale": 0,
-                                    "linearSpecularLOD": false,
-                                    "isRenderTarget": false,
-                                    "animations": [],
-                                    "invertY": true,
-                                    "samplingMode": 3,
-                                    "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/refresh.png",
-                                    "noMipmap": false
-                                }
-                            },
-                            "_frontIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_frontIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_backIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_renderOnStart": {
-                                "type": "boolean",
-                                "value": false
-                            }
-                        }
-                    },
                     {
                         "enabled": true,
                         "key": "scripts/text-block.ts",
                         "values": {
                             "_frontText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "3"
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 20
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -218,17 +94,13 @@
                                 "type": "number",
                                 "value": 0
                             },
-                            "_isFrontInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_backText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "1"
                             },
                             "_backFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 20
                             },
                             "_backColor": {
                                 "type": "color4",
@@ -239,21 +111,13 @@
                                     1
                                 ]
                             },
-                            "_backAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isBackInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_rightText": {
                                 "type": "string",
-                                "value": "refresh\\nlist"
+                                "value": ""
                             },
                             "_rightFontSize": {
                                 "type": "number",
-                                "value": 15
+                                "value": 20
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -264,21 +128,13 @@
                                     1
                                 ]
                             },
-                            "_rightAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isRightInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_leftText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "not"
                             },
                             "_leftFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 8
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -289,21 +145,13 @@
                                     1
                                 ]
                             },
-                            "_leftAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isLeftInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_topText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "2"
                             },
                             "_topFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 20
                             },
                             "_topColor": {
                                 "type": "color4",
@@ -314,21 +162,13 @@
                                     1
                                 ]
                             },
-                            "_topAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isTopInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_bottomText": {
                                 "type": "string",
                                 "value": ""
                             },
                             "_bottomFontSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 21
                             },
                             "_bottomColor": {
                                 "type": "color4",
@@ -339,9 +179,45 @@
                                     1
                                 ]
                             },
-                            "_bottomAngle": {
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightAngle": {
                                 "type": "number",
                                 "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 90
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 90
                             },
                             "_isBottomInverted": {
                                 "type": "boolean",
@@ -496,11 +372,19 @@
                             "_bottomFontFamily": {
                                 "type": "string",
                                 "value": ""
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 4
                             }
                         }
                     }
                 ],
-                "parentId": 1753456789352
+                "parentId": 1758123563382
             },
             "instances": [],
             "animations": [],
@@ -516,7 +400,7 @@
             ],
             "renderOverlay": true,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/28f72fdd-5e38-4bd8-8053-ee9d09206025.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/3b83d2fd-8af7-4603-b07d-0422d8cb9410.babylonbinarymeshdata",
             "boundingBoxMaximum": [
                 1,
                 1,
@@ -647,8 +531,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "9db564dc-cee0-4790-a406-081c325549c1",
-            "name": "icon",
+            "id": "8d82cd15-4a17-4e8c-b571-ff3f4da9fb12",
+            "name": "icon (Clone)",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -687,7 +571,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754473605319,
+            "uniqueId": 1758124179655,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -838,139 +722,15 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/icon-drawer.ts",
-                "values": {
-                    "_leftIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_leftIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_leftIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_rightIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_topIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_frontIcon": {
-                        "type": "texture",
-                        "value": {
-                            "tags": null,
-                            "url": "assets/textures/refresh.png",
-                            "uOffset": 0,
-                            "vOffset": 0,
-                            "uScale": 1,
-                            "vScale": 1,
-                            "uAng": 0,
-                            "vAng": 0,
-                            "wAng": 0,
-                            "uRotationCenter": 0.5,
-                            "vRotationCenter": 0.5,
-                            "wRotationCenter": 0.5,
-                            "homogeneousRotationInUVTransform": false,
-                            "isBlocking": true,
-                            "name": "assets/textures/refresh.png",
-                            "hasAlpha": false,
-                            "getAlphaFromRGB": false,
-                            "level": 1,
-                            "coordinatesIndex": 0,
-                            "optimizeUVAllocation": true,
-                            "coordinatesMode": 0,
-                            "wrapU": 1,
-                            "wrapV": 1,
-                            "wrapR": 1,
-                            "anisotropicFilteringLevel": 4,
-                            "isCube": false,
-                            "is3D": false,
-                            "is2DArray": false,
-                            "gammaSpace": true,
-                            "invertZ": false,
-                            "lodLevelInAlpha": false,
-                            "lodGenerationOffset": 0,
-                            "lodGenerationScale": 0,
-                            "linearSpecularLOD": false,
-                            "isRenderTarget": false,
-                            "animations": [],
-                            "invertY": true,
-                            "samplingMode": 3,
-                            "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/refresh.png",
-                            "noMipmap": false
-                        }
-                    },
-                    "_frontIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_frontIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_backIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_renderOnStart": {
-                        "type": "boolean",
-                        "value": false
-                    }
-                }
-            },
-            {
-                "enabled": true,
                 "key": "scripts/text-block.ts",
                 "values": {
                     "_frontText": {
                         "type": "string",
-                        "value": ""
+                        "value": "3"
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 20
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -985,17 +745,13 @@
                         "type": "number",
                         "value": 0
                     },
-                    "_isFrontInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
                     "_backText": {
                         "type": "string",
-                        "value": ""
+                        "value": "1"
                     },
                     "_backFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 20
                     },
                     "_backColor": {
                         "type": "color4",
@@ -1006,21 +762,13 @@
                             1
                         ]
                     },
-                    "_backAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isBackInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
                     "_rightText": {
                         "type": "string",
-                        "value": "refresh\\nlist"
+                        "value": ""
                     },
                     "_rightFontSize": {
                         "type": "number",
-                        "value": 15
+                        "value": 20
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1031,21 +779,13 @@
                             1
                         ]
                     },
-                    "_rightAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isRightInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
                     "_leftText": {
                         "type": "string",
-                        "value": ""
+                        "value": "not"
                     },
                     "_leftFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 8
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -1056,21 +796,13 @@
                             1
                         ]
                     },
-                    "_leftAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isLeftInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
                     "_topText": {
                         "type": "string",
-                        "value": ""
+                        "value": "2"
                     },
                     "_topFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 20
                     },
                     "_topColor": {
                         "type": "color4",
@@ -1081,21 +813,13 @@
                             1
                         ]
                     },
-                    "_topAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isTopInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
                     "_bottomText": {
                         "type": "string",
                         "value": ""
                     },
                     "_bottomFontSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 21
                     },
                     "_bottomColor": {
                         "type": "color4",
@@ -1106,9 +830,45 @@
                             1
                         ]
                     },
-                    "_bottomAngle": {
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightAngle": {
                         "type": "number",
                         "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 90
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 90
                     },
                     "_isBottomInverted": {
                         "type": "boolean",
@@ -1263,11 +1023,19 @@
                     "_bottomFontFamily": {
                         "type": "string",
                         "value": ""
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 4
                     }
                 }
             }
         ],
-        "parentId": 1753456789352
+        "parentId": 1758123563382
     },
     "basePoseMatrix": [
         -2,

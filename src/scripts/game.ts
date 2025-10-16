@@ -38,6 +38,7 @@ export default class Game implements IScript {
 	private readonly	_fields:		Array<GreasedLineMesh> = new Array<GreasedLineMesh>(Game.MAX_PLAYERS - 1);
 	private readonly	_playerColors:	Map<string, Color3> = new Map<string, Color3>();
 	private readonly	_colorWalls:	Map<Color3, int> = new Map<Color3, int>();
+	private readonly	_wallReadiness:	Map<int, boolean> = new Map<int, boolean>();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map<string, InstancedMesh>();
 	private readonly	_racketPool:	Array<InstancedMesh> = new Array<InstancedMesh>(Game.MAX_PLAYERS);
 	private readonly	_colorPool:		Array<Color3> = new Array<Color3>(Game.MAX_PLAYERS);
@@ -140,6 +141,7 @@ export default class Game implements IScript {
 			gamePlayers.push(gamePlayer);
 		});
 		this._syncRoomPlayers(gamePlayers);
+		d.players.forEach((player) => this._wallReadiness.set(this._colorWalls.get(this._playerColors.get(player.id)!)!, player.isReady));
 		this._colorizeField();
 		this._drawPlayers(gamePlayers);
 	}
@@ -316,9 +318,10 @@ export default class Game implements IScript {
 				useColors: true,
 				colors: colors,
 				useDash: true,
-				width: 10,
+				width: 8,
 				dashCount: 50,
 				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE,
+				sizeAttenuation: true,
 				colorDistributionType: GreasedLineMeshColorDistributionType.COLOR_DISTRIBUTION_TYPE_SEGMENT,
 				colorDistribution: GreasedLineMeshColorDistribution.COLOR_DISTRIBUTION_NONE
 				}) as GreasedLineMesh;
@@ -335,9 +338,12 @@ export default class Game implements IScript {
 		const	colors:	Array<Color3> = field.greasedLineMaterial!.colors!;
 		for (let i = 0; i < this._maxPlayers; i += 1)
 			colors[i] = this._wallColor;
-		if (this._maxPlayers > 2)
-			this._colorWalls.forEach((wall, color) => colors[wall] = color);
-		else {
+		if (this._maxPlayers > 2) {
+			this._colorWalls.forEach((wall, color) => {
+				if (this._wallReadiness.get(wall)!)
+					colors[wall] = color;
+			});
+		} else {
 			const	iter:	MapIterator<Color3> = this._colorWalls.keys();
 			const	color1:	Color3 = iter.next().value!;
 			colors[2] = color1;

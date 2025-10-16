@@ -243,20 +243,20 @@ export class ServerGame
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
-	public markRoomPlayerReady(roomId: string) : void
+	public markRoomPlayerReady() : void
 	{
 		const type = "READY";
 
 		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId }));
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
-	public markRoomPlayerWaiting(roomId: string) : void
+	public markRoomPlayerWaiting() : void
 	{
 		const type = "WAITING";
 
 		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId }));
+			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public startGame() : void

@@ -82,7 +82,7 @@
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 50
+                                "value": 25
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -379,6 +379,10 @@
                             "_renderOnStart": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
                             }
                         }
                     }
@@ -733,7 +737,7 @@
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 50
+                        "value": 25
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -1030,6 +1034,10 @@
                     "_renderOnStart": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
                     }
                 }
             }

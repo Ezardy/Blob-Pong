@@ -12,8 +12,11 @@ import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
 import Game from "./game";
 import { setKeys } from "./functions/animations";
+import { RoomPlayer } from "./web-api/server-game";
 
 export default class Ui implements IScript {
+	private static readonly	_dummyRot:	Quaternion = Quaternion.Identity();
+
 	private readonly	_manager:	GUI3DManager;
 
 	// background
@@ -112,8 +115,16 @@ export default class Ui implements IScript {
 	// game lobby layout
 	@visibleAsEntity("node", "exit button mesh")
 	private readonly	_exitButtonMesh!:	Mesh;
+	@visibleAsEntity("node", "ready button mesh")
+	private readonly	_readyButtonMesh!:	Mesh;
+	@visibleAsEntity("node", "countdown mesh")
+	private readonly	_countdownMesh!:	Mesh;
 
-	private readonly	_lobbyLayout:	AdvancedStackPanel3D;
+	private readonly	_lobbyLayout:		AdvancedStackPanel3D;
+	private readonly	_exitPanel:			AdvancedStackPanel3D;
+	private readonly	_countdownPanel:	AdvancedStackPanel3D;
+	private				_countdown!:		SwitchButton3D;
+	private				_readyButton!:		SwitchButton3D;
 
 	private				_currentLayout:			Container3D;
 	private				_subscribedToLobby:		boolean = false;
@@ -127,6 +138,8 @@ export default class Ui implements IScript {
 	private readonly	_minFee:	number = 1;
 	@visibleAsNumber("max fee", {min: 0.0001})
 	private readonly	_maxFee:	number = 1000;
+
+	private	_currentTimeout:		Nullable<NodeJS.Timeout> = null;
 
 	private	_webApi!:	WebApi;
 	private	_game!:		Game;
@@ -170,7 +183,9 @@ export default class Ui implements IScript {
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
 
 		// lobby layout initialization
-		this._lobbyLayout = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
+		this._lobbyLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._exitPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
+		this._countdownPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -189,10 +204,64 @@ export default class Ui implements IScript {
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
-				this._switchLayout(this._currentLayout, this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
+				this._switchLayout(this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
+				this._countdownPanel.isVisible = false;
+				const	iter:	SetIterator<RoomPlayer> = details.players.values();
+				let		player:	IteratorResult<RoomPlayer | undefined> = iter.next();
+				while (!player.done && this._webApi.clientInfo!.id !== player.value!.id)
+					player = iter.next();
+				if (!player.done && player.value!.isReady)
+					this._readyButton.select();
 				this._game.maxPlayers = details.maxPlayers;
 				this._game.mode = 1;
-
+			} else {
+				let	allReady:	boolean = true;
+				const	iter:	SetIterator<RoomPlayer> = details.players.values();
+				let		player:	IteratorResult<RoomPlayer | undefined> = iter.next();
+				while (!player.done && allReady) {
+					allReady &&= player.value!.isReady;
+					player = iter.next();
+				}
+				if (allReady) {
+					if (this._currentTimeout === null && details.players.size > 1) {
+						this._countdownPanel.isVisible = true;
+						this._currentTimeout = setTimeout(() =>  {
+							this._countdown.select();
+							this._currentTimeout = setTimeout(() => {
+								this._countdown.select();
+								this._currentTimeout = setTimeout(() => {
+									this._countdown.select();
+									this._currentTimeout = null;
+									this._webApi.serverGame.startGame();
+								}, 1000);
+							}, 1000);
+						}, 1000);
+					}
+				} else if (this._currentTimeout !== null) {
+					clearTimeout(this._currentTimeout);
+					this._countdown.deselect();
+					this._countdown.isVisible = false;
+					this._readyButton.isVisible = true;
+				}
+			}
+		}, undefined, true);
+		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
+			switch(gs.state) {
+				case "countdown":
+					const	state:	int = gs.countdownSeconds! - 3;
+					if (state === 3) {
+						this._countdown.deselect();
+						this._countdown.isVisible = false;
+					}
+					while (state !== this._countdown.state)
+						this._countdown.select();
+					break;
+				case "finished":
+					this._game.mode = 0;
+					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
+					break;
+				default:
+					break;
 			}
 		}, undefined, true);
 		if (this._webApi.serverGame.isWebSocketOpen())
@@ -216,16 +285,45 @@ export default class Ui implements IScript {
 	private	_setLobbyLayout():	void {
 		this._manager.addControl(this._lobbyLayout);
 		this._lobbyLayout.blockLayout = true;
-		this._lobbyLayout.shift = -0.4;
-		this._lobbyLayout.padding = 0.03;
+		this._lobbyLayout.addControl(this._countdownPanel);
+		this._countdownPanel.blockLayout = true;
+		this._countdownPanel.isArrangable = false;
+		const	rot:	Quaternion = Quaternion.RotationAxis(Axis.Y, Math.PI / 4);
+		this._readyButton = new SwitchButton3D(this._readyButtonMesh, "ready button", Ui._dummyRot, rot, rot, undefined, undefined, 1.1);
+		const	rot2:		Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 2);
+		const	rot3:		Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
+		this._countdown = new SwitchButton3D(this._countdownMesh, "countdown", Ui._dummyRot, rot2, rot2, undefined, undefined, 1.1, rot3, rot3);
+		this._countdown.onPointerUpObservable.add(() => {
+			this._readyButton.isVisible = true;
+			this._readyButton.deselect();
+			this._webApi.serverGame.markRoomPlayerWaiting();
+			this._countdown.isVisible = false;
+		});
+		this._countdownPanel.addControl(this._countdown);
+		this._countdownPanel.blockLayout = false;
+		this._lobbyLayout.addControl(this._exitPanel);
+		this._exitPanel.blockLayout = true;
+		this._exitPanel.isArrangable = false;
+		this._exitPanel.shift = -0.4;
+		this._exitPanel.padding = 0.03;
 		const	textBlock:	TextBlock = getScriptByClassForObject(this._exitButtonMesh, TextBlockDrawer)!.frontTextBlock;
 		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
 			this._webApi.serverGame.leaveRoom();
-			this._switchLayout(this._lobbyLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
+			this._countdown.deselect();
+			this._readyButton.deselect();
+			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 		});
-		this._lobbyLayout.addControl(button);
+		this._exitPanel.addControl(button);
+		this._exitPanel.blockLayout = false;
+		this._readyButton.onPointerUpObservable.add(() => {
+			if (this._readyButton.state) {
+				this._webApi.serverGame.markRoomPlayerReady();
+			} else
+				this._webApi.serverGame.markRoomPlayerWaiting();
+		});
+		this._lobbyLayout.addControl(this._readyButton)
 		this._lobbyLayout.blockLayout = false;
 		this._lobbyLayout.isVisible = false;
 	}
@@ -239,11 +337,11 @@ export default class Ui implements IScript {
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
-			this._switchLayout(this._mainLayout, this._gameListLayout, this._joinPublicMainColor, this._joinPublicDepthColor);
+			this._switchLayout(this._gameListLayout, this._joinPublicMainColor, this._joinPublicDepthColor);
 			this._subscribeToLobby();
 		});
 
-		createGameButton.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._gameCreationLayout, this._createMainColor, this._createDepthColor));
+		createGameButton.onPointerUpObservable.add(() => this._switchLayout(this._gameCreationLayout, this._createMainColor, this._createDepthColor));
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
@@ -342,7 +440,7 @@ export default class Ui implements IScript {
 			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
 			const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
-			button.onPointerUpObservable.add(() => this._switchLayout(this._gameCreationLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
+			button.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
 			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
 			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
 			const	headerControl:	MeshControl = new MeshControl(this._gameCreationHeaderMesh, "game creation header");
@@ -359,7 +457,7 @@ export default class Ui implements IScript {
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
 		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
 		gameListPreviousButton.onPointerUpObservable.add(() => {
-			this._switchLayout(this._gameListLayout, this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
+			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
@@ -475,10 +573,10 @@ export default class Ui implements IScript {
 			toUpdate.pop()!.updateLayout();
 	}
 
-	private	_switchLayout(oldLayout: Container3D, newLayout: Container3D, mainColor: Color3, depthColor: Color3):	void {
-		if (oldLayout != newLayout) {
+	private	_switchLayout(newLayout: Container3D, mainColor: Color3, depthColor: Color3):	void {
+		if (this._currentLayout != newLayout) {
 			this._isLayoutUpdatable = false;
-			oldLayout.isVisible = false;
+			this._currentLayout.isVisible = false;
 			newLayout.isVisible = true;
 
 			this._currentLayout = newLayout;

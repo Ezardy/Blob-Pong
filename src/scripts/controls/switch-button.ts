@@ -1,19 +1,27 @@
-import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation, Color3 } from "@babylonjs/core";
+import { int, Mesh, Quaternion, Vector3, AbstractMesh, Animation } from "@babylonjs/core";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { ISelectable } from "../interfaces/iselectable";
-import { drawBoundingBox, updateBoundingBoxRecursively } from "../functions/bounding-box";
+import { updateBoundingBoxRecursively } from "../functions/bounding-box";
 import { Control3DClone } from "../functions/typing-utils";
 import { cloneNodeWithScripts } from "../functions/cloning";
 import MeshButton3DDisablable from "./mesh-button-3d-disablable";
 import { setKeys } from "../functions/animations";
+import { Vector3WithInfo } from "@babylonjs/gui";
 
 export default class SwitchButton3D extends MeshButton3DDisablable implements IClonableControl3D, ISelectable {
+	private static readonly	_dummyInfo:	Vector3WithInfo = new Vector3WithInfo(Vector3.Zero());
+
 	public get	state() {
 		return this._state;
 	}
 	
 	private				_state:		int = 0;
 	private readonly	_maxState:	int;
+
+	private readonly	_pointerEnterFunc: () => void;
+	private readonly	_pointerOutFunc: () => void;
+	private readonly	_pointerDownFunc: () => void;
+	private readonly	_pointerUpFunc: () => void;
 
 	public constructor(mesh: AbstractMesh, name: string,
 		private state1DescriptionRotation: Quaternion,
@@ -61,7 +69,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 			this._maxState = 3;
 		} else
 			this._maxState = 2;
-		this.pointerEnterAnimation = () => {
+		this._pointerEnterFunc = () => {
 			setKeys(scInAnim, mesh.scaling, scIn, 5);
 			setKeys(oInAnim, mesh.position, oIn, 5);
 			switch (this._state) {
@@ -79,7 +87,8 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 					break;
 			}
 		};
-		this.pointerOutAnimation = () => {
+		this.pointerEnterAnimation = this._pointerEnterFunc;
+		this._pointerOutFunc = () => {
 			setKeys(oOutAnim, mesh.position, oOut, 5);
 			setKeys(scOutAnim, mesh.scaling, scOut, 5);
 			switch (this._state) {
@@ -97,20 +106,20 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 					break;
 			}
 		};
-		const	oldPointerDownAnimation = this.pointerDownAnimation.bind(this);
-		this.pointerDownAnimation = () => {
-			oldPointerDownAnimation();
-		};
+		this.pointerOutAnimation = this._pointerOutFunc;
+		this._pointerDownFunc = this.pointerDownAnimation.bind(this);
+		this.pointerDownAnimation = this._pointerDownFunc;
 		const	oldPointerUpAnimation = this.pointerUpAnimation.bind(this);
-		this.pointerUpAnimation = () => {
+		this.onPointerUpObservable.add(() => this._state = (this._state + 1) % this._maxState);
+		this._pointerUpFunc = () => {
 			setKeys(oInAnim, mesh.position, oIn, 5);
 			setKeys(scInAnim, mesh.scaling, scIn, 5);
 			switch (this._state) {
-				case 0:
+				case 1:
 					setKeys(d2Anim, mesh.rotationQuaternion, d2r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d2Anim, scInAnim, oInAnim], 0, 5);
 					break;
-				case 1:
+				case 2:
 					setKeys(d3Anim, mesh.rotationQuaternion, d3r, 5);
 					mesh.getScene().beginDirectAnimation(mesh, [d3Anim, scInAnim, oInAnim], 0, 5);
 					break;
@@ -120,8 +129,8 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 					break;
 			}
 			oldPointerUpAnimation();
-			this._state = (this._state + 1) % this._maxState;
 		};
+		this.pointerUpAnimation = this._pointerUpFunc;
 	}
 
 	public	clone():	Control3DClone {
@@ -135,19 +144,27 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 
 	public	select():	void {
 		if (this.state == 0) {
-			this.pointerEnterAnimation();
-			this.pointerDownAnimation();
-			this.pointerUpAnimation();
-			this.pointerOutAnimation();
+			this.onPointerEnterObservable.notifyObservers(this);
+			this._pointerEnterFunc();
+			this.onPointerDownObservable.notifyObservers(SwitchButton3D._dummyInfo);
+			this._pointerDownFunc();
+			this.onPointerUpObservable.notifyObservers(SwitchButton3D._dummyInfo);
+			this._pointerUpFunc();
+			this.onPointerOutObservable.notifyObservers(this);
+			this._pointerOutFunc();
 		}
 	}
 
 	public	deselect():	void {
 		while (this.state) {
-			this.pointerEnterAnimation();
-			this.pointerDownAnimation();
-			this.pointerUpAnimation();
-			this.pointerOutAnimation();
+			this.onPointerEnterObservable.notifyObservers(this);
+			this._pointerEnterFunc();
+			this.onPointerDownObservable.notifyObservers(SwitchButton3D._dummyInfo);
+			this._pointerDownFunc();
+			this.onPointerUpObservable.notifyObservers(SwitchButton3D._dummyInfo);
+			this._pointerUpFunc();
+			this.onPointerOutObservable.notifyObservers(this);
+			this._pointerOutFunc();
 		}
 	}
 }

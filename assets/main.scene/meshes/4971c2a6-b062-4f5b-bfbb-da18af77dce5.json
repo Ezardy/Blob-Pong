@@ -300,7 +300,7 @@
                             },
                             "_rightFontSize": {
                                 "type": "number",
-                                "value": 10
+                                "value": 5
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -325,7 +325,7 @@
                             },
                             "_leftFontSize": {
                                 "type": "number",
-                                "value": 11
+                                "value": 5.5
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -547,6 +547,10 @@
                             "_renderOnStart": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
                             }
                         }
                     }
@@ -1118,7 +1122,7 @@
                     },
                     "_rightFontSize": {
                         "type": "number",
-                        "value": 10
+                        "value": 5
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1143,7 +1147,7 @@
                     },
                     "_leftFontSize": {
                         "type": "number",
-                        "value": 11
+                        "value": 5.5
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -1365,6 +1369,10 @@
                     "_renderOnStart": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
                     }
                 }
             }

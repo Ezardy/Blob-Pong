@@ -1,4 +1,4 @@
-import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh } from "@babylonjs/core";
+import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
@@ -9,7 +9,8 @@ import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 export default class TextBlockDrawer implements IScript, IClonableScript, IRenderOnStart {
 	@visibleAsBoolean("render on start")
 	private	_renderOnStart:	boolean = true;
-
+	@visibleAsNumber("resolution", {min: 1, max: 10, step: 1})
+	private readonly	_resolution:	int = 1;
 	@visibleAsString("front text")
 	private	_frontText:	string = "";
 	@visibleAsNumber("front font size", {min: 1, max: 300, step: 1})
@@ -335,9 +336,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			}
 			textBlock.setPadding(posPad.y, posPad.x, negPad.y, negPad.x);
 			textBlock.fontFamily = family;
-			textBlock.fontSize = fontSize;
+			textBlock.fontSize = fontSize * this._resolution;
 			textBlock.color = color.toHexString();
-			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * 2, Math.abs(widthHeight.y) * 2, false);
+			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * this._resolution, Math.abs(widthHeight.y) * this._resolution, false);
 			dynText.addControl(textBlock);
 		} else
 			plane.setEnabled(false);

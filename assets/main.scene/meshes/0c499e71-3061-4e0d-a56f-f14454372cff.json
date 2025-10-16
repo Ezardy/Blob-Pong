@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "previous button mesh (Clone)",
+            "name": "ready button mesh",
             "id": "0c499e71-3061-4e0d-a56f-f14454372cff",
             "uniqueId": 1758124179656,
             "type": "Mesh",
             "position": [
-                -315.49671596653627,
+                259.39157179036687,
                 196.70431329842876,
-                -91.4860309141784
+                -460
             ],
             "rotationQuaternion": [
-                0,
-                -0.21127226537034777,
-                0,
-                0.9774272504310902
+                -0.1585944979818416,
+                -0.37700288009004274,
+                0.06569199198183148,
+                0.9101654661670918
             ],
             "scaling": [
-                24.000000000000004,
-                24,
-                24.000000000000004
+                20.00000000000002,
+                20.000000000000014,
+                20.000000000000064
             ],
             "localMatrix": [
                 1,
@@ -75,11 +75,11 @@
                         "values": {
                             "_frontText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "ready"
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 21
+                                "value": 8
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -92,7 +92,7 @@
                             },
                             "_frontAngle": {
                                 "type": "number",
-                                "value": 90
+                                "value": 0
                             },
                             "_backText": {
                                 "type": "string",
@@ -130,11 +130,11 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": "Main\\nmenu"
+                                "value": "not"
                             },
                             "_leftFontSize": {
                                 "type": "number",
-                                "value": 20
+                                "value": 8
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -375,141 +375,16 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": false
-                            }
-                        }
-                    },
-                    {
-                        "enabled": true,
-                        "key": "scripts/icon-drawer.ts",
-                        "values": {
-                            "_renderOnStart": {
-                                "type": "boolean",
-                                "value": false
+                                "value": true
                             },
-                            "_leftIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_leftIconSize": {
+                            "_resolution": {
                                 "type": "number",
-                                "value": 0
-                            },
-                            "_leftIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_rightIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_topIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_frontIcon": {
-                                "type": "texture",
-                                "value": {
-                                    "tags": null,
-                                    "url": "assets/textures/previous 1.png",
-                                    "uOffset": 0,
-                                    "vOffset": 0,
-                                    "uScale": 1,
-                                    "vScale": 1,
-                                    "uAng": 0,
-                                    "vAng": 0,
-                                    "wAng": 0,
-                                    "uRotationCenter": 0.5,
-                                    "vRotationCenter": 0.5,
-                                    "wRotationCenter": 0.5,
-                                    "homogeneousRotationInUVTransform": false,
-                                    "isBlocking": true,
-                                    "name": "assets/textures/previous 1.png",
-                                    "hasAlpha": false,
-                                    "getAlphaFromRGB": false,
-                                    "level": 1,
-                                    "coordinatesIndex": 0,
-                                    "optimizeUVAllocation": true,
-                                    "coordinatesMode": 0,
-                                    "wrapU": 1,
-                                    "wrapV": 1,
-                                    "wrapR": 1,
-                                    "anisotropicFilteringLevel": 4,
-                                    "isCube": false,
-                                    "is3D": false,
-                                    "is2DArray": false,
-                                    "gammaSpace": true,
-                                    "invertZ": false,
-                                    "lodLevelInAlpha": false,
-                                    "lodGenerationOffset": 0,
-                                    "lodGenerationScale": 0,
-                                    "linearSpecularLOD": false,
-                                    "isRenderTarget": false,
-                                    "animations": [],
-                                    "invertY": true,
-                                    "samplingMode": 3,
-                                    "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                                    "noMipmap": false
-                                }
-                            },
-                            "_frontIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_frontIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_backIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_clonable": {
-                                "type": "boolean",
-                                "description": "Is this script will be cloned during cloneNodeWithScripts execution",
-                                "value": false
+                                "value": 4
                             }
                         }
                     }
                 ],
-                "parentId": 1757923374727
+                "parentId": 1758123563382
             },
             "instances": [],
             "animations": [],
@@ -851,11 +726,11 @@
                 "values": {
                     "_frontText": {
                         "type": "string",
-                        "value": ""
+                        "value": "ready"
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 21
+                        "value": 8
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -868,7 +743,7 @@
                     },
                     "_frontAngle": {
                         "type": "number",
-                        "value": 90
+                        "value": 0
                     },
                     "_backText": {
                         "type": "string",
@@ -906,11 +781,11 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": "Main\\nmenu"
+                        "value": "not"
                     },
                     "_leftFontSize": {
                         "type": "number",
-                        "value": 20
+                        "value": 8
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -1151,141 +1026,16 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": false
-                    }
-                }
-            },
-            {
-                "enabled": true,
-                "key": "scripts/icon-drawer.ts",
-                "values": {
-                    "_renderOnStart": {
-                        "type": "boolean",
-                        "value": false
+                        "value": true
                     },
-                    "_leftIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_leftIconSize": {
+                    "_resolution": {
                         "type": "number",
-                        "value": 0
-                    },
-                    "_leftIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_rightIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_topIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_frontIcon": {
-                        "type": "texture",
-                        "value": {
-                            "tags": null,
-                            "url": "assets/textures/previous 1.png",
-                            "uOffset": 0,
-                            "vOffset": 0,
-                            "uScale": 1,
-                            "vScale": 1,
-                            "uAng": 0,
-                            "vAng": 0,
-                            "wAng": 0,
-                            "uRotationCenter": 0.5,
-                            "vRotationCenter": 0.5,
-                            "wRotationCenter": 0.5,
-                            "homogeneousRotationInUVTransform": false,
-                            "isBlocking": true,
-                            "name": "assets/textures/previous 1.png",
-                            "hasAlpha": false,
-                            "getAlphaFromRGB": false,
-                            "level": 1,
-                            "coordinatesIndex": 0,
-                            "optimizeUVAllocation": true,
-                            "coordinatesMode": 0,
-                            "wrapU": 1,
-                            "wrapV": 1,
-                            "wrapR": 1,
-                            "anisotropicFilteringLevel": 4,
-                            "isCube": false,
-                            "is3D": false,
-                            "is2DArray": false,
-                            "gammaSpace": true,
-                            "invertZ": false,
-                            "lodLevelInAlpha": false,
-                            "lodGenerationOffset": 0,
-                            "lodGenerationScale": 0,
-                            "linearSpecularLOD": false,
-                            "isRenderTarget": false,
-                            "animations": [],
-                            "invertY": true,
-                            "samplingMode": 3,
-                            "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                            "noMipmap": false
-                        }
-                    },
-                    "_frontIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_frontIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_backIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_clonable": {
-                        "type": "boolean",
-                        "description": "Is this script will be cloned during cloneNodeWithScripts execution",
-                        "value": false
+                        "value": 4
                     }
                 }
             }
         ],
-        "parentId": 1757923374727
+        "parentId": 1758123563382
     },
     "basePoseMatrix": [
         -2,
