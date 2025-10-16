@@ -107,7 +107,7 @@ export interface RoomInfo
 export interface RoomDetails
 {
 	id:			string;
-	players:	Set<RoomPlayer>;
+	players:	Array<RoomPlayer>;
 	creator:	RoomPlayer;
 	createdAt:	Date;
 	maxPlayers:	number;
@@ -245,6 +245,7 @@ export class ServerGame
 
 	public markRoomPlayerReady() : void
 	{
+		console.log("ready");
 		const type = "READY";
 
 		if (this.isWebSocketOpen())
@@ -253,6 +254,7 @@ export class ServerGame
 
 	public markRoomPlayerWaiting() : void
 	{
+		console.log("waiting");
 		const type = "WAITING";
 
 		if (this.isWebSocketOpen())

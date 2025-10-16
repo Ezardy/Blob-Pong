@@ -202,36 +202,30 @@ export default class Ui implements IScript {
 			this._gameListScroll.setClipped(true);
 		});
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
+			console.log("data received");
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
 				this._switchLayout(this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
 				this._countdownPanel.isVisible = false;
-				const	iter:	SetIterator<RoomPlayer> = details.players.values();
-				let		player:	IteratorResult<RoomPlayer | undefined> = iter.next();
-				while (!player.done && this._webApi.clientInfo!.id !== player.value!.id)
-					player = iter.next();
-				if (!player.done && player.value!.isReady)
+				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
+				if (player && player.isReady)
 					this._readyButton.select();
 				this._game.maxPlayers = details.maxPlayers;
 				this._game.mode = 1;
 			} else {
-				let	allReady:	boolean = true;
-				const	iter:	SetIterator<RoomPlayer> = details.players.values();
-				let		player:	IteratorResult<RoomPlayer | undefined> = iter.next();
-				while (!player.done && allReady) {
-					allReady &&= player.value!.isReady;
-					player = iter.next();
-				}
-				if (allReady) {
-					if (this._currentTimeout === null && details.players.size > 1) {
+				console.log(details.players);
+				if (details.players.every((player) => player.isReady)) {
+					if (this._currentTimeout === null && details.players.length > 1) {
+						this._readyButton.isVisible = false;
 						this._countdownPanel.isVisible = true;
-						this._currentTimeout = setTimeout(() =>  {
+						this._currentTimeout = setTimeout(() => {
 							this._countdown.select();
 							this._currentTimeout = setTimeout(() => {
 								this._countdown.select();
 								this._currentTimeout = setTimeout(() => {
 									this._countdown.select();
 									this._currentTimeout = null;
+									this._game.mode = 2;
 									this._webApi.serverGame.startGame();
 								}, 1000);
 							}, 1000);
