@@ -16,13 +16,19 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 	}
 
 	public set	state(value: int) {
-		while (this._state != value) {
-			this._pointerEnterFunc();
-			this._pointerDownFunc();
-			this.onPointerUpObservable.notifyObserver(this._selectObserver, SwitchButton3D._dummyInfo);
-			this._pointerUpFunc();
-			this._pointerOutFunc();
+		if (value <= this._maxState && value >= 0) {
+			while (this._state !== value) {
+				this._pointerEnterFunc();
+				this._pointerDownFunc();
+				this.onPointerUpObservable.notifyObserver(this._selectObserver, SwitchButton3D._dummyInfo);
+				this._pointerUpFunc();
+				this._pointerOutFunc();
+			}
 		}
+	}
+
+	public get	maxState():	int {
+		return this._maxState;
 	}
 	
 	private				_state:		int = 0;

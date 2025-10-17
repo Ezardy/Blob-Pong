@@ -131,14 +131,6 @@ export default class Ui implements IScript {
 	private readonly	_updateLayoutCallback:	() => void;
 	private				_isLayoutUpdatable:		boolean = true;
 
-	// game parameters
-	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
-	private readonly	_maxPlayers:	int = 10;
-	@visibleAsNumber("min fee", {min: 0.0001})
-	private readonly	_minFee:	number = 1;
-	@visibleAsNumber("max fee", {min: 0.0001})
-	private readonly	_maxFee:	number = 1000;
-
 	private	_currentTimeout:		Nullable<NodeJS.Timeout> = null;
 
 	private	_webApi!:	WebApi;
@@ -209,7 +201,7 @@ export default class Ui implements IScript {
 				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
 				if (player && player.isReady)
 					this._readyButton.select();
-				this._game.maxPlayers = details.maxPlayers;
+				this._game.playerCount = details.maxPlayers;
 				this._game.mode = 1;
 			} else {
 				if (details.players.every((player) => player.isReady)) {
@@ -225,7 +217,6 @@ export default class Ui implements IScript {
 									this._currentTimeout = null;
 									this._game.mode = 2;
 									this._webApi.serverGame.startGame();
-									this._countdown.isVisible = false;
 								}, 1000);
 							}, 1000);
 						}, 1000);
@@ -241,19 +232,16 @@ export default class Ui implements IScript {
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
 			switch(gs.state) {
 				case "countdown":
-					const	state:	int = gs.countdownSeconds! - 3;
-					if (state === 3) {
-						this._countdown.deselect();
-						this._countdown.isVisible = false;
-					}
-					while (state !== this._countdown.state)
-						this._countdown.select();
+					this._countdown.isVisible = true;
+					const	state:	int = this._game.countdownTime - gs.countdownSeconds!;
+					this._countdown.state = state % this._countdown.maxState;
 					break;
 				case "finished":
 					this._game.mode = 0;
 					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 					break;
 				default:
+					this._countdown.isVisible = false;
 					break;
 			}
 		}, undefined, true);
@@ -304,7 +292,7 @@ export default class Ui implements IScript {
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
 			this._webApi.serverGame.leaveRoom();
-			this._countdown.deselect();
+			this._countdown.state = 0;
 			this._readyButton.deselect();
 			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 		});
@@ -403,7 +391,7 @@ export default class Ui implements IScript {
 			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseFloat(input);
-				return (n > this._maxFee ? this._maxFee : (n < this._minFee ? this._minFee : n)).toString();
+				return (n > this._game.maxFee ? this._game.maxFee : (n < this._game.minFee ? this._game.minFee : n)).toString();
 			}
 			const	inputControl:	MeshControl = new MeshControl(this._gameCreationEntranceFeeInputMesh, "game creation entrance fee input", input.inputTextArea);
 			this._gameCreationEntranceFeeInputPanel.addControl(inputControl);
@@ -419,7 +407,7 @@ export default class Ui implements IScript {
 			this._gameCreationPlayerCountInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {
 				const	n:	number = Number.parseInt(input);
-				return (n > this._maxPlayers ? this._maxPlayers : (n < 2 ? 2 : n)).toString();
+				return (n > this._game.maxPlayers ? this._game.maxPlayers : (n < 2 ? 2 : n)).toString();
 			}
 			const	inputControl:	MeshControl = new MeshControl(this._gameCreationPlayerCountInputMesh, "game creation entrance fee input", input.inputTextArea);
 			this._gameCreationPlayerCountInputPanel.addControl(inputControl);
@@ -600,7 +588,7 @@ export default class Ui implements IScript {
 		if (this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0) {
 			const	playerCount = Number.parseInt(this._gameCreationPlayerCountInput.text);
 			const	fee = Number.parseFloat(this._gameCreationEntranceFeeInput.text);
-			this._createButton.isEnabled = playerCount > 1 && playerCount <= this._maxPlayers && fee >= this._minFee && fee <= this._maxFee;
+			this._createButton.isEnabled = playerCount > 1 && playerCount <= this._game.maxPlayers && fee >= this._game.minFee && fee <= this._game.maxFee;
 		} else
 			this._createButton.isEnabled = false;
 	}

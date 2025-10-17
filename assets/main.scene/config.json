@@ -203,18 +203,6 @@
                         "type": "entity",
                         "value": "157a6553-1554-4a9a-b696-c7778794b1c1"
                     },
-                    "_maxPlayers": {
-                        "type": "number",
-                        "value": 10
-                    },
-                    "_minFee": {
-                        "type": "number",
-                        "value": 0.0001
-                    },
-                    "_maxFee": {
-                        "type": "number",
-                        "value": 1000
-                    },
                     "_exitButtonMesh": {
                         "type": "entity",
                         "value": "46ca556d-b165-43f8-9b2f-1c55debb7433"
@@ -311,7 +299,7 @@
                     },
                     "_padding": {
                         "type": "number",
-                        "value": 0
+                        "value": 0.1
                     },
                     "_wallColor": {
                         "type": "color3",
@@ -342,6 +330,22 @@
                     "_rectangleRatio": {
                         "type": "number",
                         "value": 2.2
+                    },
+                    "maxPlayers": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "countdownTime": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "minFee": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "maxFee": {
+                        "type": "number",
+                        "value": 1000
                     }
                 }
             }
