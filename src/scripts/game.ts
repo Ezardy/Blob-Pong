@@ -167,20 +167,21 @@ export default class Game implements IScript {
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
-		this._syncGame(gs.players);
-		const	index:		int = gs.players.length - 2;
-		const	wallSize:	number = this._wallSizes[index];
-		console.log(gs.ballPosition);
-		const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
-		if (gs.players.length == 2) {
-			if (this._shift) {
-				ballPos.applyRotationQuaternionInPlace(Game._rectFieldRot);
-				gs.players.push(gs.players.shift()!);
-			}
-		} else
-			ballPos.applyRotationQuaternionInPlace(this._rotations[index][this._shift]);
-		this._ball.position.copyFrom(ballPos);
-		this._drawPlayers(gs.players);
+		if (gs.players.length) {
+			this._syncGame(gs.players);
+			const	index:		int = gs.players.length - 2;
+			const	wallSize:	number = this._wallSizes[index];
+			const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
+			if (gs.players.length <= 2) {
+				if (this._shift) {
+					ballPos.applyRotationQuaternionInPlace(Game._rectFieldRot);
+					gs.players.push(gs.players.shift()!);
+				}
+			} else
+				ballPos.applyRotationQuaternionInPlace(this._rotations[index][this._shift]);
+			this._ball.position.copyFrom(ballPos);
+			this._drawPlayers(gs.players);
+		}
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
