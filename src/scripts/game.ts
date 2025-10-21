@@ -8,8 +8,6 @@ export default class Game implements IScript {
 	public static readonly	LOBBY_MODE:	int = 1;
 	public static readonly	GAME_MODE:	int = 2;
 
-	public static readonly	MAX_PLAYERS:	int = 16;
-
 	private static readonly	_colors:		Array<Color3> = [
 		new Color3(230 / 255, 25 / 255, 75 / 255), new Color3(60 / 255, 180 / 255, 75 / 255), new Color3(255 / 255, 225 / 255, 25 / 255),
 		new Color3(0 / 255, 130 / 255, 200 / 255), new Color3(245 / 255, 130 / 255, 48 / 255), new Color3(145 / 255, 30 / 255, 180 / 255),
@@ -45,30 +43,25 @@ export default class Game implements IScript {
 
 	private	_webApi!:	WebApi;
 
-	private readonly	_fields:		Array<GreasedLineMesh> = new Array<GreasedLineMesh>(Game.MAX_PLAYERS - 1);
+	private				_fields!:		Array<GreasedLineMesh>;
 	private readonly	_playerColors:	Map<string, Color3> = new Map<string, Color3>();
 	private readonly	_colorWalls:	Map<Color3, int> = new Map<Color3, int>();
 	private readonly	_wallReadiness:	Map<int, boolean> = new Map<int, boolean>();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map<string, InstancedMesh>();
-	private readonly	_racketPool:	Array<InstancedMesh> = new Array<InstancedMesh>(Game.MAX_PLAYERS);
-	private readonly	_colorPool:		Array<Color3> = new Array<Color3>(Game.MAX_PLAYERS);
+	private				_racketPool!:	Array<InstancedMesh>;
+	private				_colorPool!:	Array<Color3>;
 
 	private	_ball!:		GreasedLineBaseMesh;
 
-	private				_z:					number = 0;
-	private				_oy:				number = 1;
-	private				_ey:				number = 1;
-	private				_x:					number = 1;
-	private				_ry:				number = 1;
-	private				_racketMeshSize:	number = 1;
-	private				_ballMeshSize:		number = 1;
-	private				_wallSize:			number = 1;
-	private				_alpha:				number = 0;
-	private				_shift:				int = 0;
-	private				_height:			number = 0;
-	private readonly	_betaSins:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
-	private readonly	_betaCoss:			Array<number> = new Array<number>(Game.MAX_PLAYERS);
-	private readonly	_rotations:			Array<Quaternion> = new Array<Quaternion>(Game.MAX_PLAYERS);
+	private	_z:					number = 0;
+	private	_shift:				int = 0;
+	private	_racketMeshScales!:	Array<Vector3>;
+	private	_ballMeshScales!:	Array<Vector3>;
+	private	_wallSizes!:		Array<number>;
+	private	_heights!:			Array<number>;
+	private	_betaSins!:			Array<Array<number>>;
+	private	_betaCoss!:			Array<Array<number>>;
+	private	_rotations!:		Array<Array<Quaternion>>;
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -87,6 +80,22 @@ export default class Game implements IScript {
 	}
 
 	public onStart(): void {
+		// Initialization
+		this._fields = new Array<GreasedLineMesh>(this.maxPlayers - 1);
+		this._racketPool = new Array<InstancedMesh>(this.maxPlayers - 1);
+		this._colorPool = new Array<Color3>(this.maxPlayers - 1);
+		this._betaSins = new Array<Array<number>>(this.maxPlayers - 1);
+		this._betaCoss = new Array<Array<number>>(this.maxPlayers - 1);
+		this._rotations = new Array<Array<Quaternion>>(this.maxPlayers - 1);
+		for (let i = 0; i < this._betaSins.length; i += 1) {
+			this._betaSins[i] = new Array<number>(i + 2);
+			this._betaCoss[i] = new Array<number>(i + 2);
+			this._rotations[i] = new Array<Quaternion>(i + 2);
+		}
+		this._wallSizes = new Array<number>(this.maxPlayers - 1);
+		this._heights = new Array<number>(this.maxPlayers - 1);
+		this._racketMeshScales = new Array<Vector3>(this.maxPlayers - 1);
+		this._ballMeshScales = new Array<Vector3>(this.maxPlayers - 1);
 		// Web
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
@@ -94,33 +103,55 @@ export default class Game implements IScript {
 		// Rendering
 		const	camera:	Camera = this.scene.activeCamera!;
 		this._z = camera.globalPosition.z + this._distance;
-		this._oy = this._distance * Math.tan(camera.fov / 2);
-		this._ey = this._oy * (1 - this._padding);
+		const	y:	number = this._distance * Math.tan(camera.fov / 2);
 		const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-		this._x = this._ey * rect.width / rect.height;
-		this._ry = this._x / this._rectangleRatio;
-		const	start:	Vector3 = new Vector3(this._x, this._ey, this._z);
+		let		initHeight:	number = y * (1 - this._padding) * rect.width / rect.height;
+		let		ry:	number = initHeight / this._rectangleRatio;
+		if (ry > y) {
+			ry = y;
+			initHeight = y * this._rectangleRatio;
+		}
+		const	initWallSize:	number = 2 * ry;
+		this._heights[0] = initHeight;
+		const	start:	Vector3 = new Vector3(initHeight, ry, this._z);
 		this._fields[0] = this._createField([
-				start, new Vector3(this._x, -this._ey, this._z), new Vector3(-this._x, -this._ey, this._z),
-				new Vector3(-this._x, this._ey, this._z), start], false);
+				start, new Vector3(initHeight, -ry, this._z), new Vector3(-initHeight, -ry, this._z),
+				new Vector3(-initHeight, ry, this._z), start], false);
 		for (let i = 1; i < this._fields.length; i += 1)
-			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? this._oy : this._ey, i + 2, this._z), true);
-		this.scene.onBeforeRenderObservable.add(() => this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001);
+			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? y : initHeight, i + 2, this._z), true);
+		this._wallSizes[0] = initWallSize;
 		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
 		const	pivot = bb.center.clone();
 		pivot.y = bb.maximum.y;
 		this._racketMesh.setPivotPoint(pivot);
-		this._racketMeshSize = bb.extendSizeWorld.x * 2;
+		const	wallWorldSize:	number = bb.extendSizeWorld.x * 2;
+		const	ballWorldSize:	number = this._ballMesh.getBoundingInfo().boundingSphere.radius * 2;
+		this._racketMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._racketSize / 100 / wallWorldSize);
+		this._rotations[0][0] = Quaternion.RotationAxis(Axis.Z, -Math.PI / 2);
+		this._rotations[0][1] = Quaternion.RotationAxis(Axis.Z, Math.PI / 2);
+		this._ballMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._ballSize / 100 / ballWorldSize);
+		for (let i = 1; i < this._heights.length; i += 1) {
+			const	playerCount:	int = i + 2;
+			const	wallSize:		number = 2 * (i % 2 ? y : y * (1 - this._padding)) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
+			this._wallSizes[i] = wallSize;
+			this._heights[i] = wallSize / 2 / Math.tan(Math.PI/ playerCount);
+			this._racketMeshScales[i] = this._racketMesh.scaling.scale(wallSize * this._racketSize / 100 / wallWorldSize);
+			this._ballMeshScales[i] = this._racketMesh.scaling.scale(wallSize * this._ballSize / 100 / ballWorldSize);
+			for (let j = 0; j < playerCount; j += 1) {
+				const	beta:	number = j * 2 * Math.PI / playerCount;
+				this._betaSins[i][j] = Math.sin(beta);
+				this._betaCoss[i][j] = Math.cos(beta);
+				this._rotations[i][j] = Quaternion.RotationAxis(Axis.Z, beta);
+			}
+		}
 		this._racketMesh.registerInstancedBuffer("instanceColor", 3);
 		this._racketMesh.instancedBuffers.instanceColor = Color3.Random();
 		this._racketMesh.isVisible = false;
-		for (let i = 0; i < Game.MAX_PLAYERS; i += 1) {
+		for (let i = 0; i < this.maxPlayers; i += 1) {
 			const inst:	InstancedMesh = this._racketMesh.createInstance("racket " + i);
 			inst.isVisible = false;
 			this._racketPool[i] = inst;
 		}
-		const	bbs:	BoundingSphere = this._ballMesh.getBoundingInfo().boundingSphere;
-		this._ballMeshSize = bbs.radius * 2;
 		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], Game._omitDuplicateWrapper);
 		this._ball = CreateGreasedLine("ball", {points: lines}, {
 			color: Color3.White(),
@@ -132,18 +163,24 @@ export default class Game implements IScript {
 		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
 		this._ball.isVisible = false;
+		this.scene.onBeforeRenderObservable.add(() => this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001);
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
 		this._syncGame(gs.players);
-		this._drawPlayers(gs.players);
-		const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * this._wallSize, gs.ballPosition[1] * this._wallSize, this._z);
+		const	index:		int = gs.players.length - 2;
+		const	wallSize:	number = this._wallSizes[index];
+		console.log(gs.ballPosition);
+		const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
 		if (gs.players.length == 2) {
-			if (this._shift)
+			if (this._shift) {
 				ballPos.applyRotationQuaternionInPlace(Game._rectFieldRot);
+				gs.players.push(gs.players.shift()!);
+			}
 		} else
-			ballPos.applyRotationQuaternionInPlace(this._rotations[this._shift]);
+			ballPos.applyRotationQuaternionInPlace(this._rotations[index][this._shift]);
 		this._ball.position.copyFrom(ballPos);
+		this._drawPlayers(gs.players);
 	}
 
 	private	_roomDetailsCallback(d: RoomDetails):	void {
@@ -168,24 +205,31 @@ export default class Game implements IScript {
 				const	color:	Color3 = this._playerColors.get(player.id)!;
 				const	wall:	int = this._colorWalls.get(color)!;
 				const	racket:	InstancedMesh = this._playerRackets.get(player.id)!;
-				racket.position.set(this._height * this._betaSins[wall] + (player.position - 0.5) * this._betaCoss[wall],
-									this._height * (-this._betaCoss[wall]) + (player.position - 0.5) * this._betaSins[wall],
+				const	index:	int = this._playerCount - 2;
+				const	height:	number = this._heights[index];
+				const	sin:	number = this._betaSins[index][wall];
+				const	cos:	number = this._betaCoss[index][wall];
+				racket.position.set(height * sin + (player.position - 0.5) * cos,
+									-height * cos + (player.position - 0.5) * sin,
 									this._z);
-				racket.rotationQuaternion = this._rotations[wall];
+				racket.rotationQuaternion = this._rotations[index][wall];
 			}
 		} else {
-				const	color1:		Color3 = this._playerColors.get(players[0].id)!;
-				const	wall1:		int = this._colorWalls.get(color1)!;
-				const	racket1:	InstancedMesh = this._playerRackets.get(players[0].id)!;
-				if (players.length > 1) {
-					const	color2:		Color3 = this._playerColors.get(players[1].id)!;
-					const	wall2:		int = this._colorWalls.get(color2)!;
-					const	racket2:	InstancedMesh = this._playerRackets.get(players[1].id)!;
-					racket2.position.set(this._x, (players[1].position - 0.5) * this._oy * 2, this._z);
-					racket2.rotationQuaternion = this._rotations[wall2];
-				}
-				racket1.position.set(-this._x, (0.5 - players[0].position) * this._oy * 2, this._z);
-				racket1.rotationQuaternion = this._rotations[wall1];
+			const	color1:		Color3 = this._playerColors.get(players[0].id)!;
+			const	wall1:		int = this._colorWalls.get(color1)!;
+			const	racket1:	InstancedMesh = this._playerRackets.get(players[0].id)!;
+			const	index:		int = this._playerCount - 2;
+			const	wallSize:	number = this._wallSizes[index];
+			const	height:		number = this._heights[0];
+			if (players.length > 1) {
+				const	color2:		Color3 = this._playerColors.get(players[1].id)!;
+				const	wall2:		int = this._colorWalls.get(color2)!;
+				const	racket2:	InstancedMesh = this._playerRackets.get(players[1].id)!;
+				racket2.position.set(height, (players[1].position - 0.5) * wallSize, this._z);
+				racket2.rotationQuaternion = this._rotations[index][wall2];
+			}
+			racket1.position.set(-height, (0.5 - players[0].position) * wallSize, this._z);
+			racket1.rotationQuaternion = this._rotations[index][wall1];
 		}
 	}
 
@@ -196,7 +240,6 @@ export default class Game implements IScript {
 			this._syncRoomPlayers(players);
 			this._fields[players.length - 2].isVisible = true;
 			this._colorizeField();
-			this._updateFieldParams(players.length);
 			this._scaleMeshes();
 		}
 	}
@@ -243,7 +286,7 @@ export default class Game implements IScript {
 	}
 
 	public set	playerCount(value: int) {
-		if (!this._mode && value > 1 && value <= Game.MAX_PLAYERS) {
+		if (!this._mode && value > 1 && value <= this.maxPlayers) {
 			this._playerCount = value;
 		}
 	}
@@ -273,9 +316,8 @@ export default class Game implements IScript {
 					this._fields[this._playerCount - 2].isVisible = false;
 					break;
 				case 1:
-					for (let i = 0; i < Game.MAX_PLAYERS; i += 1)
-						this._colorPool[Game.MAX_PLAYERS - i - 1] = Game._colors[i];
-					this._updateFieldParams(this._playerCount);
+					for (let i = 0; i < this.maxPlayers; i += 1)
+						this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
 					this._scaleMeshes();
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
@@ -294,36 +336,17 @@ export default class Game implements IScript {
 	}
 
 	private	_scaleMeshes():	void {
-		const	racketScale:	number = this._racketSize / 100 * this._wallSize / this._racketMeshSize;
-		const	ballScale:		number = this._ballSize / 100 * this._wallSize / this._ballMeshSize;
-		this._ballMeshSize *= ballScale;
-		this._racketMeshSize *= racketScale;
-		this._ball.scaling.scaleInPlace(ballScale);
-		this._playerRackets.forEach(racket => racket.scaling.scaleInPlace(racketScale));
-		this._racketPool.forEach(racket => racket.scaling.scaleInPlace(racketScale));
+		const	index:			int = this._playerCount - 2;
+		const	racketScale:	Vector3 = this._racketMeshScales[index];
+		this._ball.scaling = this._ballMeshScales[index];
+		this._playerRackets.forEach(racket => racket.scaling = racketScale);
+		this._racketPool.forEach(racket => racket.scaling = racketScale);
 	}
 
 	private static	_omitDuplicateWrapper(p1: Vector3, p2: Vector3, p3: Vector3, points: Vector3[][],
 						indiceIndex: number, vertexIndex: number, mesh: AbstractMesh,
 						meshIndex: number, vertices: FloatArray, indices: IndicesArray):	Vector3[][] {
 		return GreasedLineTools.OmitDuplicatesPredicate(p1, p2, p3, points) || [];
-	}
-
-	private	_updateFieldParams(playerCount: int):	void {
-		this._alpha = 2 * Math.PI / playerCount;
-		this._wallSize = 2 * (playerCount > 2 ? this._oy : this._ry) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
-		this._height = this._wallSize / 2 / Math.tan(this._alpha / 2);
-		if (playerCount > 2) {
-			for (let i = 0; i < playerCount; i += 1) {
-				const	beta:	number = this._alpha * i;
-				this._betaSins[i] = Math.sin(beta);
-				this._betaCoss[i] = Math.cos(beta);
-				this._rotations[i] = Quaternion.RotationAxis(Axis.Z, beta);
-			}
-		} else {
-			this._rotations[0] = Quaternion.RotationAxis(Axis.Z, -Math.PI / 2);
-			this._rotations[1] = Quaternion.RotationAxis(Axis.Z, Math.PI / 2);
-		}
 	}
 
 	private	_createField(points: Vector3[], rotate: boolean):	GreasedLineMesh {
@@ -365,9 +388,10 @@ export default class Game implements IScript {
 		} else {
 			const	iter:	MapIterator<Color3> = this._colorWalls.keys();
 			const	color1:	Color3 = iter.next().value!;
-			colors[2] = color1;
+			if (this._wallReadiness.get(0))
+				colors[2] = color1;
 			const	color2:	Color3 | undefined = iter.next().value;
-			if (color2)
+			if (color2 && this._wallReadiness.get(1))
 				colors[0] = color2;
 		}
 		field.greasedLineMaterial!.colors = colors;
