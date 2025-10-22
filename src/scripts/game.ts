@@ -379,7 +379,7 @@ export default class Game implements IScript {
 	private	_colorizeField():	void {
 		const	field:	GreasedLineMesh = this._fields[this._playerCount - 2];
 		const	colors:	Array<Color3> = field.greasedLineMaterial!.colors!;
-		for (let i = 0; i < this._playerCount; i += 1)
+		for (let i = 0; i < colors.length; i += 1)
 			colors[i] = this._wallColor;
 		if (this._playerCount > 2) {
 			this._colorWalls.forEach((wall, color) => {

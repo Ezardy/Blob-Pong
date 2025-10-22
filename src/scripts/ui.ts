@@ -166,7 +166,6 @@ export default class Ui implements IScript {
 			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.name;
 		}, Ui._gameControlSelector, scene);
-
 		// game creation layout initialization
 		this._gameCreationLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
 		this._gameCreationPreviousButtonHeaderPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
@@ -206,6 +205,7 @@ export default class Ui implements IScript {
 			} else {
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
+						console.log("countdown");
 						this._readyButton.isVisible = false;
 						this._countdownPanel.isVisible = true;
 						this._currentTimeout = setTimeout(() => {
@@ -223,8 +223,9 @@ export default class Ui implements IScript {
 					}
 				} else if (this._currentTimeout !== null) {
 					clearTimeout(this._currentTimeout);
+					this._currentTimeout = null;
 					this._countdown.deselect();
-					this._countdown.isVisible = false;
+					this._countdownPanel.isVisible = false;
 					this._readyButton.isVisible = true;
 				}
 			}
