@@ -235,8 +235,8 @@ export default class Game implements IScript {
 	}
 
 	private	_syncGame(players: GamePlayer[]):	void {
-		this._playerCount = players.length;
 		if (this._playerColors.size > players.length) {
+			this._playerCount = players.length;
 			this._fields[this._playerColors.size - 2].isVisible = false;
 			this._syncRoomPlayers(players);
 			this._fields[players.length - 2].isVisible = true;
@@ -250,7 +250,7 @@ export default class Game implements IScript {
 		this._colorWalls.clear();
 		let	j:	int;
 		for (j = 0; j < players.length && players[0].id !== this._webApi.clientInfo!.id; j += 1, players.push(players.shift()!), this._colorPool.unshift(this._colorPool.pop()!));
-		this._shift = j;
+		this._shift = j % players.length;
 		const	func:	(index: int, wall: int, takeColor:	() => Color3 | undefined) => void = (index, wall, takeColor) => {
 			const	player:	GamePlayer = players[index];
 			if (this._playerColors.has(player.id)) {
@@ -266,7 +266,7 @@ export default class Game implements IScript {
 				this._playerColors.set(player.id, color);
 			}
 		};
-		j = players.length - j;
+		j = players.length - this._shift;
 		for (let i = 0; i < j; i += 1)
 			func(i, i, () => this._colorPool.pop());
 		let	k:	int = this._playerCount - this._shift;
