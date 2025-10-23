@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, Quaternion, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
@@ -73,10 +73,32 @@ export default class Game implements IScript {
 
 	private readonly	_glow:	GlowLayer;
 
+	private	_drag:	number = 0;
+	private readonly	_mouseCallback:	(info: PointerInfo) => void;
+
 	public constructor(public scene: Scene) {
 		// Rendering
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
+		this._mouseCallback = (info: PointerInfo) => {
+			if (info.type == PointerEventTypes.POINTERMOVE) {
+				if (this._playerCount <= 2) {
+					const	move:		Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0);
+					const	wallDir:	Vector3 = scene.activeCamera!.getDirection(Vector3.Up());
+					wallDir.z = 0;
+					wallDir.normalize();
+					move.applyRotationQuaternionInPlace(Quaternion.FromLookDirectionLH(Vector3.Forward(), wallDir));
+					this._drag = move.y;
+				} else {
+					const	move:		Vector3 = new Vector3(info.event.movementX, -info.event.movementY, 0);
+					const	wallDir:	Vector3 = scene.activeCamera!.getDirection(Vector3.Right());
+					wallDir.z = 0;
+					wallDir.normalize();
+					move.applyRotationQuaternionInPlace(Quaternion.FromLookDirectionLH(Vector3.Forward(), wallDir));
+					this._drag = move.x;
+				}
+			}
+		};
 	}
 
 	public onStart(): void {
@@ -166,6 +188,11 @@ export default class Game implements IScript {
 		this.scene.onBeforeRenderObservable.add(() => this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001);
 	}
 
+	private	_sendDrag():	void {
+		this._webApi.serverGame.sendDragToServer(this._drag / 500);
+		this._drag = 0;
+	}
+
 	private	_gameUpdateCallback(gs: GameState):	void {
 		if (gs.players.length) {
 			this._syncGame(gs.players);
@@ -181,6 +208,7 @@ export default class Game implements IScript {
 				ballPos.applyRotationQuaternionInPlace(this._rotations[index][this._shift]);
 			this._ball.position.copyFrom(ballPos);
 			this._drawPlayers(gs.players);
+			this._sendDrag();
 		}
 	}
 
@@ -304,6 +332,7 @@ export default class Game implements IScript {
 						this._webApi.serverGame.unsubscribeFromRoom();
 					else {
 						this._webApi.serverGame.unsubscribeFromGame();
+						this.scene.onPointerObservable.removeCallback(this._mouseCallback);
 						this._ball.isVisible = false;
 					}
 					this._colorWalls.clear();
@@ -323,6 +352,7 @@ export default class Game implements IScript {
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
+					this.scene.onPointerObservable.add(this._mouseCallback);
 					this._ball.isVisible = true;
 					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
 						this._fields[this._playerCount - 2].isVisible = false;

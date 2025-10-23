@@ -205,7 +205,6 @@ export default class Ui implements IScript {
 			} else {
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
-						console.log("countdown");
 						this._readyButton.isVisible = false;
 						this._countdownPanel.isVisible = true;
 						this._currentTimeout = setTimeout(() => {
