@@ -11,3 +11,4 @@ public
 dist/
 package-lock.json
 assets/test.scene/preview.png
+assets/editor-generated_extracted-textures/

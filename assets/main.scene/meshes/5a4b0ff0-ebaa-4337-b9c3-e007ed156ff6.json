@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "exit.glb",
-            "id": "46ca556d-b165-43f8-9b2f-1c55debb7433",
-            "uniqueId": 1759936733370,
+            "name": "previous.glb",
+            "id": "5a4b0ff0-ebaa-4337-b9c3-e007ed156ff6",
+            "uniqueId": 1761320255293,
             "type": "Mesh",
             "position": [
-                -164.7775165519378,
-                472.63517137665474,
-                -114.67512376427005
+                -1608.3714647715653,
+                663.5478727236251,
+                -87.45801795883776
             ],
             "rotationQuaternion": [
-                0,
-                0,
-                0,
-                1
+                0.07834113531773629,
+                -0.10669481102269805,
+                0.008433100305427729,
+                0.991164853410974
             ],
             "scaling": [
-                1,
-                1,
-                1
+                20.00000000000005,
+                20.0000000000001,
+                20.000000000000107
             ],
             "localMatrix": [
                 1,
@@ -72,15 +72,19 @@
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": true
+                                "value": false
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 1
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": "Exit"
+                                "value": ""
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 9.5
+                                "value": 1
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -373,15 +377,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
-                            },
-                            "_resolution": {
-                                "type": "number",
-                                "value": 2
                             }
                         }
                     }
-                ],
-                "parentId": 1758123563382
+                ]
             },
             "instances": [],
             "animations": [],
@@ -410,15 +409,19 @@
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": true
+                        "value": false
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 1
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": "Exit"
+                        "value": ""
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 9.5
+                        "value": 1
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -711,15 +714,10 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
-                    },
-                    "_resolution": {
-                        "type": "number",
-                        "value": 2
                     }
                 }
             }
-        ],
-        "parentId": 1758123563382
+        ]
     },
     "basePoseMatrix": [
         -1,
