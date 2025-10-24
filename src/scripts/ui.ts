@@ -334,7 +334,7 @@ export default class Ui implements IScript {
 	private	_setGameListLayout():	void {
 		this._manager.addControl(this._gameListLayout);
 		this._gameListLayout.margin = 10;
-		this._gameListLayout.padding = 0.05;
+		this._gameListLayout.padding = 0;
 		this._gameListLayout.blockLayout = true;
 			this._setGameListPanel();
 			this._setGameListControlPanel();
@@ -346,7 +346,7 @@ export default class Ui implements IScript {
 	private	_setGameCreationLayout():	void {
 		this._manager.addControl(this._gameCreationLayout);
 		this._gameCreationLayout.margin = 20;
-		this._gameCreationLayout.padding = 0.05;
+		this._gameCreationLayout.padding = 0;
 		this._gameCreationLayout.blockLayout = true;
 			this._setCreatePanel();
 			this._setGameCreationEntranceFeeInputPanel();

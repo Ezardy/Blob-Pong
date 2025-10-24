@@ -122,34 +122,38 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		}
 
 		if (this._alignment != AdvancedStackPanel3D.CENTER_ALIGNMENT) {
+			const	extendSizeKeys:			Array<int> = Array.from(this._extendSizes.keys());
 			if (this._alignment == AdvancedStackPanel3D.START_ALIGNMENT) {
-				if (this._isVertical)
-					this._positionNode(0.5 + this.shift, this.padding, 0, -1, currentInverseWorld);
-				else
-					this._positionNode(this.padding, 0.5 + this.shift, 1, 0, currentInverseWorld);
+				if (this._isVertical) {
+					const	points:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[extendSizeKeys.length - 1]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+					this._positionNode(0.5 + this.shift, this.padding, currentInverseWorld, new Vector3(0, points.max.y, points.min.z), extendSizeKeys);
+				} else {
+					const	points:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[0]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+					this._positionNode(this.padding, 0.5 + this.shift, currentInverseWorld, new Vector3(points.min.x, 0, points.min.z), extendSizeKeys);
+				}
 			} else {
-				if (this._isVertical)
-					this._positionNode(0.5 + this.shift, 1 - this.padding, 0, 1, currentInverseWorld);
-				else
-					this._positionNode(1 - this.padding, 0.5 + this.shift, -1, 0, currentInverseWorld);
+				if (this._isVertical) {
+					const	points:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[0]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+					this._positionNode(0.5 + this.shift, 1 - this.padding, currentInverseWorld, new Vector3(0, points.min.y, points.min.z), extendSizeKeys);
+				} else {
+					const	points:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[extendSizeKeys.length - 1]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
+					this._positionNode(1 - this.padding, 0.5 + this.shift, currentInverseWorld, new Vector3(points.max.x, 0, points.min.z), extendSizeKeys);
+				}
 			}
 		}
 	}
 
-	private	_positionNode(pX: number, pY: number, oX: number, oY: number, nodeInverseWorld: Matrix):	void {
-		const	extendSizeKeys:			Array<int> = Array.from(this._extendSizes.keys());
-		const	worldBoundingPoints:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[0]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());
-		const	minBoundingPoint:		Vector3 = worldBoundingPoints.min;
+	private	_positionNode(pX: number, pY: number, nodeInverseWorld: Matrix, boundingPoint: Vector3, extendSizeKeys: Array<int>):	void {
 		const	scene:					Scene = this.node!.getScene();
 		const	camera:					Camera = scene.activeCamera!;
 		const	engine:					AbstractEngine = scene.getEngine();
 		const	rect = engine.getRenderingCanvasClientRect()!;
 		const	ray:					Ray = scene.createPickingRay(rect.width * pX, rect.height * pY, null, camera);
-		const	plane:					Plane = Plane.FromPositionAndNormal(minBoundingPoint, this.node!.forward.negate());
+		const	plane:					Plane = Plane.FromPositionAndNormal(boundingPoint, this.node!.forward.negate());
 		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
 
 		if (distance) {
-			const	shift:	Vector3 = Vector3.TransformNormal(ray.origin.add(ray.direction.scale(distance)).subtractFromFloats(oX * minBoundingPoint.x, oY * minBoundingPoint.y, minBoundingPoint.z).subtractInPlace(this.node!.position), nodeInverseWorld);
+			const	shift:	Vector3 = Vector3.TransformNormal(ray.origin.add(ray.direction.scale(distance)).subtractInPlace(boundingPoint), nodeInverseWorld);
 			for (const i of extendSizeKeys)
 				this.children[i].position.addInPlace(shift);
 		}
