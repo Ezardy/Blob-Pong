@@ -85,7 +85,8 @@ export default class Game implements IScript {
 		this._mouseCallback = (info: PointerInfo) => {
 			if (info.type == PointerEventTypes.POINTERMOVE) {
 				const	rot:	Quaternion = Quaternion.Zero();
-				const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / (this._playerCount <= 2 ? this._ry : this._y) / 2);
+				const	y:		number = (this._playerCount <= 2 ? this._ry : this._y);
+				const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / y / y / 4);
 				let		dir:	Vector3;
 				if (this._playerCount <= 2)
 					dir = Vector3.Up();
@@ -98,7 +99,7 @@ export default class Game implements IScript {
 				wallDir.normalize();
 				Quaternion.FromUnitVectorsToRef(wallDir, dir, rot);
 				move.applyRotationQuaternionInPlace(rot);
-				this._drag += (this._playerCount <= 2 ? move.y : move.x);
+				this._drag = (this._playerCount <= 2 ? move.y : move.x);
 			}
 		};
 	}
