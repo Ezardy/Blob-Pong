@@ -319,10 +319,8 @@ export class ServerGame
 	{
 		const type = "GAME_DATA";
 
-		if (this.isWebSocketOpen() && this._gameState!.players.length == 2)
-			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue * 1000}));
-		else if (this.isWebSocketOpen() && this._gameState!.players.length > 2)
-			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue * 500}));
+		if (this.isWebSocketOpen())
+			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue}));
 	}
 
 	public isWebSocketOpen(): boolean

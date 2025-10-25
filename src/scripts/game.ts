@@ -54,6 +54,8 @@ export default class Game implements IScript {
 	private	_ball!:		GreasedLineBaseMesh;
 
 	private	_z:					number = 0;
+	private	_y:					number = 0;
+	private	_ry:				number = 0;
 	private	_shift:				int = 0;
 	private	_racketMeshScales!:	Array<Vector3>;
 	private	_ballMeshScales!:	Array<Vector3>;
@@ -82,21 +84,21 @@ export default class Game implements IScript {
 		this._glow.intensity = 1.2;
 		this._mouseCallback = (info: PointerInfo) => {
 			if (info.type == PointerEventTypes.POINTERMOVE) {
-				if (this._playerCount <= 2) {
-					const	move:		Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0);
-					const	wallDir:	Vector3 = scene.activeCamera!.getDirection(Vector3.Up());
-					wallDir.z = 0;
-					wallDir.normalize();
-					move.applyRotationQuaternionInPlace(Quaternion.FromLookDirectionLH(Vector3.Forward(), wallDir));
-					this._drag = move.y;
-				} else {
-					const	move:		Vector3 = new Vector3(info.event.movementX, -info.event.movementY, 0);
-					const	wallDir:	Vector3 = scene.activeCamera!.getDirection(Vector3.Right());
-					wallDir.z = 0;
-					wallDir.normalize();
-					move.applyRotationQuaternionInPlace(Quaternion.FromLookDirectionLH(Vector3.Forward(), wallDir));
-					this._drag = move.x;
+				const	rot:	Quaternion = Quaternion.Zero();
+				const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / (this._playerCount <= 2 ? this._ry : this._y) / 2);
+				let		dir:	Vector3;
+				if (this._playerCount <= 2)
+					dir = Vector3.Up();
+				else {
+					move.y *= -1;
+					dir = Vector3.Right();
 				}
+				const	wallDir:	Vector3 = scene.activeCamera!.getDirection(dir);
+				wallDir.z = 0;
+				wallDir.normalize();
+				Quaternion.FromUnitVectorsToRef(wallDir, dir, rot);
+				move.applyRotationQuaternionInPlace(rot);
+				this._drag += (this._playerCount <= 2 ? move.y : move.x);
 			}
 		};
 	}
@@ -125,22 +127,22 @@ export default class Game implements IScript {
 		// Rendering
 		const	camera:	Camera = this.scene.activeCamera!;
 		this._z = camera.globalPosition.z + this._distance;
-		const	y:	number = this._distance * Math.tan(camera.fov / 2);
+		this._y = this._distance * Math.tan(camera.fov / 2);
 		const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-		let		initHeight:	number = y * (1 - this._padding) * rect.width / rect.height;
-		let		ry:	number = initHeight / this._rectangleRatio;
-		if (ry > y) {
-			ry = y;
-			initHeight = y * this._rectangleRatio;
+		let		initHeight:	number = this._y * (1 - this._padding) * rect.width / rect.height;
+		this._ry = initHeight / this._rectangleRatio;
+		if (this._ry > this._y) {
+			this._ry = this._y;
+			initHeight = this._y * this._rectangleRatio;
 		}
-		const	initWallSize:	number = 2 * ry;
+		const	initWallSize:	number = 2 * this._ry;
 		this._heights[0] = initHeight;
-		const	start:	Vector3 = new Vector3(initHeight, ry, this._z);
+		const	start:	Vector3 = new Vector3(initHeight, this._ry, this._z);
 		this._fields[0] = this._createField([
-				start, new Vector3(initHeight, -ry, this._z), new Vector3(-initHeight, -ry, this._z),
-				new Vector3(-initHeight, ry, this._z), start], false);
+				start, new Vector3(initHeight, -this._ry, this._z), new Vector3(-initHeight, -this._ry, this._z),
+				new Vector3(-initHeight, this._ry, this._z), start], false);
 		for (let i = 1; i < this._fields.length; i += 1)
-			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? y : initHeight, i + 2, this._z), true);
+			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? this._y : initHeight, i + 2, this._z), true);
 		this._wallSizes[0] = initWallSize;
 		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
 		const	pivot = bb.center.clone();
@@ -154,7 +156,7 @@ export default class Game implements IScript {
 		this._ballMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._ballSize / 100 / ballWorldSize);
 		for (let i = 1; i < this._heights.length; i += 1) {
 			const	playerCount:	int = i + 2;
-			const	wallSize:		number = 2 * (i % 2 ? y : y * (1 - this._padding)) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
+			const	wallSize:		number = 2 * (i % 2 ? this._y : this._y * (1 - this._padding)) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
 			this._wallSizes[i] = wallSize;
 			this._heights[i] = wallSize / 2 / Math.tan(Math.PI/ playerCount);
 			this._racketMeshScales[i] = this._racketMesh.scaling.scale(wallSize * this._racketSize / 100 / wallWorldSize);
@@ -189,7 +191,8 @@ export default class Game implements IScript {
 	}
 
 	private	_sendDrag():	void {
-		this._webApi.serverGame.sendDragToServer(this._drag / 500);
+		this._webApi.serverGame.sendDragToServer(this._drag);
+		console.log(this._drag);
 		this._drag = 0;
 	}
 
@@ -208,7 +211,8 @@ export default class Game implements IScript {
 				ballPos.applyRotationQuaternionInPlace(this._rotations[index][this._shift]);
 			this._ball.position.copyFrom(ballPos);
 			this._drawPlayers(gs.players);
-			this._sendDrag();
+			if (gs.players.find((p) => p.id === this._webApi.clientInfo!.id))
+				this._sendDrag();
 		}
 	}
 
