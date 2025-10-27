@@ -145,11 +145,7 @@ export default class Game implements IScript {
 		for (let i = 1; i < this._fields.length; i += 1)
 			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? this._y : initHeight, i + 2, this._z), true);
 		this._wallSizes[0] = initWallSize;
-		const	bb:	BoundingBox = this._racketMesh.getBoundingInfo().boundingBox;
-		const	pivot = bb.center.clone();
-		pivot.y = bb.maximum.y;
-		this._racketMesh.setPivotPoint(pivot);
-		const	wallWorldSize:	number = bb.extendSizeWorld.x * 2;
+		const	wallWorldSize:	number = this._racketMesh.getBoundingInfo().boundingBox.extendSizeWorld.x * 2;
 		const	ballWorldSize:	number = this._ballMesh.getBoundingInfo().boundingSphere.radius * 2;
 		this._racketMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._racketSize / 100 / wallWorldSize);
 		this._rotations[0][0] = Quaternion.RotationAxis(Axis.Z, -Math.PI / 2);
@@ -192,8 +188,10 @@ export default class Game implements IScript {
 	}
 
 	private	_sendDrag():	void {
-		this._webApi.serverGame.sendDragToServer(this._drag);
-		this._drag = 0;
+		if (this._drag) {
+			this._webApi.serverGame.sendDragToServer(this._drag);
+			this._drag = 0;
+		}
 	}
 
 	private	_gameUpdateCallback(gs: GameState):	void {
@@ -246,24 +244,23 @@ export default class Game implements IScript {
 				racket.position.set(height * sin + wallSize * (player.position - 0.5) * cos,
 									-height * cos + wallSize * (player.position - 0.5) * sin,
 									this._z);
-				racket.rotationQuaternion = this._rotations[index][wall];
+				racket.rotationQuaternion = this._rotations[index][wall].multiply(Game._rectRot);
 			}
 		} else {
 			const	color1:		Color3 = this._playerColors.get(players[0].id)!;
 			const	wall1:		int = this._colorWalls.get(color1)!;
 			const	racket1:	InstancedMesh = this._playerRackets.get(players[0].id)!;
-			const	index:		int = this._playerCount - 2;
-			const	wallSize:	number = this._wallSizes[index];
+			const	wallSize:	number = this._wallSizes[0];
 			const	height:		number = this._heights[0];
 			if (players.length > 1) {
 				const	color2:		Color3 = this._playerColors.get(players[1].id)!;
 				const	wall2:		int = this._colorWalls.get(color2)!;
 				const	racket2:	InstancedMesh = this._playerRackets.get(players[1].id)!;
 				racket2.position.set(height, (players[1].position - 0.5) * wallSize, this._z);
-				racket2.rotationQuaternion = this._rotations[index][wall2];
+				racket2.rotationQuaternion = this._rotations[0][1 - wall2];
 			}
 			racket1.position.set(-height, (0.5 - players[0].position) * wallSize, this._z);
-			racket1.rotationQuaternion = this._rotations[index][wall1];
+			racket1.rotationQuaternion = this._rotations[0][1 - wall1];
 		}
 	}
 

@@ -11,3 +11,6 @@ public
 dist/
 package-lock.json
 assets/test.scene/preview.png
+assets/main.scene/meshes/0fe36208-15f6-4366-a95f-7a324d858364.json
+assets/materials/background unlit.material
+assets/materials/racket.material
