@@ -82,7 +82,7 @@
                 0,
                 0
             ],
-            "renderOverlay": true,
+            "renderOverlay": false,
             "applyFog": true,
             "delayLoadingFile": "assets/test.scene/geometries/fa3e4fb5-943e-4cf2-bd2e-8452b1333392.babylonbinarymeshdata",
             "boundingBoxMaximum": [
@@ -230,7 +230,7 @@
             "zOffsetUnits": 0,
             "pointsCloud": false,
             "fillMode": 0,
-            "_setVertexOutputInvariant": false,
+            "_isVertexOutputInvariant": false,
             "transparencyMode": 0,
             "stencil": {
                 "tags": null,
