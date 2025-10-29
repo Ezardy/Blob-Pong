@@ -146,11 +146,18 @@ export default class Game implements IScript {
 			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? this._y : initHeight, i + 2, this._z), true);
 		this._wallSizes[0] = initWallSize;
 		const	wallWorldSize:	number = this._racketMesh.getBoundingInfo().boundingBox.extendSizeWorld.x * 2;
-		const	ballWorldSize:	number = this._ballMesh.getBoundingInfo().boundingSphere.radius * 2;
 		this._racketMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._racketSize / 100 / wallWorldSize);
 		this._rotations[0][0] = Quaternion.RotationAxis(Axis.Z, -Math.PI / 2);
 		this._rotations[0][1] = Quaternion.RotationAxis(Axis.Z, Math.PI / 2);
-		this._ballMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._ballSize / 100 / ballWorldSize);
+		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], Game._omitDuplicateWrapper);
+		this._ball = CreateGreasedLine("ball", {points: lines}, {
+			color: Color3.White(),
+			sizeAttenuation: true,
+			width: 2,
+			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
+		});
+		const	ballWorldSize:	number = this._ball.getBoundingInfo().boundingSphere.radiusWorld * 2;
+		this._ballMeshScales[0] = this._ball.scaling.scale(initWallSize / 100 * this._ballSize / ballWorldSize);
 		for (let i = 1; i < this._heights.length; i += 1) {
 			const	playerCount:	int = i + 2;
 			const	wallSize:		number = 2 * (i % 2 ? this._y : this._y * (1 - this._padding)) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
@@ -173,13 +180,6 @@ export default class Game implements IScript {
 			inst.isVisible = false;
 			this._racketPool[i] = inst;
 		}
-		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], Game._omitDuplicateWrapper);
-		this._ball = CreateGreasedLine("ball", {points: lines}, {
-			color: Color3.White(),
-			sizeAttenuation: true,
-			width: 1,
-			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
-		});
 		this._glow.addIncludedOnlyMesh(this._ball);
 		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
