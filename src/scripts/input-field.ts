@@ -1,7 +1,7 @@
 import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
-import { IScript, registerScriptInstance, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
+import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 
 export default class InputField3D implements IScript, IClonableScript {
@@ -80,7 +80,7 @@ export default class InputField3D implements IScript, IClonableScript {
 	public	clone(root: Node | IParticleSystem | Scene):	IScript {
 		if (!(root instanceof Mesh))
 			throw TypeError("Mesh type was expected by InputField3D");
-		const	field:	InputField3D = new InputField3D(root);
+		const	field:	InputField3D = applyScriptOnObject(root, InputField3D);
 		field._textureResolutionScaler = this._textureResolutionScaler;
 		field._hint = this._hint;
 		field._hintSize = this._hintSize;
@@ -91,7 +91,6 @@ export default class InputField3D implements IScript, IClonableScript {
 		field._focusedBackgroundColor = this._focusedBackgroundColor.clone();
 		field._highlightColor = this._highlightColor.clone();
 		field._borderThickness = this._borderThickness;
-		registerScriptInstance(root, field, "scripts/input-field.ts");
 		const	scene:	Scene = root.getScene();
 		if (scene.isLoading)
 			root.getScene()?.onBeforeRenderObservable.addOnce(() => field.onStart());

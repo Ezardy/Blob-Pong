@@ -230,6 +230,7 @@ export default class Ui implements IScript {
 			}
 		}, undefined, true);
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
+			console.log(gs.state);
 			switch(gs.state) {
 				case "countdown":
 					this._countdown.isVisible = true;
