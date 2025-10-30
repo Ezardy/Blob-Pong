@@ -196,7 +196,8 @@ export default class Game implements IScript {
 
 	private	_gameUpdateCallback(gs: GameState):	void {
 		if (gs.players.length) {
-			this._syncGame(gs.players);
+			if (this._playerColors.size > gs.players.length)
+				this._syncGame(gs.players);
 			const	index:		int = gs.players.length - 2;
 			const	wallSize:	number = this._wallSizes[index];
 			const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
@@ -265,14 +266,12 @@ export default class Game implements IScript {
 	}
 
 	private	_syncGame(players: GamePlayer[]):	void {
-		if (this._playerColors.size > players.length) {
-			this._playerCount = players.length;
-			this._fields[this._playerColors.size - 2].isVisible = false;
-			this._syncRoomPlayers(players);
-			this._fields[players.length - 2].isVisible = true;
-			this._colorizeField();
-			this._scaleMeshes();
-		}
+		this._playerCount = players.length;
+		this._fields[this._playerColors.size - 2].isVisible = false;
+		this._syncRoomPlayers(players);
+		this._fields[players.length - 2].isVisible = true;
+		this._colorizeField();
+		this._scaleMeshes();
 	}
 
 	private	_syncRoomPlayers(players: GamePlayer[]):	void {
@@ -356,6 +355,7 @@ export default class Game implements IScript {
 				default:
 					this.scene.onPointerObservable.add(this._mouseCallback);
 					this._ball.isVisible = true;
+					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._syncGame(gs.players), undefined, true, undefined, true);
 					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
 						this._fields[this._playerCount - 2].isVisible = false;
 						this._fields[gs.players.length - 2].isVisible = true;
