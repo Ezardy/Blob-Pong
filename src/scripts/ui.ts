@@ -224,6 +224,7 @@ export default class Ui implements IScript {
 									this._currentTimeout = null;
 									this._game.mode = 2;
 									this._readyButton.deselect();
+									this._countdown.isEnabled = false;
 									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
 									this._webApi.serverGame.startGame();
 								}, 1000);
@@ -248,6 +249,7 @@ export default class Ui implements IScript {
 				case "finished":
 					this._game.mode = 0;
 					this._countdown.deselect();
+					this._countdown.isEnabled = true;
 					this._countdown.onPointerUpObservable.add(this._countdownCallback);
 					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 					break;
