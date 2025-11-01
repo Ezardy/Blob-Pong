@@ -212,9 +212,9 @@ export default class Ui implements IScript {
 				this._game.mode = 1;
 			} else {
 				if (details.players.every((player) => player.isReady)) {
-					this._readyButton.deselect();
-					this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
 					if (this._currentTimeout === null && details.players.length > 1) {
+						this._readyButton.deselect();
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
 						this._currentTimeout = setTimeout(() => {
 							this._countdown.state = 1;
 							this._currentTimeout = setTimeout(() => {
