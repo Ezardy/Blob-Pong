@@ -38,6 +38,10 @@ export default class Ui implements IScript {
 	private readonly	_gameMainColor!:		Color3;
 	@visibleAsColor3("Game depth color")
 	private readonly	_gameDepthColor!:		Color3;
+	@visibleAsColor3("Lobby main color")
+	private readonly	_lobbyMainColor!:		Color3;
+	@visibleAsColor3("Lobby depth color")
+	private readonly	_lobbyDepthColor!:		Color3;
 
 	private	_backgroundMainColorBlock!:		InputBlock;
 	private	_backgroundDepthColorBlock!:	InputBlock;
@@ -121,14 +125,15 @@ export default class Ui implements IScript {
 	private readonly	_countdownMesh!:	Mesh;
 
 	private readonly	_lobbyLayout:		AdvancedStackPanel3D;
+	private readonly	_gameLayout:		AdvancedStackPanel3D;
 	private readonly	_exitPanel:			AdvancedStackPanel3D;
-	private readonly	_countdownPanel:	AdvancedStackPanel3D;
 	private				_countdown!:		SwitchButton3D;
 	private				_readyButton!:		SwitchButton3D;
 
 	private				_currentLayout:			Container3D;
 	private				_subscribedToLobby:		boolean = false;
 	private readonly	_updateLayoutCallback:	() => void;
+	private readonly	_countdownCallback:		() => void;
 	private				_isLayoutUpdatable:		boolean = true;
 
 	private	_currentTimeout:		Nullable<NodeJS.Timeout> = null;
@@ -142,6 +147,10 @@ export default class Ui implements IScript {
 		this._updateLayoutCallback = () => {
 			if (this._isLayoutUpdatable)
 				this._updateLayoutRecursively()
+		};
+		this._countdownCallback = () => () => {
+			this._webApi.serverGame.markRoomPlayerWaiting();
+			this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 		};
 
 		this._manager = new GUI3DManager(scene);
@@ -176,7 +185,7 @@ export default class Ui implements IScript {
 		// lobby layout initialization
 		this._lobbyLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._exitPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
-		this._countdownPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._gameLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -195,8 +204,7 @@ export default class Ui implements IScript {
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
 			if (this._game.mode === 0) {
 				this._unsubscribeFromLobby();
-				this._switchLayout(this._lobbyLayout, this._gameMainColor, this._gameDepthColor);
-				this._countdownPanel.isVisible = false;
+				this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
 				if (player && player.isReady)
 					this._readyButton.select();
@@ -204,9 +212,9 @@ export default class Ui implements IScript {
 				this._game.mode = 1;
 			} else {
 				if (details.players.every((player) => player.isReady)) {
+					this._readyButton.deselect();
+					this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
 					if (this._currentTimeout === null && details.players.length > 1) {
-						this._readyButton.isVisible = false;
-						this._countdownPanel.isVisible = true;
 						this._currentTimeout = setTimeout(() => {
 							this._countdown.state = 1;
 							this._currentTimeout = setTimeout(() => {
@@ -215,17 +223,17 @@ export default class Ui implements IScript {
 									this._countdown.state = 0;
 									this._currentTimeout = null;
 									this._game.mode = 2;
+									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
 									this._webApi.serverGame.startGame();
 								}, 1000);
 							}, 1000);
 						}, 1000);
 					}
 				} else if (this._currentTimeout !== null) {
+					this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 					clearTimeout(this._currentTimeout);
 					this._currentTimeout = null;
 					this._countdown.deselect();
-					this._countdownPanel.isVisible = false;
-					this._readyButton.isVisible = true;
 				}
 			}
 		}, undefined, true);
@@ -238,6 +246,8 @@ export default class Ui implements IScript {
 					break;
 				case "finished":
 					this._game.mode = 0;
+					this._countdown.deselect();
+					this._countdown.onPointerUpObservable.add(this._countdownCallback);
 					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 					break;
 				default:
@@ -260,28 +270,27 @@ export default class Ui implements IScript {
 		this._setGameListLayout();
 		this._setGameCreationLayout();
 		this._setLobbyLayout();
+		this._setGameLayout();
 		this.scene.getEngine().onResizeObservable.add(this._updateLayoutCallback);
+	}
+
+	private	_setGameLayout():	void {
+		this._manager.addControl(this._gameLayout);
+		this._gameLayout.blockLayout = true;
+		const	rot2:		Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 2);
+		const	rot3:		Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
+		this._countdown = new SwitchButton3D(this._countdownMesh, "countdown", Ui._dummyRot, rot2, rot2, undefined, undefined, 1.1, rot3, rot3);
+		this._countdown.onPointerUpObservable.add(this._countdownCallback);
+		this._gameLayout.addControl(this._countdown);
+		this._gameLayout.blockLayout = false;
+		this._gameLayout.isVisible = false;
 	}
 
 	private	_setLobbyLayout():	void {
 		this._manager.addControl(this._lobbyLayout);
 		this._lobbyLayout.blockLayout = true;
-		this._lobbyLayout.addControl(this._countdownPanel);
-		this._countdownPanel.blockLayout = true;
-		this._countdownPanel.isArrangable = false;
 		const	rot:	Quaternion = Quaternion.RotationAxis(Axis.Y, Math.PI / 4);
 		this._readyButton = new SwitchButton3D(this._readyButtonMesh, "ready button", Ui._dummyRot, rot, rot, undefined, undefined, 1.1);
-		const	rot2:		Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 2);
-		const	rot3:		Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
-		this._countdown = new SwitchButton3D(this._countdownMesh, "countdown", Ui._dummyRot, rot2, rot2, undefined, undefined, 1.1, rot3, rot3);
-		this._countdown.onPointerUpObservable.add(() => {
-			this._readyButton.isVisible = true;
-			this._readyButton.deselect();
-			this._webApi.serverGame.markRoomPlayerWaiting();
-			this._countdown.isVisible = false;
-		});
-		this._countdownPanel.addControl(this._countdown);
-		this._countdownPanel.blockLayout = false;
 		this._lobbyLayout.addControl(this._exitPanel);
 		this._exitPanel.blockLayout = true;
 		this._exitPanel.isArrangable = false;
