@@ -223,6 +223,7 @@ export default class Ui implements IScript {
 									this._countdown.state = 0;
 									this._currentTimeout = null;
 									this._game.mode = 2;
+									this._readyButton.deselect();
 									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
 									this._webApi.serverGame.startGame();
 								}, 1000);
