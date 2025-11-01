@@ -148,7 +148,8 @@ export default class Ui implements IScript {
 			if (this._isLayoutUpdatable)
 				this._updateLayoutRecursively()
 		};
-		this._countdownCallback = () => () => {
+		this._countdownCallback = () => {
+			this._readyButton.deselect();
 			this._webApi.serverGame.markRoomPlayerWaiting();
 			this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 		};
@@ -213,7 +214,6 @@ export default class Ui implements IScript {
 			} else {
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
-						this._readyButton.deselect();
 						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
 						this._currentTimeout = setTimeout(() => {
 							this._countdown.state = 1;
