@@ -23,7 +23,9 @@
     "name": "lobby-layout",
     "id": "5df162d4-0653-40ff-b867-f03a4888f0b4",
     "state": "",
-    "metadata": {},
+    "metadata": {
+        "isLocked": true
+    },
     "type": "TransformNode",
     "uniqueId": 1758123563382,
     "localMatrix": [

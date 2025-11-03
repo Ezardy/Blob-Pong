@@ -170,31 +170,37 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		this._frontPlane = MeshBuilder.CreatePlane(this.mesh.name + " front text", {width: this._extendSize.x * 2, height: this._extendSize.y * 2});
 		Tags.AddTagsTo(this._frontPlane, "noClone");
 		this._frontPlane.parent = this.mesh;
+		this._frontPlane.isVisible = false;
 
 		this.backTextBlock = new TextBlock(this.mesh.name + " back text");
 		this._backPlane = MeshBuilder.CreatePlane(this.mesh.name + " back text", {width: this._extendSize.x * 2, height: this._extendSize.y * 2});
 		Tags.AddTagsTo(this._backPlane, "noClone");
 		this._backPlane.parent = this.mesh;
+		this._backPlane.isVisible = false;
 
 		this.rightTextBlock = new TextBlock(this.mesh.name + " right text");
 		this._rightPlane = MeshBuilder.CreatePlane(this.mesh.name + " right text", {width: this._extendSize.z * 2, height: this._extendSize.y * 2});
 		Tags.AddTagsTo(this._rightPlane, "noClone");
 		this._rightPlane.parent = this.mesh;
+		this._rightPlane.isVisible = false;
 
 		this.leftTextBlock = new TextBlock(this.mesh.name + " left text");
 		this._leftPlane = MeshBuilder.CreatePlane(this.mesh.name + " left text", {width: this._extendSize.z * 2, height: this._extendSize.y * 2});
 		Tags.AddTagsTo(this._leftPlane, "noClone");
 		this._leftPlane.parent = this.mesh;
+		this._leftPlane.isVisible = false;
 
 		this.topTextBlock = new TextBlock(this.mesh.name + " top text");
 		this._topPlane = MeshBuilder.CreatePlane(this.mesh.name + " top text", {width: this._extendSize.x * 2, height: this._extendSize.z * 2});
 		Tags.AddTagsTo(this._topPlane, "noClone");
 		this._topPlane.parent = this.mesh;
+		this._topPlane.isVisible = false;
 
 		this.bottomTextBlock = new TextBlock(this.mesh.name + " bottom text");
 		this._bottomPlane = MeshBuilder.CreatePlane(this.mesh.name + " bottom text", {width: this._extendSize.x * 2, height: this._extendSize.z * 2});
 		Tags.AddTagsTo(this._bottomPlane, "noClone");
 		this._bottomPlane.parent = this.mesh;
+		this._bottomPlane.isVisible = false;
 	}
 
 	public	clone(root: Node | IParticleSystem | Scene):	IScript {
@@ -309,6 +315,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	private	_renderText(text: string, fontSize: number, color: Color4, posPad: Vector2, negPad: Vector2, alignments: Vector2, family: string, textBlock: TextBlock, plane: Mesh, offset: Vector3, rotation: Vector3, widthHeight: Vector2):	void {
 		if (text.length > 0) {
+			plane.isVisible = true
 			plane.position = offset.addInPlace(offset.normalizeToNew().scaleInPlace(0.04));
 			plane.addRotation(rotation.x, rotation.y, rotation.z);
 			textBlock.text = text;
@@ -340,7 +347,6 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			textBlock.color = color.toHexString();
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * this._resolution, Math.abs(widthHeight.y) * this._resolution, false);
 			dynText.addControl(textBlock);
-		} else
-			plane.setEnabled(false);
+		}
 	}
 }

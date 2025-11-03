@@ -62,7 +62,6 @@
             "isBlocker": false,
             "sideOrientation": 1,
             "isUnIndexed": false,
-            "materialUniqueId": 340,
             "materialId": "default material",
             "metadata": {
                 "scripts": [

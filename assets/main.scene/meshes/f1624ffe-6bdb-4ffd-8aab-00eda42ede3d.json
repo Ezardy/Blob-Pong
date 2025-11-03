@@ -1,9 +1,9 @@
 {
     "meshes": [
         {
-            "name": "previous",
-            "id": "1fdddcb6-43ae-4f0b-a2d6-176c206eb45b",
-            "uniqueId": 1761320255294,
+            "name": "play",
+            "id": "f1624ffe-6bdb-4ffd-8aab-00eda42ede3d",
+            "uniqueId": 1762174114655,
             "type": "Mesh",
             "position": [
                 0,
@@ -12,14 +12,14 @@
             ],
             "rotationQuaternion": [
                 0,
-                0,
                 1,
+                0,
                 6.123233995736766e-17
             ],
             "scaling": [
                 20,
-                -20,
-                20
+                20,
+                -20
             ],
             "localMatrix": [
                 1,
@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -62,14 +62,13 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1761320255295,
-            "geometryId": "f4f0a5eb-0b73-4859-b9d1-51c6543bc452",
+            "geometryUniqueId": 1762172559952,
+            "geometryId": "5dfea920-1c42-4e40-b8f5-294a563426bd",
             "subMeshes": null,
             "materialUniqueId": 1753191571293,
             "materialId": "1335d3b6-4479-4c26-9206-a3041dbaa333",
             "metadata": {
-                "scripts": [],
-                "parentId": 1761320255293
+                "parentId": 1762174114654
             },
             "instances": [],
             "animations": [],
@@ -85,40 +84,40 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/f4f0a5eb-0b73-4859-b9d1-51c6543bc452.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/5dfea920-1c42-4e40-b8f5-294a563426bd.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1.9700286388397217,
-                1.7840088605880737,
-                0.7874217629432678
+                1.4939771890640259,
+                1.750928282737732,
+                1.1283771991729736
             ],
             "boundingBoxMinimum": [
-                -2.44023060798645,
-                -1.7843910455703735,
-                -0.7874030470848083
+                -2.065126895904541,
+                -1.7036067247390747,
+                -1.1283336877822876
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 5154,
+                    "count": 2544,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 5154,
+                    "count": 2544,
                     "stride": 3,
-                    "offset": 20616,
+                    "offset": 10176,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 10284,
+                    "count": 5076,
                     "stride": 1,
-                    "offset": 41232,
+                    "offset": 20352,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 82368,
+                    "offset": 40656,
                     "dataType": 0
                 }
             },
@@ -396,8 +395,7 @@
         "vertexData": []
     },
     "metadata": {
-        "scripts": [],
-        "parentId": 1761320255293
+        "parentId": 1762174114654
     },
     "basePoseMatrix": [
         -1,

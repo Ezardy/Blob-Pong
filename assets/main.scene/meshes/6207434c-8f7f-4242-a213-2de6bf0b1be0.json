@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "previous.glb",
-            "id": "5a4b0ff0-ebaa-4337-b9c3-e007ed156ff6",
-            "uniqueId": 1761320255293,
+            "name": "join.glb",
+            "id": "6207434c-8f7f-4242-a213-2de6bf0b1be0",
+            "uniqueId": 1762174114654,
             "type": "Mesh",
             "position": [
-                -290.4303206308982,
-                187.45629032074692,
-                -97.33904961795183
+                240.5991102100404,
+                111.87447161204523,
+                -63.04421054493912
             ],
             "rotationQuaternion": [
-                0.07834113531773663,
-                -0.10669481102269855,
-                0.008433100305427769,
-                0.9911648534109738
+                0,
+                0.14600878403365658,
+                0,
+                0.9892832935944147
             ],
             "scaling": [
+                0.9999999999999982,
                 1,
-                1,
-                1
+                0.9999999999999982
             ],
             "localMatrix": [
                 1,
@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -79,7 +79,7 @@
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": "Main\\nmenu"
+                                "value": "Join"
                             },
                             "_frontFontSize": {
                                 "type": "number",
@@ -417,7 +417,7 @@
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": "Main\\nmenu"
+                        "value": "Join"
                     },
                     "_frontFontSize": {
                         "type": "number",

@@ -377,11 +377,12 @@ export default class Ui implements IScript {
 	private	_setCreatePanel():	void {
 		this._gameCreationLayout.addControl(this._createPanel);
 		this._createPanel.padding = 0;
-		this._createPanel.padding = 0.01;
+		this._createPanel.padding = 0.1;
 		this._createPanel.blockLayout = true;
 
-		getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
-		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 3), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		//getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
+		const	btnExtS:	Vector3 = this._createButtonMesh.getBoundingInfo().boundingBox.extendSize;
+		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, new Vector3(-btnExtS.x, 0, 0), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		this._createButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
@@ -428,11 +429,11 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationPreviousButtonHeaderPanel():	void {
 		this._gameCreationLayout.addControl(this._gameCreationPreviousButtonHeaderPanel);
-		this._gameCreationPreviousButtonHeaderPanel.margin = 0;
+		this._gameCreationPreviousButtonHeaderPanel.margin = 25;
 		this._gameCreationPreviousButtonHeaderPanel.blockLayout = true;
 			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
-			const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
-			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
+			const	prevBtnExtS:	Vector3 = this._gameCreationPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
+			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
 			button.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
 			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
 			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
@@ -445,10 +446,10 @@ export default class Ui implements IScript {
 		getScriptByClassForObject(this._gameListHeaderMesh, TextBlockDrawer)?.render();
 		getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListPreviousButtonHeaderPanel);
-		this._gameListPreviousButtonHeaderPanel.margin = 0;
+		this._gameListPreviousButtonHeaderPanel.margin = 25;
 		this._gameListPreviousButtonHeaderPanel.blockLayout = true;
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
-		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(-Math.PI / 4, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z));
+		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
 		gameListPreviousButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
@@ -461,12 +462,12 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 70;
+		this._gameListControlPanel.margin = 0;
 		this._gameListControlPanel.blockLayout = true;
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
 
-		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "play button", Quaternion.RotationAxis(Axis.Y, Math.PI / 4), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI / 4, Math.PI / 4, Math.PI / 4));
+		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		playButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
 			this._webApi.serverGame.subscribeToRoom();

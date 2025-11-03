@@ -2,8 +2,8 @@
     "meshes": [
         {
             "name": "previous",
-            "id": "1fdddcb6-43ae-4f0b-a2d6-176c206eb45b",
-            "uniqueId": 1761320255294,
+            "id": "d07fd8bd-a1bf-4810-9167-ffc5efe01d47",
+            "uniqueId": 1762170835012,
             "type": "Mesh",
             "position": [
                 0,
@@ -11,15 +11,15 @@
                 0
             ],
             "rotationQuaternion": [
-                0,
-                0,
+                3.330669073875469e-17,
+                1.6653345369377357e-17,
                 1,
-                6.123233995736766e-17
+                1.387778780781447e-17
             ],
             "scaling": [
                 20,
-                -20,
-                20
+                -19.999999999999964,
+                20.000000000000004
             ],
             "localMatrix": [
                 1,
@@ -69,7 +69,7 @@
             "materialId": "1335d3b6-4479-4c26-9206-a3041dbaa333",
             "metadata": {
                 "scripts": [],
-                "parentId": 1761320255293
+                "parentId": 1762170835011
             },
             "instances": [],
             "animations": [],
@@ -397,7 +397,7 @@
     },
     "metadata": {
         "scripts": [],
-        "parentId": 1761320255293
+        "parentId": 1762170835011
     },
     "basePoseMatrix": [
         -1,
