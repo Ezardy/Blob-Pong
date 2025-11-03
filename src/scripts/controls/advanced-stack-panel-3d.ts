@@ -81,6 +81,9 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 						const	worldBoundingBox:	Vector3 = boundingVectors.max.subtract(boundingVectors.min).scaleInPlace(0.5);
 						extendSize = Vector3.TransformNormal(worldBoundingBox, currentInverseWorld);
 					}
+					extendSize.x = Math.abs(extendSize.x);
+					extendSize.y = Math.abs(extendSize.y);
+					extendSize.z = Math.abs(extendSize.z);
 					if (this._isVertical)
 						height += extendSize.y;
 					else

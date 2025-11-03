@@ -462,7 +462,7 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 0;
+		this._gameListControlPanel.margin = 70;
 		this._gameListControlPanel.blockLayout = true;
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
