@@ -147,7 +147,7 @@
 	"zOffsetUnits": 0,
 	"pointsCloud": false,
 	"fillMode": 0,
-	"_setVertexOutputInvariant": false,
+	"_isVertexOutputInvariant": false,
 	"stencil": {
 		"tags": null,
 		"func": 519,

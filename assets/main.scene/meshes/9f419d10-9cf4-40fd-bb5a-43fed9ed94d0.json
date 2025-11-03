@@ -384,7 +384,7 @@
                         }
                     }
                 ],
-                "parentId": 1758123563382
+                "parentId": 1761995736393
             },
             "instances": [],
             "animations": [],
@@ -398,7 +398,7 @@
                 0,
                 0
             ],
-            "renderOverlay": true,
+            "renderOverlay": false,
             "applyFog": true,
             "delayLoadingFile": "assets/main.scene/geometries/3b83d2fd-8af7-4603-b07d-0422d8cb9410.babylonbinarymeshdata",
             "boundingBoxMaximum": [
@@ -554,7 +554,7 @@
             "zOffsetUnits": 0,
             "pointsCloud": false,
             "fillMode": 0,
-            "_setVertexOutputInvariant": false,
+            "_isVertexOutputInvariant": false,
             "transparencyMode": 0,
             "stencil": {
                 "tags": null,
@@ -1035,7 +1035,7 @@
                 }
             }
         ],
-        "parentId": 1758123563382
+        "parentId": 1761995736393
     },
     "basePoseMatrix": [
         -2,

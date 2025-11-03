@@ -246,17 +246,17 @@
                     "_createMainColor": {
                         "type": "color3",
                         "value": [
-                            0.6039215686274509,
-                            0.15294117647058825,
-                            0.35294117647058826
+                            0.8470588235294118,
+                            0.00784313725490196,
+                            0.42745098039215684
                         ]
                     },
                     "_createDepthColor": {
                         "type": "color3",
                         "value": [
                             1,
-                            0.41568627450980394,
-                            0.10588235294117647
+                            0.4549019607843137,
+                            0.054901960784313725
                         ]
                     },
                     "_gameMainColor": {
@@ -278,6 +278,22 @@
                     "_readyButtonMesh": {
                         "type": "entity",
                         "value": "0c499e71-3061-4e0d-a56f-f14454372cff"
+                    },
+                    "_lobbyMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.08627450980392157,
+                            0.4470588235294118,
+                            0.2549019607843137
+                        ]
+                    },
+                    "_lobbyDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            0.8588235294117647,
+                            0.00784313725490196,
+                            0.24705882352941178
+                        ]
                     },
                     "_countdownMesh": {
                         "type": "entity",
@@ -321,7 +337,7 @@
                     },
                     "_racketMesh": {
                         "type": "entity",
-                        "value": "68606411-620d-4663-be4a-fe57b0cbbfcf"
+                        "value": "4f2b4e31-1eba-4c78-a173-104bde64695d"
                     },
                     "_ballMesh": {
                         "type": "entity",
@@ -382,15 +398,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.09120316076661342,
-            6.11358206419202,
+            -0.0892028861084097,
+            0.005856932203497088,
             0
         ],
         "speed": 200,
         "position": [
-            -1315.1422311572649,
-            540.9115807313242,
-            -671.4155446938736
+            954.1764239383679,
+            71.52248435395344,
+            -681.0266417776106
         ],
         "upVector": [
             0,
@@ -413,7 +429,6 @@
             "sensorSize": 36,
             "focalLength": 42.574003560703986
         },
-        "uniqueId": 32,
         "type": "EditorCamera",
         "inputsmgr": {
             "FreeCameraKeyboardMoveInput": {

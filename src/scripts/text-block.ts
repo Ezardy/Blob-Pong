@@ -1,7 +1,7 @@
 import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
-import { IScript, registerScriptInstance, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
+import { applyScriptOnObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
@@ -200,7 +200,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	public	clone(root: Node | IParticleSystem | Scene):	IScript {
 		if (!(root instanceof AbstractMesh))
 			throw TypeError("Mesh type was expected by TextBlockDrawer");
-		const	drawer:	TextBlockDrawer = new TextBlockDrawer(root);
+		const	drawer:	TextBlockDrawer = applyScriptOnObject(root, TextBlockDrawer);
+		// drawer.draw()
 		drawer._frontText = this._frontText;
 		drawer._frontFontSize = this._frontFontSize;
 		drawer._frontColor = this._frontColor.clone();
@@ -260,7 +261,6 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._bottomFontFamily = this._bottomFontFamily;
 		drawer._bottomAngle = this._bottomAngle;
 		drawer._isBottomInverted = this._isBottomInverted;
-		registerScriptInstance(root, drawer, "scripts/text-block.ts");
 		/*
 		const	scene:	Scene = root.getScene();
 		if (scene.isLoading)
