@@ -11,8 +11,8 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	private	_lastPos:			number = 0;
 	private	_extendSize:		Vector3 = Vector3.Zero();
 	private	_extendSizeKeys:	Array<int> = [];
-	private	_initialized:		boolean = false;
-	
+
+	protected	_initialized:		boolean = false;
 	protected	_entries?:		JSONArray;
 	protected	_index:			int = 0;
 	protected	_rollControls:	Array<Control3D> = [];
