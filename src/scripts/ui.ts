@@ -98,8 +98,12 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationPreviousButtonMesh!:	Mesh;
 	@visibleAsEntity("node", "game creation game name input mesh")
 	private readonly	_gameCreationGameNameInputMesh!:	Mesh;
+	@visibleAsEntity("node", "player icon")
+	private readonly	_playerIconMesh!:	Mesh;
 	@visibleAsEntity("node", "game creation player count input mesh")
 	private readonly	_gameCreationPlayerCountInputMesh!:	Mesh;
+	@visibleAsEntity("node", "coin icon mesh")
+	private readonly	_coinIconMesh!:	Mesh;
 	@visibleAsEntity("node", "game creation entrance fee input mesh")
 	private readonly	_gameCreationEntranceFeeInputMesh!:	Mesh;
 	@visibleAsEntity("node", "create button mesh")
@@ -357,7 +361,7 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationLayout():	void {
 		this._manager.addControl(this._gameCreationLayout);
-		this._gameCreationLayout.margin = 20;
+		this._gameCreationLayout.margin = 40;
 		this._gameCreationLayout.padding = 0;
 		this._gameCreationLayout.blockLayout = true;
 			this._setCreatePanel();
@@ -397,8 +401,9 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationEntranceFeeInputPanel():	void {
 		this._gameCreationLayout.addControl(this._gameCreationEntranceFeeInputPanel);
-		this._gameCreationEntranceFeeInputPanel.margin = 10;
+		this._gameCreationEntranceFeeInputPanel.margin = 30;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
+			this._gameCreationEntranceFeeInputPanel.addControl(new MeshControl(this._coinIconMesh, "coin icon"));
 			const	input:	InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
 			this._gameCreationEntranceFeeInput = input.inputTextArea;
 			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
@@ -413,9 +418,10 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationPlayerCountInputPanel():	void {
 		this._gameCreationLayout.addControl(this._gameCreationPlayerCountInputPanel);
-		this._gameCreationPlayerCountInputPanel.margin = 10;
+		this._gameCreationPlayerCountInputPanel.margin = 30;
 		this._gameCreationPlayerCountInputPanel.blockLayout = true;
-			const	input:			InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
+			this._gameCreationPlayerCountInputPanel.addControl(new MeshControl(this._playerIconMesh, "player icon"));
+			const	input:	InputField3D = getScriptByClassForObject(this._gameCreationPlayerCountInputMesh, InputField3D)!;
 			this._gameCreationPlayerCountInput = input.inputTextArea;
 			this._gameCreationPlayerCountInput.onTextChangedObservable.add(() => this._enableCreateButton());
 			input.parser = (input: string) => {

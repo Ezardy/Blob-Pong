@@ -8,7 +8,7 @@
             "position": [
                 49.59413707761137,
                 -84.74408081314807,
-                0
+                -200
             ],
             "rotationQuaternion": [
                 0,
@@ -136,7 +136,7 @@
                             },
                             "_textureResolutionScaler": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             }
                         }
                     }
@@ -289,7 +289,7 @@
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
             "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "name": "icon",
+            "name": "input field",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -544,7 +544,7 @@
                     },
                     "_textureResolutionScaler": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     }
                 }
             }

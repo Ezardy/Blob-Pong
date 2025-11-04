@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "game name input mesh",
-            "id": "2cc86f80-14f6-4450-96db-206853166fb4",
-            "uniqueId": 1758053688349,
+            "name": "player",
+            "id": "50f312e0-0909-47c8-afce-fac79a597ee8",
+            "uniqueId": 1762244717735,
             "type": "Mesh",
             "position": [
-                50.46928990344719,
-                74.63561215980002,
-                0
+                0,
+                -6.689904773890589,
+                8.526512829121202e-14
             ],
             "rotationQuaternion": [
-                0,
-                0,
-                0,
-                1
+                1.1915109476731852e-16,
+                2.4095727015471891e-32,
+                1,
+                6.123233995736767e-17
             ],
             "scaling": [
-                100.14000000000004,
-                27,
-                27.000000000000004
+                14.908439094656922,
+                -14.908439094656886,
+                14.908439094656705
             ],
             "localMatrix": [
                 1,
@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -62,86 +62,13 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1758053688348,
-            "geometryId": "e83e283b-08a8-475c-9007-cb0a3f40014a",
+            "geometryUniqueId": 1762244717736,
+            "geometryId": "a6cdb9e3-ce3a-4134-bbb3-f73d64dc4797",
             "subMeshes": null,
-            "materialUniqueId": 1754739854561,
-            "materialId": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
+            "materialUniqueId": 1753696953292,
+            "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
             "metadata": {
-                "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/input-field.ts",
-                        "values": {
-                            "_hint": {
-                                "type": "string",
-                                "value": "game name"
-                            },
-                            "_hintColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    0.796078431372549
-                                ]
-                            },
-                            "_textColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_backgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.20392156862745098
-                                ]
-                            },
-                            "_focusedBackgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.4117647058823529
-                                ]
-                            },
-                            "_highlightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    0,
-                                    0,
-                                    0.5137254901960784
-                                ]
-                            },
-                            "_borderThickness": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_hintSize": {
-                                "type": "number",
-                                "value": 11
-                            },
-                            "_textSize": {
-                                "type": "number",
-                                "value": 11
-                            },
-                            "_textureResolutionScaler": {
-                                "type": "number",
-                                "value": 2
-                            }
-                        }
-                    }
-                ],
-                "parentId": 1758052214954
+                "parentId": 1762244717734
             },
             "instances": [],
             "animations": [],
@@ -157,53 +84,45 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/e83e283b-08a8-475c-9007-cb0a3f40014a.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/a6cdb9e3-ce3a-4134-bbb3-f73d64dc4797.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1,
-                1,
-                1
+                1.7476781606674194,
+                2.139949321746826,
+                1.1679044961929321
             ],
             "boundingBoxMinimum": [
-                -1,
-                -1,
-                -1
+                -1.7477220296859741,
+                -1.2971171140670776,
+                -1.167840838432312
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 3240,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 3240,
                     "stride": 3,
-                    "offset": 288,
-                    "dataType": 1
-                },
-                "uvsAttrDesc": {
-                    "count": 48,
-                    "stride": 2,
-                    "offset": 576,
+                    "offset": 12960,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 6468,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 25920,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 51792,
                     "dataType": 0
                 }
             },
             "positions": null,
             "normals": null,
-            "uvs": null,
-            "hasUVs": true,
             "indices": null
         }
     ],
@@ -220,7 +139,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.6299999999999997,
+            "roughness": 0.16999999999999998,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -234,9 +154,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
-                0,
-                0
+                0.9568965517241379,
+                0.39595719381688466,
+                0.7149538414500584
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -288,8 +208,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "name": "input field",
+            "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+            "name": "icon",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -328,7 +248,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754739854561,
+            "uniqueId": 1753696953292,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -476,93 +396,20 @@
         "vertexData": []
     },
     "metadata": {
-        "scripts": [
-            {
-                "enabled": true,
-                "key": "scripts/input-field.ts",
-                "values": {
-                    "_hint": {
-                        "type": "string",
-                        "value": "game name"
-                    },
-                    "_hintColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            0.796078431372549
-                        ]
-                    },
-                    "_textColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_backgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.20392156862745098
-                        ]
-                    },
-                    "_focusedBackgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.4117647058823529
-                        ]
-                    },
-                    "_highlightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            0,
-                            0,
-                            0.5137254901960784
-                        ]
-                    },
-                    "_borderThickness": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_hintSize": {
-                        "type": "number",
-                        "value": 11
-                    },
-                    "_textSize": {
-                        "type": "number",
-                        "value": 11
-                    },
-                    "_textureResolutionScaler": {
-                        "type": "number",
-                        "value": 2
-                    }
-                }
-            }
-        ],
-        "parentId": 1758052214954
+        "parentId": 1762244717734
     },
     "basePoseMatrix": [
-        -2,
+        -0.6175404252430874,
         0,
         0,
         0,
         0,
-        2,
+        0.6623304588895746,
         0,
         0,
         0,
         0,
-        2,
+        0.7396176468020953,
         0,
         0,
         0,

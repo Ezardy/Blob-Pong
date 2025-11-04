@@ -4,6 +4,7 @@ import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-edi
 import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
 import IconDrawer from "../icon-drawer";
 import { Control3DClone } from "../functions/typing-utils";
+import { drawBoundingBox } from "../functions/bounding-box";
 
 export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;

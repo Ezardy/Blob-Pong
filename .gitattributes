@@ -3,3 +3,4 @@
 *.ico filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
 *.env filter=lfs diff=lfs merge=lfs -text
+*.babylonbinarymeshdata filter=lfs diff=lfs merge=lfs -text

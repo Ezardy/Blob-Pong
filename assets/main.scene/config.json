@@ -298,6 +298,14 @@
                     "_countdownMesh": {
                         "type": "entity",
                         "value": "9f419d10-9cf4-40fd-bb5a-43fed9ed94d0"
+                    },
+                    "_playerIconMesh": {
+                        "type": "entity",
+                        "value": "bce6fcda-7a82-4dab-8f3e-2195d6caacc8"
+                    },
+                    "_coinIconMesh": {
+                        "type": "entity",
+                        "value": "5dbf2201-ec83-496c-a3ac-40325d8912b5"
                     }
                 }
             },
@@ -398,15 +406,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.09479696130370091,
-            0.06685725263806458,
+            0.14679578637695453,
+            0.21901507620068458,
             0
         ],
         "speed": 200,
         "position": [
-            -1312.325537868486,
-            648.0956819393091,
-            -667.4714348782037
+            -672.8159124800862,
+            1085.0501258520794,
+            -755.2106714977479
         ],
         "upVector": [
             0,
