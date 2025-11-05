@@ -160,7 +160,7 @@ export default class Game implements IScript {
 		this._ballMeshScales[0] = this._ball.scaling.scale(initWallSize / 100 * this._ballSize / ballWorldSize);
 		for (let i = 1; i < this._heights.length; i += 1) {
 			const	playerCount:	int = i + 2;
-			const	wallSize:		number = 2 * (i % 2 ? this._y : this._y * (1 - this._padding)) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
+			const	wallSize:		number = 2 * (i % 2 ? this._y : initHeight) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
 			this._wallSizes[i] = wallSize;
 			this._heights[i] = wallSize / 2 / Math.tan(Math.PI/ playerCount);
 			this._racketMeshScales[i] = this._racketMesh.scaling.scale(wallSize * this._racketSize / 100 / wallWorldSize);

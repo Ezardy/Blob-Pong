@@ -148,7 +148,8 @@ export default class Ui implements IScript {
 			if (this._isLayoutUpdatable)
 				this._updateLayoutRecursively()
 		};
-		this._countdownCallback = () => () => {
+		this._countdownCallback = () => {
+			this._readyButton.deselect();
 			this._webApi.serverGame.markRoomPlayerWaiting();
 			this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 		};
@@ -213,7 +214,6 @@ export default class Ui implements IScript {
 			} else {
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
-						this._readyButton.deselect();
 						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
 						this._currentTimeout = setTimeout(() => {
 							this._countdown.state = 1;
@@ -223,6 +223,8 @@ export default class Ui implements IScript {
 									this._countdown.state = 0;
 									this._currentTimeout = null;
 									this._game.mode = 2;
+									this._readyButton.deselect();
+									this._countdown.isEnabled = false;
 									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
 									this._webApi.serverGame.startGame();
 								}, 1000);
@@ -247,6 +249,7 @@ export default class Ui implements IScript {
 				case "finished":
 					this._game.mode = 0;
 					this._countdown.deselect();
+					this._countdown.isEnabled = true;
 					this._countdown.onPointerUpObservable.add(this._countdownCallback);
 					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 					break;
