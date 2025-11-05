@@ -347,6 +347,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			textBlock.color = color.toHexString();
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * this._resolution, Math.abs(widthHeight.y) * this._resolution, false);
 			dynText.addControl(textBlock);
+			plane.material!.backFaceCulling = true;
 		}
 	}
 }
