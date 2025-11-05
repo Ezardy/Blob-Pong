@@ -333,7 +333,7 @@
                     "_ballSize": {
                         "type": "number",
                         "description": "percentage of wall size",
-                        "value": 1.6
+                        "value": 10
                     },
                     "_racketMesh": {
                         "type": "entity",
