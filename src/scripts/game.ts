@@ -328,14 +328,9 @@ export default class Game implements IScript {
 	public set	mode(value: int) {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
-				case 0:
-					if (this._mode === 1)
-						this._webApi.serverGame.unsubscribeFromRoom();
-					else {
-						this._webApi.serverGame.unsubscribeFromGame();
-						this.scene.onPointerObservable.removeCallback(this._mouseCallback);
-						this._ball.isVisible = false;
-					}
+				case Game.NONE_MODE:
+					this.scene.onPointerObservable.removeCallback(this._mouseCallback);
+					this._ball.isVisible = false;
 					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
@@ -346,7 +341,7 @@ export default class Game implements IScript {
 					this._playerRackets.clear();
 					this._fields[this._playerCount - 2].isVisible = false;
 					break;
-				case 1:
+				case Game.LOBBY_MODE:
 					for (let i = 0; i < this.maxPlayers; i += 1)
 						this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
 					this._scaleMeshes();
@@ -360,8 +355,6 @@ export default class Game implements IScript {
 						this._fields[this._playerCount - 2].isVisible = false;
 						this._fields[gs.players.length - 2].isVisible = true;
 					}, undefined, true, undefined, true);
-					this._webApi.serverGame.unsubscribeFromRoom();
-					this._webApi.serverGame.subscribeToGame();
 					break;
 			}
 			this._mode = value;

@@ -306,6 +306,10 @@
                     "_coinIconMesh": {
                         "type": "entity",
                         "value": "5dbf2201-ec83-496c-a3ac-40325d8912b5"
+                    },
+                    "_gamePrivacyButtonMesh": {
+                        "type": "entity",
+                        "value": "b33e19bd-b59a-45a9-870e-878f1ae20386"
                     }
                 }
             },
@@ -406,15 +410,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.14679578637695453,
-            0.21901507620068458,
+            0,
+            0,
             0
         ],
         "speed": 200,
         "position": [
-            -672.8159124800862,
-            1085.0501258520794,
-            -755.2106714977479
+            -107.10602371835648,
+            152.17134802528855,
+            -893.572224605345
         ],
         "upVector": [
             0,

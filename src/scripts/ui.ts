@@ -1,6 +1,6 @@
 import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
-import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
 import { ISelectable } from "./interfaces/iselectable";
@@ -96,6 +96,8 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationHeaderMesh!:	Mesh;
 	@visibleAsEntity("node", "game creation previous button mesh")
 	private readonly	_gameCreationPreviousButtonMesh!:	Mesh;
+	@visibleAsEntity("node", "game privacy button mesh")
+	private readonly	_gamePrivacyButtonMesh!:	Mesh;
 	@visibleAsEntity("node", "game creation game name input mesh")
 	private readonly	_gameCreationGameNameInputMesh!:	Mesh;
 	@visibleAsEntity("node", "player icon")
@@ -116,6 +118,7 @@ export default class Ui implements IScript {
 
 	private readonly	_gameCreationLayout:					AdvancedStackPanel3D;
 	private readonly	_gameCreationPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
+	private readonly	_privacyNamePanel:						AdvancedStackPanel3D;
 	private readonly	_gameCreationPlayerCountInputPanel:		AdvancedStackPanel3D;
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
@@ -140,7 +143,7 @@ export default class Ui implements IScript {
 	private readonly	_countdownCallback:		() => void;
 	private				_isLayoutUpdatable:		boolean = true;
 
-	private	_currentTimeout:		Nullable<NodeJS.Timeout> = null;
+	private	_currentTimeout:	Nullable<NodeJS.Timeout> = null;
 
 	private	_webApi!:	WebApi;
 	private	_game!:		Game;
@@ -186,10 +189,11 @@ export default class Ui implements IScript {
 		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
-
+		this._privacyNamePanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		// lobby layout initialization
 		this._lobbyLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._exitPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
+		// game layout initialization
 		this._gameLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 	}
 
@@ -207,7 +211,7 @@ export default class Ui implements IScript {
 			this._gameListScroll.setClipped(true);
 		});
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
-			if (this._game.mode === 0) {
+			if (this._game.mode === Game.NONE_MODE) {
 				this._unsubscribeFromLobby();
 				this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
 				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
@@ -215,7 +219,7 @@ export default class Ui implements IScript {
 					this._readyButton.select();
 				this._game.playerCount = details.maxPlayers;
 				this._game.mode = 1;
-			} else {
+			} else if (this._game.mode === Game.LOBBY_MODE) {
 				if (details.players.every((player) => player.isReady)) {
 					if (this._currentTimeout === null && details.players.length > 1) {
 						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
@@ -226,7 +230,7 @@ export default class Ui implements IScript {
 								this._currentTimeout = setTimeout(() => {
 									this._countdown.state = 0;
 									this._currentTimeout = null;
-									this._game.mode = 2;
+									this._game.mode = Game.GAME_MODE;
 									this._readyButton.deselect();
 									this._countdown.isEnabled = false;
 									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
@@ -253,19 +257,19 @@ export default class Ui implements IScript {
 				case "finished":
 					this._game.mode = 0;
 					this._countdown.deselect();
-					this._countdown.isEnabled = true;
 					this._countdown.onPointerUpObservable.add(this._countdownCallback);
 					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 					break;
 				default:
+					switch (this._game.mode) {
+						case Game.NONE_MODE:
+							this._unsubscribeFromLobby();
+							
+					}
 					this._countdown.isVisible = false;
 					break;
 			}
 		}, undefined, true);
-		if (this._webApi.serverGame.isWebSocketOpen())
-			this._webApi.serverGame.subscribeToRoom();
-		else
-			this._webApi.onServerGameReady.add(() => this._webApi.serverGame.subscribeToRoom());
 		// Background
 		const	backgroundMaterial:	NodeMaterial = this._background.material as NodeMaterial;
 		this._backgroundMainColorBlock = backgroundMaterial.getBlockByName("mainColor") as InputBlock;
@@ -307,6 +311,7 @@ export default class Ui implements IScript {
 		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
+			this._webApi.serverGame.unsubscribeFromRoom();
 			this._webApi.serverGame.leaveRoom();
 			this._countdown.state = 0;
 			this._readyButton.deselect();
@@ -367,15 +372,26 @@ export default class Ui implements IScript {
 			this._setCreatePanel();
 			this._setGameCreationEntranceFeeInputPanel();
 			this._setGameCreationPlayerCountInputPanel();
-			const	gameNameInput:			InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
-			this._gameCreationGameNameInput = gameNameInput.inputTextArea;
-			this._gameCreationGameNameInput.onTextChangedObservable.add(() => this._enableCreateButton());
-			const	gameNameInputControl:	MeshControl = new MeshControl(this._gameCreationGameNameInputMesh, "game creation game name input", gameNameInput.inputTextArea);
-			gameNameInput.parser = (input: string) => input.length > 15 ? input.slice(0, 15) : input;
-			this._gameCreationLayout.addControl(gameNameInputControl);
+			this._setPrivacyNameLayout();
 			this._setGameCreationPreviousButtonHeaderPanel();
 		this._gameCreationLayout.blockLayout = false;
 		this._gameCreationLayout.isVisible = false;
+	}
+
+	private	_setPrivacyNameLayout():	void {
+		this._gameCreationLayout.addControl(this._privacyNamePanel);
+		this._privacyNamePanel.blockLayout = true;
+		this._privacyNamePanel.margin = 20;
+		const	state2Rot:	Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
+		const	privacy:	SwitchButton3D = new SwitchButton3D(this._gamePrivacyButtonMesh, "privacy", Quaternion.RotationAxis(Axis.X, Math.PI / 2.5), state2Rot, state2Rot, undefined, undefined, 1.2);
+		this._privacyNamePanel.addControl(privacy);
+		const	gameNameInput:	InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
+		this._gameCreationGameNameInput = gameNameInput.inputTextArea;
+		this._gameCreationGameNameInput.onTextChangedObservable.add(() => this._enableCreateButton());
+		const	gameNameInputControl:	MeshControl = new MeshControl(this._gameCreationGameNameInputMesh, "game creation game name input", gameNameInput.inputTextArea);
+		gameNameInput.parser = (input: string) => input.length > 15 ? input.slice(0, 15) : input;
+		this._privacyNamePanel.addControl(gameNameInputControl);
+		this._privacyNamePanel.blockLayout = false;
 	}
 
 	private	_setCreatePanel():	void {
@@ -384,7 +400,6 @@ export default class Ui implements IScript {
 		this._createPanel.padding = 0.1;
 		this._createPanel.blockLayout = true;
 
-		//getScriptByClassForObject(this._createButtonMesh, TextBlockDrawer)?.render();
 		const	btnExtS:	Vector3 = this._createButtonMesh.getBoundingInfo().boundingBox.extendSize;
 		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, new Vector3(-btnExtS.x, 0, 0), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		this._createButton.onPointerUpObservable.add(() => {

@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -154,9 +154,9 @@
                 0
             ],
             "albedo": [
-                0.9568965517241379,
-                0.39595719381688466,
-                0.7149538414500584
+                0.9870689655172413,
+                0.9870689655172413,
+                0.9870689655172413
             ],
             "baseWeight": 1,
             "reflectivity": [
