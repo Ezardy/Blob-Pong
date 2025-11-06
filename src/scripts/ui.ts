@@ -144,6 +144,7 @@ export default class Ui implements IScript {
 	private				_isLayoutUpdatable:		boolean = true;
 
 	private	_currentTimeout:	Nullable<NodeJS.Timeout> = null;
+	private	_isGameFinished:	boolean = false;
 
 	private	_webApi!:	WebApi;
 	private	_game!:		Game;
@@ -230,7 +231,6 @@ export default class Ui implements IScript {
 								this._currentTimeout = setTimeout(() => {
 									this._countdown.state = 0;
 									this._currentTimeout = null;
-									this._game.mode = Game.GAME_MODE;
 									this._readyButton.deselect();
 									this._countdown.isEnabled = false;
 									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
@@ -248,26 +248,39 @@ export default class Ui implements IScript {
 			}
 		}, undefined, true);
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
-			switch(gs.state) {
-				case "countdown":
-					this._countdown.isVisible = true;
-					const	state:	int = this._game.countdownTime - gs.countdownSeconds!;
-					this._countdown.state = state % this._countdown.maxState;
-					break;
-				case "finished":
-					this._game.mode = 0;
-					this._countdown.deselect();
-					this._countdown.onPointerUpObservable.add(this._countdownCallback);
-					this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
-					break;
-				default:
-					switch (this._game.mode) {
-						case Game.NONE_MODE:
-							this._unsubscribeFromLobby();
-							
-					}
-					this._countdown.isVisible = false;
-					break;
+			if (this._isGameFinished)
+				this._isGameFinished = gs.state === "finished";
+			else {
+				switch (this._game.mode) {
+					case Game.NONE_MODE:
+						this._unsubscribeFromLobby();
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
+						this._game.mode = Game.GAME_MODE;
+						break;
+					case Game.LOBBY_MODE:
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
+						this._game.mode = Game.GAME_MODE;
+						break;
+					default:
+						switch(gs.state) {
+							case "countdown":
+								this._countdown.isVisible = true;
+								const	state:	int = this._game.countdownTime - gs.countdownSeconds!;
+								this._countdown.state = state % this._countdown.maxState;
+								break;
+							case "finished":
+								this._game.mode = 0;
+								this._isGameFinished = true;
+								this._countdown.deselect();
+								this._countdown.onPointerUpObservable.add(this._countdownCallback);
+								this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
+								break;
+							default:
+								this._countdown.isVisible = false;
+								break;
+						}
+						break;
+				}
 			}
 		}, undefined, true);
 		// Background
@@ -311,7 +324,6 @@ export default class Ui implements IScript {
 		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
-			this._webApi.serverGame.unsubscribeFromRoom();
 			this._webApi.serverGame.leaveRoom();
 			this._countdown.state = 0;
 			this._readyButton.deselect();
@@ -489,10 +501,7 @@ export default class Ui implements IScript {
 		this._setEntranceFeeOrderButtonInputPanel();
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
-		playButton.onPointerUpObservable.add(() => {
-			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
-			this._webApi.serverGame.subscribeToRoom();
-		});
+		playButton.onPointerUpObservable.add(() => this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string));
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;

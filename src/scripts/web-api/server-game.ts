@@ -130,13 +130,6 @@ export class ServerGame
 		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
 		this.onGameStateUpdatedObservable = new Observable<GameState>();
 		this.onWebSocketOpenedObservable = new Observable<void>();
-
-		// Resubscription logic
-		// this.resubscribeToRoom();
-		// this.resubscribeToGame();
-
-		// this.handleClientEvent();
-		// this.requestSessionIdFromParent();
 	}
 
 	public	open() : void {
@@ -267,36 +260,12 @@ export class ServerGame
 			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
-	public subscribeToRoom() : void
+	public reconnectToTopics() : void
 	{
-		const type = "SUBSCRIBE_ROOM";
+		const type = "RECONNECT";
 
 		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
-	}
-
-	public subscribeToGame() : void
-	{
-		const type = "SUBSCRIBE_GAME";
-
-		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
-	}
-
-	public unsubscribeFromRoom()
-	{
-		const type = "UNSUBSCRIBE_ROOM";
-
-		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
-	}
-
-	public unsubscribeFromGame()
-	{
-		const type = "UNSUBSCRIBE_GAME";
-
-		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
+			this._lobbyWs?.send(JSON.stringify({ type }));
 	}
 
 	public subscribeToLobby()
