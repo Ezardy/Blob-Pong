@@ -1,0 +1,2015 @@
+{
+    "meshes": [
+        {
+            "name": "privacy mesh",
+            "id": "b33e19bd-b59a-45a9-870e-878f1ae20386",
+            "uniqueId": 1762338399041,
+            "type": "Mesh",
+            "position": [
+                -137.2267912626544,
+                69.56284733665314,
+                -65.22297304054626
+            ],
+            "rotation": [
+                -0.15696704367738196,
+                -0.18790253599518797,
+                0.013359010493178593
+            ],
+            "scaling": [
+                0.9999999999999976,
+                0.9999999999999996,
+                0.9999999999999974
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": false,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "geometryUniqueId": 1762338399042,
+            "geometryId": "87ebedf0-765a-4981-8df9-ba10b8833857",
+            "subMeshes": null,
+            "materialUniqueId": 1762338590081,
+            "materialId": "6dc2c0b3-21b1-4145-8fdd-6ca359e18455",
+            "metadata": {
+                "type": "Sphere",
+                "diameter": 68.10000000000005,
+                "segments": 32,
+                "sideOrientation": 0,
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 3
+                            },
+                            "_frontText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": "private"
+                            },
+                            "_backFontSize": {
+                                "type": "number",
+                                "value": 10
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.8117647058823529,
+                                    0,
+                                    0,
+                                    1
+                                ]
+                            },
+                            "_backPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 180
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_leftPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": "public"
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 10
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.8117647058823529,
+                                    0,
+                                    0,
+                                    1
+                                ]
+                            },
+                            "_bottomPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 0,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "renderOverlay": false,
+            "applyFog": true,
+            "delayLoadingFile": "assets/main.scene/geometries/87ebedf0-765a-4981-8df9-ba10b8833857.babylonbinarymeshdata",
+            "boundingBoxMaximum": [
+                34.04999923706055,
+                34.04999923706055,
+                34.04999923706055
+            ],
+            "boundingBoxMinimum": [
+                -34.04999923706055,
+                -34.04999923706055,
+                -34.04999923706055
+            ],
+            "_binaryInfo": {
+                "positionsAttrDesc": {
+                    "count": 7245,
+                    "stride": 3,
+                    "offset": 0,
+                    "dataType": 1
+                },
+                "normalsAttrDesc": {
+                    "count": 7245,
+                    "stride": 3,
+                    "offset": 28980,
+                    "dataType": 1
+                },
+                "uvsAttrDesc": {
+                    "count": 4830,
+                    "stride": 2,
+                    "offset": 57960,
+                    "dataType": 1
+                },
+                "indicesAttrDesc": {
+                    "count": 13872,
+                    "stride": 1,
+                    "offset": 77280,
+                    "dataType": 0
+                },
+                "subMeshesAttrDesc": {
+                    "count": 1,
+                    "stride": 5,
+                    "offset": 132768,
+                    "dataType": 0
+                }
+            },
+            "positions": null,
+            "normals": null,
+            "uvs": null,
+            "hasUVs": true,
+            "indices": null
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [
+        {
+            "tags": null,
+            "ignoreAlpha": false,
+            "maxSimultaneousLights": 32,
+            "mode": 0,
+            "forceAlphaBlending": false,
+            "id": "6dc2c0b3-21b1-4145-8fdd-6ca359e18455",
+            "name": "player order",
+            "checkReadyOnEveryCall": false,
+            "checkReadyOnlyOnce": false,
+            "state": "",
+            "alpha": 1,
+            "backFaceCulling": true,
+            "cullBackFaces": true,
+            "_alphaMode": [
+                2
+            ],
+            "_needDepthPrePass": false,
+            "disableDepthWrite": false,
+            "disableColorWrite": false,
+            "forceDepthWrite": false,
+            "depthFunction": 0,
+            "separateCullingPass": false,
+            "fogEnabled": true,
+            "pointSize": 1,
+            "zOffset": 0,
+            "zOffsetUnits": 0,
+            "pointsCloud": false,
+            "fillMode": 0,
+            "_isVertexOutputInvariant": false,
+            "editorData": {
+                "locations": [
+                    {
+                        "blockId": 337,
+                        "x": 820,
+                        "y": 140,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 338,
+                        "x": 580,
+                        "y": 80,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 339,
+                        "x": 300,
+                        "y": 0,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 340,
+                        "x": 40,
+                        "y": 360,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 341,
+                        "x": -940,
+                        "y": -280,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 342,
+                        "x": -1420,
+                        "y": -280,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 343,
+                        "x": -1420,
+                        "y": -140,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 344,
+                        "x": -1420,
+                        "y": -20,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 345,
+                        "x": -1420,
+                        "y": 120,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 346,
+                        "x": -1420,
+                        "y": 240,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 347,
+                        "x": 280,
+                        "y": 220,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 348,
+                        "x": 1620,
+                        "y": -320,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 349,
+                        "x": 1440,
+                        "y": -700,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 350,
+                        "x": 820,
+                        "y": -500,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 351,
+                        "x": 0,
+                        "y": -300,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 352,
+                        "x": -420,
+                        "y": -220,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 353,
+                        "x": 280,
+                        "y": -260,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 354,
+                        "x": 280,
+                        "y": -140,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 355,
+                        "x": 320,
+                        "y": -480,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 356,
+                        "x": 540,
+                        "y": -680,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 357,
+                        "x": 540,
+                        "y": -760,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 358,
+                        "x": 380,
+                        "y": 360,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 359,
+                        "x": 1180,
+                        "y": -820,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 360,
+                        "x": 920,
+                        "y": -820,
+                        "isCollapsed": false
+                    },
+                    {
+                        "blockId": 361,
+                        "x": 940,
+                        "y": -720,
+                        "isCollapsed": false
+                    }
+                ],
+                "frames": [],
+                "x": -325.08630448361714,
+                "y": 829.9516745924174,
+                "zoom": 0.8188570130318708,
+                "map": {
+                    "1798": 337,
+                    "1799": 338,
+                    "1800": 339,
+                    "1801": 340,
+                    "1802": 341,
+                    "1803": 342,
+                    "1804": 343,
+                    "1805": 344,
+                    "1806": 345,
+                    "1807": 346,
+                    "1808": 347,
+                    "1809": 348,
+                    "1810": 349,
+                    "1811": 350,
+                    "1812": 351,
+                    "1813": 352,
+                    "1814": 353,
+                    "1815": 354,
+                    "1816": 355,
+                    "1817": 356,
+                    "1818": 357,
+                    "1819": 358,
+                    "1820": 359,
+                    "1821": 360,
+                    "1822": 361
+                }
+            },
+            "customType": "BABYLON.NodeMaterial",
+            "outputNodes": [
+                337,
+                348
+            ],
+            "blocks": [
+                {
+                    "customType": "BABYLON.VertexOutputBlock",
+                    "id": 337,
+                    "name": "VertexOutput",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [
+                        {
+                            "name": "vector",
+                            "inputName": "vector",
+                            "targetBlockId": 338,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": []
+                },
+                {
+                    "customType": "BABYLON.TransformBlock",
+                    "id": 338,
+                    "name": "WorldPos * ViewProjectionTransform",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [
+                        {
+                            "name": "vector",
+                            "inputName": "vector",
+                            "targetBlockId": 339,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "transform",
+                            "inputName": "transform",
+                            "targetBlockId": 347,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        },
+                        {
+                            "name": "xyz"
+                        }
+                    ],
+                    "complementZ": 0,
+                    "complementW": 1
+                },
+                {
+                    "customType": "BABYLON.TransformBlock",
+                    "id": 339,
+                    "name": "WorldPos",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [
+                        {
+                            "name": "vector",
+                            "inputName": "vector",
+                            "targetBlockId": 340,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "transform",
+                            "inputName": "transform",
+                            "targetBlockId": 341,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        },
+                        {
+                            "name": "xyz"
+                        }
+                    ],
+                    "complementZ": 0,
+                    "complementW": 1
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 340,
+                    "name": "position",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 8,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InstancesBlock",
+                    "id": 341,
+                    "name": "Instances",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [
+                        {
+                            "name": "world0",
+                            "inputName": "world0",
+                            "targetBlockId": 342,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "world1",
+                            "inputName": "world1",
+                            "targetBlockId": 343,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "world2",
+                            "inputName": "world2",
+                            "targetBlockId": 344,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "world3",
+                            "inputName": "world3",
+                            "targetBlockId": 345,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "world",
+                            "inputName": "world",
+                            "targetBlockId": 346,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        },
+                        {
+                            "name": "instanceID"
+                        }
+                    ]
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 342,
+                    "name": "world0",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 16,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 343,
+                    "name": "world1",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 16,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 344,
+                    "name": "world2",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 16,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 345,
+                    "name": "world3",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 16,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 346,
+                    "name": "world",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 128,
+                    "mode": 0,
+                    "systemValue": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 347,
+                    "name": "ViewProjection",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 128,
+                    "mode": 0,
+                    "systemValue": 4,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.FragmentOutputBlock",
+                    "id": 348,
+                    "name": "FragmentOutput",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 2,
+                    "inputs": [
+                        {
+                            "name": "rgba",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "rgb",
+                            "inputName": "rgb",
+                            "targetBlockId": 349,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "a",
+                            "inputName": "a",
+                            "targetBlockId": 350,
+                            "targetConnectionName": "alpha",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "glow"
+                        }
+                    ],
+                    "outputs": [],
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "useLogarithmicDepth": false
+                },
+                {
+                    "customType": "BABYLON.LerpBlock",
+                    "id": 349,
+                    "name": "Lerp",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 4,
+                    "inputs": [
+                        {
+                            "name": "left",
+                            "inputName": "left",
+                            "targetBlockId": 350,
+                            "targetConnectionName": "lighting",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "right",
+                            "inputName": "right",
+                            "targetBlockId": 359,
+                            "targetConnectionName": "rgb",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "gradient",
+                            "inputName": "gradient",
+                            "targetBlockId": 359,
+                            "targetConnectionName": "a",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ]
+                },
+                {
+                    "customType": "BABYLON.PBRMetallicRoughnessBlock",
+                    "id": 350,
+                    "name": "PBRMetallicRoughness",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 3,
+                    "inputs": [
+                        {
+                            "name": "worldPosition",
+                            "inputName": "worldPosition",
+                            "targetBlockId": 339,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "worldNormal",
+                            "inputName": "worldNormal",
+                            "targetBlockId": 351,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "view",
+                            "inputName": "view",
+                            "targetBlockId": 353,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "cameraPosition",
+                            "inputName": "cameraPosition",
+                            "targetBlockId": 354,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "perturbedNormal"
+                        },
+                        {
+                            "name": "baseColor",
+                            "inputName": "baseColor",
+                            "targetBlockId": 355,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "metallic",
+                            "inputName": "metallic",
+                            "targetBlockId": 356,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "roughness",
+                            "inputName": "roughness",
+                            "targetBlockId": 357,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "ambientOcc"
+                        },
+                        {
+                            "name": "opacity",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "indexOfRefraction"
+                        },
+                        {
+                            "name": "ambientColor"
+                        },
+                        {
+                            "name": "reflection",
+                            "inputName": "reflection",
+                            "targetBlockId": 358,
+                            "targetConnectionName": "reflection",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "clearcoat"
+                        },
+                        {
+                            "name": "sheen"
+                        },
+                        {
+                            "name": "subsurface"
+                        },
+                        {
+                            "name": "anisotropy"
+                        },
+                        {
+                            "name": "iridescence"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "ambientClr"
+                        },
+                        {
+                            "name": "diffuseDir"
+                        },
+                        {
+                            "name": "specularDir"
+                        },
+                        {
+                            "name": "clearcoatDir"
+                        },
+                        {
+                            "name": "sheenDir"
+                        },
+                        {
+                            "name": "diffuseInd"
+                        },
+                        {
+                            "name": "specularInd"
+                        },
+                        {
+                            "name": "clearcoatInd"
+                        },
+                        {
+                            "name": "sheenInd"
+                        },
+                        {
+                            "name": "refraction"
+                        },
+                        {
+                            "name": "lighting"
+                        },
+                        {
+                            "name": "shadow"
+                        },
+                        {
+                            "name": "alpha"
+                        }
+                    ],
+                    "lightFalloff": 0,
+                    "useAlphaTest": false,
+                    "alphaTestCutoff": 0.5,
+                    "useAlphaBlending": false,
+                    "useRadianceOverAlpha": true,
+                    "useSpecularOverAlpha": true,
+                    "enableSpecularAntiAliasing": false,
+                    "realTimeFiltering": false,
+                    "realTimeFilteringQuality": 8,
+                    "useEnergyConservation": true,
+                    "useRadianceOcclusion": true,
+                    "useHorizonOcclusion": true,
+                    "unlit": false,
+                    "forceNormalForward": false,
+                    "debugMode": 0,
+                    "debugLimit": 0,
+                    "debugFactor": 1,
+                    "generateOnlyFragmentCode": false
+                },
+                {
+                    "customType": "BABYLON.TransformBlock",
+                    "id": 351,
+                    "name": "World normal",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [
+                        {
+                            "name": "vector",
+                            "inputName": "vector",
+                            "targetBlockId": 352,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "transform",
+                            "inputName": "transform",
+                            "targetBlockId": 341,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        },
+                        {
+                            "name": "xyz"
+                        }
+                    ],
+                    "complementZ": 0,
+                    "complementW": 0
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 352,
+                    "name": "normal",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 8,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 353,
+                    "name": "view",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 128,
+                    "mode": 0,
+                    "systemValue": 2,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 354,
+                    "name": "cameraPosition",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 8,
+                    "mode": 0,
+                    "systemValue": 7,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 355,
+                    "name": "Color3",
+                    "comments": "",
+                    "visibleInInspector": true,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 32,
+                    "mode": 0,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "valueType": "BABYLON.Color3",
+                    "value": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 356,
+                    "name": "metallic",
+                    "comments": "",
+                    "visibleInInspector": true,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 1,
+                    "mode": 0,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 1,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "valueType": "number",
+                    "value": 0.15999999999999948
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 357,
+                    "name": "roughness",
+                    "comments": "",
+                    "visibleInInspector": true,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 1,
+                    "mode": 0,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 1,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "valueType": "number",
+                    "value": 0
+                },
+                {
+                    "customType": "BABYLON.ReflectionBlock",
+                    "id": 358,
+                    "name": "Reflection",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 3,
+                    "inputs": [
+                        {
+                            "name": "position",
+                            "inputName": "position",
+                            "targetBlockId": 340,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "world",
+                            "inputName": "world",
+                            "targetBlockId": 341,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "color"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "reflection"
+                        }
+                    ],
+                    "generateOnlyFragmentCode": false,
+                    "useSphericalHarmonics": true,
+                    "forceIrradianceInFragment": false,
+                    "gammaSpace": true
+                },
+                {
+                    "customType": "BABYLON.TextureBlock",
+                    "id": 359,
+                    "name": "FrontTexture",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 3,
+                    "inputs": [
+                        {
+                            "name": "uv",
+                            "inputName": "uv",
+                            "targetBlockId": 360,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "source",
+                            "inputName": "source",
+                            "targetBlockId": 361,
+                            "targetConnectionName": "source",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "layer"
+                        },
+                        {
+                            "name": "lod"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "rgba"
+                        },
+                        {
+                            "name": "rgb"
+                        },
+                        {
+                            "name": "r"
+                        },
+                        {
+                            "name": "g"
+                        },
+                        {
+                            "name": "b"
+                        },
+                        {
+                            "name": "a"
+                        },
+                        {
+                            "name": "level"
+                        }
+                    ],
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "fragmentOnly": false,
+                    "disableLevelMultiplication": false
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 360,
+                    "name": "uv",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 4,
+                    "mode": 1,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 0,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false
+                },
+                {
+                    "customType": "BABYLON.ImageSourceBlock",
+                    "id": 361,
+                    "name": "FrontImageSourceBlock",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 3,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "source"
+                        },
+                        {
+                            "name": "dimensions"
+                        }
+                    ],
+                    "texture": {
+                        "tags": null,
+                        "url": "assets/textures/eye on plane.png",
+                        "uOffset": 0.08,
+                        "vOffset": -0.18999999999999995,
+                        "uScale": 1.6599999999999997,
+                        "vScale": 1.3499999999999999,
+                        "uAng": 0,
+                        "vAng": 0,
+                        "wAng": 0,
+                        "uRotationCenter": 0.5,
+                        "vRotationCenter": 0.5,
+                        "wRotationCenter": 0.5,
+                        "homogeneousRotationInUVTransform": false,
+                        "isBlocking": true,
+                        "name": "assets/textures/eye on plane.png",
+                        "metadata": {
+                            "baseSize": {
+                                "width": 279,
+                                "height": 176
+                            }
+                        },
+                        "hasAlpha": false,
+                        "getAlphaFromRGB": false,
+                        "level": 1,
+                        "coordinatesIndex": 0,
+                        "optimizeUVAllocation": true,
+                        "coordinatesMode": 0,
+                        "wrapU": 0,
+                        "wrapV": 0,
+                        "wrapR": 0,
+                        "anisotropicFilteringLevel": 4,
+                        "isCube": false,
+                        "is3D": false,
+                        "is2DArray": false,
+                        "gammaSpace": true,
+                        "invertZ": false,
+                        "lodLevelInAlpha": false,
+                        "lodGenerationOffset": 0,
+                        "lodGenerationScale": 0,
+                        "linearSpecularLOD": false,
+                        "isRenderTarget": false,
+                        "animations": [],
+                        "invertY": true,
+                        "samplingMode": 3,
+                        "_useSRGBBuffer": false,
+                        "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/eye on plane.png",
+                        "noMipmap": false
+                    }
+                }
+            ],
+            "uniqueId": 1762338590081
+        }
+    ],
+    "geometries": {
+        "boxes": [],
+        "spheres": [],
+        "cylinders": [],
+        "toruses": [],
+        "grounds": [],
+        "planes": [],
+        "torusKnots": [],
+        "vertexData": []
+    },
+    "metadata": {
+        "type": "Sphere",
+        "diameter": 68.10000000000005,
+        "segments": 32,
+        "sideOrientation": 0,
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "_frontText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": "private"
+                    },
+                    "_backFontSize": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            0.8117647058823529,
+                            0,
+                            0,
+                            1
+                        ]
+                    },
+                    "_backPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 180
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_leftPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": "public"
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            0.8117647058823529,
+                            0,
+                            0,
+                            1
+                        ]
+                    },
+                    "_bottomPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    }
+                }
+            }
+        ],
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}

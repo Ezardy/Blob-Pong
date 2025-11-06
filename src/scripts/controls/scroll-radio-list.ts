@@ -29,25 +29,28 @@ export default class ScrollRaioList3D extends ScrollList3D {
 		return this._selectedControl;
 	}
 
-	public override	fillList(entries: JSONArray):	void {
-		super.fillList(entries);
-		for (const child of this.children) {
-			const	button:	AbstractButton3D & ISelectable = this.buttonSelector(child);
-			button.onPointerUpObservable.add((_, s) => {
-				if (this._selectedControl == child) {
-					if (this._index == this._indexOnSelection)
-						this._selectedControl = null;
-					else
+	public override	initialize():	void {
+		const	initialized = this._initialized;
+		super.initialize();
+		if (!initialized) {
+			for (const child of this.children) {
+				const	button:	AbstractButton3D & ISelectable = this.buttonSelector(child);
+				button.onPointerUpObservable.add((_, s) => {
+					if (this._selectedControl == child) {
+						if (this._index == this._indexOnSelection)
+							this._selectedControl = null;
+						else
+							this._indexOnSelection = this._index;
+					} else {
+						if (this._selectedControl)
+							this.buttonSelector(this._selectedControl).deselect();
+						this._selectedControl = child;
+						this._controlIndex = this._rollControls.indexOf(child) + this._index;
 						this._indexOnSelection = this._index;
-				} else {
-					if (this._selectedControl)
-						this.buttonSelector(this._selectedControl).deselect();
-					this._selectedControl = child;
-					this._controlIndex = this._rollControls.indexOf(child) + this._index;
-					this._indexOnSelection = this._index;
-				}
- 				this.onSelectObservable.notifyObservers(this._selectedControl, -1, s.target, this._selectedControl);
-			});
+					}
+ 					this.onSelectObservable.notifyObservers(this._selectedControl, -1, s.target, this._selectedControl);
+				});
+			}
 		}
 	}
 

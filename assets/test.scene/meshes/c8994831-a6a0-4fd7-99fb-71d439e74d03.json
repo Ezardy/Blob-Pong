@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "previous button mesh",
-            "id": "8a358f45-9cf4-470b-8873-4d5dd76a3de1",
-            "uniqueId": 1754057510020,
+            "name": "paddle",
+            "id": "c8994831-a6a0-4fd7-99fb-71d439e74d03",
+            "uniqueId": 1762348251500,
             "type": "Mesh",
             "position": [
-                -315.49671596653627,
-                196.70431329842876,
-                -91.4860309141784
+                769.4062859436383,
+                0,
+                -1336.7212215177633
             ],
             "rotationQuaternion": [
                 0,
-                -0.21127226537034777,
                 0,
-                0.9774272504310902
+                0,
+                1
             ],
             "scaling": [
-                24.000000000000004,
-                24,
-                24.000000000000004
+                20,
+                20,
+                20
             ],
             "localMatrix": [
                 1,
@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -62,24 +62,32 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1754057510021,
-            "geometryId": "3b83d2fd-8af7-4603-b07d-0422d8cb9410",
+            "geometryUniqueId": 1762348251501,
+            "geometryId": "5c96997d-4749-4a6b-aad9-f77492267572",
             "subMeshes": null,
-            "materialUniqueId": 1753696953292,
-            "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+            "materialUniqueId": 1762348251502,
+            "materialId": "1b9802ae-12aa-4ecd-a4ea-c3b425f4a05a",
             "metadata": {
                 "scripts": [
                     {
                         "enabled": true,
                         "key": "scripts/text-block.ts",
                         "values": {
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
+                            },
                             "_frontText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "singuloverity"
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 21
+                                "value": 25
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -89,139 +97,6 @@
                                     1,
                                     1
                                 ]
-                            },
-                            "_frontAngle": {
-                                "type": "number",
-                                "value": 90
-                            },
-                            "_backText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_backFontSize": {
-                                "type": "number",
-                                "value": 21
-                            },
-                            "_backColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_rightText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_rightFontSize": {
-                                "type": "number",
-                                "value": 20
-                            },
-                            "_rightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_leftText": {
-                                "type": "string",
-                                "value": "Main\\nmenu"
-                            },
-                            "_leftFontSize": {
-                                "type": "number",
-                                "value": 10
-                            },
-                            "_leftColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_topText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_topFontSize": {
-                                "type": "number",
-                                "value": 21
-                            },
-                            "_topColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_bottomText": {
-                                "type": "string",
-                                "value": ""
-                            },
-                            "_bottomFontSize": {
-                                "type": "number",
-                                "value": 21
-                            },
-                            "_bottomColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_isFrontInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_backAngle": {
-                                "type": "number",
-                                "value": 90
-                            },
-                            "_isBackInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_rightAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isRightInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_leftAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_isLeftInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_topAngle": {
-                                "type": "number",
-                                "value": 90
-                            },
-                            "_isTopInverted": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_bottomAngle": {
-                                "type": "number",
-                                "value": 90
-                            },
-                            "_isBottomInverted": {
-                                "type": "boolean",
-                                "value": false
                             },
                             "_frontPositivePaddings": {
                                 "type": "vector2",
@@ -248,6 +123,31 @@
                                 "type": "string",
                                 "value": ""
                             },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
                             "_backPositivePaddings": {
                                 "type": "vector2",
                                 "value": [
@@ -272,6 +172,31 @@
                             "_backFontFamily": {
                                 "type": "string",
                                 "value": ""
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
                             },
                             "_rightPositivePaddings": {
                                 "type": "vector2",
@@ -298,6 +223,31 @@
                                 "type": "string",
                                 "value": ""
                             },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
                             "_leftPositivePaddings": {
                                 "type": "vector2",
                                 "value": [
@@ -322,6 +272,31 @@
                             "_leftFontFamily": {
                                 "type": "string",
                                 "value": ""
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
                             },
                             "_topPositivePaddings": {
                                 "type": "vector2",
@@ -348,6 +323,31 @@
                                 "type": "string",
                                 "value": ""
                             },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
                             "_bottomPositivePaddings": {
                                 "type": "vector2",
                                 "value": [
@@ -373,147 +373,17 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_renderOnStart": {
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
                                 "type": "boolean",
-                                "value": false
-                            },
-                            "_resolution": {
-                                "type": "number",
-                                "value": 2
-                            }
-                        }
-                    },
-                    {
-                        "enabled": true,
-                        "key": "scripts/icon-drawer.ts",
-                        "values": {
-                            "_renderOnStart": {
-                                "type": "boolean",
-                                "value": false
-                            },
-                            "_leftIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_leftIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_leftIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_rightIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_rightIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_topIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_topIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_bottomIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_bottomIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_frontIcon": {
-                                "type": "texture",
-                                "value": {
-                                    "tags": null,
-                                    "url": "assets/textures/previous 1.png",
-                                    "uOffset": 0,
-                                    "vOffset": 0,
-                                    "uScale": 1,
-                                    "vScale": 1,
-                                    "uAng": 0,
-                                    "vAng": 0,
-                                    "wAng": 0,
-                                    "uRotationCenter": 0.5,
-                                    "vRotationCenter": 0.5,
-                                    "wRotationCenter": 0.5,
-                                    "homogeneousRotationInUVTransform": false,
-                                    "isBlocking": true,
-                                    "name": "assets/textures/previous 1.png",
-                                    "hasAlpha": false,
-                                    "getAlphaFromRGB": false,
-                                    "level": 1,
-                                    "coordinatesIndex": 0,
-                                    "optimizeUVAllocation": true,
-                                    "coordinatesMode": 0,
-                                    "wrapU": 1,
-                                    "wrapV": 1,
-                                    "wrapR": 1,
-                                    "anisotropicFilteringLevel": 4,
-                                    "isCube": false,
-                                    "is3D": false,
-                                    "is2DArray": false,
-                                    "gammaSpace": true,
-                                    "invertZ": false,
-                                    "lodLevelInAlpha": false,
-                                    "lodGenerationOffset": 0,
-                                    "lodGenerationScale": 0,
-                                    "linearSpecularLOD": false,
-                                    "isRenderTarget": false,
-                                    "animations": [],
-                                    "invertY": true,
-                                    "samplingMode": 3,
-                                    "_useSRGBBuffer": false,
-                                    "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                                    "noMipmap": false
-                                }
-                            },
-                            "_frontIconSize": {
-                                "type": "number",
-                                "value": 0.995
-                            },
-                            "_frontIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIcon": {
-                                "type": "texture",
-                                "value": null
-                            },
-                            "_backIconSize": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_backIconAngle": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_clonable": {
-                                "type": "boolean",
-                                "description": "Is this script will be cloned during cloneNodeWithScripts execution",
                                 "value": false
                             }
                         }
                     }
-                ],
-                "parentId": 1753456789352
+                ]
             },
             "instances": [],
             "animations": [],
@@ -529,46 +399,46 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/3b83d2fd-8af7-4603-b07d-0422d8cb9410.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/test.scene/geometries/5c96997d-4749-4a6b-aad9-f77492267572.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1,
-                1,
-                1
+                6.781503677368164,
+                9.5367431640625e-7,
+                2.4506654739379883
             ],
             "boundingBoxMinimum": [
-                -1,
-                -1,
-                -1
+                -6.7815046310424805,
+                -9.671286582946777,
+                -2.236823797225952
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 2652,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 2652,
                     "stride": 3,
-                    "offset": 288,
+                    "offset": 10608,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 48,
+                    "count": 1768,
                     "stride": 2,
-                    "offset": 576,
+                    "offset": 21216,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 4704,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 28288,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 47104,
                     "dataType": 0
                 }
             },
@@ -593,6 +463,7 @@
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
             "metallic": 0,
+            "roughness": 0.5,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -606,9 +477,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
-                0,
-                0
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -651,22 +522,23 @@
             "maxSimultaneousLights": 32,
             "invertNormalMapX": false,
             "invertNormalMapY": false,
-            "twoSidedLighting": false,
+            "twoSidedLighting": true,
             "useAlphaFresnel": false,
             "useLinearAlphaFresnel": false,
             "forceNormalForward": false,
-            "enableSpecularAntiAliasing": false,
+            "enableSpecularAntiAliasing": true,
             "useHorizonOcclusion": true,
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
-            "name": "icon",
+            "id": "1b9802ae-12aa-4ecd-a4ea-c3b425f4a05a",
+            "name": "Material",
+            "metadata": {},
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
             "alpha": 1,
-            "backFaceCulling": true,
+            "backFaceCulling": false,
             "cullBackFaces": true,
             "_alphaMode": [
                 2
@@ -700,7 +572,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753696953292,
+            "uniqueId": 1762348251502,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -853,13 +725,21 @@
                 "enabled": true,
                 "key": "scripts/text-block.ts",
                 "values": {
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
+                    },
                     "_frontText": {
                         "type": "string",
-                        "value": ""
+                        "value": "singuloverity"
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 21
+                        "value": 25
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -869,139 +749,6 @@
                             1,
                             1
                         ]
-                    },
-                    "_frontAngle": {
-                        "type": "number",
-                        "value": 90
-                    },
-                    "_backText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_backFontSize": {
-                        "type": "number",
-                        "value": 21
-                    },
-                    "_backColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_rightText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_rightFontSize": {
-                        "type": "number",
-                        "value": 20
-                    },
-                    "_rightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_leftText": {
-                        "type": "string",
-                        "value": "Main\\nmenu"
-                    },
-                    "_leftFontSize": {
-                        "type": "number",
-                        "value": 10
-                    },
-                    "_leftColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_topText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_topFontSize": {
-                        "type": "number",
-                        "value": 21
-                    },
-                    "_topColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_bottomText": {
-                        "type": "string",
-                        "value": ""
-                    },
-                    "_bottomFontSize": {
-                        "type": "number",
-                        "value": 21
-                    },
-                    "_bottomColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_isFrontInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_backAngle": {
-                        "type": "number",
-                        "value": 90
-                    },
-                    "_isBackInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_rightAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isRightInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_leftAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_isLeftInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_topAngle": {
-                        "type": "number",
-                        "value": 90
-                    },
-                    "_isTopInverted": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_bottomAngle": {
-                        "type": "number",
-                        "value": 90
-                    },
-                    "_isBottomInverted": {
-                        "type": "boolean",
-                        "value": false
                     },
                     "_frontPositivePaddings": {
                         "type": "vector2",
@@ -1028,6 +775,31 @@
                         "type": "string",
                         "value": ""
                     },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
                     "_backPositivePaddings": {
                         "type": "vector2",
                         "value": [
@@ -1052,6 +824,31 @@
                     "_backFontFamily": {
                         "type": "string",
                         "value": ""
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
                     },
                     "_rightPositivePaddings": {
                         "type": "vector2",
@@ -1078,6 +875,31 @@
                         "type": "string",
                         "value": ""
                     },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
                     "_leftPositivePaddings": {
                         "type": "vector2",
                         "value": [
@@ -1102,6 +924,31 @@
                     "_leftFontFamily": {
                         "type": "string",
                         "value": ""
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
                     },
                     "_topPositivePaddings": {
                         "type": "vector2",
@@ -1128,6 +975,31 @@
                         "type": "string",
                         "value": ""
                     },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
                     "_bottomPositivePaddings": {
                         "type": "vector2",
                         "value": [
@@ -1153,160 +1025,30 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_renderOnStart": {
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
                         "type": "boolean",
-                        "value": false
-                    },
-                    "_resolution": {
-                        "type": "number",
-                        "value": 2
-                    }
-                }
-            },
-            {
-                "enabled": true,
-                "key": "scripts/icon-drawer.ts",
-                "values": {
-                    "_renderOnStart": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "_leftIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_leftIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_leftIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_rightIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_rightIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_topIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_topIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_bottomIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_bottomIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_frontIcon": {
-                        "type": "texture",
-                        "value": {
-                            "tags": null,
-                            "url": "assets/textures/previous 1.png",
-                            "uOffset": 0,
-                            "vOffset": 0,
-                            "uScale": 1,
-                            "vScale": 1,
-                            "uAng": 0,
-                            "vAng": 0,
-                            "wAng": 0,
-                            "uRotationCenter": 0.5,
-                            "vRotationCenter": 0.5,
-                            "wRotationCenter": 0.5,
-                            "homogeneousRotationInUVTransform": false,
-                            "isBlocking": true,
-                            "name": "assets/textures/previous 1.png",
-                            "hasAlpha": false,
-                            "getAlphaFromRGB": false,
-                            "level": 1,
-                            "coordinatesIndex": 0,
-                            "optimizeUVAllocation": true,
-                            "coordinatesMode": 0,
-                            "wrapU": 1,
-                            "wrapV": 1,
-                            "wrapR": 1,
-                            "anisotropicFilteringLevel": 4,
-                            "isCube": false,
-                            "is3D": false,
-                            "is2DArray": false,
-                            "gammaSpace": true,
-                            "invertZ": false,
-                            "lodLevelInAlpha": false,
-                            "lodGenerationOffset": 0,
-                            "lodGenerationScale": 0,
-                            "linearSpecularLOD": false,
-                            "isRenderTarget": false,
-                            "animations": [],
-                            "invertY": true,
-                            "samplingMode": 3,
-                            "_useSRGBBuffer": false,
-                            "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/previous 1.png",
-                            "noMipmap": false
-                        }
-                    },
-                    "_frontIconSize": {
-                        "type": "number",
-                        "value": 0.995
-                    },
-                    "_frontIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIcon": {
-                        "type": "texture",
-                        "value": null
-                    },
-                    "_backIconSize": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_backIconAngle": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_clonable": {
-                        "type": "boolean",
-                        "description": "Is this script will be cloned during cloneNodeWithScripts execution",
                         "value": false
                     }
                 }
             }
-        ],
-        "parentId": 1753456789352
+        ]
     },
     "basePoseMatrix": [
-        -2,
+        -1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,

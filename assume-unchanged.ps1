@@ -1,0 +1,1 @@
+Get-Content .\assume_unchanged.txt | ForEach-Object { git update-index --assume-unchanged $_ }

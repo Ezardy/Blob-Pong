@@ -141,7 +141,7 @@
                     },
                     "_gameListPreviousButtonMesh": {
                         "type": "entity",
-                        "value": "8a358f45-9cf4-470b-8873-4d5dd76a3de1"
+                        "value": "5a4b0ff0-ebaa-4337-b9c3-e007ed156ff6"
                     },
                     "_gameListHeaderMesh": {
                         "type": "entity",
@@ -165,7 +165,7 @@
                     },
                     "_playButtonMesh": {
                         "type": "entity",
-                        "value": "7fb2333d-a45c-42a8-8a32-0282fc30cc26"
+                        "value": "6207434c-8f7f-4242-a213-2de6bf0b1be0"
                     },
                     "_gameNameEntryMesh": {
                         "type": "entity",
@@ -185,7 +185,7 @@
                     },
                     "_gameCreationPreviousButtonMesh": {
                         "type": "entity",
-                        "value": "83adce7b-caa7-4da1-b8e7-d04d98c804cd"
+                        "value": "201965e6-47f2-4e44-832e-e6980bba5bf2"
                     },
                     "_gameCreationGameNameInputMesh": {
                         "type": "entity",
@@ -201,7 +201,7 @@
                     },
                     "_createButtonMesh": {
                         "type": "entity",
-                        "value": "157a6553-1554-4a9a-b696-c7778794b1c1"
+                        "value": "476a7c71-43e4-4a60-b99a-511f87b47056"
                     },
                     "_exitButtonMesh": {
                         "type": "entity",
@@ -298,6 +298,18 @@
                     "_countdownMesh": {
                         "type": "entity",
                         "value": "9f419d10-9cf4-40fd-bb5a-43fed9ed94d0"
+                    },
+                    "_playerIconMesh": {
+                        "type": "entity",
+                        "value": "bce6fcda-7a82-4dab-8f3e-2195d6caacc8"
+                    },
+                    "_coinIconMesh": {
+                        "type": "entity",
+                        "value": "5dbf2201-ec83-496c-a3ac-40325d8912b5"
+                    },
+                    "_gamePrivacyButtonMesh": {
+                        "type": "entity",
+                        "value": "b33e19bd-b59a-45a9-870e-878f1ae20386"
                     }
                 }
             },
@@ -315,7 +327,7 @@
                     },
                     "_padding": {
                         "type": "number",
-                        "value": 0.1
+                        "value": 0.05
                     },
                     "_wallColor": {
                         "type": "color3",
@@ -398,15 +410,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.0892028861084097,
-            0.005856932203497088,
+            0,
+            0,
             0
         ],
         "speed": 200,
         "position": [
-            954.1764239383679,
-            71.52248435395344,
-            -681.0266417776106
+            -107.10602371835648,
+            152.17134802528855,
+            -893.572224605345
         ],
         "upVector": [
             0,

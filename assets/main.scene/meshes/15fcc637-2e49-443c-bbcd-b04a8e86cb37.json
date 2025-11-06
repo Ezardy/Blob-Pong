@@ -535,7 +535,7 @@
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
             "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
-            "name": "button",
+            "name": "header",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",

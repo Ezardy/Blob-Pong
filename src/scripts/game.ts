@@ -53,8 +53,8 @@ export default class Game implements IScript {
 
 	private	_ball!:		GreasedLineBaseMesh;
 
+	private	_maxScreenSize:		number = 0;
 	private	_z:					number = 0;
-	private	_y:					number = 0;
 	private	_ry:				number = 0;
 	private	_shift:				int = 0;
 	private	_racketMeshScales!:	Array<Vector3>;
@@ -76,32 +76,11 @@ export default class Game implements IScript {
 	private readonly	_glow:	GlowLayer;
 
 	private	_drag:	number = 0;
-	private readonly	_mouseCallback:	(info: PointerInfo) => void;
 
 	public constructor(public scene: Scene) {
 		// Rendering
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
-		this._mouseCallback = (info: PointerInfo) => {
-			if (info.type == PointerEventTypes.POINTERMOVE) {
-				const	rot:	Quaternion = Quaternion.Zero();
-				const	y:		number = (this._playerCount <= 2 ? this._ry : this._y);
-				const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / y / y / 4);
-				let		dir:	Vector3;
-				if (this._playerCount <= 2)
-					dir = Vector3.Up();
-				else {
-					move.y *= -1;
-					dir = Vector3.Right();
-				}
-				const	wallDir:	Vector3 = scene.activeCamera!.getDirection(dir);
-				wallDir.z = 0;
-				wallDir.normalize();
-				Quaternion.FromUnitVectorsToRef(wallDir, dir, rot);
-				move.applyRotationQuaternionInPlace(rot);
-				this._drag = (this._playerCount <= 2 ? move.y : move.x);
-			}
-		};
 	}
 
 	public onStart(): void {
@@ -123,18 +102,21 @@ export default class Game implements IScript {
 		this._ballMeshScales = new Array<Vector3>(this.maxPlayers - 1);
 		// Web
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
-		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((d) => this._roomDetailsCallback(d));
-		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._gameUpdateCallback(gs));
+		this._webApi.onServerGameReady.addOnce(() => this._webApi.serverGame.reconnectToTopics());
 		// Rendering
 		const	camera:	Camera = this.scene.activeCamera!;
 		this._z = camera.globalPosition.z + this._distance;
-		this._y = this._distance * Math.tan(camera.fov / 2);
+		let		y:	number = this._distance * Math.tan(camera.fov / 2);
 		const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-		let		initHeight:	number = this._y * (1 - this._padding) * rect.width / rect.height;
+		this._maxScreenSize = Math.max(rect.width, rect.height);
+		if (rect.width < rect.height)
+			y *= rect.width / rect.height;
+		const	ey:			number = y * (1 - this._padding);
+		let		initHeight:	number = y * (1 - this._padding) * rect.width / rect.height;
 		this._ry = initHeight / this._rectangleRatio;
-		if (this._ry > this._y) {
-			this._ry = this._y;
-			initHeight = this._y * this._rectangleRatio;
+		if (this._ry > y) {
+			this._ry = y;
+			initHeight = y * this._rectangleRatio;
 		}
 		const	initWallSize:	number = 2 * this._ry;
 		this._heights[0] = initHeight;
@@ -142,8 +124,10 @@ export default class Game implements IScript {
 		this._fields[0] = this._createField([
 				start, new Vector3(initHeight, -this._ry, this._z), new Vector3(-initHeight, -this._ry, this._z),
 				new Vector3(-initHeight, this._ry, this._z), start], false);
-		for (let i = 1; i < this._fields.length; i += 1)
-			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(i % 2 ? this._y : initHeight, i + 2, this._z), true);
+		for (let i = 2; i < this._fields.length; i += 2)
+			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(ey, i + 2, this._z), true);
+		for (let i = 1; i < this._fields.length; i += 2)
+			this._fields[i] = this._createField(GreasedLineTools.GetCircleLinePoints(y, i + 2, this._z), true);
 		this._wallSizes[0] = initWallSize;
 		const	wallWorldSize:	number = this._racketMesh.getBoundingInfo().boundingBox.extendSizeWorld.x * 2;
 		this._racketMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._racketSize / 100 / wallWorldSize);
@@ -160,7 +144,7 @@ export default class Game implements IScript {
 		this._ballMeshScales[0] = this._ball.scaling.scale(initWallSize / 100 * this._ballSize / ballWorldSize);
 		for (let i = 1; i < this._heights.length; i += 1) {
 			const	playerCount:	int = i + 2;
-			const	wallSize:		number = 2 * (i % 2 ? this._y : initHeight) * Math.cos(Math.PI / 2 - Math.PI / playerCount);
+			const	wallSize:		number = 2 * (i % 2 ? y : ey) * Math.cos(Math.PI / 2 - Math.PI / playerCount); // FIX
 			this._wallSizes[i] = wallSize;
 			this._heights[i] = wallSize / 2 / Math.tan(Math.PI/ playerCount);
 			this._racketMeshScales[i] = this._racketMesh.scaling.scale(wallSize * this._racketSize / 100 / wallWorldSize);
@@ -184,7 +168,13 @@ export default class Game implements IScript {
 		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
 		this._ball.isVisible = false;
-		this.scene.onBeforeRenderObservable.add(() => this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001);
+		this.scene.onBeforeRenderObservable.add(() => {
+			if (this._playerCount > 2)
+				this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001;
+			else
+				this._fields[0].greasedLineMaterial!.dashOffset += 0.001;
+		});
+		this._resetColors();
 	}
 
 	private	_sendDrag():	void {
@@ -194,7 +184,28 @@ export default class Game implements IScript {
 		}
 	}
 
-	private	_gameUpdateCallback(gs: GameState):	void {
+	private	_mouseCallback(info: PointerInfo) {
+		if (info.type == PointerEventTypes.POINTERMOVE) {
+			const	rot:	Quaternion = Quaternion.Zero();
+			const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / this._maxScreenSize / this._maxScreenSize);
+			let		dir:	Vector3;
+			if (this._playerCount <= 2)
+				dir = Vector3.Up();
+			else {
+				move.y *= -1;
+				dir = Vector3.Right();
+			}
+			const	wallDir:	Vector3 = this.scene.activeCamera!.getDirection(dir);
+			wallDir.z = 0;
+			wallDir.normalize();
+			Quaternion.FromUnitVectorsToRef(wallDir, dir, rot);
+			move.applyRotationQuaternionInPlace(rot);
+			this._drag = (this._playerCount <= 2 ? move.y : move.x);
+		}
+	}
+
+	private	_updateGame(gs: GameState):	void {
+		//console.log("update");
 		if (gs.players.length) {
 			if (this._playerColors.size > gs.players.length)
 				this._syncGame(gs.players);
@@ -215,7 +226,7 @@ export default class Game implements IScript {
 		}
 	}
 
-	private	_roomDetailsCallback(d: RoomDetails):	void {
+	private	_updateRoom(d: RoomDetails):	void {
 		const	gamePlayers:	GamePlayer[] = [];
 		d.players.forEach(v => {
 			const	gamePlayer:	GamePlayer = {
@@ -267,9 +278,11 @@ export default class Game implements IScript {
 
 	private	_syncGame(players: GamePlayer[]):	void {
 		this._playerCount = players.length;
-		this._fields[this._playerColors.size - 2].isVisible = false;
+		if (this._playerColors.size && players.length > 1)
+			this._fields[this._playerColors.size - 2].isVisible = false;
 		this._syncRoomPlayers(players);
-		this._fields[players.length - 2].isVisible = true;
+		if (players.length > 1)
+			this._fields[players.length - 2].isVisible = true;
 		this._colorizeField();
 		this._scaleMeshes();
 	}
@@ -328,14 +341,11 @@ export default class Game implements IScript {
 	public set	mode(value: int) {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
-				case 0:
-					if (this._mode === 1)
-						this._webApi.serverGame.unsubscribeFromRoom();
-					else {
-						this._webApi.serverGame.unsubscribeFromGame();
-						this.scene.onPointerObservable.removeCallback(this._mouseCallback);
-						this._ball.isVisible = false;
-					}
+				case Game.NONE_MODE:
+					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
+					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
+					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
+					this._ball.isVisible = false;
 					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
@@ -344,24 +354,28 @@ export default class Game implements IScript {
 					});
 					this._playerColors.clear();
 					this._playerRackets.clear();
-					this._fields[this._playerCount - 2].isVisible = false;
+					if (this._playerCount > 2)
+						this._fields[this._playerCount - 2].isVisible = false;
+					else
+						this._fields[0].isVisible = false;
 					break;
-				case 1:
-					for (let i = 0; i < this.maxPlayers; i += 1)
-						this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
+				case Game.LOBBY_MODE:
+					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
+					this._resetColors();
 					this._scaleMeshes();
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
-					this.scene.onPointerObservable.add(this._mouseCallback);
+					this.scene.onPointerObservable.add(this._mouseCallback, undefined, false, this);
 					this._ball.isVisible = true;
-					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => this._syncGame(gs.players), undefined, true, undefined, true);
 					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
-						this._fields[this._playerCount - 2].isVisible = false;
-						this._fields[gs.players.length - 2].isVisible = true;
-					}, undefined, true, undefined, true);
-					this._webApi.serverGame.unsubscribeFromRoom();
-					this._webApi.serverGame.subscribeToGame();
+						if (this._playerCount > 2)
+							this._fields[this._playerCount - 2].isVisible = false;
+						else
+							this._fields[0].isVisible = false;
+						this._syncGame(gs.players);
+					}, undefined, false, undefined, true);
+					this._webApi.serverGame.onGameStateUpdatedObservable.add(this._updateGame, undefined, false, this);
 					break;
 			}
 			this._mode = value;
@@ -409,7 +423,7 @@ export default class Game implements IScript {
 	}
 
 	private	_colorizeField():	void {
-		const	field:	GreasedLineMesh = this._fields[this._playerCount - 2];
+		const	field:	GreasedLineMesh = this._playerCount > 2 ? this._fields[this._playerCount - 2] : this._fields[0];
 		const	colors:	Array<Color3> = field.greasedLineMaterial!.colors!;
 		for (let i = 0; i < colors.length; i += 1)
 			colors[i] = this._wallColor;
@@ -428,5 +442,10 @@ export default class Game implements IScript {
 				colors[0] = color2;
 		}
 		field.greasedLineMaterial!.colors = colors;
+	}
+
+	private _resetColors():	void {
+		for (let i = 0; i < this.maxPlayers; i += 1)
+			this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
 	}
 }

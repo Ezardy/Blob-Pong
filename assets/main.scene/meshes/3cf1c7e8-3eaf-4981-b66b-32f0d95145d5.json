@@ -6,9 +6,9 @@
             "uniqueId": 1758101051526,
             "type": "Mesh",
             "position": [
-                48.96189053943519,
-                -6.021810025640136,
-                0
+                48.96189053943522,
+                -6.021810025640093,
+                -200
             ],
             "rotationQuaternion": [
                 0,
@@ -136,7 +136,7 @@
                             },
                             "_textureResolutionScaler": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             }
                         }
                     }
@@ -289,7 +289,7 @@
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
             "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "name": "icon",
+            "name": "input field",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -544,7 +544,7 @@
                     },
                     "_textureResolutionScaler": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     }
                 }
             }
