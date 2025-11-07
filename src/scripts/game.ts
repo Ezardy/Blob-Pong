@@ -54,7 +54,6 @@ export default class Game implements IScript {
 
 	private	_ball!:		GreasedLineBaseMesh;
 
-	private	_maxScreenSize:		number = 0;
 	private	_z:					number = 0;
 	private	_ry:				number = 0;
 	private	_shift:				int = 0;
@@ -130,7 +129,6 @@ export default class Game implements IScript {
 		this._z = camera.globalPosition.z + this._distance;
 		let		y:	number = this._distance * Math.tan(camera.fov / 2);
 		const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-		this._maxScreenSize = Math.max(rect.width, rect.height);
 		if (rect.width < rect.height)
 			y *= rect.width / rect.height;
 		const	ey:			number = y * (1 - this._padding);
@@ -209,7 +207,8 @@ export default class Game implements IScript {
 	private	_mouseCallback(info: PointerInfo) {
 		if (info.type == PointerEventTypes.POINTERMOVE) {
 			const	rot:	Quaternion = Quaternion.Zero();
-			const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / this._maxScreenSize / this._maxScreenSize);
+			const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!
+			const	move:	Vector3 = new Vector3(info.event.movementX / rect.width * 2, info.event.movementY / rect.height * 2, 0);
 			let		dir:	Vector3;
 			if (this._playerCount <= 2)
 				dir = Vector3.Up();
