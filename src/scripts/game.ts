@@ -1,7 +1,8 @@
-import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, ArcRotateCamera, Axis, Animation, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
+import { setKeys } from "./functions/animations";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -65,6 +66,14 @@ export default class Game implements IScript {
 	private	_betaCoss!:			Array<Array<number>>;
 	private	_rotations!:		Array<Array<Quaternion>>;
 
+	private	_camera:				ArcRotateCamera;
+	private	_cameraAlpha:			number;
+	private	_cameraBeta:			number;
+	private	_cameraRadius:			number;
+	private	_cameraAlphaAnimation:	Animation;
+	private	_cameraBetaAnimation:	Animation;
+	private	_cameraRadiusAnimation:	Animation;
+
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
 	@visibleAsEntity("node", "ball mesh")
@@ -81,9 +90,17 @@ export default class Game implements IScript {
 		// Rendering
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
+		this._camera = this.scene.activeCamera as ArcRotateCamera;
+		this._cameraAlpha = this._camera.alpha;
+		this._cameraBeta = this._camera.beta;
+		this._cameraRadius = this._camera.radius;
+		this._cameraAlphaAnimation = new Animation("camera alpha", "alpha", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._cameraBetaAnimation = new Animation("camera beta", "beta", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._cameraRadiusAnimation = new Animation("camera radius", "radius", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 	}
 
 	public onStart(): void {
+		this._camera.detachControl();
 		// Initialization
 		this._fields = new Array<GreasedLineMesh>(this.maxPlayers - 1);
 		this._racketPool = new Array<InstancedMesh>(this.maxPlayers - 1);
@@ -205,7 +222,6 @@ export default class Game implements IScript {
 	}
 
 	private	_updateGame(gs: GameState):	void {
-		//console.log("update");
 		if (gs.players.length) {
 			if (this._playerColors.size > gs.players.length)
 				this._syncGame(gs.players);
@@ -342,6 +358,11 @@ export default class Game implements IScript {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
 				case Game.NONE_MODE:
+					this._camera.detachControl();
+					setKeys(this._cameraAlphaAnimation, this._camera.alpha, this._cameraAlpha, 20);
+					setKeys(this._cameraBetaAnimation, this._camera.beta, this._cameraBeta, 20);
+					setKeys(this._cameraRadiusAnimation, this._camera.radius, this._cameraRadius, 20);
+					this.scene.beginDirectAnimation(this._camera, [this._cameraAlphaAnimation, this._cameraBetaAnimation, this._cameraRadiusAnimation], 0, 20);
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
 					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
@@ -360,6 +381,7 @@ export default class Game implements IScript {
 						this._fields[0].isVisible = false;
 					break;
 				case Game.LOBBY_MODE:
+					this._camera.attachControl();
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
 					this._resetColors();
 					this._scaleMeshes();
