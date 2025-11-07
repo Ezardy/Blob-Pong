@@ -1,4 +1,4 @@
-import { AbstractMesh, ArcRotateCamera, Axis, Animation, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, ArcRotateCamera, Axis, Animation, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
@@ -66,13 +66,13 @@ export default class Game implements IScript {
 	private	_betaCoss!:			Array<Array<number>>;
 	private	_rotations!:		Array<Array<Quaternion>>;
 
-	private	_camera:				ArcRotateCamera;
-	private	_cameraAlpha:			number;
-	private	_cameraBeta:			number;
-	private	_cameraRadius:			number;
-	private	_cameraAlphaAnimation:	Animation;
-	private	_cameraBetaAnimation:	Animation;
-	private	_cameraRadiusAnimation:	Animation;
+	private readonly	_camera:				ArcRotateCamera;
+	private readonly	_cameraAlpha:			number;
+	private readonly	_cameraBeta:			number;
+	private readonly	_cameraRadius:			number;
+	private readonly	_cameraAlphaAnimation:	Animation;
+	private readonly	_cameraBetaAnimation:	Animation;
+	private readonly	_cameraRadiusAnimation:	Animation;
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -97,6 +97,11 @@ export default class Game implements IScript {
 		this._cameraAlphaAnimation = new Animation("camera alpha", "alpha", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._cameraBetaAnimation = new Animation("camera beta", "beta", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._cameraRadiusAnimation = new Animation("camera radius", "radius", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		const	easeFunc = new SineEase();
+		easeFunc.setEasingMode(SineEase.EASINGMODE_EASEINOUT);
+		this._cameraAlphaAnimation.setEasingFunction(easeFunc);
+		this._cameraBetaAnimation.setEasingFunction(easeFunc);
+		this._cameraRadiusAnimation.setEasingFunction(easeFunc);
 	}
 
 	public onStart(): void {
@@ -223,8 +228,11 @@ export default class Game implements IScript {
 
 	private	_updateGame(gs: GameState):	void {
 		if (gs.players.length) {
-			if (this._playerColors.size > gs.players.length)
+			if (this._playerColors.size > gs.players.length) {
+				if (gs.players.length === 2)
+					this._resetCamera();
 				this._syncGame(gs.players);
+			}
 			const	index:		int = gs.players.length - 2;
 			const	wallSize:	number = this._wallSizes[index];
 			const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
@@ -359,10 +367,7 @@ export default class Game implements IScript {
 			switch (value) {
 				case Game.NONE_MODE:
 					this._camera.detachControl();
-					setKeys(this._cameraAlphaAnimation, this._camera.alpha, this._cameraAlpha, 20);
-					setKeys(this._cameraBetaAnimation, this._camera.beta, this._cameraBeta, 20);
-					setKeys(this._cameraRadiusAnimation, this._camera.radius, this._cameraRadius, 20);
-					this.scene.beginDirectAnimation(this._camera, [this._cameraAlphaAnimation, this._cameraBetaAnimation, this._cameraRadiusAnimation], 0, 20);
+					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
 					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
@@ -469,5 +474,12 @@ export default class Game implements IScript {
 	private _resetColors():	void {
 		for (let i = 0; i < this.maxPlayers; i += 1)
 			this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
+	}
+
+	private _resetCamera():	void {
+		setKeys(this._cameraAlphaAnimation, this._camera.alpha, this._cameraAlpha, 20);
+		setKeys(this._cameraBetaAnimation, this._camera.beta, this._cameraBeta, 20);
+		setKeys(this._cameraRadiusAnimation, this._camera.radius, this._cameraRadius, 20);
+		this.scene.beginDirectAnimation(this._camera, [this._cameraAlphaAnimation, this._cameraBetaAnimation, this._cameraRadiusAnimation], 0, 20);
 	}
 }
