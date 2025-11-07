@@ -1,7 +1,8 @@
-import { AbstractMesh, Axis, BoundingBox, BoundingSphere, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, Nullable, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector2, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, ArcRotateCamera, Axis, Animation, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
+import { setKeys } from "./functions/animations";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -53,7 +54,6 @@ export default class Game implements IScript {
 
 	private	_ball!:		GreasedLineBaseMesh;
 
-	private	_maxScreenSize:		number = 0;
 	private	_z:					number = 0;
 	private	_ry:				number = 0;
 	private	_shift:				int = 0;
@@ -64,6 +64,14 @@ export default class Game implements IScript {
 	private	_betaSins!:			Array<Array<number>>;
 	private	_betaCoss!:			Array<Array<number>>;
 	private	_rotations!:		Array<Array<Quaternion>>;
+
+	private readonly	_camera:				ArcRotateCamera;
+	private readonly	_cameraAlpha:			number;
+	private readonly	_cameraBeta:			number;
+	private readonly	_cameraRadius:			number;
+	private readonly	_cameraAlphaAnimation:	Animation;
+	private readonly	_cameraBetaAnimation:	Animation;
+	private readonly	_cameraRadiusAnimation:	Animation;
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -81,9 +89,22 @@ export default class Game implements IScript {
 		// Rendering
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
+		this._camera = this.scene.activeCamera as ArcRotateCamera;
+		this._cameraAlpha = this._camera.alpha;
+		this._cameraBeta = this._camera.beta;
+		this._cameraRadius = this._camera.radius;
+		this._cameraAlphaAnimation = new Animation("camera alpha", "alpha", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._cameraBetaAnimation = new Animation("camera beta", "beta", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._cameraRadiusAnimation = new Animation("camera radius", "radius", 30, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		const	easeFunc = new SineEase();
+		easeFunc.setEasingMode(SineEase.EASINGMODE_EASEINOUT);
+		this._cameraAlphaAnimation.setEasingFunction(easeFunc);
+		this._cameraBetaAnimation.setEasingFunction(easeFunc);
+		this._cameraRadiusAnimation.setEasingFunction(easeFunc);
 	}
 
 	public onStart(): void {
+		this._camera.detachControl();
 		// Initialization
 		this._fields = new Array<GreasedLineMesh>(this.maxPlayers - 1);
 		this._racketPool = new Array<InstancedMesh>(this.maxPlayers - 1);
@@ -108,7 +129,6 @@ export default class Game implements IScript {
 		this._z = camera.globalPosition.z + this._distance;
 		let		y:	number = this._distance * Math.tan(camera.fov / 2);
 		const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!;
-		this._maxScreenSize = Math.max(rect.width, rect.height);
 		if (rect.width < rect.height)
 			y *= rect.width / rect.height;
 		const	ey:			number = y * (1 - this._padding);
@@ -187,7 +207,8 @@ export default class Game implements IScript {
 	private	_mouseCallback(info: PointerInfo) {
 		if (info.type == PointerEventTypes.POINTERMOVE) {
 			const	rot:	Quaternion = Quaternion.Zero();
-			const	move:	Vector3 = new Vector3(info.event.movementX, info.event.movementY, 0).scaleInPlace(this._wallSizes[this._playerCount - 2] / this._maxScreenSize / this._maxScreenSize);
+			const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!
+			const	move:	Vector3 = new Vector3(info.event.movementX / rect.width * 2, info.event.movementY / rect.height * 2, 0);
 			let		dir:	Vector3;
 			if (this._playerCount <= 2)
 				dir = Vector3.Up();
@@ -205,10 +226,12 @@ export default class Game implements IScript {
 	}
 
 	private	_updateGame(gs: GameState):	void {
-		//console.log("update");
 		if (gs.players.length) {
-			if (this._playerColors.size > gs.players.length)
+			if (this._playerColors.size > gs.players.length) {
+				if (gs.players.length === 2)
+					this._resetCamera();
 				this._syncGame(gs.players);
+			}
 			const	index:		int = gs.players.length - 2;
 			const	wallSize:	number = this._wallSizes[index];
 			const	ballPos:	Vector3 = new Vector3(gs.ballPosition[0] * wallSize, gs.ballPosition[1] * wallSize, this._z);
@@ -342,6 +365,8 @@ export default class Game implements IScript {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
 				case Game.NONE_MODE:
+					this._camera.detachControl();
+					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
 					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
@@ -360,6 +385,7 @@ export default class Game implements IScript {
 						this._fields[0].isVisible = false;
 					break;
 				case Game.LOBBY_MODE:
+					this._camera.attachControl();
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
 					this._resetColors();
 					this._scaleMeshes();
@@ -447,5 +473,12 @@ export default class Game implements IScript {
 	private _resetColors():	void {
 		for (let i = 0; i < this.maxPlayers; i += 1)
 			this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
+	}
+
+	private _resetCamera():	void {
+		setKeys(this._cameraAlphaAnimation, this._camera.alpha, this._cameraAlpha, 20);
+		setKeys(this._cameraBetaAnimation, this._camera.beta, this._cameraBeta, 20);
+		setKeys(this._cameraRadiusAnimation, this._camera.radius, this._cameraRadius, 20);
+		this.scene.beginDirectAnimation(this._camera, [this._cameraAlphaAnimation, this._cameraBetaAnimation, this._cameraRadiusAnimation], 0, 20);
 	}
 }
