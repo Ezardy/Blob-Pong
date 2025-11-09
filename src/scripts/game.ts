@@ -372,11 +372,6 @@ export default class Game implements IScript {
 				nameRect.isVisible = true;
 				nameRect.color = color.toHexString();
 				nameRect.linkWithMesh(racket);
-				const	angle:	number = this._playerCount > 2 ? 2 * Math.PI / this._playerCount * wall : -Math.PI / 2 + Math.PI * wall;
-				const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
-				nameRect.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
-				nameRect.linkOffsetX = offset.x;
-				nameRect.linkOffsetY = -offset.y;
 				racket.instancedBuffers.instanceColor = color;
 				this._colorWalls.set(color, wall);
 				this._playerRackets.set(player.id, racket);
@@ -402,6 +397,24 @@ export default class Game implements IScript {
 			this._racketPool.unshift(racket);
 			this._colorPool.unshift(color);
 		});
+		this._drawNames();
+	}
+
+	private	_drawNames():	void {
+		for (const pc of this._playerColors) {
+			const	wall:	int = this._colorWalls.get(pc[1])!;
+			const	racket:	InstancedMesh = this._playerRackets.get(pc[0])!;
+			const	name:	Rectangle = this._racketNames.get(racket)!;
+			const	localAngle:	number = this._playerCount > 2 ? 2 * Math.PI / this._playerCount * wall : -Math.PI / 2 + Math.PI * wall;
+			const	dir:	Vector3 = Vector3.Right().applyRotationQuaternionInPlace(Quaternion.RotationAxis(Axis.Z, localAngle));
+			let		angle:	number = Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), dir, this._camera.getForwardRay(1).direction);
+			if (angle < 0)
+				angle += 2 * Math.PI;
+			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
+			name.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
+			name.linkOffsetX = offset.x;
+			name.linkOffsetY = -offset.y;
+		}
 	}
 
 	public get	playerCount():	int {
@@ -425,6 +438,7 @@ export default class Game implements IScript {
 					this._camera.detachControl();
 					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
+					this._camera.onViewMatrixChangedObservable.removeCallback(this._drawNames, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
 					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
 					this._ball.isVisible = false;
@@ -448,11 +462,14 @@ export default class Game implements IScript {
 				case Game.LOBBY_MODE:
 					this._camera.attachControl();
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
+					this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this._resetColors();
 					this._scaleMeshes();
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
+					if (!this._camera.onViewMatrixChangedObservable.hasObservers())
+						this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this.scene.onPointerObservable.add(this._mouseCallback, undefined, false, this);
 					this._ball.isVisible = true;
 					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
