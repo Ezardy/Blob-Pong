@@ -486,6 +486,7 @@ export default class Ui implements IScript {
 		gameListPreviousButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
+			this._gameListScroll.deselect();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
 		this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game list header"));
@@ -495,13 +496,16 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 70;
+		this._gameListControlPanel.margin = 75;
 		this._gameListControlPanel.blockLayout = true;
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
-		playButton.onPointerUpObservable.add(() => this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string));
+		playButton.onPointerUpObservable.add(() => {
+			this._gameListScroll.deselect();
+			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
+		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;

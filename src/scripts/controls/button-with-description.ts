@@ -10,6 +10,8 @@ import { setKeys } from "../functions/animations";
 
 export default class ButtonWithDescription extends MeshButton3DDisablable implements IClonableControl3D, IDisablable {
 	private readonly	_disAnim:			Animation;
+	private readonly	_scOutAnim:			Animation;
+	private readonly	_initialScale:		Vector3;
 	private readonly	_disabledRotation:	Quaternion;
 	private readonly	_descOutAnim:		Animation;
 	private readonly	_initialRotation:	Quaternion;
@@ -26,7 +28,8 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim], 0, 5);
 			} else {
 				setKeys(this._disAnim, this._currentMesh.rotationQuaternion, this._disabledRotation, 5);
-				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disAnim], 0, 5);
+				setKeys(this._scOutAnim, this._currentMesh.scaling, this._initialScale, 5);
+				this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._disAnim, this._scOutAnim], 0, 5);
 			}
 		}
 	}
@@ -43,13 +46,13 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 			disabledRelativeRotation = this._initialRotation;
 		this._disabledRotation = this._initialRotation.multiply(disabledRelativeRotation);
 		const	endRotation:			Quaternion = this._initialRotation.multiply(descriptionRelativeRotation);
-		const	initialScale:			Vector3 = mesh.scaling.clone();
-		const	descScale:				Vector3 = initialScale.scale(scaleOnEnter);
+		this._initialScale = mesh.scaling.clone();
+		const	descScale:				Vector3 = this._initialScale.scale(scaleOnEnter);
 
 		const	descInAnim:	Animation = new Animation(name + " desc in rot", "rotationQuaternion", 30, Animation.ANIMATIONTYPE_QUATERNION, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._descOutAnim = new Animation(name + " desc out rot", "rotationQuaternion", 30, Animation.ANIMATIONTYPE_QUATERNION, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		const	scInAnim:	Animation = new Animation(name + " sc in", "scaling", 30, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
-		const	scOutAnim:	Animation = new Animation(name + " sc out", "scaling", 30, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._scOutAnim = new Animation(name + " sc out", "scaling", 30, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._disAnim = new Animation(name + " disabling", "rotationQuaternion", 30, Animation.ANIMATIONTYPE_QUATERNION, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 
 		this.pointerEnterAnimation = () =>  {
@@ -60,8 +63,8 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 		};
 		this.pointerOutAnimation = () => {
 			setKeys(this._descOutAnim, mesh.rotationQuaternion, this._initialRotation, 5);
-			setKeys(scOutAnim, mesh.scaling, initialScale, 5);
-			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim, scOutAnim], 0, 5).onAnimationEndObservable.addOnce(() => description && (description.isVisible = false));
+			setKeys(this._scOutAnim, mesh.scaling, this._initialScale, 5);
+			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim, this._scOutAnim], 0, 5).onAnimationEndObservable.addOnce(() => description && (description.isVisible = false));
 		};
 		description && (description.isVisible = false);
 	}

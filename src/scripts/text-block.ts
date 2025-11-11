@@ -9,6 +9,8 @@ import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 export default class TextBlockDrawer implements IScript, IClonableScript, IRenderOnStart {
 	@visibleAsBoolean("render on start")
 	private	_renderOnStart:	boolean = true;
+	@visibleAsBoolean("center according to bounding box")
+	private	_boundingBoxCentered:	boolean = true;
 	@visibleAsNumber("resolution", {min: 1, max: 10, step: 1})
 	private readonly	_resolution:	int = 1;
 	@visibleAsString("front text")
@@ -317,6 +319,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		if (text.length > 0) {
 			plane.isVisible = true
 			plane.position = offset.addInPlace(offset.normalizeToNew().scaleInPlace(0.04));
+			if (this._boundingBoxCentered)
+				plane.position.addInPlace(this.mesh.getBoundingInfo().boundingBox.center);
 			plane.addRotation(rotation.x, rotation.y, rotation.z);
 			textBlock.text = text;
 			switch (alignments.x) {
