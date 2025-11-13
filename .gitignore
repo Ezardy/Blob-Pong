@@ -2,11 +2,9 @@ node_modules/
 .bjseditor/
 .next/
 .vscode/
-public/
 assets/.export-cache.json
 assets/.assets-cache.json
 assets/main.scene/preview.png
-public
 dist/
 package-lock.json
 assets/test.scene/preview.png
