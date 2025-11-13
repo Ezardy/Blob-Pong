@@ -54,6 +54,14 @@ export default class ScrollRaioList3D extends ScrollList3D {
 		}
 	}
 
+	public	deselect():	void {
+		if (this._selectedControl) {
+			this.buttonSelector(this._selectedControl).deselect();
+			this._selectedControl = null;
+			this.onSelectObservable.notifyObservers(null, -1);
+		}
+	}
+
 	public override get	isVisible():	boolean {
 		return this._isVisible;
 	}

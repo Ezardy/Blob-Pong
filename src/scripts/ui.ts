@@ -176,12 +176,12 @@ export default class Ui implements IScript {
 		this._entryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
 			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
-			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer)!;
+			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of player count entry mesh" || value.name === "player count entry mesh"), TextBlockDrawer)!;
 			const	playerCount = entry.count;
 			playerCountDrawer.frontTextBlock.text = playerCount + '/' + entry.maxPlayers;
-			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
+			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of entrance fee entry mesh" || value.name === "entrance fee entry mesh"), TextBlockDrawer)!;
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.entryFee;
-			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
+			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of name entry mesh transform" || value.name === "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.name;
 		}, Ui._gameControlSelector, scene);
 		// game creation layout initialization
@@ -486,6 +486,7 @@ export default class Ui implements IScript {
 		gameListPreviousButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
+			this._gameListScroll.deselect();
 		});
 		this._gameListPreviousButtonHeaderPanel.addControl(gameListPreviousButton)
 		this._gameListPreviousButtonHeaderPanel.addControl(new MeshControl(this._gameListHeaderMesh, "game list header"));
@@ -495,13 +496,16 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 70;
+		this._gameListControlPanel.margin = 75;
 		this._gameListControlPanel.blockLayout = true;
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
-		playButton.onPointerUpObservable.add(() => this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string));
+		playButton.onPointerUpObservable.add(() => {
+			this._gameListScroll.deselect();
+			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
+		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(playButton);
 		this._gameListControlPanel.blockLayout = false;
@@ -552,7 +556,7 @@ export default class Ui implements IScript {
 		this._gameListLayout.addControl(this._gameListScroll);
 		this._gameListScroll.blockLayout = true;
 		this._gameListScroll.addControl(this._entryPanel);
-		this._entryPanel.margin = 10;
+		this._entryPanel.margin = -15;
 		this._entryPanel.blockLayout = true;
 		getScriptByClassForObject(this._playerCountEntryMesh, TextBlockDrawer)?.render();
 		getScriptByClassForObject(this._entranceFeeEntryMesh, TextBlockDrawer)?.render();

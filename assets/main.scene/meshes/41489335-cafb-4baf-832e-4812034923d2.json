@@ -383,6 +383,10 @@
                             "_resolution": {
                                 "type": "number",
                                 "value": 2
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": true
                             }
                         }
                     }
@@ -1038,6 +1042,10 @@
                     "_resolution": {
                         "type": "number",
                         "value": 2
+                    },
+                    "_boundingBoxCentered": {
+                        "type": "boolean",
+                        "value": true
                     }
                 }
             }

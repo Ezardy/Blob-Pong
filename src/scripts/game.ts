@@ -1,8 +1,9 @@
-import { AbstractMesh, ArcRotateCamera, Axis, Animation, Camera, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase } from "@babylonjs/core";
+import { AbstractMesh, ArcRotateCamera, Axis, Animation, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase, Vector2 } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
 import { setKeys } from "./functions/animations";
+import { AdvancedDynamicTexture, Rectangle, TextBlock } from "@babylonjs/gui";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -18,6 +19,8 @@ export default class Game implements IScript {
 		new Color3(170 / 255, 110 / 255, 40 / 255), new Color3(255 / 255, 250 / 255, 200 / 255), new Color3(128 / 255, 0 / 255, 0 / 255),
 		new Color3(170 / 255, 255 / 255, 195 / 255), new Color3(128 / 255, 128 / 255, 0 / 255), new Color3(255 / 255, 215 / 255, 180 / 255),
 		new Color3(0 / 255, 0 / 255, 128 / 255), new Color3(128 / 255, 128 / 255, 128 / 255)];
+
+	private readonly	_namesTexture:	AdvancedDynamicTexture;
 
 	// game parameters
 	@visibleAsNumber("max players", {min: 2, max: 20, step: 1})
@@ -45,10 +48,12 @@ export default class Game implements IScript {
 	private	_webApi!:	WebApi;
 
 	private				_fields!:		Array<GreasedLineMesh>;
+	private readonly	_racketNames:	Map<InstancedMesh, Rectangle> = new Map<InstancedMesh, Rectangle>();
 	private readonly	_playerColors:	Map<string, Color3> = new Map<string, Color3>();
 	private readonly	_colorWalls:	Map<Color3, int> = new Map<Color3, int>();
 	private readonly	_wallReadiness:	Map<int, boolean> = new Map<int, boolean>();
 	private readonly	_playerRackets:	Map<string, InstancedMesh> = new Map<string, InstancedMesh>();
+	private				_namePool!:		Array<Rectangle>;
 	private				_racketPool!:	Array<InstancedMesh>;
 	private				_colorPool!:	Array<Color3>;
 
@@ -92,6 +97,7 @@ export default class Game implements IScript {
 
 	public constructor(public scene: Scene) {
 		// Rendering
+		this._namesTexture = AdvancedDynamicTexture.CreateFullscreenUI("names");
 		this._glow = new GlowLayer("glow", scene, {blurKernelSize: 128});
 		this._glow.intensity = 1.2;
 		this._camera = this.scene.activeCamera as ArcRotateCamera;
@@ -111,6 +117,7 @@ export default class Game implements IScript {
 	public onStart(): void {
 		this._camera.detachControl();
 		// Initialization
+		this._namePool = new Array<Rectangle>(this.maxPlayers - 1);
 		this._fields = new Array<GreasedLineMesh>(this.maxPlayers - 1);
 		this._racketPool = new Array<InstancedMesh>(this.maxPlayers - 1);
 		this._colorPool = new Array<Color3>(this.maxPlayers - 1);
@@ -164,7 +171,21 @@ export default class Game implements IScript {
 				this._rotations[i][j] = Quaternion.RotationAxis(Axis.Z, beta);
 			}
 		}
-		// STAY HERE
+		// meshes creation
+		for (let i = 0; i < this._namePool.length; i += 1) {
+			const	rect:	Rectangle = new Rectangle();
+			this._namesTexture.addControl(rect)
+			const	text:	TextBlock = new TextBlock();
+			rect.addControl(text);
+			//text.color = "#FFFFFFFF";
+			rect.width = 0.12;
+			rect.height = "40px";
+			rect.cornerRadius = 20;
+			rect.thickness = 0;
+			rect.background = "rgba(0, 0, 0, 0.2)";
+			this._namePool[i] = rect;
+			rect.isVisible = false;
+		}
 		const	start:	Vector3 = new Vector3(initHeight, this._ry, this._z);
 		this._fields[0] = this._createField([
 				start, new Vector3(initHeight, -this._ry, this._z), new Vector3(-initHeight, -this._ry, this._z),
@@ -341,13 +362,21 @@ export default class Game implements IScript {
 				this._colorWalls.set(this._playerColors.get(player.id)!, wall);
 				playerColors.delete(player.id);
 			} else {
-				const	color:	Color3 = takeColor()!;
-				const	racket:	InstancedMesh = this._racketPool.pop()!;
+				const	color:		Color3 = takeColor()!;
+				const	racket:		InstancedMesh = this._racketPool.pop()!;
+				const	nameRect:	Rectangle = this._namePool.pop()!;
+				const	text:		TextBlock = (nameRect.children[0] as TextBlock);
+				text.text = player.username;
+				text.color = Color3.Lerp(color, Color3.White(), 0.5).toHexString();
 				racket.isVisible = true;
+				nameRect.isVisible = true;
+				nameRect.color = color.toHexString();
+				nameRect.linkWithMesh(racket);
 				racket.instancedBuffers.instanceColor = color;
 				this._colorWalls.set(color, wall);
 				this._playerRackets.set(player.id, racket);
 				this._playerColors.set(player.id, color);
+				this._racketNames.set(racket, nameRect);
 			}
 		};
 		j = players.length - this._shift;
@@ -358,12 +387,35 @@ export default class Game implements IScript {
 			func(i, k, () => this._colorPool.shift());
 		playerColors.forEach((color, id) => {
 			const	racket:	InstancedMesh = this._playerRackets.get(id)!;
+			const	name:	Rectangle = this._racketNames.get(racket)!;
+			name.isVisible = false;
 			racket.isVisible = false;
+			this._racketNames.delete(racket);
 			this._playerRackets.delete(id);
 			this._playerColors.delete(id);
+			this._namePool.unshift(name);
 			this._racketPool.unshift(racket);
 			this._colorPool.unshift(color);
 		});
+		this._drawNames();
+	}
+
+	private	_drawNames():	void {
+		for (const pc of this._playerColors) {
+			const	wall:	int = this._colorWalls.get(pc[1])!;
+			const	racket:	InstancedMesh = this._playerRackets.get(pc[0])!;
+			const	name:	Rectangle = this._racketNames.get(racket)!;
+			const	localAngle:	number = this._playerCount > 2 ? 2 * Math.PI / this._playerCount * wall : -Math.PI / 2 + Math.PI * wall;
+			const	dir:	Vector3 = Vector3.Right().applyRotationQuaternionInPlace(Quaternion.RotationAxis(Axis.Z, localAngle));
+			const	viewDir:	Vector3 = Vector3.TransformNormal(dir, this._camera.getViewMatrix());
+			let		angle:	number = Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), viewDir, Vector3.Forward());
+			if (angle < 0)
+				angle += 2 * Math.PI;
+			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
+			name.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
+			name.linkOffsetX = offset.x;
+			name.linkOffsetY = -offset.y;
+		}
 	}
 
 	public get	playerCount():	int {
@@ -387,17 +439,22 @@ export default class Game implements IScript {
 					this._camera.detachControl();
 					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
+					this._camera.onViewMatrixChangedObservable.removeCallback(this._drawNames, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
 					this._webApi.serverGame.onGameStateUpdatedObservable.removeCallback(this._updateGame, this);
 					this._ball.isVisible = false;
 					this._colorWalls.clear();
 					this._playerColors.forEach((_, id) => {
 						const	racket:	InstancedMesh = this._playerRackets.get(id)!;
+						const	name:	Rectangle = this._racketNames.get(racket)!;
+						name.isVisible = false;
 						racket.isVisible = false;
 						this._racketPool.push(racket);
+						this._namePool.push(name);
 					});
 					this._playerColors.clear();
 					this._playerRackets.clear();
+					this._racketNames.clear();
 					if (this._playerCount > 2)
 						this._fields[this._playerCount - 2].isVisible = false;
 					else
@@ -406,11 +463,14 @@ export default class Game implements IScript {
 				case Game.LOBBY_MODE:
 					this._camera.attachControl();
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
+					this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this._resetColors();
 					this._scaleMeshes();
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
+					if (!this._camera.onViewMatrixChangedObservable.hasObservers())
+						this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this.scene.onPointerObservable.add(this._mouseCallback, undefined, false, this);
 					this._ball.isVisible = true;
 					this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
@@ -452,10 +512,10 @@ export default class Game implements IScript {
 				useColors: true,
 				colors: colors,
 				useDash: true,
-				width: 8,
+				width: 2,
 				dashCount: 50,
 				materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE,
-				sizeAttenuation: true,
+				sizeAttenuation: false,
 				colorDistributionType: GreasedLineMeshColorDistributionType.COLOR_DISTRIBUTION_TYPE_SEGMENT,
 				colorDistribution: GreasedLineMeshColorDistribution.COLOR_DISTRIBUTION_NONE
 				}) as GreasedLineMesh;
@@ -514,7 +574,7 @@ export default class Game implements IScript {
 			y *= rect.width / rect.height;
 		const	ey:		number = y * (1 - this._padding);
 		const	yk:		number = y / this._y;
-		const	eyk:	number = y / this._ey;
+		const	eyk:	number = ey / this._ey;
 		const	ihk:	number = initHeight / this._heights[0];
 		const	iwsk:	number = 2 * ry / this._wallSizes[0];
 		this._heights[0] *= ihk;
@@ -550,7 +610,7 @@ export default class Game implements IScript {
 		this._racketMeshScales[i].scaleInPlace(k);
 		const	field:		GreasedLineMesh = this._fields[i];
 		const	fieldScale:	Vector3 = field.scaling;
-		this._fields[i].scaling.set(fieldScale.x * k, fieldScale.y * k, fieldScale.z);
+		field.scaling.set(fieldScale.x * k, fieldScale.y * k, fieldScale.z);
 		this._ballMeshScales[i].scaleInPlace(k);
 	}
 }
