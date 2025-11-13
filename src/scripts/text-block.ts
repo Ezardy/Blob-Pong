@@ -1,7 +1,7 @@
 import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
-import { applyScriptOnObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
+import { applyScriptOnObject, getScriptByClassForObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
@@ -12,7 +12,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsBoolean("center according to bounding box")
 	private	_boundingBoxCentered:	boolean = true;
 	@visibleAsNumber("resolution", {min: 1, max: 10, step: 1})
-	private readonly	_resolution:	int = 1;
+	private	_resolution:	int = 1;
 	@visibleAsString("front text")
 	private	_frontText:	string = "";
 	@visibleAsNumber("front font size", {min: 1, max: 300, step: 1})
@@ -205,11 +205,12 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		this._bottomPlane.isVisible = false;
 	}
 
-	public	clone(root: Node | IParticleSystem | Scene):	IScript {
+	public	clone(root: Node | IParticleSystem | Scene):	TextBlockDrawer {
 		if (!(root instanceof AbstractMesh))
 			throw TypeError("Mesh type was expected by TextBlockDrawer");
 		const	drawer:	TextBlockDrawer = applyScriptOnObject(root, TextBlockDrawer);
-		// drawer.draw()
+		console.log(getScriptByClassForObject(root, TextBlockDrawer));
+		drawer._resolution = this._resolution;
 		drawer._frontText = this._frontText;
 		drawer._frontFontSize = this._frontFontSize;
 		drawer._frontColor = this._frontColor.clone();
@@ -275,7 +276,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			scene.onBeforeRenderObservable.addOnce(() => drawer.onStart());
 		else
 		*/
-			drawer.onStart();
+		drawer.render();
 		return drawer;
 	}
 

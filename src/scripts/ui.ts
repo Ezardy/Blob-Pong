@@ -176,12 +176,12 @@ export default class Ui implements IScript {
 		this._entryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
 			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
-			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of player count entry mesh" || value.name == "player count entry mesh"), TextBlockDrawer)!;
+			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of player count entry mesh" || value.name === "player count entry mesh"), TextBlockDrawer)!;
 			const	playerCount = entry.count;
 			playerCountDrawer.frontTextBlock.text = playerCount + '/' + entry.maxPlayers;
-			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of entrance fee entry mesh" || value.name == "entrance fee entry mesh"), TextBlockDrawer)!;
+			const	entranceFeeDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of entrance fee entry mesh" || value.name === "entrance fee entry mesh"), TextBlockDrawer)!;
 			entranceFeeDrawer.frontTextBlock.text = "" + entry.entryFee;
-			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name == "instance of name entry mesh transform" || value.name == "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
+			const	gameNameDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes.find((value) => value.name === "instance of name entry mesh transform" || value.name === "name entry mesh transform")?.getChildMeshes()[0], TextBlockDrawer)!;
 			gameNameDrawer.frontTextBlock.text = "" + entry.name;
 		}, Ui._gameControlSelector, scene);
 		// game creation layout initialization
@@ -556,7 +556,7 @@ export default class Ui implements IScript {
 		this._gameListLayout.addControl(this._gameListScroll);
 		this._gameListScroll.blockLayout = true;
 		this._gameListScroll.addControl(this._entryPanel);
-		this._entryPanel.margin = 10;
+		this._entryPanel.margin = -15;
 		this._entryPanel.blockLayout = true;
 		getScriptByClassForObject(this._playerCountEntryMesh, TextBlockDrawer)?.render();
 		getScriptByClassForObject(this._entranceFeeEntryMesh, TextBlockDrawer)?.render();
