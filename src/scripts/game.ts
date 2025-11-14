@@ -299,6 +299,7 @@ export default class Game implements IScript {
 			gamePlayers.push(gamePlayer);
 		});
 		this._lastPlayers = gamePlayers;
+		this._setCameraLimits();
 		this._syncRoomPlayers(gamePlayers);
 		d.players.forEach((player) => this._wallReadiness.set(this._colorWalls.get(this._playerColors.get(player.id)!)!, player.isReady));
 		this._colorizeField();
@@ -343,11 +344,28 @@ export default class Game implements IScript {
 		this._playerCount = players.length;
 		if (this._playerColors.size && players.length > 1)
 			this._fields[this._playerColors.size - 2].isVisible = false;
+		this._setCameraLimits();
 		this._syncRoomPlayers(players);
 		if (players.length > 1)
 			this._fields[players.length - 2].isVisible = true;
 		this._colorizeField();
 		this._scaleMeshes();
+	}
+
+	private	_setCameraLimits():	void {
+		if (this._playerCount > 2) {
+			const	alpha:	number = 3 * Math.PI / 2;
+			this._camera.upperAlphaLimit = alpha;
+			this._camera.lowerAlphaLimit = alpha;
+			this._camera.lowerBetaLimit = Math.PI / 2;
+			this._camera.upperBetaLimit = Math.PI - 0.01;
+		} else {
+			const	beta:	number = Math.PI / 2;
+			this._camera.lowerBetaLimit = beta;
+			this._camera.upperBetaLimit = beta;
+			this._camera.lowerAlphaLimit = Math.PI + 0.01;
+			this._camera.upperAlphaLimit = 3 * Math.PI / 2;
+		}
 	}
 
 	private	_syncRoomPlayers(players: GamePlayer[]):	void {

@@ -10,4 +10,3 @@ package-lock.json
 assets/test.scene/preview.png
 assets/materials/background unlit.material
 assets/materials/racket.material
-src/scripts.ts
