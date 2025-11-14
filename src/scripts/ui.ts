@@ -48,6 +48,7 @@ export default class Ui implements IScript {
 
 	private readonly	_backgroundMainAnim:	Animation;
 	private readonly	_backgroundDepthAnim:	Animation;
+	private readonly	_clearColorAnim:		Animation;
 
 	// main layout elements
 	@visibleAsEntity("node", "Join public game button mesh")
@@ -152,6 +153,7 @@ export default class Ui implements IScript {
 	public constructor(public scene: Scene) {
 		this._backgroundMainAnim = new Animation("background main color", "value", 30, Animation.ANIMATIONTYPE_COLOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._backgroundDepthAnim = new Animation("background depth color", "value", 30, Animation.ANIMATIONTYPE_COLOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
+		this._clearColorAnim = new Animation("clear color", "clearColor", 30, Animation.ANIMATIONTYPE_COLOR4, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._updateLayoutCallback = () => {
 			if (this._isLayoutUpdatable)
 				this._updateLayoutRecursively()
@@ -573,10 +575,12 @@ export default class Ui implements IScript {
 
 	// Utilities
 	private	_changeBackgroundColor(mainColor: Color3, depthColor: Color3):	void {
+		setKeys(this._clearColorAnim, this.scene.clearColor, depthColor.toColor4(), 30);
 		setKeys(this._backgroundMainAnim, this._backgroundMainColorBlock.value, mainColor, 30);
 		setKeys(this._backgroundDepthAnim, this._backgroundDepthColorBlock.value, depthColor, 30);
 		this.scene.beginDirectAnimation(this._backgroundMainColorBlock, [this._backgroundMainAnim], 0, 30);
 		this.scene.beginDirectAnimation(this._backgroundDepthColorBlock, [this._backgroundDepthAnim], 0, 30);
+		this.scene.beginDirectAnimation(this.scene, [this._clearColorAnim], 0, 30);
 	}
 
 	private	_updateLayoutRecursively():	void {
