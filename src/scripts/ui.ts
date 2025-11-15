@@ -505,8 +505,8 @@ export default class Ui implements IScript {
 
 		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		playButton.onPointerUpObservable.add(() => {
-			this._gameListScroll.deselect();
 			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
+			this._gameListScroll.deselect();
 		});
 		playButton.isEnabled = false;
 		this._gameListControlPanel.addControl(playButton);

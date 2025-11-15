@@ -45,7 +45,8 @@ export default class ScrollRaioList3D extends ScrollList3D {
 						if (this._selectedControl)
 							this.buttonSelector(this._selectedControl).deselect();
 						this._selectedControl = child;
-						this._controlIndex = this._rollControls.indexOf(child) + this._index;
+						const	foundIndex:	int = this._rollControls.indexOf(child);
+						this._controlIndex = (this.isVertical ? this._rollControls.length - foundIndex - 1 : foundIndex) + this._index;
 						this._indexOnSelection = this._index;
 					}
  					this.onSelectObservable.notifyObservers(this._selectedControl, -1, s.target, this._selectedControl);

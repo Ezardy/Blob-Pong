@@ -209,7 +209,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		if (!(root instanceof AbstractMesh))
 			throw TypeError("Mesh type was expected by TextBlockDrawer");
 		const	drawer:	TextBlockDrawer = applyScriptOnObject(root, TextBlockDrawer);
-		console.log(getScriptByClassForObject(root, TextBlockDrawer));
+		drawer._boundingBoxCentered = this._boundingBoxCentered;
 		drawer._resolution = this._resolution;
 		drawer._frontText = this._frontText;
 		drawer._frontFontSize = this._frontFontSize;
@@ -306,7 +306,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			const	whXY:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.y);
 			const	whZY:	Vector2 = new Vector2(this._extendSizeScaled.z, this._extendSizeScaled.y);
 			const	whXZ:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.z);
-			this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontPositivePaddings, this._frontNegativePaddings, this._frontAlignments, this._frontFontFamily, this.frontTextBlock, this._frontPlane, new Vector3(0, 0, -this._extendSize.z), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
+			this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontPositivePaddings, this._frontNegativePaddings, this._frontAlignments, this._frontFontFamily, this.frontTextBlock, this._frontPlane, new Vector3(0, 0, -Math.max(this._extendSize.z, 0.04)), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
 			this._renderText(this._backText, this._backFontSize, this._backColor, this._backPositivePaddings, this._backNegativePaddings, this._backAlignments, this._backFontFamily, this.backTextBlock, this._backPlane, new Vector3(0, 0, this._extendSize.z), new Vector3(0, this._isBackInverted ? 0 : Math.PI, this._backAngle), whXY.rotate(this._backAngle));
 			this._renderText(this._rightText, this._rightFontSize, this._rightColor, this._rightPositivePaddings, this._rightNegativePaddings, this._rightAlignments, this._rightFontFamily, this.rightTextBlock, this._rightPlane, new Vector3(this._extendSize.x, 0, 0), new Vector3(0, this._isRightInverted ? Math.PI / 2 : -Math.PI / 2, this._rightAngle), whZY.rotate(this._rightAngle));
 			this._renderText(this._leftText, this._leftFontSize, this._leftColor, this._leftPositivePaddings, this._leftNegativePaddings, this._leftAlignments, this._leftFontFamily, this.leftTextBlock, this._leftPlane, new Vector3(-this._extendSize.x, 0, 0), new Vector3(0, this._isLeftInverted ? -Math.PI / 2 : Math.PI / 2, this._leftAngle), whZY.rotate(this._leftAngle));
