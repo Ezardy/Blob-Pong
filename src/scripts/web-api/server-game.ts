@@ -29,6 +29,7 @@ export type GameState =
 export type GamePlayer =
 {
 	id:				string;
+	alias?:			string;
 	username:		string;
 	position:		number;
 }
@@ -90,6 +91,7 @@ type RoomStateChanged =
 export type RoomPlayer =
 {
 	id:			string;
+	alias?:		string;
 	isReady:	boolean;
 	username:	string;
 };
@@ -290,6 +292,14 @@ export class ServerGame
 
 		if (this.isWebSocketOpen())
 			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue}));
+	}
+
+	public assignAliasToUser(alias: string)
+	{
+		const type = "ALIAS";
+
+		if (this.isWebSocketOpen())
+			this._lobbyWs!.send(JSON.stringify({ type, alias }));
 	}
 
 	public isWebSocketOpen(): boolean
