@@ -65,6 +65,20 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this.children[i].isVisible = false;
 		}
 		this._arrangeChildren();
+		this._index = 0;
+		this._extendSizeKeys = Array.from(this._extendSizes.keys());
+		while (this._rollControls.length) this._rollControls.pop();
+		const	s:	int = Math.min(entries.length, this.pageSize + 1);
+		for (let i = 0; i < s; i += 1)
+			this._rollControls.push(this.children[this._extendSizeKeys[i]]);
+		this._extendSize.copyFrom(this._extendSizes.get(this._extendSizeKeys[0])!);
+		if (this.isVertical) {
+			this._preFirstPos = this._rollControls[this._rollControls.length - 1].position.y + this._extendSize.y * 2 + this.margin;
+			this._lastPos = this._rollControls[0].position.y;
+		} else {
+			this._preFirstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
+			this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
+		}
 	}
 
 	public override	addControl(control: AdvancedStackPanel3D):	ScrollList3D {
@@ -98,24 +112,6 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 				this.scene.onPointerObservable.removeCallback(this._callback);
 				for (const child of this.children)
 					child.isVisible = false;
-			}
-		}
-	}
-
-	protected override	_arrangeChildren():	void {
-		super._arrangeChildren();
-		if (!this._initialized) {
-			this._index = 0;
-			this._extendSizeKeys = Array.from(this._extendSizes.keys());
-			for (const i of this._extendSizeKeys)
-				this._rollControls.push(this.children[i]);
-			this._extendSize.copyFrom(this._extendSizes.get(this._extendSizeKeys[0])!);
-			if (this.isVertical) {
-				this._preFirstPos = this._rollControls[this._rollControls.length - 1].position.y + this._extendSize.y * 2 + this.margin;
-				this._lastPos = this._rollControls[0].position.y;
-			} else {
-				this._preFirstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
-				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
 			}
 		}
 	}
