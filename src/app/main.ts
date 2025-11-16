@@ -45,7 +45,7 @@ async function	start() {
 		scene.enablePhysics(new Vector3(0, -981, 0), new HavokPlugin(true, havok));
 
 		SceneLoaderFlags.ForceFullSceneLoadingForIncremental = true;
-		await loadScene("/scene/", "main.babylon", scene, scriptsMap, {
+		await loadScene((import.meta as any).env.BASE_URL + "scene/", "main.babylon", scene, scriptsMap, {
 			quality: "low",
 		});
 
