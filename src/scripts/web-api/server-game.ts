@@ -135,7 +135,7 @@ export class ServerGame
 	}
 
 	public	open() : void {
-		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
+		this._lobbyWs = new WebSocket(`wss://${window.location.host}/ws/lobby?sId=${this._sessionId}`);
 
 		this._lobbyWs.onopen = () => {
 			console.log("Connected to Lobby WebSocket ");
