@@ -82,7 +82,7 @@
                             },
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 25
+                                "value": 21
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -237,19 +237,19 @@
                                 "type": "vector2",
                                 "value": [
                                     0,
-                                    0
+                                    5
                                 ]
                             },
                             "_frontAlignments": {
                                 "type": "vector2",
                                 "value": [
                                     0,
-                                    0
+                                    2
                                 ]
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": "Science Gothic"
+                                "value": "Revalia"
                             },
                             "_backPositivePaddings": {
                                 "type": "vector2",
@@ -390,7 +390,7 @@
                             },
                             "_frontFontWeight": {
                                 "type": "number",
-                                "value": 300
+                                "value": 400
                             },
                             "_backFontWeight": {
                                 "type": "number",
@@ -765,7 +765,7 @@
                     },
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 25
+                        "value": 21
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -920,19 +920,19 @@
                         "type": "vector2",
                         "value": [
                             0,
-                            0
+                            5
                         ]
                     },
                     "_frontAlignments": {
                         "type": "vector2",
                         "value": [
                             0,
-                            0
+                            2
                         ]
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": "Science Gothic"
+                        "value": "Revalia"
                     },
                     "_backPositivePaddings": {
                         "type": "vector2",
@@ -1073,7 +1073,7 @@
                     },
                     "_frontFontWeight": {
                         "type": "number",
-                        "value": 300
+                        "value": 400
                     },
                     "_backFontWeight": {
                         "type": "number",

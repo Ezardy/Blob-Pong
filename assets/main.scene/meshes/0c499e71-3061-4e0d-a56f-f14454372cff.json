@@ -246,7 +246,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_backPositivePaddings": {
                                 "type": "vector2",
@@ -321,7 +321,7 @@
                             },
                             "_leftFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_topPositivePaddings": {
                                 "type": "vector2",
@@ -384,6 +384,30 @@
                             "_boundingBoxCentered": {
                                 "type": "boolean",
                                 "value": true
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
@@ -901,7 +925,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_backPositivePaddings": {
                         "type": "vector2",
@@ -976,7 +1000,7 @@
                     },
                     "_leftFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_topPositivePaddings": {
                         "type": "vector2",
@@ -1039,6 +1063,30 @@
                     "_boundingBoxCentered": {
                         "type": "boolean",
                         "value": true
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }
