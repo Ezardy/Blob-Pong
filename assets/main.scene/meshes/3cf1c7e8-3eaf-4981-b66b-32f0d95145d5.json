@@ -144,7 +144,7 @@
                             },
                             "_fontFamily": {
                                 "type": "string",
-                                "value": "Arial"
+                                "value": "Asimovian"
                             },
                             "_fontWeight": {
                                 "type": "number",
@@ -564,7 +564,7 @@
                     },
                     "_fontFamily": {
                         "type": "string",
-                        "value": "Arial"
+                        "value": "Asimovian"
                     },
                     "_fontWeight": {
                         "type": "number",

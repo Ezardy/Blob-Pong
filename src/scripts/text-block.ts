@@ -366,10 +366,11 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 					break;
 			}
 			textBlock.setPadding(posPad.y, posPad.x, negPad.y, negPad.x);
-			textBlock.fontFamily = family;
 			document.fonts.ready.then(() => Tools.SetImmediate(() => textBlock.markAsDirty()));
 			textBlock.fontWeight = weight.toString();
 			textBlock.fontSize = fontSize * this._resolution;
+			if (family.length)
+				document.fonts.ready.then((v) => v.load(`${weight} ${textBlock.fontSizeInPixels}px ${family}`).then(() => textBlock.fontFamily = family));
 			textBlock.color = color.toHexString();
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * this._resolution, Math.abs(widthHeight.y) * this._resolution, false);
 			dynText.addControl(textBlock);

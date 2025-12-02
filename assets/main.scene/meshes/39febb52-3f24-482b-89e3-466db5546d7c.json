@@ -65,7 +65,7 @@
             "geometryId": "01fc6a6b-335f-4e40-b905-82b25ab929fa",
             "subMeshes": null,
             "materialUniqueId": 1762242743544,
-            "materialId": "8b4f2695-fab8-455a-8249-1a5fa2056e75",
+            "materialId": "7deb2580-eca6-4c19-8a91-74fdc7a47838",
             "metadata": {
                 "type": "Plane",
                 "size": 100,
@@ -247,7 +247,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_backPositivePaddings": {
                                 "type": "vector2",
@@ -381,6 +381,34 @@
                             "_resolution": {
                                 "type": "number",
                                 "value": 2
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
@@ -457,131 +485,10 @@
     "materials": [
         {
             "tags": null,
-            "directIntensity": 1,
-            "emissiveIntensity": 1,
-            "environmentIntensity": 7.900000000000001,
-            "specularIntensity": 1,
-            "disableBumpMap": false,
-            "albedoTexture": {
-                "tags": null,
-                "url": "assets/textures/solar-field.jpg",
-                "uOffset": 0,
-                "vOffset": 0,
-                "uScale": 0.8999999999999999,
-                "vScale": 0.3,
-                "uAng": 0,
-                "vAng": 0,
-                "wAng": 0,
-                "uRotationCenter": 0.5,
-                "vRotationCenter": 0.5,
-                "wRotationCenter": 0.5,
-                "homogeneousRotationInUVTransform": false,
-                "isBlocking": true,
-                "name": "assets/textures/solar-field.jpg",
-                "metadata": {
-                    "baseSize": {
-                        "width": 612,
-                        "height": 612
-                    }
-                },
-                "hasAlpha": false,
-                "getAlphaFromRGB": false,
-                "level": 1,
-                "coordinatesIndex": 0,
-                "optimizeUVAllocation": true,
-                "coordinatesMode": 0,
-                "wrapU": 1,
-                "wrapV": 1,
-                "wrapR": 1,
-                "anisotropicFilteringLevel": 4,
-                "isCube": false,
-                "is3D": false,
-                "is2DArray": false,
-                "gammaSpace": true,
-                "invertZ": false,
-                "lodLevelInAlpha": false,
-                "lodGenerationOffset": 0,
-                "lodGenerationScale": 0,
-                "linearSpecularLOD": false,
-                "isRenderTarget": false,
-                "animations": [],
-                "invertY": true,
-                "samplingMode": 3,
-                "_useSRGBBuffer": false,
-                "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/solar-field.jpg",
-                "noMipmap": false
-            },
-            "ambientTextureStrength": 1,
-            "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0.59,
-            "roughness": 0,
-            "metallicF0Factor": 1,
-            "metallicReflectanceColor": [
-                1,
-                1,
-                1
-            ],
-            "useOnlyMetallicFromMetallicReflectanceTexture": false,
-            "ambient": [
-                0,
-                0,
-                0
-            ],
-            "albedo": [
-                1,
-                1,
-                1
-            ],
-            "baseWeight": 1,
-            "reflectivity": [
-                1,
-                1,
-                1
-            ],
-            "reflection": [
-                1,
-                1,
-                1
-            ],
-            "emissive": [
-                0,
-                0,
-                0
-            ],
-            "microSurface": 1,
-            "useLightmapAsShadowmap": false,
-            "useAlphaFromAlbedoTexture": false,
-            "forceAlphaTest": false,
-            "alphaCutOff": 0.4,
-            "useSpecularOverAlpha": true,
-            "useMicroSurfaceFromReflectivityMapAlpha": false,
-            "useRoughnessFromMetallicTextureAlpha": true,
-            "useRoughnessFromMetallicTextureGreen": false,
-            "useMetallnessFromMetallicTextureBlue": false,
-            "useAmbientOcclusionFromMetallicTextureRed": false,
-            "useAmbientInGrayScale": false,
-            "useAutoMicroSurfaceFromReflectivityMap": false,
-            "usePhysicalLightFalloff": true,
-            "useGLTFLightFalloff": false,
-            "useRadianceOverAlpha": true,
-            "useObjectSpaceNormalMap": false,
-            "useParallax": false,
-            "useParallaxOcclusion": false,
-            "parallaxScaleBias": 0.05,
-            "disableLighting": false,
-            "forceIrradianceInFragment": false,
+            "ignoreAlpha": false,
             "maxSimultaneousLights": 32,
-            "invertNormalMapX": false,
-            "invertNormalMapY": false,
-            "twoSidedLighting": false,
-            "useAlphaFresnel": false,
-            "useLinearAlphaFresnel": false,
-            "forceNormalForward": false,
-            "enableSpecularAntiAliasing": false,
-            "useHorizonOcclusion": true,
-            "useRadianceOcclusion": true,
-            "unlit": false,
-            "applyDecalMapAfterDetailMap": false,
+            "mode": 0,
+            "forceAlphaBlending": false,
             "id": "7deb2580-eca6-4c19-8a91-74fdc7a47838",
             "name": "list entry",
             "checkReadyOnEveryCall": false,
@@ -2018,7 +1925,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_backPositivePaddings": {
                         "type": "vector2",
@@ -2152,6 +2059,34 @@
                     "_resolution": {
                         "type": "number",
                         "value": 2
+                    },
+                    "_boundingBoxCentered": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }

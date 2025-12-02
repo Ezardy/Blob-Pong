@@ -128,7 +128,7 @@
                             },
                             "_hintSize": {
                                 "type": "number",
-                                "value": 9
+                                "value": 8
                             },
                             "_textSize": {
                                 "type": "number",
@@ -144,7 +144,7 @@
                             },
                             "_fontFamily": {
                                 "type": "string",
-                                "value": "Arial"
+                                "value": "Asimovian"
                             },
                             "_fontWeight": {
                                 "type": "number",
@@ -256,7 +256,7 @@
                                     },
                                     "_fontFamily": {
                                         "type": "string",
-                                        "value": "Arial"
+                                        "value": "Asimovian"
                                     },
                                     "_fontWeight": {
                                         "type": "number",
@@ -664,7 +664,7 @@
                     },
                     "_hintSize": {
                         "type": "number",
-                        "value": 9
+                        "value": 8
                     },
                     "_textSize": {
                         "type": "number",
@@ -680,7 +680,7 @@
                     },
                     "_fontFamily": {
                         "type": "string",
-                        "value": "Arial"
+                        "value": "Asimovian"
                     },
                     "_fontWeight": {
                         "type": "number",

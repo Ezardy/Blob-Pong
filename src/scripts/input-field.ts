@@ -126,14 +126,14 @@ export default class InputField3D implements IScript, IClonableScript {
 			});
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
-			this._inputText.fontFamily = this._fontFamily;
-			document.fonts.ready.then(() => Tools.SetImmediate(() => this._inputText.markAsDirty()));
 			this._inputText.fontWeight = this._fontWeight.toString();
 			this._inputText.placeholderText = this._hint;
 			this._inputText.placeholderColor = this._hintColor.toHexString();
 			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
 			this._inputText.highligherOpacity = this._highlightColor.a;
 			this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
+			if (this._fontFamily.length)
+				document.fonts.ready.then((v) => v.load(`${this._inputText.fontWeight} ${this._inputText.fontSizeInPixels}px ${this._fontFamily}`).then(() => this._inputText.fontFamily = this._fontFamily));
 			this._inputText.background = this._backgroundColor.toHexString();
 			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
 			this._inputText.color = this._textColor.toHexString();

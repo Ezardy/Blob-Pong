@@ -296,7 +296,7 @@
                             },
                             "_rightFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_leftPositivePaddings": {
                                 "type": "vector2",
@@ -321,7 +321,7 @@
                             },
                             "_leftFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_topPositivePaddings": {
                                 "type": "vector2",
@@ -380,6 +380,34 @@
                             "_resolution": {
                                 "type": "number",
                                 "value": 2
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
@@ -483,7 +511,7 @@
             "zOffsetUnits": 0,
             "pointsCloud": false,
             "fillMode": 0,
-            "_setVertexOutputInvariant": false,
+            "_isVertexOutputInvariant": false,
             "editorData": {
                 "locations": [
                     {
@@ -3388,7 +3416,7 @@
                     },
                     "_rightFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_leftPositivePaddings": {
                         "type": "vector2",
@@ -3413,7 +3441,7 @@
                     },
                     "_leftFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_topPositivePaddings": {
                         "type": "vector2",
@@ -3472,6 +3500,34 @@
                     "_resolution": {
                         "type": "number",
                         "value": 2
+                    },
+                    "_boundingBoxCentered": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }
