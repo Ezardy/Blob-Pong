@@ -14,7 +14,7 @@
         "environmentIntensity": 1,
         "environmentTexture": {
             "tags": null,
-            "url": "assets/country.env",
+            "url": "assets/blobs.env",
             "boundingBoxPosition": [
                 0,
                 0,
@@ -58,7 +58,7 @@
                 0,
                 0
             ],
-            "name": "assets/country.env",
+            "name": "assets/blobs.env",
             "hasAlpha": false,
             "getAlphaFromRGB": false,
             "level": 1,
@@ -310,6 +310,38 @@
                     "_gamePrivacyButtonMesh": {
                         "type": "entity",
                         "value": "b33e19bd-b59a-45a9-870e-878f1ae20386"
+                    },
+                    "_kickedPlayersIconMesh": {
+                        "type": "entity",
+                        "value": "2e96a4e0-df3b-4e76-8cc4-65692782cee7"
+                    },
+                    "_kickedDescriptionMesh": {
+                        "type": "entity",
+                        "value": "b1dbce3a-ee74-4817-86a0-76fb0a4ffed3"
+                    },
+                    "_placeIconMesh": {
+                        "type": "entity",
+                        "value": "fbcb36ea-9307-48a7-b506-dcf0405f3bd9"
+                    },
+                    "_placeDescriptionMesh": {
+                        "type": "entity",
+                        "value": "ecb0c3bd-2ef4-4986-b3c0-a1dc22d32eab"
+                    },
+                    "_earnedIconMesh": {
+                        "type": "entity",
+                        "value": "7079d243-7a85-434c-8958-1f796561a5f2"
+                    },
+                    "_earnedDescriptionMesh": {
+                        "type": "entity",
+                        "value": "e6eed525-6f39-43d1-bc40-b31bf96e0d66"
+                    },
+                    "_skipResultMesh": {
+                        "type": "entity",
+                        "value": "3b3e25c1-95c5-445d-9ab2-84353d4e7faf"
+                    },
+                    "_resultPlayerNameMesh": {
+                        "type": "entity",
+                        "value": "b37fdf85-c1e4-4648-a486-d294dcc2e409"
                     }
                 }
             },
@@ -376,6 +408,24 @@
                         "value": 1000
                     }
                 }
+            },
+            {
+                "enabled": true,
+                "key": "scripts/notifications.ts",
+                "values": {
+                    "_descriptionMesh": {
+                        "type": "entity",
+                        "value": "be7e5b62-21e7-4622-ba0e-53dc4924f5b1"
+                    },
+                    "_acceptMesh": {
+                        "type": "entity",
+                        "value": "9b565f32-0841-491c-8531-a9a0f1f8f48a"
+                    },
+                    "_declineMesh": {
+                        "type": "entity",
+                        "value": "cc0a307f-8041-4ede-947d-830d12309b99"
+                    }
+                }
             }
         ],
         "rendering": [
@@ -410,15 +460,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.020000244140623534,
-            0.013578652381896233,
+            -0.0812041220703136,
+            0.04175102054703871,
             0
         ],
         "speed": 200,
         "position": [
-            -1165.7197080865865,
-            483.5163076322053,
-            -851.8907206783855
+            -56.43137219197014,
+            -84.80569220351298,
+            -990.5551588449258
         ],
         "upVector": [
             0,

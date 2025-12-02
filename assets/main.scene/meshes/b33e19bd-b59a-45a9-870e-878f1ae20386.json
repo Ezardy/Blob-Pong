@@ -383,6 +383,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
@@ -1435,7 +1439,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 0.15999999999999948
+                    "value": 0.7699999999999998
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1986,6 +1990,10 @@
                         "value": 0
                     },
                     "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_boundingBoxCentered": {
                         "type": "boolean",
                         "value": false
                     }

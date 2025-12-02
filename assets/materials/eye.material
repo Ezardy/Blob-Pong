@@ -976,7 +976,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 0.15999999999999948
+			"value": 0.7699999999999998
 		},
 		{
 			"customType": "BABYLON.InputBlock",

@@ -137,6 +137,18 @@
                             "_textureResolutionScaler": {
                                 "type": "number",
                                 "value": 2
+                            },
+                            "_resizeTextToFit": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_fontFamily": {
+                                "type": "string",
+                                "value": "Asimovian"
+                            },
+                            "_fontWeight": {
+                                "type": "number",
+                                "value": 400
                             }
                         }
                     }
@@ -545,6 +557,18 @@
                     "_textureResolutionScaler": {
                         "type": "number",
                         "value": 2
+                    },
+                    "_resizeTextToFit": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_fontFamily": {
+                        "type": "string",
+                        "value": "Asimovian"
+                    },
+                    "_fontWeight": {
+                        "type": "number",
+                        "value": 400
                     }
                 }
             }

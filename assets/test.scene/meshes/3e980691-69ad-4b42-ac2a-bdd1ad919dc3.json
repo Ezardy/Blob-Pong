@@ -380,6 +380,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
@@ -1021,6 +1025,10 @@
                         "value": 0
                     },
                     "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_boundingBoxCentered": {
                         "type": "boolean",
                         "value": false
                     }

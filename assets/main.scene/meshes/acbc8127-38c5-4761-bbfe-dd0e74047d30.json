@@ -1,9 +1,9 @@
 {
     "meshes": [
         {
-            "name": "player",
-            "id": "e7133ff0-62b9-4f04-b7c4-caf34c0f1c78",
-            "uniqueId": 1760604446444,
+            "name": "skip",
+            "id": "acbc8127-38c5-4761-bbfe-dd0e74047d30",
+            "uniqueId": 1764248762581,
             "type": "Mesh",
             "position": [
                 0,
@@ -13,13 +13,13 @@
             "rotationQuaternion": [
                 0,
                 0,
-                0,
-                1
+                0.7071067811865476,
+                -0.7071067811865475
             ],
             "scaling": [
-                1.619327187538147,
-                1.5098203420639038,
-                1.3520499467849731
+                0.9999999999999964,
+                -0.9999999999999964,
+                0.9999999999999964
             ],
             "localMatrix": [
                 1,
@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -62,13 +62,13 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1760604446445,
-            "geometryId": "d298f1c2-a67d-4622-ac1d-a96a07976cf8",
+            "geometryUniqueId": 1764248762582,
+            "geometryId": "67d2a0c5-d9b8-499d-952a-2cee6739a138",
             "subMeshes": null,
             "materialUniqueId": 1753191571293,
             "materialId": "1335d3b6-4479-4c26-9206-a3041dbaa333",
             "metadata": {
-                "parentId": 1760604446443
+                "parentId": 1764248762580
             },
             "instances": [],
             "animations": [],
@@ -84,40 +84,40 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/test.scene/geometries/d298f1c2-a67d-4622-ac1d-a96a07976cf8.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/67d2a0c5-d9b8-499d-952a-2cee6739a138.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1.7476781606674194,
-                2.139949321746826,
-                1.1679044961929321
+                3.512347459793091,
+                1.8205069303512573,
+                0.7570924162864685
             ],
             "boundingBoxMinimum": [
-                -1.7477220296859741,
-                -1.2971171140670776,
-                -1.167840838432312
+                -3.5906925201416016,
+                -1.998335361480713,
+                -0.7570558190345764
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 3240,
+                    "count": 16122,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 3240,
+                    "count": 16122,
                     "stride": 3,
-                    "offset": 12960,
+                    "offset": 64488,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 6468,
+                    "count": 32244,
                     "stride": 1,
-                    "offset": 25920,
+                    "offset": 128976,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 51792,
+                    "offset": 257952,
                     "dataType": 0
                 }
             },
@@ -139,7 +139,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.5999999999999996,
+            "roughness": 0.26,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -395,20 +396,20 @@
         "vertexData": []
     },
     "metadata": {
-        "parentId": 1760604446443
+        "parentId": 1764248762580
     },
     "basePoseMatrix": [
-        -0.6175404252430874,
+        -1,
         0,
         0,
         0,
         0,
-        0.6623304588895746,
+        1,
         0,
         0,
         0,
         0,
-        0.7396176468020953,
+        1,
         0,
         0,
         0,

@@ -39,7 +39,7 @@ async function	start() {
 
 		const havok = await HavokPhysics(
 			(import.meta as any).env.DEV
-				? { locateFile: (fileName: string) => `/node_modules/@babylonjs/havok/lib/umd/${fileName}`}
+				? { locateFile: (fileName: string) => `node_modules/@babylonjs/havok/lib/umd/${fileName}`}
 				: undefined
 		);
 		scene.enablePhysics(new Vector3(0, -981, 0), new HavokPlugin(true, havok));
