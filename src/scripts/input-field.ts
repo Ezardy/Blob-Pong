@@ -4,6 +4,7 @@ import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
 import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
+import { fitTextIntoControl } from "./functions/text";
 
 export default class InputField3D implements IScript, IClonableScript {
 	@visibleAsBoolean("resize text to fit")
@@ -16,12 +17,14 @@ export default class InputField3D implements IScript, IClonableScript {
 	private	_fontWeight:	number = 400;
 	@visibleAsString("hint")
 	private	_hint:	string = "";
-	@visibleAsNumber("hint size", {min: 1, max: 300, step: 1})
-	private	_hintSize:	number = 12;
+	@visibleAsNumber("hint size", {min: 1, max: 80, step: 1})
+	private	_hintSize:	number = 20;
 	@visibleAsColor4("hint color")
 	private	_hintColor:	Color4 = Color4.FromColor3(Color3.Gray());
-	@visibleAsNumber("text size", {min: 1, max: 300, step: 1})
-	private	_textSize:	number = 12;
+	@visibleAsNumber("max text size", {min: 1, max: 100, step: 1})
+	private	_maxTextSize:	number = 80;
+	@visibleAsNumber("min text size", {min: 1, max: 99, step: 1})
+	private	_minTextSize:	number = 5;
 	@visibleAsColor4("text color")
 	private	_textColor:	Color4 = Color4.FromColor3(Color3.White());
 	@visibleAsColor4("background color")
@@ -69,7 +72,7 @@ export default class InputField3D implements IScript, IClonableScript {
 			}
 			if (this._hintShowed) {
 				this._inputText.placeholderText = "";
-				this._inputText.fontSize = this._textSize * this._textureResolutionScaler;
+				this._inputText.fontSize = `${this._maxTextSize}%`;
 				this._hintShowed = false;
 			}
 		});
@@ -78,7 +81,7 @@ export default class InputField3D implements IScript, IClonableScript {
 				if (this._inputText.text.length == 0) {
 					this._inputText.placeholderText = this._hint;
 					this._hintShowed = true;
-					this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
+					this._inputText.fontSize = `${this._hintSize}%`;
 				} else
 					this._inputText.text = this.parser(this._inputText.text);
 			}
@@ -96,7 +99,8 @@ export default class InputField3D implements IScript, IClonableScript {
 		field._hint = this._hint;
 		field._hintSize = this._hintSize;
 		field._hintColor = this._hintColor.clone();
-		field._textSize = this._textSize;
+		field._minTextSize = this._minTextSize;
+		field._maxTextSize = this._maxTextSize;
 		field._textColor = this._textColor.clone();
 		field._backgroundColor = this._backgroundColor.clone();
 		field._focusedBackgroundColor = this._focusedBackgroundColor.clone();
@@ -111,6 +115,7 @@ export default class InputField3D implements IScript, IClonableScript {
 	}
 
 	public	onStart():	void {
+		this._maxTextSize = Math.max(this._maxTextSize, this._minTextSize);
 		this.draw();
 	}
 
@@ -118,12 +123,8 @@ export default class InputField3D implements IScript, IClonableScript {
 		if (!this._drew) {
 			this._hint = JSON.parse(`"${this._hint}"`);
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler, false);
-			const	ctx:		ICanvasRenderingContext = dynText.getContext();
-			this._inputText.onTextChangedObservable.add(() => {
-				ctx.font = `${this._inputText.fontSize} ${this._inputText.fontFamily}`;
-				console.log(ctx.font);
-				console.log(ctx.measureText(this._inputText.text).width);
-			});
+			if (this._resizeTextToFit)
+				this._inputText.onTextChangedObservable.add(() => fitTextIntoControl(this._inputText, dynText.getContext(), this._minTextSize, this._maxTextSize));
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
 			this._inputText.fontWeight = this._fontWeight.toString();
@@ -131,15 +132,16 @@ export default class InputField3D implements IScript, IClonableScript {
 			this._inputText.placeholderColor = this._hintColor.toHexString();
 			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
 			this._inputText.highligherOpacity = this._highlightColor.a;
-			this._inputText.fontSize = this._hintSize * this._textureResolutionScaler;
+			this._inputText.fontSize = `${this._hintSize}%`;
 			if (this._fontFamily.length)
 				document.fonts.ready.then((v) => v.load(`${this._inputText.fontWeight} ${this._inputText.fontSizeInPixels}px ${this._fontFamily}`).then(() => this._inputText.fontFamily = this._fontFamily));
 			this._inputText.background = this._backgroundColor.toHexString();
 			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
 			this._inputText.color = this._textColor.toHexString();
-			//this._inputText.autoStretchWidth = true;
+			this._inputText.autoStretchWidth = true;
 			this._inputText.autoStretchHeight = true;
 			this._inputText.margin = "1px";
+			this._inputText.setPaddingInPixels(0, 0, 0, 0);
 			this._inputText.thickness = this._borderThickness * this._textureResolutionScaler;
 			this._inputText.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
 			this._inputText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER

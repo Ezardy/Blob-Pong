@@ -1,7 +1,7 @@
 import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int, Tools } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
-import { applyScriptOnObject, getScriptByClassForObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
+import { applyScriptOnObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
