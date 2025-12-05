@@ -169,15 +169,15 @@
                     },
                     "_gameNameEntryMesh": {
                         "type": "entity",
-                        "value": "7344f721-01a1-43de-a24f-ab496aff57b0"
+                        "value": "18f3446d-8412-4dfc-98aa-b8647ad22e0b"
                     },
                     "_playerCountEntryMesh": {
                         "type": "entity",
-                        "value": "4f9d5ee7-e19a-432d-af0c-93ab1c121e7a"
+                        "value": "388eb481-346c-4ba8-8edd-2cbf0fd7dd3c"
                     },
                     "_entranceFeeEntryMesh": {
                         "type": "entity",
-                        "value": "39febb52-3f24-482b-89e3-466db5546d7c"
+                        "value": "98378508-dabd-47eb-9d04-2ee4f6af0e0a"
                     },
                     "_gameCreationHeaderMesh": {
                         "type": "entity",
@@ -460,15 +460,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.000795999999999325,
-            6.194392133947474,
+            0.18679586267089754,
+            6.372392866369376,
             0
         ],
         "speed": 200,
         "position": [
-            966.7106982418921,
-            926.244898565994,
-            -1614.191957947227
+            -1346.7316843333329,
+            717.0023091172415,
+            -913.1346320418171
         ],
         "upVector": [
             0,

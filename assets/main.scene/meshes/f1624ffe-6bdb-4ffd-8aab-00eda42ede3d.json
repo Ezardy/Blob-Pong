@@ -1,7 +1,7 @@
 {
     "meshes": [
         {
-            "name": "play",
+            "name": "join",
             "id": "f1624ffe-6bdb-4ffd-8aab-00eda42ede3d",
             "uniqueId": 1762174114655,
             "type": "Mesh",

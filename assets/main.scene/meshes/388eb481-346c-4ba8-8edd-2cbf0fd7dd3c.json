@@ -1,0 +1,120 @@
+{
+    "meshes": [
+        {
+            "name": "player count entry mesh",
+            "id": "388eb481-346c-4ba8-8edd-2cbf0fd7dd3c",
+            "uniqueId": 1764933923267,
+            "type": "Mesh",
+            "position": [
+                -225.2368058199438,
+                0,
+                -56.72948274898957
+            ],
+            "rotation": [
+                0.3839724354387525,
+                0,
+                0
+            ],
+            "scaling": [
+                1,
+                1,
+                1
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "parentId": 1753456789352,
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/bounding-box-updater.ts"
+                    }
+                ]
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "parentId": 1753456789352,
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/bounding-box-updater.ts"
+            }
+        ]
+    },
+    "basePoseMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1294.7108490312376,
+        -478.93995799021013,
+        0,
+        1
+    ]
+}

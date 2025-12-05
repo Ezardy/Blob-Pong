@@ -89,7 +89,7 @@
             "layerMask": 268435455,
             "alphaIndex": 1.7976931348623157e+308,
             "hasVertexAlpha": false,
-            "overlayAlpha": 1,
+            "overlayAlpha": 0,
             "overlayColor": [
                 0,
                 0,
@@ -1429,7 +1429,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 14720.071139984755
+                    "value": 17478.96647998104
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1833,7 +1833,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 14720.071139984755
+                    "value": 17478.96647998104
                 },
                 {
                     "customType": "BABYLON.InputBlock",

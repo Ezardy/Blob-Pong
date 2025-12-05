@@ -115,12 +115,12 @@ export default class InputField3D implements IScript, IClonableScript {
 	}
 
 	public	onStart():	void {
-		this._maxTextSize = Math.max(this._maxTextSize, this._minTextSize);
 		this.draw();
 	}
 
 	public	draw():	void {
 		if (!this._drew) {
+			this._maxTextSize = Math.max(this._maxTextSize, this._minTextSize);
 			this._hint = JSON.parse(`"${this._hint}"`);
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler, false);
 			if (this._resizeTextToFit)

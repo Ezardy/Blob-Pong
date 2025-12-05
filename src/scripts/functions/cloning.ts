@@ -1,9 +1,8 @@
 import { Nullable, Tags, TransformNode } from "@babylonjs/core";
-import { getScriptByClassForObject } from "babylonjs-editor-tools";
-import InputField3D from "../input-field";
-import TextBlockDrawer from "../text-block";
+import { IRegisteredScript, scriptsDictionary } from "babylonjs-editor-tools";
 import { Control3DClone } from "./typing-utils";
 import { AdvancedStackPanel3D } from "../controls/advanced-stack-panel-3d";
+import { isclonablescript } from "../interfaces/iclonablescript";
 
 export function	cloneNodeWithScripts(node: TransformNode):	Nullable<TransformNode> {
 	return node.instantiateHierarchy(
@@ -13,12 +12,13 @@ export function	cloneNodeWithScripts(node: TransformNode):	Nullable<TransformNod
 			if (Tags.MatchesQuery(s, "noClone"))
 				c.dispose();
 			else {
-				const	text:	TextBlockDrawer | null = getScriptByClassForObject(s, TextBlockDrawer);
-				if (text)
-					text.clone(c)
-				const	field:	InputField3D | null = getScriptByClassForObject(s, InputField3D);
-				if (field)
-					field.clone(c);
+				const	scripts:	IRegisteredScript[] | undefined = scriptsDictionary.get(s);
+				if (scripts) {
+					for (const script of scripts) {
+						if (isclonablescript(script.instance))
+							script.instance.clone(c);
+					}
+				}
 			}
 		}
 	);
