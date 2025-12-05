@@ -4,7 +4,6 @@
  */
 
 import { loadScene, scriptsDictionary, scriptAssetsCache, _applyScriptsForObject, _removeRegisteredScriptInstance, _preloadScriptsAssets } from "babylonjs-editor-tools";
-import * as scripts_ui from "./scripts/ui";
 import * as scripts_web_api from "./scripts/web-api";
 import * as scripts_notifications from "./scripts/notifications";
 import * as scripts_game from "./scripts/game";

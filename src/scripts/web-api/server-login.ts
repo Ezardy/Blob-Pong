@@ -36,7 +36,7 @@ type LoginResponse =
 export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | undefined>
 {
 	const response = await fetch(
-		process.env.SERVER_API_LOGIN ?? "http://localhost:4000/api/users/login",
+		process.env.SERVER_API_LOGIN ?? `https://${window.location.host}/api/users/login`,
 		{
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
@@ -57,7 +57,7 @@ export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | unde
 export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse | undefined>
 {
 	const response = await fetch(
-		process.env.SERVER_API_SIGN_UP ?? "http://localhost:4000/api/users/register",
+		process.env.SERVER_API_SIGN_UP ?? `https://${window.location.host}/api/users/register`,
 		{
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
@@ -86,7 +86,7 @@ export async function registerAsync(data: SignUpInfo) : Promise<SignUpResponse |
 export async function logoutAsync() : Promise<void>
 {
 	const response = await fetch(
-		process.env.SERVER_API_LOG_OUT ?? "http://localhost:4000/api/users/logout",
+		process.env.SERVER_API_LOG_OUT ?? `https://${window.location.host}/api/users/logout`,
 		{
 			method: 'POST',
 			credentials: 'include'
@@ -101,7 +101,7 @@ export async function logoutAsync() : Promise<void>
 
 export async function doesSessionExist() : Promise<boolean>
 {
-	const response = await fetch("http://localhost:4000/api/users/tokens",
+	const response = await fetch(`https://${window.location.host}/api/users/tokens`,
 		{
 			method: "GET",
 			credentials: "include"
@@ -116,7 +116,7 @@ export async function doesSessionExist() : Promise<boolean>
 
 export async function getCurrentUser() : Promise<UserInfo | undefined>
 {
-	const response = await fetch("http://localhost:4000/api/users/current",
+	const response = await fetch(`https://${window.location.host}/api/users/current`,
 		{
 			method: "GET",
 			credentials: "include"
