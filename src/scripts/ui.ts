@@ -1,5 +1,5 @@
-import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation } from "@babylonjs/core";
-import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
+import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation, Constants } from "@babylonjs/core";
+import { AbstractButton3D, AdvancedDynamicTexture, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
@@ -12,7 +12,8 @@ import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
 import Game from "./game";
 import { setKeys } from "./functions/animations";
-import { RoomPlayer } from "./web-api/server-game";
+import { ResultPlayer, RoomPlayer } from "./web-api/server-game";
+import ScrollList3D from "./controls/scroll-list-3d";
 
 export default class Ui implements IScript {
 	private static readonly	_dummyRot:	Quaternion = Quaternion.Identity();
@@ -52,37 +53,35 @@ export default class Ui implements IScript {
 
 	// main layout elements
 	@visibleAsEntity("node", "Join public game button mesh")
-	private readonly	_joinPublicGameButtonMesh!:	Mesh;
+	private readonly	_joinPublicGameButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "Join private game button mesh")
-	private readonly	_joinPrivateGameButtonMesh!:	Mesh;
+	private readonly	_joinPrivateGameButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "Create game button mesh")
-	private readonly	_createGameButtonMesh!:	Mesh;
+	private readonly	_createGameButtonMesh!:	AbstractMesh;
 
 	private readonly	_mainLayout:	AdvancedStackPanel3D;
 
 	// game list layout elements
 	@visibleAsEntity("node", "game list previous button mesh")
-	private readonly	_gameListPreviousButtonMesh!:	Mesh;
+	private readonly	_gameListPreviousButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game list header mesh")
-	private readonly	_gameListHeaderMesh!:			Mesh;
+	private readonly	_gameListHeaderMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "player count order button mesh")
-	private readonly	_playerCountOrderButtonMesh!:	Mesh;
+	private readonly	_playerCountOrderButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "player count input mesh")
-	private readonly	_playerCountInputMesh!:			Mesh;
+	private readonly	_playerCountInputMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "entrance fee order button mesh")
-	private readonly	_entranceFeeOrderButtonMesh!:	Mesh;
+	private readonly	_entranceFeeOrderButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "entrance fee input mesh")
-	private readonly	_entranceFeeInputMesh!:			Mesh;
-	/*@visibleAsEntity("node", "refresh button mesh")
-	private readonly	_refreshButtonMesh!:			Mesh;*/
+	private readonly	_entranceFeeInputMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "play button mesh")
-	private readonly	_playButtonMesh!:				Mesh;
+	private readonly	_playButtonMesh!:				AbstractMesh;
 	@visibleAsEntity("node", "game name entry mesh")
-	private readonly	_gameNameEntryMesh!:			Mesh;
+	private readonly	_gameNameEntryMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "player count entry mesh")
-	private readonly	_playerCountEntryMesh!:			Mesh;
+	private readonly	_playerCountEntryMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "entrance fee entry mesh")
-	private readonly	_entranceFeeEntryMesh!:			Mesh;
+	private readonly	_entranceFeeEntryMesh!:			AbstractMesh;
 
 	private readonly	_gameListPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
 	private readonly	_playerCountOrderButtonInputPanel:	AdvancedStackPanel3D;
@@ -94,23 +93,23 @@ export default class Ui implements IScript {
 
 	// game creation layout elements
 	@visibleAsEntity("node", "game creation header mesh")
-	private readonly	_gameCreationHeaderMesh!:	Mesh;
+	private readonly	_gameCreationHeaderMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game creation previous button mesh")
-	private readonly	_gameCreationPreviousButtonMesh!:	Mesh;
+	private readonly	_gameCreationPreviousButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game privacy button mesh")
-	private readonly	_gamePrivacyButtonMesh!:	Mesh;
+	private readonly	_gamePrivacyButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game creation game name input mesh")
-	private readonly	_gameCreationGameNameInputMesh!:	Mesh;
+	private readonly	_gameCreationGameNameInputMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "player icon")
-	private readonly	_playerIconMesh!:	Mesh;
+	private readonly	_playerIconMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game creation player count input mesh")
-	private readonly	_gameCreationPlayerCountInputMesh!:	Mesh;
+	private readonly	_gameCreationPlayerCountInputMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "coin icon mesh")
-	private readonly	_coinIconMesh!:	Mesh;
+	private readonly	_coinIconMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game creation entrance fee input mesh")
-	private readonly	_gameCreationEntranceFeeInputMesh!:	Mesh;
+	private readonly	_gameCreationEntranceFeeInputMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "create button mesh")
-	private readonly	_createButtonMesh!:	Mesh;
+	private readonly	_createButtonMesh!:	AbstractMesh;
 
 	private	_gameCreationGameNameInput!:	InputTextArea;
 	private	_gameCreationEntranceFeeInput!:	InputTextArea;
@@ -126,17 +125,41 @@ export default class Ui implements IScript {
 
 	// game lobby layout
 	@visibleAsEntity("node", "exit button mesh")
-	private readonly	_exitButtonMesh!:	Mesh;
+	private readonly	_exitButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "ready button mesh")
-	private readonly	_readyButtonMesh!:	Mesh;
+	private readonly	_readyButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "countdown mesh")
-	private readonly	_countdownMesh!:	Mesh;
+	private readonly	_countdownMesh!:	AbstractMesh;
 
 	private readonly	_lobbyLayout:		AdvancedStackPanel3D;
 	private readonly	_gameLayout:		AdvancedStackPanel3D;
 	private readonly	_exitPanel:			AdvancedStackPanel3D;
 	private				_countdown!:		SwitchButton3D;
 	private				_readyButton!:		SwitchButton3D;
+
+	// result layout
+	@visibleAsEntity("node", "kicked players icon mesh")
+	private readonly	_kickedPlayersIconMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "kicked description mesh")
+	private readonly	_kickedDescriptionMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "place icon mesh")
+	private readonly	_placeIconMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "place description mesh")
+	private readonly	_placeDescriptionMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "earned icon mesh")
+	private readonly	_earnedIconMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "earned description mesh")
+	private readonly	_earnedDescriptionMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "result player name")
+	private readonly	_resultPlayerNameMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "skip result mesh")
+	private readonly	_skipResultMesh!:	AbstractMesh;
+
+	private readonly	_resultLayout:				AdvancedStackPanel3D;
+	private readonly	_resultListPanel:			AdvancedStackPanel3D;
+	private readonly	_resultDescriptionsPanel:	AdvancedStackPanel3D;
+	private readonly	_resultEntryPanel:			AdvancedStackPanel3D;
+	private readonly	_resultScrollList:			ScrollList3D;
 
 	private				_currentLayout:			Container3D;
 	private				_subscribedToLobby:		boolean = false;
@@ -198,6 +221,22 @@ export default class Ui implements IScript {
 		this._exitPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.START_ALIGNMENT);
 		// game layout initialization
 		this._gameLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		// result layout initialization
+		this._resultLayout = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._resultListPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
+		this._resultDescriptionsPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._resultEntryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._resultScrollList = new ScrollList3D(true, 6, (entry, control) => {
+			const	meshes:				AbstractMesh[] = control.node!.getChildMeshes(true);
+			const	playerNameText:		TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._resultPlayerNameMesh.name || value.name === this._resultPlayerNameMesh.name), TextBlockDrawer)!.frontTextBlock;
+			const	kickedPlayersText:	TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._kickedPlayersIconMesh.name || value.name === this._kickedPlayersIconMesh.name), TextBlockDrawer)!.frontTextBlock;
+			const	placeText:			TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._placeIconMesh.name || value.name === this._placeIconMesh.name), TextBlockDrawer)!.frontTextBlock;
+			const	earnedText:			TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._earnedIconMesh.name || value.name === this._earnedIconMesh.name), TextBlockDrawer)!.frontTextBlock;
+			playerNameText.text = entry.username as string;
+			kickedPlayersText.text = entry.playersKicked as string;
+			placeText.text = entry.place as string;
+			earnedText.text = entry.score as string;
+		}, scene);
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
@@ -205,86 +244,12 @@ export default class Ui implements IScript {
 	}
 
 	public onStart(): void {
-		// ServerGame creation
+		// Callbacks
 		this._webApi = getScriptByClassForObject(this.scene, WebApi)!;
 		this._game = getScriptByClassForObject(this.scene, Game)!;
-		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
-			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
-			this._gameListLayout.updateLayout();
-			this._gameListScroll.setClipped(true);
-		});
-		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
-			if (this._game.mode === Game.NONE_MODE) {
-				this._unsubscribeFromLobby();
-				this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
-				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
-				if (player && player.isReady)
-					this._readyButton.select();
-				this._game.playerCount = details.maxPlayers;
-				this._game.mode = 1;
-			} else if (this._game.mode === Game.LOBBY_MODE) {
-				if (details.players.every((player) => player.isReady)) {
-					if (this._currentTimeout === null && details.players.length > 1) {
-						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
-						this._currentTimeout = setTimeout(() => {
-							this._countdown.state = 1;
-							this._currentTimeout = setTimeout(() => {
-								this._countdown.state = 2;
-								this._currentTimeout = setTimeout(() => {
-									this._countdown.state = 0;
-									this._currentTimeout = null;
-									this._readyButton.deselect();
-									this._countdown.isEnabled = false;
-									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
-									this._webApi.serverGame.startGame();
-								}, 1000);
-							}, 1000);
-						}, 1000);
-					}
-				} else if (this._currentTimeout !== null) {
-					this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
-					clearTimeout(this._currentTimeout);
-					this._currentTimeout = null;
-					this._countdown.deselect();
-				}
-			}
-		}, undefined, true);
-		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
-			if (this._isGameFinished)
-				this._isGameFinished = gs.state === "finished";
-			else {
-				switch (this._game.mode) {
-					case Game.NONE_MODE:
-						this._unsubscribeFromLobby();
-						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
-						this._game.mode = Game.GAME_MODE;
-						break;
-					case Game.LOBBY_MODE:
-						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
-						this._game.mode = Game.GAME_MODE;
-						break;
-					default:
-						switch(gs.state) {
-							case "countdown":
-								this._countdown.isVisible = true;
-								const	state:	int = this._game.countdownTime - gs.countdownSeconds!;
-								this._countdown.state = state % this._countdown.maxState;
-								break;
-							case "finished":
-								this._game.mode = 0;
-								this._isGameFinished = true;
-								this._countdown.deselect();
-								this._countdown.onPointerUpObservable.add(this._countdownCallback);
-								this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
-								break;
-							default:
-								this._countdown.isVisible = false;
-								break;
-						}
-						break;
-				}
-			}
-		}, undefined, true);
+		this._setOnRoomDetailsObservable();
+		this._setOnGameStateUpdatedObservable();
+		this._setOnGameResultObservable();
 		// Background
 		const	backgroundMaterial:	NodeMaterial = this._background.material as NodeMaterial;
 		this._backgroundMainColorBlock = backgroundMaterial.getBlockByName("mainColor") as InputBlock;
@@ -297,7 +262,49 @@ export default class Ui implements IScript {
 		this._setGameCreationLayout();
 		this._setLobbyLayout();
 		this._setGameLayout();
+		this._setResultLayout();
 		this.scene.getEngine().onResizeObservable.add(this._updateLayoutCallback);
+	}
+
+	private	_setResultLayout():	void {
+		this._manager.addControl(this._resultLayout);
+		this._resultLayout.blockLayout = true;
+			this._resultLayout.margin = 20;
+			this._resultLayout.addControl(this._resultListPanel);
+			const	okBtn:	ButtonWithDescription = new ButtonWithDescription(this._skipResultMesh as Mesh, "skip result", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.3, undefined, undefined, getScriptByClassForObject(this._skipResultMesh, TextBlockDrawer)!.frontTextBlock);
+			okBtn.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
+			this._resultLayout.addControl(okBtn);
+			this._resultListPanel.blockLayout = true;
+				this._resultListPanel.addControl(this._resultScrollList);
+				this._resultListPanel.addControl(this._resultDescriptionsPanel);
+				this._resultDescriptionsPanel.blockLayout = true;
+					this._resultDescriptionsPanel.margin = 10;
+					const	earnedDescription:			MeshControl = new MeshControl(this._earnedDescriptionMesh, "earned description");
+					const	placeDescription:			MeshControl = new MeshControl(this._placeDescriptionMesh, "place description");
+					const	kickedPlayersDescription:	MeshControl = new MeshControl(this._kickedDescriptionMesh, "kicked players description");
+					this._resultDescriptionsPanel.addControl(kickedPlayersDescription);
+					this._resultDescriptionsPanel.addControl(placeDescription);
+					this._resultDescriptionsPanel.addControl(earnedDescription);
+				this._resultDescriptionsPanel.blockLayout = false;
+				this._resultScrollList.blockLayout = true;
+					this._resultScrollList.margin = 10;
+					this._resultScrollList.addControl(this._resultEntryPanel);
+					this._resultEntryPanel.blockLayout = true;
+						this._resultEntryPanel.margin = 10;
+						const	playerName:			MeshControl = new MeshControl(this._resultPlayerNameMesh, "result player name entry");
+						const	kickedPlayersIcon:	MeshControl = new MeshControl(this._kickedPlayersIconMesh, "kicked players icon");
+						const	placeIcon:			MeshControl = new MeshControl(this._placeIconMesh, "place icon");
+						const	earnedIcon:			MeshControl = new MeshControl(this._earnedIconMesh, "earned icon");
+						this._resultEntryPanel.addControl(playerName);
+						this._resultEntryPanel.addControl(kickedPlayersIcon);
+						this._resultEntryPanel.addControl(placeIcon);
+						this._resultEntryPanel.addControl(earnedIcon);
+					this._resultEntryPanel.blockLayout = false;
+				this._resultScrollList.blockLayout = false;
+				this._resultScrollList.initialize();
+			this._resultListPanel.blockLayout = false;
+		this._resultLayout.blockLayout = false;
+		this._resultLayout.isVisible = false;
 	}
 
 	private	_setGameLayout():	void {
@@ -323,7 +330,7 @@ export default class Ui implements IScript {
 		this._exitPanel.shift = -0.4;
 		this._exitPanel.padding = 0.03;
 		const	textBlock:	TextBlock = getScriptByClassForObject(this._exitButtonMesh, TextBlockDrawer)!.frontTextBlock;
-		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
+		const	button:		ButtonWithDescription = new ButtonWithDescription(this._exitButtonMesh as Mesh, "exit lobby", Quaternion.RotationAxis(Axis.Y, -Math.PI / 6), 1.5, undefined, undefined, textBlock);
 		button.onPointerUpObservable.add(() => {
 			this._game.mode = 0;
 			this._webApi.serverGame.leaveRoom();
@@ -348,9 +355,9 @@ export default class Ui implements IScript {
 		this._manager.addControl(this._mainLayout);
 		this._mainLayout.margin = 0.05;
 
-		const	joinPublicGameButton:	MeshButton3D = new MeshButton3D(this._joinPublicGameButtonMesh, "joinPublicButton");
-		const	joinPrivateGameButton:	MeshButton3D = new MeshButton3D(this._joinPrivateGameButtonMesh, "joinPrivateButton");
-		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh, "createGameButton");
+		const	joinPublicGameButton:	MeshButton3D = new MeshButton3D(this._joinPublicGameButtonMesh as Mesh, "joinPublicButton");
+		const	joinPrivateGameButton:	MeshButton3D = new MeshButton3D(this._joinPrivateGameButtonMesh as Mesh, "joinPrivateButton");
+		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh as Mesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._gameListLayout, this._joinPublicMainColor, this._joinPublicDepthColor);
@@ -415,7 +422,7 @@ export default class Ui implements IScript {
 		this._createPanel.blockLayout = true;
 
 		const	btnExtS:	Vector3 = this._createButtonMesh.getBoundingInfo().boundingBox.extendSize;
-		this._createButton = new ButtonWithDescription(this._createButtonMesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, new Vector3(-btnExtS.x, 0, 0), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
+		this._createButton = new ButtonWithDescription(this._createButtonMesh as Mesh, "create button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, new Vector3(-btnExtS.x, 0, 0), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		this._createButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
@@ -468,7 +475,7 @@ export default class Ui implements IScript {
 		this._gameCreationPreviousButtonHeaderPanel.blockLayout = true;
 			getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)?.render();
 			const	prevBtnExtS:	Vector3 = this._gameCreationPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
-			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
+			const	button:	ButtonWithDescription = new ButtonWithDescription(this._gameCreationPreviousButtonMesh as Mesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameCreationPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
 			button.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
 			this._gameCreationPreviousButtonHeaderPanel.addControl(button);
 			getScriptByClassForObject(this._gameCreationHeaderMesh, TextBlockDrawer)?.render();
@@ -484,7 +491,7 @@ export default class Ui implements IScript {
 		this._gameListPreviousButtonHeaderPanel.margin = 25;
 		this._gameListPreviousButtonHeaderPanel.blockLayout = true;
 		const	prevBtnExtS:	Vector3 = this._gameListPreviousButtonMesh.getBoundingInfo().boundingBox.extendSize;
-		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
+		const	gameListPreviousButton:	ButtonWithDescription = new ButtonWithDescription(this._gameListPreviousButtonMesh as Mesh, "game_list_previous_button", Quaternion.RotationYawPitchRoll(Math.PI / 6, 0 ,0), 1.5, new Vector3(prevBtnExtS.x, 0, -prevBtnExtS.z), undefined, getScriptByClassForObject(this._gameListPreviousButtonMesh, TextBlockDrawer)!.frontTextBlock);
 		gameListPreviousButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor);
 			this._unsubscribeFromLobby();
@@ -503,7 +510,7 @@ export default class Ui implements IScript {
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
 
-		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
+		const	playButton:		ButtonWithDescription = new ButtonWithDescription(this._playButtonMesh as Mesh, "join button", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.5, Vector3.Zero(), Quaternion.RotationYawPitchRoll(Math.PI, 0, 0));
 		playButton.onPointerUpObservable.add(() => {
 			this._webApi.serverGame.joinRoom(this._gameListScroll.selectedEntry.id as string);
 			this._gameListScroll.deselect();
@@ -605,7 +612,7 @@ export default class Ui implements IScript {
 			toUpdate.pop()!.updateLayout();
 	}
 
-	private	_switchLayout(newLayout: Container3D, mainColor: Color3, depthColor: Color3):	void {
+	private	_switchLayout(newLayout: Container3D, mainColor?: Color3, depthColor?: Color3):	void {
 		if (this._currentLayout != newLayout) {
 			this._isLayoutUpdatable = false;
 			this._currentLayout.isVisible = false;
@@ -616,7 +623,8 @@ export default class Ui implements IScript {
 				this._updateLayoutRecursively();
 				this._isLayoutUpdatable = true, 2000
 			});
-			this._changeBackgroundColor(mainColor, depthColor);
+			if (mainColor && depthColor)
+				this._changeBackgroundColor(mainColor, depthColor);
 		}
 	}
 
@@ -634,6 +642,95 @@ export default class Ui implements IScript {
 		}
 	}
 
+	// Callback setting
+	private	_setOnGameStateUpdatedObservable():	void {
+		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
+			if (this._isGameFinished)
+				this._isGameFinished = gs.state === "finished";
+			else {
+				switch (this._game.mode) {
+					case Game.NONE_MODE:
+						this._unsubscribeFromLobby();
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
+						this._game.mode = Game.GAME_MODE;
+						break;
+					case Game.LOBBY_MODE:
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
+						this._game.mode = Game.GAME_MODE;
+						break;
+					default:
+						switch(gs.state) {
+							case "countdown":
+								this._countdown.isVisible = true;
+								const	state:	int = this._game.countdownTime - gs.countdownSeconds!;
+								this._countdown.state = state % this._countdown.maxState;
+								break;
+							case "finished":
+								this._game.mode = 0;
+								this._isGameFinished = true;
+								this._countdown.deselect();
+								this._countdown.onPointerUpObservable.add(this._countdownCallback);
+								break;
+							default:
+								this._countdown.isVisible = false;
+								break;
+						}
+						break;
+				}
+			}
+		}, undefined, true);
+	}
+
+	private	_setOnRoomDetailsObservable():	void {
+		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
+			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
+			this._gameListLayout.updateLayout();
+			this._gameListScroll.setClipped(true);
+		});
+		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
+			if (this._game.mode === Game.NONE_MODE) {
+				this._unsubscribeFromLobby();
+				this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
+				const	player:	RoomPlayer | undefined = details.players.find((p) => p.id === this._webApi.clientInfo!.id);
+				if (player && player.isReady)
+					this._readyButton.select();
+				this._game.playerCount = details.maxPlayers;
+				this._game.mode = 1;
+			} else if (this._game.mode === Game.LOBBY_MODE) {
+				if (details.players.every((player) => player.isReady)) {
+					if (this._currentTimeout === null && details.players.length > 1) {
+						this._switchLayout(this._gameLayout, this._gameMainColor, this._gameDepthColor);
+						this._currentTimeout = setTimeout(() => {
+							this._countdown.state = 1;
+							this._currentTimeout = setTimeout(() => {
+								this._countdown.state = 2;
+								this._currentTimeout = setTimeout(() => {
+									this._countdown.state = 0;
+									this._currentTimeout = null;
+									this._readyButton.deselect();
+									this._countdown.isEnabled = false;
+									this._countdown.onPointerUpObservable.removeCallback(this._countdownCallback);
+									this._webApi.serverGame.startGame();
+								}, 1000);
+							}, 1000);
+						}, 1000);
+					}
+				} else if (this._currentTimeout !== null) {
+					this._switchLayout(this._lobbyLayout, this._lobbyMainColor, this._lobbyDepthColor);
+					clearTimeout(this._currentTimeout);
+					this._currentTimeout = null;
+					this._countdown.deselect();
+				}
+			}
+		}, undefined, true);
+	}
+
+	private	_setOnGameResultObservable():	void {
+		this._webApi.serverGame.onGameResultObservable.add((res) => {
+			this._switchLayout(this._resultLayout, this._gameMainColor, this._gameDepthColor);
+			this._resultScrollList.fillList(res.gameResult.players.sort((a, b) => a.score - b.score));
+		});
+	}
 	// Observers' functions
 	private	_enableCreateButton():	void {
 		if (this._gameCreationGameNameInput.text.length > 0 && this._gameCreationPlayerCountInput.text.length > 0 && this._gameCreationEntranceFeeInput.text.length > 0) {

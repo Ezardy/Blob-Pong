@@ -1,0 +1,52 @@
+{
+    "tags": null,
+    "position": [
+        517.2037176872984,
+        925.7406503792675,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "notification-layout",
+    "id": "cf4cb532-e0f8-4c32-9953-bcf403126f03",
+    "state": "",
+    "metadata": {
+        "isLocked": true
+    },
+    "type": "TransformNode",
+    "uniqueId": 1764153209495,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

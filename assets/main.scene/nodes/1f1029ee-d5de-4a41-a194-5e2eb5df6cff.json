@@ -24,7 +24,7 @@
     "id": "1f1029ee-d5de-4a41-a194-5e2eb5df6cff",
     "state": "",
     "metadata": {
-        "isLocked": false
+        "isLocked": true
     },
     "type": "TransformNode",
     "uniqueId": 1753456789352,

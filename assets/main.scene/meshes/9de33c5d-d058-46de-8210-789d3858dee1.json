@@ -78,7 +78,7 @@
                         "values": {
                             "_frontFontSize": {
                                 "type": "number",
-                                "value": 15
+                                "value": 17
                             },
                             "_frontText": {
                                 "type": "string",
@@ -249,7 +249,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_backPositivePaddings": {
                                 "type": "vector2",
@@ -387,6 +387,30 @@
                             "_boundingBoxCentered": {
                                 "type": "boolean",
                                 "value": true
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
@@ -428,7 +452,7 @@
                                     },
                                     "_frontFontSize": {
                                         "type": "number",
-                                        "value": 15
+                                        "value": 17
                                     },
                                     "_frontColor": {
                                         "type": "color4",
@@ -595,7 +619,7 @@
                                     },
                                     "_frontFontFamily": {
                                         "type": "string",
-                                        "value": ""
+                                        "value": "Asimovian"
                                     },
                                     "_backPositivePaddings": {
                                         "type": "vector2",
@@ -733,6 +757,30 @@
                                     "_boundingBoxCentered": {
                                         "type": "boolean",
                                         "value": true
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
                                     }
                                 }
                             }
@@ -773,7 +821,7 @@
                                 "values": {
                                     "_frontFontSize": {
                                         "type": "number",
-                                        "value": 15
+                                        "value": 17
                                     },
                                     "_frontText": {
                                         "type": "string",
@@ -884,7 +932,7 @@
                                         "type": "vector2",
                                         "value": [
                                             0,
-                                            0
+                                            5
                                         ]
                                     },
                                     "_frontAlignments": {
@@ -896,7 +944,7 @@
                                     },
                                     "_frontFontFamily": {
                                         "type": "string",
-                                        "value": ""
+                                        "value": "Asimovian"
                                     },
                                     "_frontAngle": {
                                         "type": "number",
@@ -1082,6 +1130,30 @@
                                     "_boundingBoxCentered": {
                                         "type": "boolean",
                                         "value": true
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 400
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
                                     }
                                 }
                             }
@@ -1436,7 +1508,7 @@
                 "values": {
                     "_frontFontSize": {
                         "type": "number",
-                        "value": 15
+                        "value": 17
                     },
                     "_frontText": {
                         "type": "string",
@@ -1607,7 +1679,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_backPositivePaddings": {
                         "type": "vector2",
@@ -1745,6 +1817,30 @@
                     "_boundingBoxCentered": {
                         "type": "boolean",
                         "value": true
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }

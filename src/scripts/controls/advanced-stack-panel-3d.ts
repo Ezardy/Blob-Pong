@@ -152,7 +152,16 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		const	camera:					Camera = scene.activeCamera!;
 		const	engine:					AbstractEngine = scene.getEngine();
 		const	rect = engine.getRenderingCanvasClientRect()!;
-		const	ray:					Ray = scene.createPickingRay(rect.width * pX, rect.height * pY, null, camera);
+		let		width:	number;
+		let		height:	number;
+		if (rect.width) {
+			width = rect.width;
+			height = rect.height;
+		} else {
+			width = engine.getRenderWidth();
+			height = engine.getRenderHeight();
+		}
+		const	ray:					Ray = scene.createPickingRay(width * pX, height * pY, null, camera);
 		const	plane:					Plane = Plane.FromPositionAndNormal(boundingPoint, this.node!.forward.negate());
 		const	distance:				Nullable<number> = ray.intersectsPlane(plane);
 

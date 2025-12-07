@@ -34,19 +34,21 @@ export type GamePlayer =
 	position:		number;
 }
 
+export type ResultPlayer =
+{
+	id:				string;
+	score:			number;
+	place:			string;
+	username:		string;
+	isActive:		boolean;
+	playersKicked:	number;
+}
+
 type GameResult =
 {
 	gameResult:
 	{
-		players:	Array<
-		{
-			id:				string;
-			score:			number;
-			place:			string;
-			username:		string;
-			isActive:		boolean;
-			playersKicked:	number;
-		}>;
+		players:	Array<ResultPlayer>;
 		fee:		number
 		state:		'finished' | 'aborted';
 	}
@@ -124,6 +126,7 @@ export class ServerGame
 	public readonly	onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
 	public readonly	onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
 	public readonly	onGameStateUpdatedObservable:	Observable<GameState>;
+	public readonly	onGameResultObservable:			Observable<GameResult>;
 	public readonly	onWebSocketOpenedObservable:	Observable<void>;
 
 	constructor()
@@ -131,6 +134,7 @@ export class ServerGame
 		this.onRoomsUpdatedObservable = new Observable<RoomInfo[]>();
 		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
 		this.onGameStateUpdatedObservable = new Observable<GameState>();
+		this.onGameResultObservable = new Observable<GameResult>();
 		this.onWebSocketOpenedObservable = new Observable<void>();
 	}
 
@@ -183,7 +187,7 @@ export class ServerGame
 				}
 				else if ("gameResult" in data) // GameResult
 				{
-					data.gameResult.state
+					this.onGameResultObservable.notifyObservers(data);
 				}
 			}
 			catch (error)

@@ -1,25 +1,24 @@
 {
     "meshes": [
         {
-            "name": "exit",
-            "id": "9e0d3058-ea42-4957-a745-f1d85dd63329",
-            "uniqueId": 1759933393203,
+            "name": "plate",
+            "id": "304c708f-19b5-409d-bbc9-b3e2c8e136d5",
+            "uniqueId": 1764242461124,
             "type": "Mesh",
             "position": [
-                0,
+                -78.16999999999993,
                 0,
                 0
             ],
-            "rotationQuaternion": [
-                0,
-                0,
-                1,
-                6.123233995736766e-17
+            "rotation": [
+                0.504400153826363,
+                -0.3909537524467291,
+                -0.05061454830783466
             ],
             "scaling": [
-                100,
-                -100,
-                100
+                2.5000000000000013,
+                0.9999999999999987,
+                0.9999999999999979
             ],
             "localMatrix": [
                 1,
@@ -43,7 +42,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": false,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -60,15 +59,18 @@
             ],
             "doNotSyncBoundingInfo": false,
             "isBlocker": false,
-            "sideOrientation": 0,
+            "sideOrientation": 1,
             "isUnIndexed": false,
-            "geometryUniqueId": 1759933393204,
-            "geometryId": "568c389e-b46c-495b-a6c4-5650825847b7",
+            "geometryUniqueId": 1764242461125,
+            "geometryId": "eb3fb3a9-c488-4bf9-9812-6600f0d5d666",
             "subMeshes": null,
-            "materialUniqueId": 1753191571293,
-            "materialId": "1335d3b6-4479-4c26-9206-a3041dbaa333",
+            "materialUniqueId": 1764243891037,
+            "materialId": "67d3d9fc-ba15-4867-8776-c5bb8df57794",
             "metadata": {
-                "parentId": 1759933393202
+                "type": "Plane",
+                "size": 52.89999999999997,
+                "scripts": [],
+                "parentId": 1764321997964
             },
             "instances": [],
             "animations": [],
@@ -84,45 +86,53 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/test.scene/geometries/568c389e-b46c-495b-a6c4-5650825847b7.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/eb3fb3a9-c488-4bf9-9812-6600f0d5d666.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1.1278358697891235,
-                1.1030352115631104,
-                0.4944417476654053
+                26.450000762939453,
+                26.450000762939453,
+                0
             ],
             "boundingBoxMinimum": [
-                -1.1945993900299072,
-                -1.1504008769989014,
-                -0.4571002721786499
+                -26.450000762939453,
+                -26.450000762939453,
+                0
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 5679,
+                    "count": 12,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 5679,
+                    "count": 12,
                     "stride": 3,
-                    "offset": 22716,
+                    "offset": 48,
+                    "dataType": 1
+                },
+                "uvsAttrDesc": {
+                    "count": 8,
+                    "stride": 2,
+                    "offset": 96,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 10974,
+                    "count": 6,
                     "stride": 1,
-                    "offset": 45432,
+                    "offset": 128,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 89328,
+                    "offset": 152,
                     "dataType": 0
                 }
             },
             "positions": null,
             "normals": null,
+            "uvs": null,
+            "hasUVs": true,
             "indices": null
         }
     ],
@@ -134,12 +144,62 @@
             "tags": null,
             "directIntensity": 1,
             "emissiveIntensity": 1,
-            "environmentIntensity": 1,
+            "environmentIntensity": 46.360000000000014,
             "specularIntensity": 1,
             "disableBumpMap": false,
+            "albedoTexture": {
+                "tags": null,
+                "url": "assets/textures/solar-field.jpg",
+                "uOffset": 0,
+                "vOffset": 0,
+                "uScale": 1,
+                "vScale": 0.3999999999999999,
+                "uAng": 0,
+                "vAng": 0,
+                "wAng": 0,
+                "uRotationCenter": 0.5,
+                "vRotationCenter": 0.5,
+                "wRotationCenter": 0.5,
+                "homogeneousRotationInUVTransform": false,
+                "isBlocking": true,
+                "name": "assets/textures/solar-field.jpg",
+                "metadata": {
+                    "baseSize": {
+                        "width": 612,
+                        "height": 612
+                    }
+                },
+                "hasAlpha": false,
+                "getAlphaFromRGB": false,
+                "level": 1,
+                "coordinatesIndex": 0,
+                "optimizeUVAllocation": true,
+                "coordinatesMode": 0,
+                "wrapU": 1,
+                "wrapV": 1,
+                "wrapR": 1,
+                "anisotropicFilteringLevel": 4,
+                "isCube": false,
+                "is3D": false,
+                "is2DArray": false,
+                "gammaSpace": true,
+                "invertZ": false,
+                "lodLevelInAlpha": false,
+                "lodGenerationOffset": 0,
+                "lodGenerationScale": 0,
+                "linearSpecularLOD": false,
+                "isRenderTarget": false,
+                "animations": [],
+                "invertY": true,
+                "samplingMode": 3,
+                "_useSRGBBuffer": false,
+                "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/textures/solar-field.jpg",
+                "noMipmap": false
+            },
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.59,
+            "roughness": 0,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -153,9 +213,9 @@
                 0
             ],
             "albedo": [
-                0.6346607172924734,
-                0,
-                0
+                1,
+                1,
+                1
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -165,8 +225,8 @@
             ],
             "reflection": [
                 1,
-                1,
-                1
+                0,
+                0
             ],
             "emissive": [
                 0,
@@ -193,7 +253,7 @@
             "useParallax": false,
             "useParallaxOcclusion": false,
             "parallaxScaleBias": 0.05,
-            "disableLighting": false,
+            "disableLighting": true,
             "forceIrradianceInFragment": false,
             "maxSimultaneousLights": 32,
             "invertNormalMapX": false,
@@ -207,8 +267,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "1335d3b6-4479-4c26-9206-a3041dbaa333",
-            "name": "button",
+            "id": "67d3d9fc-ba15-4867-8776-c5bb8df57794",
+            "name": "list entry",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -231,7 +291,6 @@
             "pointsCloud": false,
             "fillMode": 0,
             "_isVertexOutputInvariant": false,
-            "transparencyMode": 0,
             "stencil": {
                 "tags": null,
                 "func": 519,
@@ -247,7 +306,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753191571293,
+            "uniqueId": 1764243891037,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -395,10 +454,13 @@
         "vertexData": []
     },
     "metadata": {
-        "parentId": 1759933393202
+        "type": "Plane",
+        "size": 52.89999999999997,
+        "scripts": [],
+        "parentId": 1764321997964
     },
     "basePoseMatrix": [
-        -1,
+        1,
         0,
         0,
         0,

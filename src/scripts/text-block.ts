@@ -1,4 +1,4 @@
-import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int } from "@babylonjs/core";
+import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int, Tools } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { applyScriptOnObject, getScriptByClassForObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
@@ -26,7 +26,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsVector2("front alignments", {min: 0, max: 2, step: 1})
 	private	_frontAlignments:	Vector2 = Vector2.Zero();
 	@visibleAsString("front font family")
-	private	_frontFontFamily:	string = "";
+	private	_frontFontFamily:	string = "Arial";
+	@visibleAsNumber("front font weight", {min: 100, max: 900, step: 1})
+	private	_frontFontWeight:	number = 400;
 	@visibleAsNumber("front text angle", {min: 0, max: 270, step: 90})
 	private	_frontAngle:	number = 0;
 	@visibleAsBoolean("invert front text horizontally")
@@ -46,8 +48,10 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	private	_backNegativePaddings:	Vector2 = Vector2.Zero();
 	@visibleAsVector2("back alignments", {min: 0, max: 2, step: 1})
 	private	_backAlignments:	Vector2 = Vector2.Zero();
-	@visibleAsString("front font family")
-	private	_backFontFamily:	string = "";
+	@visibleAsString("back font family")
+	private	_backFontFamily:	string = "Arial";
+	@visibleAsNumber("back font weight", {min: 100, max: 900, step: 1})
+	private	_backFontWeight:	number = 400;
 	@visibleAsNumber("back text angle", {min: 0, max: 270, step: 90})
 	private	_backAngle:		number = 0;
 	@visibleAsBoolean("invert back text horizontally")
@@ -68,7 +72,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsVector2("right alignments", {min: 0, max: 2, step: 1})
 	private	_rightAlignments:	Vector2 = Vector2.Zero();
 	@visibleAsString("right font family")
-	private	_rightFontFamily:	string = "";
+	private	_rightFontFamily:	string = "Arial";
+	@visibleAsNumber("right font weight", {min: 100, max: 900, step: 1})
+	private	_rightFontWeight:	number = 400;
 	@visibleAsNumber("right text angle", {min: 0, max: 270, step: 90})
 	private	_rightAngle:		number = 0;
 	@visibleAsBoolean("invert right text horizontally")
@@ -89,7 +95,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsVector2("left alignments", {min: 0, max: 2, step: 1})
 	private	_leftAlignments:	Vector2 = Vector2.Zero();
 	@visibleAsString("left font family")
-	private	_leftFontFamily:	string = "";
+	private	_leftFontFamily:	string = "Arial";
+	@visibleAsNumber("left font weight", {min: 100, max: 900, step: 1})
+	private	_leftFontWeight:	number = 400;
 	@visibleAsNumber("left text angle", {min: 0, max: 270, step: 90})
 	private				_leftAngle:		number = 0;
 	@visibleAsBoolean("invert left text horizontally")
@@ -110,7 +118,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsVector2("top alignments", {min: 0, max: 2, step: 1})
 	private	_topAlignments:	Vector2 = Vector2.Zero();
 	@visibleAsString("top font family")
-	private	_topFontFamily:	string = "";
+	private	_topFontFamily:	string = "Arial";
+	@visibleAsNumber("top font weight", {min: 100, max: 900, step: 1})
+	private	_topFontWeight:	number = 400;
 	@visibleAsNumber("top text angle", {min: 0, max: 270, step: 90})
 	private				_topAngle:		number = 0;
 	@visibleAsBoolean("invert top text horizontally")
@@ -131,7 +141,9 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	@visibleAsVector2("bottom alignments", {min: 0, max: 2, step: 1})
 	private	_bottomAlignments:	Vector2 = Vector2.Zero();
 	@visibleAsString("bottom font family")
-	private	_bottomFontFamily:	string = "";
+	private	_bottomFontFamily:	string = "Arial";
+	@visibleAsNumber("bottom font weight", {min: 100, max: 900, step: 1})
+	private	_bottomFontWeight:	number = 400;
 	@visibleAsNumber("bottom text angle", {min: 0, max: 270, step: 90})
 	private				_bottomAngle:		number = 0;
 	@visibleAsBoolean("invert bottom text horizontally")
@@ -211,6 +223,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		const	drawer:	TextBlockDrawer = applyScriptOnObject(root, TextBlockDrawer);
 		drawer._boundingBoxCentered = this._boundingBoxCentered;
 		drawer._resolution = this._resolution;
+
 		drawer._frontText = this._frontText;
 		drawer._frontFontSize = this._frontFontSize;
 		drawer._frontColor = this._frontColor.clone();
@@ -218,6 +231,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._frontNegativePaddings = this._frontNegativePaddings.clone();
 		drawer._frontAlignments = this._frontAlignments.clone();
 		drawer._frontFontFamily = this._frontFontFamily;
+		drawer._frontFontWeight = this._frontFontWeight;
 		drawer._frontAngle = this._frontAngle;
 		drawer._isFrontInverted = this._isFrontInverted;
 
@@ -228,6 +242,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._backNegativePaddings = this._backNegativePaddings.clone();
 		drawer._backAlignments = this._backAlignments.clone();
 		drawer._backFontFamily = this._backFontFamily;
+		drawer._backFontWeight = this._backFontWeight;
 		drawer._backAngle = this._backAngle;
 		drawer._isBackInverted = this._isBackInverted;
 
@@ -238,6 +253,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._leftNegativePaddings = this._leftNegativePaddings.clone();
 		drawer._leftAlignments = this._leftAlignments.clone();
 		drawer._leftFontFamily = this._leftFontFamily;
+		drawer._leftFontWeight = this._leftFontWeight;
 		drawer._leftAngle = this._leftAngle;
 		drawer._isLeftInverted = this._isLeftInverted;
 
@@ -248,6 +264,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._rightNegativePaddings = this._rightNegativePaddings.clone();
 		drawer._rightAlignments = this._rightAlignments.clone();
 		drawer._rightFontFamily = this._rightFontFamily;
+		drawer._rightFontWeight = this._rightFontWeight;
 		drawer._rightAngle = this._rightAngle;
 		drawer._isRightInverted = this._isRightInverted;
 
@@ -258,6 +275,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._topNegativePaddings = this._topNegativePaddings.clone();
 		drawer._topAlignments = this._topAlignments.clone();
 		drawer._topFontFamily = this._topFontFamily;
+		drawer._topFontWeight = this._topFontWeight;
 		drawer._topAngle = this._topAngle;
 		drawer._isTopInverted = this._isTopInverted;
 
@@ -268,6 +286,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 		drawer._bottomNegativePaddings = this._bottomNegativePaddings.clone();
 		drawer._bottomAlignments = this._bottomAlignments.clone();
 		drawer._bottomFontFamily = this._bottomFontFamily;
+		drawer._bottomFontWeight = this._bottomFontWeight;
 		drawer._bottomAngle = this._bottomAngle;
 		drawer._isBottomInverted = this._isBottomInverted;
 		/*
@@ -306,17 +325,17 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			const	whXY:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.y);
 			const	whZY:	Vector2 = new Vector2(this._extendSizeScaled.z, this._extendSizeScaled.y);
 			const	whXZ:	Vector2 = new Vector2(this._extendSizeScaled.x, this._extendSizeScaled.z);
-			this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontPositivePaddings, this._frontNegativePaddings, this._frontAlignments, this._frontFontFamily, this.frontTextBlock, this._frontPlane, new Vector3(0, 0, -Math.max(this._extendSize.z, 0.04)), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
-			this._renderText(this._backText, this._backFontSize, this._backColor, this._backPositivePaddings, this._backNegativePaddings, this._backAlignments, this._backFontFamily, this.backTextBlock, this._backPlane, new Vector3(0, 0, this._extendSize.z), new Vector3(0, this._isBackInverted ? 0 : Math.PI, this._backAngle), whXY.rotate(this._backAngle));
-			this._renderText(this._rightText, this._rightFontSize, this._rightColor, this._rightPositivePaddings, this._rightNegativePaddings, this._rightAlignments, this._rightFontFamily, this.rightTextBlock, this._rightPlane, new Vector3(this._extendSize.x, 0, 0), new Vector3(0, this._isRightInverted ? Math.PI / 2 : -Math.PI / 2, this._rightAngle), whZY.rotate(this._rightAngle));
-			this._renderText(this._leftText, this._leftFontSize, this._leftColor, this._leftPositivePaddings, this._leftNegativePaddings, this._leftAlignments, this._leftFontFamily, this.leftTextBlock, this._leftPlane, new Vector3(-this._extendSize.x, 0, 0), new Vector3(0, this._isLeftInverted ? -Math.PI / 2 : Math.PI / 2, this._leftAngle), whZY.rotate(this._leftAngle));
-			this._renderText(this._topText, this._topFontSize, this._topColor, this._topPositivePaddings, this._topNegativePaddings, this._topAlignments, this._topFontFamily, this.topTextBlock, this._topPlane, new Vector3(0, this._extendSize.y, 0), new Vector3(this._isTopInverted ? -Math.PI / 2 : Math.PI / 2, this._topAngle, 0), whXZ.rotate(this._topAngle));
-			this._renderText(this._bottomText, this._bottomFontSize, this._bottomColor, this._bottomPositivePaddings, this._bottomNegativePaddings, this._bottomAlignments, this._bottomFontFamily, this.bottomTextBlock, this._bottomPlane, new Vector3(0, -this._extendSize.y, 0), new Vector3(this._isBottomInverted ? Math.PI / 2 : -Math.PI / 2, this._bottomAngle, 0), whXZ.rotate(this._bottomAngle));
+			this._renderText(this._frontText, this._frontFontSize, this._frontColor, this._frontPositivePaddings, this._frontNegativePaddings, this._frontAlignments, this._frontFontFamily, this._frontFontWeight, this.frontTextBlock, this._frontPlane, new Vector3(0, 0, -Math.max(this._extendSize.z, 0.04)), new Vector3(0, this._isFrontInverted ? Math.PI : 0, this._frontAngle), whXY.rotate(this._frontAngle));
+			this._renderText(this._backText, this._backFontSize, this._backColor, this._backPositivePaddings, this._backNegativePaddings, this._backAlignments, this._backFontFamily, this._backFontWeight, this.backTextBlock, this._backPlane, new Vector3(0, 0, this._extendSize.z), new Vector3(0, this._isBackInverted ? 0 : Math.PI, this._backAngle), whXY.rotate(this._backAngle));
+			this._renderText(this._rightText, this._rightFontSize, this._rightColor, this._rightPositivePaddings, this._rightNegativePaddings, this._rightAlignments, this._rightFontFamily, this._rightFontWeight, this.rightTextBlock, this._rightPlane, new Vector3(this._extendSize.x, 0, 0), new Vector3(0, this._isRightInverted ? Math.PI / 2 : -Math.PI / 2, this._rightAngle), whZY.rotate(this._rightAngle));
+			this._renderText(this._leftText, this._leftFontSize, this._leftColor, this._leftPositivePaddings, this._leftNegativePaddings, this._leftAlignments, this._leftFontFamily, this._leftFontWeight, this.leftTextBlock, this._leftPlane, new Vector3(-this._extendSize.x, 0, 0), new Vector3(0, this._isLeftInverted ? -Math.PI / 2 : Math.PI / 2, this._leftAngle), whZY.rotate(this._leftAngle));
+			this._renderText(this._topText, this._topFontSize, this._topColor, this._topPositivePaddings, this._topNegativePaddings, this._topAlignments, this._topFontFamily, this._topFontWeight, this.topTextBlock, this._topPlane, new Vector3(0, this._extendSize.y, 0), new Vector3(this._isTopInverted ? -Math.PI / 2 : Math.PI / 2, this._topAngle, 0), whXZ.rotate(this._topAngle));
+			this._renderText(this._bottomText, this._bottomFontSize, this._bottomColor, this._bottomPositivePaddings, this._bottomNegativePaddings, this._bottomAlignments, this._bottomFontFamily, this._bottomFontWeight, this.bottomTextBlock, this._bottomPlane, new Vector3(0, -this._extendSize.y, 0), new Vector3(this._isBottomInverted ? Math.PI / 2 : -Math.PI / 2, this._bottomAngle, 0), whXZ.rotate(this._bottomAngle));
 			this._drew = true;
 		}
 	}
 
-	private	_renderText(text: string, fontSize: number, color: Color4, posPad: Vector2, negPad: Vector2, alignments: Vector2, family: string, textBlock: TextBlock, plane: Mesh, offset: Vector3, rotation: Vector3, widthHeight: Vector2):	void {
+	private	_renderText(text: string, fontSize: number, color: Color4, posPad: Vector2, negPad: Vector2, alignments: Vector2, family: string, weight: number, textBlock: TextBlock, plane: Mesh, offset: Vector3, rotation: Vector3, widthHeight: Vector2):	void {
 		if (text.length > 0) {
 			plane.isVisible = true
 			plane.position = offset.addInPlace(offset.normalizeToNew().scaleInPlace(0.04));
@@ -348,6 +367,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			}
 			textBlock.setPadding(posPad.y, posPad.x, negPad.y, negPad.x);
 			textBlock.fontFamily = family;
+			document.fonts.ready.then(() => Tools.SetImmediate(() => textBlock.markAsDirty()));
+			textBlock.fontWeight = weight.toString();
 			textBlock.fontSize = fontSize * this._resolution;
 			textBlock.color = color.toHexString();
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(plane, Math.abs(widthHeight.x) * this._resolution, Math.abs(widthHeight.y) * this._resolution, false);

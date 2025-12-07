@@ -1,12 +1,19 @@
-import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh } from "@babylonjs/core";
+import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh, ICanvasRenderingContext, Tools } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
-import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
+import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
+import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 
 export default class InputField3D implements IScript, IClonableScript {
+	@visibleAsBoolean("resize text to fit")
+	private	_resizeTextToFit:	boolean = false;
 	@visibleAsNumber("texture resolution scaler", {min: 1, max: 10, step: 1})
 	private	_textureResolutionScaler:	int = 1;
+	@visibleAsString("font family")
+	private	_fontFamily:	string = "Arial";
+	@visibleAsNumber("font weight", {min: 100, max: 900, step: 1})
+	private	_fontWeight:	number = 400;
 	@visibleAsString("hint")
 	private	_hint:	string = "";
 	@visibleAsNumber("hint size", {min: 1, max: 300, step: 1})
@@ -43,6 +50,7 @@ export default class InputField3D implements IScript, IClonableScript {
 	public constructor(public mesh: AbstractMesh) {
 		if (mesh instanceof InstancedMesh)
 			mesh.refreshBoundingInfo();
+		updateBoundingBoxRecursively(mesh);
 		const	extendSize:			Vector3 = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		if (mesh instanceof InstancedMesh)
 			this._extendSizeScaled = extendSize.multiply(mesh.sourceMesh.absoluteScaling);
@@ -81,6 +89,9 @@ export default class InputField3D implements IScript, IClonableScript {
 		if (!(root instanceof Mesh))
 			throw TypeError("Mesh type was expected by InputField3D");
 		const	field:	InputField3D = applyScriptOnObject(root, InputField3D);
+		field._fontFamily = this._fontFamily;
+		field._fontWeight = this._fontWeight;
+		field._resizeTextToFit = this._resizeTextToFit;
 		field._textureResolutionScaler = this._textureResolutionScaler;
 		field._hint = this._hint;
 		field._hintSize = this._hintSize;
@@ -107,8 +118,17 @@ export default class InputField3D implements IScript, IClonableScript {
 		if (!this._drew) {
 			this._hint = JSON.parse(`"${this._hint}"`);
 			const	dynText:	AdvancedDynamicTexture = AdvancedDynamicTexture.CreateForMesh(this._plane, this._extendSizeScaled.x * this._textureResolutionScaler, this._extendSizeScaled.y * this._textureResolutionScaler, false);
+			const	ctx:		ICanvasRenderingContext = dynText.getContext();
+			this._inputText.onTextChangedObservable.add(() => {
+				ctx.font = `${this._inputText.fontSize} ${this._inputText.fontFamily}`;
+				console.log(ctx.font);
+				console.log(ctx.measureText(this._inputText.text).width);
+			});
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
+			this._inputText.fontFamily = this._fontFamily;
+			document.fonts.ready.then(() => Tools.SetImmediate(() => this._inputText.markAsDirty()));
+			this._inputText.fontWeight = this._fontWeight.toString();
 			this._inputText.placeholderText = this._hint;
 			this._inputText.placeholderColor = this._hintColor.toHexString();
 			this._inputText.textHighlightColor = new Color3(this._highlightColor.r, this._highlightColor.g, this._highlightColor.b).toHexString();
@@ -117,7 +137,7 @@ export default class InputField3D implements IScript, IClonableScript {
 			this._inputText.background = this._backgroundColor.toHexString();
 			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
 			this._inputText.color = this._textColor.toHexString();
-			this._inputText.autoStretchWidth = true;
+			//this._inputText.autoStretchWidth = true;
 			this._inputText.autoStretchHeight = true;
 			this._inputText.margin = "1px";
 			this._inputText.thickness = this._borderThickness * this._textureResolutionScaler;

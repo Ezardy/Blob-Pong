@@ -89,7 +89,7 @@
             "layerMask": 268435455,
             "alphaIndex": 1.7976931348623157e+308,
             "hasVertexAlpha": false,
-            "overlayAlpha": 0,
+            "overlayAlpha": 1,
             "overlayColor": [
                 0,
                 0,
@@ -264,217 +264,217 @@
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 47,
+                        "blockId": 41,
                         "x": 1100,
                         "y": 980,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 48,
+                        "blockId": 42,
                         "x": 800,
                         "y": 860,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 49,
+                        "blockId": 43,
                         "x": 520,
                         "y": 900,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 50,
+                        "blockId": 44,
                         "x": 240,
                         "y": 840,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 51,
+                        "blockId": 45,
                         "x": -1480,
                         "y": 1240,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 52,
+                        "blockId": 46,
                         "x": 180,
                         "y": 900,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 53,
+                        "blockId": 47,
                         "x": -1460,
                         "y": 320,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 54,
+                        "blockId": 48,
                         "x": -40,
                         "y": 860,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 55,
+                        "blockId": 49,
                         "x": -420,
                         "y": 900,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 56,
+                        "blockId": 41,
                         "x": -1460,
                         "y": 420,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 57,
+                        "blockId": 41,
                         "x": -720,
                         "y": 900,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 58,
+                        "blockId": 42,
                         "x": -820,
                         "y": 1040,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 59,
+                        "blockId": 43,
                         "x": -1460,
                         "y": 520,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 60,
+                        "blockId": 44,
                         "x": 520,
                         "y": 1040,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 61,
+                        "blockId": 45,
                         "x": 440,
                         "y": 820,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 62,
+                        "blockId": 46,
                         "x": 200,
                         "y": 1240,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 63,
+                        "blockId": 47,
                         "x": -40,
                         "y": 1220,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 64,
+                        "blockId": 48,
                         "x": -280,
                         "y": 1240,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 65,
+                        "blockId": 49,
                         "x": -720,
                         "y": 900,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 66,
+                        "blockId": 41,
                         "x": -1460,
                         "y": 620,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 67,
+                        "blockId": 42,
                         "x": -1460,
                         "y": 520,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 68,
+                        "blockId": 43,
                         "x": -1460,
                         "y": 820,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 69,
+                        "blockId": 44,
                         "x": 720,
                         "y": 1180,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 70,
+                        "blockId": 45,
                         "x": -1460,
                         "y": 920,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 71,
+                        "blockId": 41,
                         "x": 420,
                         "y": 1360,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 72,
+                        "blockId": 42,
                         "x": -1460,
                         "y": 1020,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 73,
+                        "blockId": 43,
                         "x": -1460,
                         "y": 1120,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 74,
+                        "blockId": 44,
                         "x": -540,
                         "y": 300,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 75,
+                        "blockId": 45,
                         "x": 280,
                         "y": 220,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 76,
+                        "blockId": 46,
                         "x": 820,
                         "y": 260,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 77,
+                        "blockId": 41,
                         "x": 480,
                         "y": 520,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 78,
+                        "blockId": 49,
                         "x": -20,
                         "y": 400,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 79,
+                        "blockId": 41,
                         "x": -340,
                         "y": 460,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 80,
+                        "blockId": 42,
                         "x": 160,
                         "y": 560,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 81,
+                        "blockId": 43,
                         "x": -60,
                         "y": 580,
                         "isCollapsed": false
                     },
                     {
-                        "blockId": 82,
+                        "blockId": 44,
                         "x": -500,
                         "y": 580,
                         "isCollapsed": false
@@ -512,42 +512,42 @@
                     "57": 44,
                     "58": 45,
                     "59": 46,
-                    "60": 47,
-                    "61": 48,
-                    "62": 49,
-                    "63": 50,
-                    "64": 51,
-                    "65": 52,
-                    "66": 53,
-                    "67": 54,
-                    "68": 55,
-                    "69": 56,
-                    "70": 57,
-                    "71": 58,
-                    "72": 59,
-                    "73": 60,
-                    "74": 61,
-                    "75": 62,
-                    "76": 63,
-                    "77": 64,
-                    "78": 65,
-                    "79": 66,
-                    "80": 67,
-                    "81": 68,
-                    "82": 69,
-                    "83": 70,
-                    "84": 71,
-                    "85": 72,
-                    "86": 73,
-                    "87": 74,
-                    "88": 75,
-                    "89": 76,
-                    "90": 77,
-                    "91": 78,
-                    "92": 79,
-                    "93": 80,
-                    "94": 81,
-                    "95": 82
+                    "60": 41,
+                    "61": 42,
+                    "62": 43,
+                    "63": 44,
+                    "64": 45,
+                    "65": 46,
+                    "66": 47,
+                    "67": 48,
+                    "68": 49,
+                    "69": 41,
+                    "70": 41,
+                    "71": 42,
+                    "72": 43,
+                    "73": 44,
+                    "74": 45,
+                    "75": 46,
+                    "76": 47,
+                    "77": 48,
+                    "78": 49,
+                    "79": 41,
+                    "80": 42,
+                    "81": 43,
+                    "82": 44,
+                    "83": 45,
+                    "84": 41,
+                    "85": 42,
+                    "86": 43,
+                    "87": 44,
+                    "88": 45,
+                    "89": 46,
+                    "90": 41,
+                    "91": 49,
+                    "92": 41,
+                    "93": 42,
+                    "94": 43,
+                    "95": 44
                 }
             },
             "customType": "BABYLON.NodeMaterial",
@@ -1429,7 +1429,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 6176.121199999631
+                    "value": 13280.753879986063
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1626,46 +1626,11 @@
                     ]
                 },
                 {
-                    "customType": "BABYLON.MultiplyBlock",
-                    "id": 71,
-                    "name": "Multiply",
+                    "customType": "BABYLON.InputBlock",
+                    "id": 79,
+                    "name": "minDepth",
                     "comments": "",
                     "visibleInInspector": false,
-                    "visibleOnFrame": false,
-                    "target": 4,
-                    "inputs": [
-                        {
-                            "name": "left",
-                            "displayName": "left",
-                            "inputName": "left",
-                            "targetBlockId": 64,
-                            "targetConnectionName": "output",
-                            "isExposedOnFrame": true,
-                            "exposedPortPosition": -1
-                        },
-                        {
-                            "name": "right",
-                            "displayName": "verticalSpeed",
-                            "inputName": "right",
-                            "targetBlockId": 72,
-                            "targetConnectionName": "output",
-                            "isExposedOnFrame": true,
-                            "exposedPortPosition": 8
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "output",
-                            "displayName": "output"
-                        }
-                    ]
-                },
-                {
-                    "customType": "BABYLON.InputBlock",
-                    "id": 72,
-                    "name": "verticalSpeed",
-                    "comments": "",
-                    "visibleInInspector": true,
                     "visibleOnFrame": false,
                     "target": 1,
                     "inputs": [],
@@ -1678,7 +1643,7 @@
                     "mode": 0,
                     "animationType": 0,
                     "min": 0,
-                    "max": 10,
+                    "max": 0,
                     "isBoolean": false,
                     "matrixMode": 0,
                     "isConstant": false,
@@ -1686,7 +1651,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 1
+                    "value": 0.6
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1833,7 +1798,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 6176.121199999631
+                    "value": 13280.753879986063
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1862,34 +1827,6 @@
                     "convertToLinearSpace": false,
                     "valueType": "number",
                     "value": 0.002
-                },
-                {
-                    "customType": "BABYLON.InputBlock",
-                    "id": 79,
-                    "name": "minDepth",
-                    "comments": "",
-                    "visibleInInspector": false,
-                    "visibleOnFrame": false,
-                    "target": 1,
-                    "inputs": [],
-                    "outputs": [
-                        {
-                            "name": "output"
-                        }
-                    ],
-                    "type": 1,
-                    "mode": 0,
-                    "animationType": 0,
-                    "min": 0,
-                    "max": 0,
-                    "isBoolean": false,
-                    "matrixMode": 0,
-                    "isConstant": false,
-                    "groupInInspector": "",
-                    "convertToGammaSpace": false,
-                    "convertToLinearSpace": false,
-                    "valueType": "number",
-                    "value": 0.6
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -2167,6 +2104,69 @@
                         0.5647058823529412,
                         0.6862745098039216
                     ]
+                },
+                {
+                    "customType": "BABYLON.MultiplyBlock",
+                    "id": 71,
+                    "name": "Multiply",
+                    "comments": "",
+                    "visibleInInspector": false,
+                    "visibleOnFrame": false,
+                    "target": 4,
+                    "inputs": [
+                        {
+                            "name": "left",
+                            "displayName": "left",
+                            "inputName": "left",
+                            "targetBlockId": 64,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": -1
+                        },
+                        {
+                            "name": "right",
+                            "displayName": "verticalSpeed",
+                            "inputName": "right",
+                            "targetBlockId": 72,
+                            "targetConnectionName": "output",
+                            "isExposedOnFrame": true,
+                            "exposedPortPosition": 8
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "output",
+                            "displayName": "output"
+                        }
+                    ]
+                },
+                {
+                    "customType": "BABYLON.InputBlock",
+                    "id": 72,
+                    "name": "verticalSpeed",
+                    "comments": "",
+                    "visibleInInspector": true,
+                    "visibleOnFrame": false,
+                    "target": 1,
+                    "inputs": [],
+                    "outputs": [
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "type": 1,
+                    "mode": 0,
+                    "animationType": 0,
+                    "min": 0,
+                    "max": 10,
+                    "isBoolean": false,
+                    "matrixMode": 0,
+                    "isConstant": false,
+                    "groupInInspector": "",
+                    "convertToGammaSpace": false,
+                    "convertToLinearSpace": false,
+                    "valueType": "number",
+                    "value": 1
                 }
             ],
             "uniqueId": 1759826327586
