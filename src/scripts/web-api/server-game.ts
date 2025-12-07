@@ -29,7 +29,6 @@ export type GameState =
 export type GamePlayer =
 {
 	id:				string;
-	alias?:			string;
 	username:		string;
 	position:		number;
 }
@@ -60,6 +59,7 @@ type CreateRoom =
 	{
 		roomId:		string;
 		success:	boolean;
+		isPrivate:	boolean;
 	}
 }
 
@@ -200,6 +200,15 @@ export class ServerGame
 		this._lobbyWs.onerror = (error) => {
 			console.log("Lobby WebSocket error: ", error);
 		};
+
+		window.addEventListener("message", (event: MessageEvent) =>
+		{
+			switch (event.data.type)
+			{
+				case "LOGOUT":
+					this.closeWebsocket();
+			}
+		});
 	}
 
 	public getRoomDetails() : void
@@ -213,13 +222,14 @@ export class ServerGame
 	public createRoom(
 		name: string,
 		entryFee: int,
-		maxPlayers: int
+		maxPlayers: int,
+		isPrivate: boolean = false
 	) : void
 	{
 		const type = "CREATE_ROOM";
 
 		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, maxPlayers, entryFee, name }));
+			this._lobbyWs?.send(JSON.stringify({ type, maxPlayers, entryFee, name, isPrivate }));
 	}
 
 	public joinRoom(roomId: string) : void
@@ -298,8 +308,16 @@ export class ServerGame
 	{
 		const type = "ALIAS";
 
+		// if (this.isWebSocketOpen())
+		// 	this._lobbyWs!.send(JSON.stringify({ type, alias }));
+	}
+
+	public closeWebsocket()
+	{
+		const type = "CLOSE_WS";
+
 		if (this.isWebSocketOpen())
-			this._lobbyWs!.send(JSON.stringify({ type, alias }));
+			this._lobbyWs!.send(JSON.stringify({ type }));
 	}
 
 	public isWebSocketOpen(): boolean
