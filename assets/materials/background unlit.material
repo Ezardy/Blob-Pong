@@ -1268,7 +1268,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 13283.570939986057
+			"value": 13726.543919986028
 		},
 		{
 			"customType": "BABYLON.InputBlock",
@@ -1637,7 +1637,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 13283.570939986057
+			"value": 13726.543919986028
 		},
 		{
 			"customType": "BABYLON.InputBlock",

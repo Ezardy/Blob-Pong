@@ -5,7 +5,7 @@
 	"mode": 0,
 	"forceAlphaBlending": false,
 	"id": "6dc2c0b3-21b1-4145-8fdd-6ca359e18455",
-	"name": "player order",
+	"name": "eye",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",

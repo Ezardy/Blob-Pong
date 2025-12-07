@@ -1,12 +1,12 @@
 {
     "meshes": [
         {
-            "name": "entrance fee entry mesh",
-            "id": "98378508-dabd-47eb-9d04-2ee4f6af0e0a",
-            "uniqueId": 1764933978083,
+            "name": "player count entry mesh",
+            "id": "388eb481-346c-4ba8-8edd-2cbf0fd7dd3c",
+            "uniqueId": 1764933923267,
             "type": "Mesh",
             "position": [
-                -5.142796318159981,
+                -225.2368058199438,
                 0,
                 -56.72948274898957
             ],

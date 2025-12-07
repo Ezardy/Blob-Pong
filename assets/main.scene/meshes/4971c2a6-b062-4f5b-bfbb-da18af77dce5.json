@@ -357,10 +357,6 @@
                                 "type": "number",
                                 "value": 2
                             },
-                            "_boundingBoxCentered": {
-                                "type": "boolean",
-                                "value": false
-                            },
                             "_frontFontWeight": {
                                 "type": "number",
                                 "value": 100
@@ -2219,10 +2215,6 @@
                     "_resolution": {
                         "type": "number",
                         "value": 2
-                    },
-                    "_boundingBoxCentered": {
-                        "type": "boolean",
-                        "value": false
                     },
                     "_frontFontWeight": {
                         "type": "number",

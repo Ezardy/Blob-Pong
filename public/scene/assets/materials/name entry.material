@@ -126,7 +126,7 @@
 	"unlit": false,
 	"applyDecalMapAfterDetailMap": false,
 	"id": "0d7b0795-6681-4113-9dd0-0030737778af",
-	"name": "New PBR Material",
+	"name": "name entry",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",
