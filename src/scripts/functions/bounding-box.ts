@@ -27,7 +27,9 @@ export function	drawBoundingBox(name: string, scene: Scene, color: Color3, min: 
 }
 
 export function	updateBoundingBoxRecursively(mesh: AbstractMesh):	void {
-	const	children:	AbstractMesh[] = mesh.getChildMeshes(false, (n) => n instanceof AbstractMesh && n.isEnabled() && n.isVisible);
+	const	children:	AbstractMesh[] = mesh.getChildMeshes(true, (n) => n instanceof AbstractMesh && n.isEnabled() && n.isVisible);
+	for (const mesh of children)
+		updateBoundingBoxRecursively(mesh);
 	if (children.length > 0) {
 		if (mesh instanceof InstancedMesh) {
 			const	v:	{min: Vector3, max: Vector3} = mesh.getHierarchyBoundingVectors();

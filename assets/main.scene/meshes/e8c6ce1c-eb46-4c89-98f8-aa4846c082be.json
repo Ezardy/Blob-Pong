@@ -128,11 +128,7 @@
                             },
                             "_hintSize": {
                                 "type": "number",
-                                "value": 9
-                            },
-                            "_textSize": {
-                                "type": "number",
-                                "value": 11
+                                "value": 32
                             },
                             "_textureResolutionScaler": {
                                 "type": "number",
@@ -144,11 +140,19 @@
                             },
                             "_fontFamily": {
                                 "type": "string",
-                                "value": "Arial"
+                                "value": "Asimovian"
                             },
                             "_fontWeight": {
                                 "type": "number",
                                 "value": 400
+                            },
+                            "_maxTextSize": {
+                                "type": "number",
+                                "value": 70
+                            },
+                            "_minTextSize": {
+                                "type": "number",
+                                "value": 5
                             }
                         }
                     }
@@ -195,7 +199,7 @@
                                     },
                                     "_hintSize": {
                                         "type": "number",
-                                        "value": 7
+                                        "value": 27
                                     },
                                     "_hintColor": {
                                         "type": "color4",
@@ -205,10 +209,6 @@
                                             0.7686274509803922,
                                             0.796078431372549
                                         ]
-                                    },
-                                    "_textSize": {
-                                        "type": "number",
-                                        "value": 11
                                     },
                                     "_textColor": {
                                         "type": "color4",
@@ -256,11 +256,19 @@
                                     },
                                     "_fontFamily": {
                                         "type": "string",
-                                        "value": "Arial"
+                                        "value": "Asimovian"
                                     },
                                     "_fontWeight": {
                                         "type": "number",
                                         "value": 400
+                                    },
+                                    "_maxTextSize": {
+                                        "type": "number",
+                                        "value": 70
+                                    },
+                                    "_minTextSize": {
+                                        "type": "number",
+                                        "value": 5
                                     }
                                 }
                             }
@@ -664,11 +672,7 @@
                     },
                     "_hintSize": {
                         "type": "number",
-                        "value": 9
-                    },
-                    "_textSize": {
-                        "type": "number",
-                        "value": 11
+                        "value": 32
                     },
                     "_textureResolutionScaler": {
                         "type": "number",
@@ -680,11 +684,19 @@
                     },
                     "_fontFamily": {
                         "type": "string",
-                        "value": "Arial"
+                        "value": "Asimovian"
                     },
                     "_fontWeight": {
                         "type": "number",
                         "value": 400
+                    },
+                    "_maxTextSize": {
+                        "type": "number",
+                        "value": 70
+                    },
+                    "_minTextSize": {
+                        "type": "number",
+                        "value": 5
                     }
                 }
             }

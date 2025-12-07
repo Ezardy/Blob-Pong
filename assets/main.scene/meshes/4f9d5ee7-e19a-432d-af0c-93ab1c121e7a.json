@@ -1,17 +1,17 @@
 {
     "meshes": [
         {
-            "name": "player count entry mesh",
+            "name": "text",
             "id": "4f9d5ee7-e19a-432d-af0c-93ab1c121e7a",
             "uniqueId": 1755850142867,
             "type": "Mesh",
             "position": [
-                -111.65016453833647,
+                27.25693376382651,
                 0,
-                -56.72948274898957
+                0
             ],
             "rotation": [
-                0.3839724354387525,
+                -2.5376816080396115e-17,
                 0,
                 0
             ],
@@ -78,10 +78,6 @@
                                 "type": "string",
                                 "value": "4/16"
                             },
-                            "_frontFontSize": {
-                                "type": "number",
-                                "value": 15
-                            },
                             "_frontColor": {
                                 "type": "color4",
                                 "value": [
@@ -102,10 +98,6 @@
                             "_backText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_backFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_backColor": {
                                 "type": "color4",
@@ -128,10 +120,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_rightFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_rightColor": {
                                 "type": "color4",
                                 "value": [
@@ -152,10 +140,6 @@
                             "_leftText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_leftFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -178,10 +162,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_topFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_topColor": {
                                 "type": "color4",
                                 "value": [
@@ -202,10 +182,6 @@
                             "_bottomText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_bottomFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_bottomColor": {
                                 "type": "color4",
@@ -247,7 +223,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_backPositivePaddings": {
                                 "type": "vector2",
@@ -376,20 +352,112 @@
                             },
                             "_renderOnStart": {
                                 "type": "boolean",
-                                "value": false
+                                "value": true
                             },
                             "_resolution": {
                                 "type": "number",
                                 "value": 2
                             },
-                            "_boundingBoxCentered": {
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_fitFrontText": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_frontFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontFontMaxSize": {
+                                "type": "number",
+                                "value": 70
+                            },
+                            "_fitBackText": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_backFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitRightText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitLeftText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitTopText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitBottomText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomFontMaxSize": {
+                                "type": "number",
+                                "value": 1
                             }
                         }
                     }
                 ],
-                "parentId": 1753456789352
+                "parentId": 1764933923267
             },
             "instances": [],
             "animations": [],
@@ -784,10 +852,6 @@
                         "type": "string",
                         "value": "4/16"
                     },
-                    "_frontFontSize": {
-                        "type": "number",
-                        "value": 15
-                    },
                     "_frontColor": {
                         "type": "color4",
                         "value": [
@@ -808,10 +872,6 @@
                     "_backText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_backFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_backColor": {
                         "type": "color4",
@@ -834,10 +894,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_rightFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_rightColor": {
                         "type": "color4",
                         "value": [
@@ -858,10 +914,6 @@
                     "_leftText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_leftFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -884,10 +936,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_topFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_topColor": {
                         "type": "color4",
                         "value": [
@@ -908,10 +956,6 @@
                     "_bottomText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_bottomFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_bottomColor": {
                         "type": "color4",
@@ -953,7 +997,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_backPositivePaddings": {
                         "type": "vector2",
@@ -1082,20 +1126,112 @@
                     },
                     "_renderOnStart": {
                         "type": "boolean",
-                        "value": false
+                        "value": true
                     },
                     "_resolution": {
                         "type": "number",
                         "value": 2
                     },
-                    "_boundingBoxCentered": {
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_fitFrontText": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_frontFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontFontMaxSize": {
+                        "type": "number",
+                        "value": 70
+                    },
+                    "_fitBackText": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_backFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitRightText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitLeftText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitTopText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitBottomText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomFontMaxSize": {
+                        "type": "number",
+                        "value": 1
                     }
                 }
             }
         ],
-        "parentId": 1753456789352
+        "parentId": 1764933923267
     },
     "basePoseMatrix": [
         1,

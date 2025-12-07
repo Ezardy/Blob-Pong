@@ -88,10 +88,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_frontFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_frontColor": {
                                 "type": "color4",
                                 "value": [
@@ -124,7 +120,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_frontAngle": {
                                 "type": "number",
@@ -137,10 +133,6 @@
                             "_backText": {
                                 "type": "string",
                                 "value": "private"
-                            },
-                            "_backFontSize": {
-                                "type": "number",
-                                "value": 10
                             },
                             "_backColor": {
                                 "type": "color4",
@@ -174,7 +166,7 @@
                             },
                             "_backFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_backAngle": {
                                 "type": "number",
@@ -187,10 +179,6 @@
                             "_rightText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_rightFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -238,10 +226,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_leftFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_leftColor": {
                                 "type": "color4",
                                 "value": [
@@ -287,10 +271,6 @@
                             "_topText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_topFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_topColor": {
                                 "type": "color4",
@@ -338,10 +318,6 @@
                                 "type": "string",
                                 "value": "public"
                             },
-                            "_bottomFontSize": {
-                                "type": "number",
-                                "value": 10
-                            },
                             "_bottomColor": {
                                 "type": "color4",
                                 "value": [
@@ -374,7 +350,7 @@
                             },
                             "_bottomFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_bottomAngle": {
                                 "type": "number",
@@ -387,6 +363,102 @@
                             "_boundingBoxCentered": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_fitFrontText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitBackText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backFontMaxSize": {
+                                "type": "number",
+                                "value": 29
+                            },
+                            "_fitRightText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitLeftText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitTopText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitBottomText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomFontMaxSize": {
+                                "type": "number",
+                                "value": 29
                             }
                         }
                     }
@@ -1697,10 +1769,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_frontFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_frontColor": {
                         "type": "color4",
                         "value": [
@@ -1733,7 +1801,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_frontAngle": {
                         "type": "number",
@@ -1746,10 +1814,6 @@
                     "_backText": {
                         "type": "string",
                         "value": "private"
-                    },
-                    "_backFontSize": {
-                        "type": "number",
-                        "value": 10
                     },
                     "_backColor": {
                         "type": "color4",
@@ -1783,7 +1847,7 @@
                     },
                     "_backFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_backAngle": {
                         "type": "number",
@@ -1796,10 +1860,6 @@
                     "_rightText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_rightFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1847,10 +1907,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_leftFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_leftColor": {
                         "type": "color4",
                         "value": [
@@ -1896,10 +1952,6 @@
                     "_topText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_topFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_topColor": {
                         "type": "color4",
@@ -1947,10 +1999,6 @@
                         "type": "string",
                         "value": "public"
                     },
-                    "_bottomFontSize": {
-                        "type": "number",
-                        "value": 10
-                    },
                     "_bottomColor": {
                         "type": "color4",
                         "value": [
@@ -1983,7 +2031,7 @@
                     },
                     "_bottomFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_bottomAngle": {
                         "type": "number",
@@ -1996,6 +2044,102 @@
                     "_boundingBoxCentered": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_fitFrontText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitBackText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backFontMaxSize": {
+                        "type": "number",
+                        "value": 29
+                    },
+                    "_fitRightText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitLeftText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitTopText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitBottomText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomFontMaxSize": {
+                        "type": "number",
+                        "value": 29
                     }
                 }
             }

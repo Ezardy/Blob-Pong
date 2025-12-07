@@ -129,7 +129,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "New Amsterdam"
                             },
                             "_frontAngle": {
                                 "type": "number",
@@ -388,6 +388,30 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
                             }
                         }
                     }
@@ -475,7 +499,7 @@
                                     },
                                     "_frontFontFamily": {
                                         "type": "string",
-                                        "value": ""
+                                        "value": "New Amsterdam"
                                     },
                                     "_frontAngle": {
                                         "type": "number",
@@ -734,6 +758,30 @@
                                     "_isBottomInverted": {
                                         "type": "boolean",
                                         "value": false
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 400
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
                                     }
                                 }
                             }
@@ -824,7 +872,7 @@
                                     },
                                     "_frontFontFamily": {
                                         "type": "string",
-                                        "value": ""
+                                        "value": "New Amsterdam"
                                     },
                                     "_frontAngle": {
                                         "type": "number",
@@ -1083,6 +1131,30 @@
                                     "_isBottomInverted": {
                                         "type": "boolean",
                                         "value": false
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 400
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
                                     }
                                 }
                             }
@@ -1488,7 +1560,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "New Amsterdam"
                     },
                     "_frontAngle": {
                         "type": "number",
@@ -1747,6 +1819,30 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
                     }
                 }
             }

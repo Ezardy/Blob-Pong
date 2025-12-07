@@ -6,5 +6,5 @@ export interface IClonableScript {
 }
 
 export function	isclonablescript(obj: any):	obj is IClonableScript {
-	return obj.clone === "function";
+	return typeof obj?.clone === "function";
 }
