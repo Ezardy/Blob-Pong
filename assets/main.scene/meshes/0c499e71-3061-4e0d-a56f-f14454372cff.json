@@ -357,10 +357,6 @@
                                 "type": "number",
                                 "value": 4
                             },
-                            "_boundingBoxCentered": {
-                                "type": "boolean",
-                                "value": true
-                            },
                             "_frontFontWeight": {
                                 "type": "number",
                                 "value": 400
@@ -395,7 +391,7 @@
                             },
                             "_frontFontMaxSize": {
                                 "type": "number",
-                                "value": 50
+                                "value": 37
                             },
                             "_fitBackText": {
                                 "type": "boolean",
@@ -1084,10 +1080,6 @@
                         "type": "number",
                         "value": 4
                     },
-                    "_boundingBoxCentered": {
-                        "type": "boolean",
-                        "value": true
-                    },
                     "_frontFontWeight": {
                         "type": "number",
                         "value": 400
@@ -1122,7 +1114,7 @@
                     },
                     "_frontFontMaxSize": {
                         "type": "number",
-                        "value": 50
+                        "value": 37
                     },
                     "_fitBackText": {
                         "type": "boolean",

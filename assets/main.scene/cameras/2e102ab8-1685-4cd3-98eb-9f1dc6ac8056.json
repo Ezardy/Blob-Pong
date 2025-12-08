@@ -58,6 +58,7 @@
     "layerMask": 268435455,
     "fovMode": 0,
     "cameraRigMode": 0,
+    "ignoreCameraMaxZ": false,
     "name": "camera",
     "id": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
     "state": "",
@@ -109,8 +110,8 @@
             "pinchPrecision": 12,
             "pinchDeltaPercentage": 0,
             "useNaturalPinchZoom": false,
-            "pinchZoom": true,
             "panningSensibility": 1000,
+            "pinchZoom": true,
             "multiTouchPanning": true,
             "multiTouchPanAndZoom": true
         }

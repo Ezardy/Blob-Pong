@@ -226,12 +226,12 @@ export default class Ui implements IScript {
 		this._resultListPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
 		this._resultDescriptionsPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._resultEntryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
-		this._resultScrollList = new ScrollList3D(true, 6, (entry, control) => {
+		this._resultScrollList = new ScrollList3D(true, 5, (entry, control) => {
 			const	meshes:				AbstractMesh[] = control.node!.getChildMeshes(true);
-			const	playerNameText:		TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._resultPlayerNameMesh.name || value.name === this._resultPlayerNameMesh.name), TextBlockDrawer)!.frontTextBlock;
-			const	kickedPlayersText:	TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._kickedPlayersIconMesh.name || value.name === this._kickedPlayersIconMesh.name), TextBlockDrawer)!.frontTextBlock;
-			const	placeText:			TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._placeIconMesh.name || value.name === this._placeIconMesh.name), TextBlockDrawer)!.frontTextBlock;
-			const	earnedText:			TextBlock = getScriptByClassForObject(meshes.find((value) => value.name === "instance of " + this._earnedIconMesh.name || value.name === this._earnedIconMesh.name), TextBlockDrawer)!.frontTextBlock;
+			const	playerNameText:		TextBlock = getScriptByClassForObject(meshes[0], TextBlockDrawer)!.frontTextBlock;
+			const	kickedPlayersText:	TextBlock = getScriptByClassForObject(meshes[1], TextBlockDrawer)!.frontTextBlock;
+			const	placeText:			TextBlock = getScriptByClassForObject(meshes[2], TextBlockDrawer)!.frontTextBlock;
+			const	earnedText:			TextBlock = getScriptByClassForObject(meshes[3], TextBlockDrawer)!.frontTextBlock;
 			playerNameText.text = entry.username as string;
 			kickedPlayersText.text = entry.playersKicked as string;
 			placeText.text = entry.place as string;
@@ -269,7 +269,7 @@ export default class Ui implements IScript {
 	private	_setResultLayout():	void {
 		this._manager.addControl(this._resultLayout);
 		this._resultLayout.blockLayout = true;
-			this._resultLayout.margin = 20;
+			this._resultLayout.margin = 15;
 			this._resultLayout.addControl(this._resultListPanel);
 			const	okBtn:	ButtonWithDescription = new ButtonWithDescription(this._skipResultMesh as Mesh, "skip result", Quaternion.RotationAxis(Axis.Y, Math.PI / 6), 1.3, undefined, undefined, getScriptByClassForObject(this._skipResultMesh, TextBlockDrawer)!.frontTextBlock);
 			okBtn.onPointerUpObservable.add(() => this._switchLayout(this._mainLayout, this._mainMenuMainColor, this._mainMenuDepthColor));
@@ -278,6 +278,7 @@ export default class Ui implements IScript {
 				this._resultListPanel.addControl(this._resultScrollList);
 				this._resultListPanel.addControl(this._resultDescriptionsPanel);
 				this._resultDescriptionsPanel.blockLayout = true;
+				this._resultDescriptionsPanel.padding = 79;
 					this._resultDescriptionsPanel.margin = 10;
 					const	earnedDescription:			MeshControl = new MeshControl(this._earnedDescriptionMesh, "earned description");
 					const	placeDescription:			MeshControl = new MeshControl(this._placeDescriptionMesh, "place description");
@@ -287,10 +288,10 @@ export default class Ui implements IScript {
 					this._resultDescriptionsPanel.addControl(earnedDescription);
 				this._resultDescriptionsPanel.blockLayout = false;
 				this._resultScrollList.blockLayout = true;
-					this._resultScrollList.margin = 10;
+					this._resultScrollList.margin = 5;
 					this._resultScrollList.addControl(this._resultEntryPanel);
 					this._resultEntryPanel.blockLayout = true;
-						this._resultEntryPanel.margin = 10;
+						this._resultEntryPanel.margin = 27;
 						const	playerName:			MeshControl = new MeshControl(this._resultPlayerNameMesh, "result player name entry");
 						const	kickedPlayersIcon:	MeshControl = new MeshControl(this._kickedPlayersIconMesh, "kicked players icon");
 						const	placeIcon:			MeshControl = new MeshControl(this._placeIconMesh, "place icon");
@@ -728,7 +729,7 @@ export default class Ui implements IScript {
 	private	_setOnGameResultObservable():	void {
 		this._webApi.serverGame.onGameResultObservable.add((res) => {
 			this._switchLayout(this._resultLayout, this._gameMainColor, this._gameDepthColor);
-			this._resultScrollList.fillList(res.gameResult.players.sort((a, b) => a.score - b.score));
+			this._resultScrollList.fillList(res.gameResult.players.sort((a, b) => b.score - a.score));
 		});
 	}
 	// Observers' functions

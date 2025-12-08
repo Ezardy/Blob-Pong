@@ -6,12 +6,12 @@
             "uniqueId": 1755870980125,
             "type": "Mesh",
             "position": [
-                54.92063843413621,
+                -0.017535318368345543,
                 0,
                 0
             ],
             "rotation": [
-                0,
+                -2.5376816080396115e-17,
                 0,
                 0
             ],
@@ -384,11 +384,11 @@
                             },
                             "_fitFrontText": {
                                 "type": "boolean",
-                                "value": false
+                                "value": true
                             },
                             "_frontFontMinSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 5
                             },
                             "_frontFontMaxSize": {
                                 "type": "number",
@@ -1158,11 +1158,11 @@
                     },
                     "_fitFrontText": {
                         "type": "boolean",
-                        "value": false
+                        "value": true
                     },
                     "_frontFontMinSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 5
                     },
                     "_frontFontMaxSize": {
                         "type": "number",

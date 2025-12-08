@@ -24,10 +24,10 @@
     "blurScale": 2,
     "useKernelBlur": false,
     "renderList": [
-        "afc2d8b5-d60d-4b2d-98d8-d38ba21f652b",
         "ca428371-816c-4d97-990b-980705fc9e06",
-        "807d8019-ce07-4c92-94bd-901e1e965342",
-        "3e980691-69ad-4b42-ac2a-bdd1ad919dc3"
+        "afc2d8b5-d60d-4b2d-98d8-d38ba21f652b",
+        "3e980691-69ad-4b42-ac2a-bdd1ad919dc3",
+        "807d8019-ce07-4c92-94bd-901e1e965342"
     ],
     "numCascades": 4,
     "debug": false,

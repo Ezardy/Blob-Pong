@@ -1,10 +1,9 @@
-import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int, TransformNode, } from "@babylonjs/core";
+import { Color4, IParticleSystem, MeshBuilder, Scene, Tags, Vector2, Vector3, Node, InstancedMesh, AbstractMesh, int } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, TextBlock } from "@babylonjs/gui";
 import { applyScriptOnObject, IScript, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
-import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 import { fitTextIntoControl } from "./functions/text";
 
 export default class TextBlockDrawer implements IScript, IClonableScript, IRenderOnStart {
@@ -195,8 +194,6 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	}
 
 	public constructor(public mesh: AbstractMesh) {
-		if (mesh instanceof InstancedMesh)
-			mesh.refreshBoundingInfo();
 		this._extendSize = this.mesh.getBoundingInfo().boundingBox.extendSize;
 		if (mesh instanceof InstancedMesh)
 			this._extendSizeScaled = this._extendSize.multiply(mesh.sourceMesh.absoluteScaling);

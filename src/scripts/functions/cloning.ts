@@ -1,11 +1,12 @@
-import { Nullable, Tags, TransformNode } from "@babylonjs/core";
-import { IRegisteredScript, scriptsDictionary } from "babylonjs-editor-tools";
+import { Nullable, Tags, Tools, TransformNode } from "@babylonjs/core";
+import { IRegisteredScript, IScript, scriptsDictionary } from "babylonjs-editor-tools";
 import { Control3DClone } from "./typing-utils";
 import { AdvancedStackPanel3D } from "../controls/advanced-stack-panel-3d";
 import { isclonablescript } from "../interfaces/iclonablescript";
 
 export function	cloneNodeWithScripts(node: TransformNode):	Nullable<TransformNode> {
-	return node.instantiateHierarchy(
+	const	registeredScripts:	Map<TransformNode, IRegisteredScript[]> = new Map<TransformNode, IRegisteredScript[]>();
+	const	result:	Nullable<TransformNode> = node.instantiateHierarchy(
 		null,
 		{doNotInstantiate: (n: TransformNode) => Tags.MatchesQuery(n, "noInstance") || Tags.MatchesQuery(n, "noClone")},
 		(s: TransformNode, c: TransformNode) => {
@@ -13,15 +14,19 @@ export function	cloneNodeWithScripts(node: TransformNode):	Nullable<TransformNod
 				c.dispose();
 			else {
 				const	scripts:	IRegisteredScript[] | undefined = scriptsDictionary.get(s);
-				if (scripts) {
-					for (const script of scripts) {
-						if (isclonablescript(script.instance))
-							script.instance.clone(c);
-					}
-				}
+				if (scripts)
+					registeredScripts.set(c, scripts);
 			}
 		}
 	);
+	for (const pair of registeredScripts) {
+		for (const script of pair[1]) {
+			const	inst:	IScript = script.instance;
+			if (isclonablescript(inst))
+				inst.clone(pair[0]);
+		}
+	}
+	return result;
 }
 
 export function	parentClones(clones: Control3DClone):	void {

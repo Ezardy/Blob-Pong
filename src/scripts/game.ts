@@ -3,7 +3,7 @@ import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
 import { setKeys } from "./functions/animations";
-import { AdvancedDynamicTexture, InputText, Rectangle, TextBlock } from "@babylonjs/gui";
+import { AdvancedDynamicTexture, Rectangle, TextBlock } from "@babylonjs/gui";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -82,8 +82,6 @@ export default class Game implements IScript {
 	private readonly	_cameraAlphaAnimation:	Animation;
 	private readonly	_cameraBetaAnimation:	Animation;
 	private readonly	_cameraRadiusAnimation:	Animation;
-
-	private	_aliasInput:	Nullable<InputText> = null;
 
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
@@ -177,12 +175,9 @@ export default class Game implements IScript {
 		for (let i = 0; i < this._namePool.length; i += 1) {
 			const	rect:	Rectangle = new Rectangle();
 			this._namesTexture.addControl(rect)
-			const	text:	InputText = new InputText("nickname " + i);
+			const	text:	TextBlock = new TextBlock("nickname " + i);
 			text.isEnabled = false;
 			text.disabledColor = "#00000000";
-			text.thickness = 0;
-			text.focusedBackground = "#00000000";
-			text.background = "#00000000";
 			rect.addControl(text);
 			rect.width = 0.12;
 			rect.height = "40px";
@@ -295,14 +290,12 @@ export default class Game implements IScript {
 	}
 
 	private	_updateRoom(d: RoomDetails):	void {
-		console.log("update");
 		const	gamePlayers:	GamePlayer[] = [];
 		d.players.forEach(v => {
 			const	gamePlayer:	GamePlayer = {
 				id: v.id,
 				username: v.username,
 				position: 0.5,
-				alias: v.alias
 			}
 			gamePlayers.push(gamePlayer);
 		});
@@ -386,14 +379,14 @@ export default class Game implements IScript {
 			const	player:	GamePlayer = players[index];
 			if (this._playerColors.has(player.id)) {
 				this._colorWalls.set(this._playerColors.get(player.id)!, wall);
-				(this._racketNames.get(this._playerRackets.get(player.id)!)!.children[0] as InputText).text = player.alias ? player.alias : player.username;
+				(this._racketNames.get(this._playerRackets.get(player.id)!)!.children[0] as TextBlock).text = player.username;
 				playerColors.delete(player.id);
 			} else {
 				const	color:		Color3 = takeColor()!;
 				const	racket:		InstancedMesh = this._racketPool.pop()!;
 				const	nameRect:	Rectangle = this._namePool.pop()!;
-				const	text:		InputText = (nameRect.children[0] as InputText);
-				text.text = player.alias ? player.alias : player.username;
+				const	text:		TextBlock = (nameRect.children[0] as TextBlock);
+				text.text = player.username;
 				text.color = Color3.Lerp(color, Color3.White(), 0.5).toHexString();
 				racket.isVisible = true;
 				nameRect.isVisible = true;
@@ -463,8 +456,7 @@ export default class Game implements IScript {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
 				case Game.NONE_MODE:
-					this._camera.detachControl();
-					this._resetAliasInput();
+					//this._camera.detachControl();
 					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._camera.onViewMatrixChangedObservable.removeCallback(this._drawNames, this);
@@ -491,18 +483,12 @@ export default class Game implements IScript {
 				case Game.LOBBY_MODE:
 					this._camera.attachControl();
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.add(this._updateRoom, undefined, false, this);
-					this._webApi.serverGame.onRoomDetailsUpdatedObservable.addOnce((d) =>  {
-						this._aliasInput = this._racketNames.get(this._playerRackets.get(this._webApi.clientInfo!.id)!)!.children[0] as InputText;
-						this._aliasInput.onBlurObservable.add(this._aliasBlurCallback, undefined, false, this);
-						this._aliasInput.isEnabled = true;
-					});
 					this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this._resetColors();
 					this._scaleMeshes();
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
-					this._resetAliasInput();
 					if (!this._camera.onViewMatrixChangedObservable.hasObservers())
 						this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this.scene.onPointerObservable.add(this._mouseCallback, undefined, false, this);
@@ -518,18 +504,6 @@ export default class Game implements IScript {
 					break;
 			}
 			this._mode = value;
-		}
-	}
-
-	private	_aliasBlurCallback():	void {
-		this._webApi.serverGame.assignAliasToUser(this._aliasInput!.text);
-	}
-
-	private	_resetAliasInput():	void {
-		if (this._aliasInput) {
-			this._aliasInput.onBlurObservable.removeCallback(this._aliasBlurCallback, this);
-			this._aliasInput.isEnabled = false;
-			this._aliasInput = null;
 		}
 	}
 

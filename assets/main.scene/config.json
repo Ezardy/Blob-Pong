@@ -343,11 +343,13 @@
                         "type": "entity",
                         "value": "b37fdf85-c1e4-4648-a486-d294dcc2e409"
                     }
-                }
+                },
+                "_id": "a11102fb-fe5b-4d1f-a6a7-d9364681e232"
             },
             {
                 "enabled": true,
-                "key": "scripts/web-api.ts"
+                "key": "scripts/web-api.ts",
+                "_id": "390273b0-f5d2-44b3-80cb-0a7245173731"
             },
             {
                 "enabled": true,
@@ -407,7 +409,8 @@
                         "type": "number",
                         "value": 1000
                     }
-                }
+                },
+                "_id": "36a4d360-dea7-46c0-9f53-6f2217703813"
             },
             {
                 "enabled": true,
@@ -425,7 +428,8 @@
                         "type": "entity",
                         "value": "cc0a307f-8041-4ede-947d-830d12309b99"
                     }
-                }
+                },
+                "_id": "07750684-39fb-4118-b293-26ab7ae6c542"
             }
         ],
         "rendering": [
@@ -460,15 +464,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.18679586267089754,
-            6.372392866369376,
+            0.11679565667724456,
+            6.454893537756107,
             0
         ],
         "speed": 200,
         "position": [
-            -1346.7316843333329,
-            717.0023091172415,
-            -913.1346320418171
+            922.1846086146899,
+            768.4588199963832,
+            -691.3648984601331
         ],
         "upVector": [
             0,
@@ -484,6 +488,7 @@
         "layerMask": 268435455,
         "fovMode": 0,
         "cameraRigMode": 0,
+        "ignoreCameraMaxZ": false,
         "name": "Editor preview",
         "id": "3cc9ef80-8c60-43e0-bcc4-1b55ff36010d",
         "state": "",

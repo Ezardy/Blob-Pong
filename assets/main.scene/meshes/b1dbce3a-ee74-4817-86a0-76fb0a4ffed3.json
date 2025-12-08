@@ -8,11 +8,11 @@
             "position": [
                 -24.44982904275639,
                 71.19694724176827,
-                -190.49907428329416
+                -200
             ],
             "rotation": [
                 0,
-                -0.35797943242814845,
+                0,
                 0
             ],
             "scaling": [
@@ -68,8 +68,8 @@
             "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
             "metadata": {
                 "type": "Box",
-                "width": 100,
-                "depth": 39.50000000000002,
+                "width": 72,
+                "depth": 40,
                 "height": 44.9,
                 "sideOrientation": 0,
                 "scripts": [
@@ -81,21 +81,13 @@
                                 "type": "boolean",
                                 "value": true
                             },
-                            "_boundingBoxCentered": {
-                                "type": "boolean",
-                                "value": true
-                            },
                             "_resolution": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             },
                             "_frontText": {
                                 "type": "string",
                                 "value": "kicked"
-                            },
-                            "_frontFontSize": {
-                                "type": "number",
-                                "value": 15
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -143,10 +135,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_backFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_backColor": {
                                 "type": "color4",
                                 "value": [
@@ -192,10 +180,6 @@
                             "_rightText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_rightFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -243,10 +227,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_leftFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_leftColor": {
                                 "type": "color4",
                                 "value": [
@@ -293,10 +273,6 @@
                                 "type": "string",
                                 "value": ""
                             },
-                            "_topFontSize": {
-                                "type": "number",
-                                "value": 1
-                            },
                             "_topColor": {
                                 "type": "color4",
                                 "value": [
@@ -342,10 +318,6 @@
                             "_bottomText": {
                                 "type": "string",
                                 "value": ""
-                            },
-                            "_bottomFontSize": {
-                                "type": "number",
-                                "value": 1
                             },
                             "_bottomColor": {
                                 "type": "color4",
@@ -412,8 +384,81 @@
                             "_bottomFontWeight": {
                                 "type": "number",
                                 "value": 100
+                            },
+                            "_fitFrontText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontFontMaxSize": {
+                                "type": "number",
+                                "value": 60
+                            },
+                            "_fitBackText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitRightText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitLeftText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitTopText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitBottomText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomFontMaxSize": {
+                                "type": "number",
+                                "value": 1
                             }
-                        }
+                        },
+                        "_id": "55439270-892e-4872-98ff-3e77d9f2ddfc"
                     }
                 ],
                 "parentId": 1764230513645
@@ -429,7 +474,7 @@
                     "position": [
                         85.9623903570697,
                         71.19694724176827,
-                        -165.18227196929075
+                        -200
                     ],
                     "scaling": [
                         0.9999999999999992,
@@ -451,21 +496,13 @@
                                         "type": "boolean",
                                         "value": true
                                     },
-                                    "_boundingBoxCentered": {
-                                        "type": "boolean",
-                                        "value": true
-                                    },
                                     "_resolution": {
                                         "type": "number",
-                                        "value": 2
+                                        "value": 3
                                     },
                                     "_frontText": {
                                         "type": "string",
                                         "value": "place"
-                                    },
-                                    "_frontFontSize": {
-                                        "type": "number",
-                                        "value": 15
                                     },
                                     "_frontColor": {
                                         "type": "color4",
@@ -513,10 +550,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_backFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_backColor": {
                                         "type": "color4",
                                         "value": [
@@ -562,10 +595,6 @@
                                     "_rightText": {
                                         "type": "string",
                                         "value": ""
-                                    },
-                                    "_rightFontSize": {
-                                        "type": "number",
-                                        "value": 1
                                     },
                                     "_rightColor": {
                                         "type": "color4",
@@ -613,10 +642,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_leftFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_leftColor": {
                                         "type": "color4",
                                         "value": [
@@ -663,10 +688,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_topFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_topColor": {
                                         "type": "color4",
                                         "value": [
@@ -712,10 +733,6 @@
                                     "_bottomText": {
                                         "type": "string",
                                         "value": ""
-                                    },
-                                    "_bottomFontSize": {
-                                        "type": "number",
-                                        "value": 1
                                     },
                                     "_bottomColor": {
                                         "type": "color4",
@@ -782,8 +799,81 @@
                                     "_bottomFontWeight": {
                                         "type": "number",
                                         "value": 100
+                                    },
+                                    "_fitFrontText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_frontFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_frontFontMaxSize": {
+                                        "type": "number",
+                                        "value": 60
+                                    },
+                                    "_fitBackText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_backFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitRightText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitLeftText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitTopText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitBottomText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
                                     }
-                                }
+                                },
+                                "_id": "8bc43cd7-a4f5-4f7c-acdf-29fe3d31cc08"
                             }
                         ],
                         "parentId": 1764230513645
@@ -802,7 +892,7 @@
                     "position": [
                         206.9985391995125,
                         71.19694724176827,
-                        -177.92625718749383
+                        -200
                     ],
                     "scaling": [
                         0.9999999999999992,
@@ -811,7 +901,7 @@
                     ],
                     "rotation": [
                         0,
-                        0.35797943242814845,
+                        0,
                         0
                     ],
                     "metadata": {
@@ -824,21 +914,13 @@
                                         "type": "boolean",
                                         "value": true
                                     },
-                                    "_boundingBoxCentered": {
-                                        "type": "boolean",
-                                        "value": true
-                                    },
                                     "_resolution": {
                                         "type": "number",
-                                        "value": 2
+                                        "value": 3
                                     },
                                     "_frontText": {
                                         "type": "string",
                                         "value": "earned"
-                                    },
-                                    "_frontFontSize": {
-                                        "type": "number",
-                                        "value": 15
                                     },
                                     "_frontColor": {
                                         "type": "color4",
@@ -886,10 +968,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_backFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_backColor": {
                                         "type": "color4",
                                         "value": [
@@ -935,10 +1013,6 @@
                                     "_rightText": {
                                         "type": "string",
                                         "value": ""
-                                    },
-                                    "_rightFontSize": {
-                                        "type": "number",
-                                        "value": 1
                                     },
                                     "_rightColor": {
                                         "type": "color4",
@@ -986,10 +1060,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_leftFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_leftColor": {
                                         "type": "color4",
                                         "value": [
@@ -1036,10 +1106,6 @@
                                         "type": "string",
                                         "value": ""
                                     },
-                                    "_topFontSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
                                     "_topColor": {
                                         "type": "color4",
                                         "value": [
@@ -1085,10 +1151,6 @@
                                     "_bottomText": {
                                         "type": "string",
                                         "value": ""
-                                    },
-                                    "_bottomFontSize": {
-                                        "type": "number",
-                                        "value": 1
                                     },
                                     "_bottomColor": {
                                         "type": "color4",
@@ -1155,8 +1217,81 @@
                                     "_bottomFontWeight": {
                                         "type": "number",
                                         "value": 100
+                                    },
+                                    "_fitFrontText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_frontFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_frontFontMaxSize": {
+                                        "type": "number",
+                                        "value": 60
+                                    },
+                                    "_fitBackText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_backFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitRightText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitLeftText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitTopText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitBottomText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
                                     }
-                                }
+                                },
+                                "_id": "d4ba17b6-475f-4683-b0dc-16043f7f76c1"
                             }
                         ],
                         "parentId": 1764230513645
@@ -1181,14 +1316,14 @@
             "applyFog": true,
             "delayLoadingFile": "assets/main.scene/geometries/94e37e12-746f-4347-a7f9-ef1cc6dfbd1e.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                50,
-                22.450000762939453,
-                19.75
+                36,
+                22.45,
+                20
             ],
             "boundingBoxMinimum": [
-                -50,
-                -22.450000762939453,
-                -19.75
+                -36,
+                -22.45,
+                -20
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
@@ -1499,8 +1634,8 @@
     },
     "metadata": {
         "type": "Box",
-        "width": 100,
-        "depth": 39.50000000000002,
+        "width": 72,
+        "depth": 40,
         "height": 44.9,
         "sideOrientation": 0,
         "scripts": [
@@ -1512,21 +1647,13 @@
                         "type": "boolean",
                         "value": true
                     },
-                    "_boundingBoxCentered": {
-                        "type": "boolean",
-                        "value": true
-                    },
                     "_resolution": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     },
                     "_frontText": {
                         "type": "string",
                         "value": "kicked"
-                    },
-                    "_frontFontSize": {
-                        "type": "number",
-                        "value": 15
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -1574,10 +1701,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_backFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_backColor": {
                         "type": "color4",
                         "value": [
@@ -1623,10 +1746,6 @@
                     "_rightText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_rightFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1674,10 +1793,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_leftFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_leftColor": {
                         "type": "color4",
                         "value": [
@@ -1724,10 +1839,6 @@
                         "type": "string",
                         "value": ""
                     },
-                    "_topFontSize": {
-                        "type": "number",
-                        "value": 1
-                    },
                     "_topColor": {
                         "type": "color4",
                         "value": [
@@ -1773,10 +1884,6 @@
                     "_bottomText": {
                         "type": "string",
                         "value": ""
-                    },
-                    "_bottomFontSize": {
-                        "type": "number",
-                        "value": 1
                     },
                     "_bottomColor": {
                         "type": "color4",
@@ -1843,8 +1950,81 @@
                     "_bottomFontWeight": {
                         "type": "number",
                         "value": 100
+                    },
+                    "_fitFrontText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontFontMaxSize": {
+                        "type": "number",
+                        "value": 60
+                    },
+                    "_fitBackText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitRightText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitLeftText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitTopText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitBottomText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomFontMaxSize": {
+                        "type": "number",
+                        "value": 1
                     }
-                }
+                },
+                "_id": "55439270-892e-4872-98ff-3e77d9f2ddfc"
             }
         ],
         "parentId": 1764230513645

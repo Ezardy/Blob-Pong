@@ -1,10 +1,9 @@
-import { AbstractEngine, AbstractMesh, Camera, Color3, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
+import { AbstractEngine, Camera, int, Matrix, Nullable, Plane, Ray, Scene, TmpVectors, Tools, Vector3 } from "@babylonjs/core";
 import { Container3D } from "@babylonjs/gui";
 import { _applyScriptsForObject, getScriptByClassForObject } from "babylonjs-editor-tools";
 import { IClonableControl3D, isclonablecontrol3d } from "../interfaces/iclonablecontrol3d";
 import IconDrawer from "../icon-drawer";
 import { Control3DClone } from "../functions/typing-utils";
-import { drawBoundingBox } from "../functions/bounding-box";
 
 export class AdvancedStackPanel3D extends Container3D implements IClonableControl3D {
 	public static readonly	START_ALIGNMENT = 1;
@@ -95,29 +94,30 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 			index += 1;
 		}
 
+		let	_offset:		number;
 		let	controlCount:	int = this._extendSizes.size;
-		let	_offset: number;
 		if (this._isVertical) {
 			height += ((controlCount - 1) * this.margin) / 2;
-			_offset = -height;
+			_offset = -height + (this._alignment === AdvancedStackPanel3D.CENTER_ALIGNMENT ? this.padding : 0);
 		} else {
 			width += ((controlCount - 1) * this.margin) / 2;
-			_offset = -width;
+			_offset = -width + (this._alignment === AdvancedStackPanel3D.CENTER_ALIGNMENT ? this.padding : 0);
 		}
-
+		
+		const	shift:	number = this._alignment === AdvancedStackPanel3D.CENTER_ALIGNMENT ? this.shift : 0;
 		index = 0;
 		for (const child of this._children) {
 			if (child.node && this._extendSizes.has(index)) {
 				controlCount -= 1;
-				const extendSize = this._extendSizes.get(index)!;
+				const	extendSize = this._extendSizes.get(index)!;
 
 				if (this._isVertical) {
 					child.position.y = _offset + extendSize.y;
-					child.position.x = 0;
+					child.position.x = shift;
 					_offset += extendSize.y * 2;
 				} else {
 					child.position.x = _offset + extendSize.x;
-					child.position.y = 0;
+					child.position.y = shift;
 					_offset += extendSize.x * 2;
 				}
 				_offset += controlCount > 0 ? this.margin : 0;
@@ -126,7 +126,7 @@ export class AdvancedStackPanel3D extends Container3D implements IClonableContro
 		}
 
 		if (this._alignment != AdvancedStackPanel3D.CENTER_ALIGNMENT) {
-			const	extendSizeKeys:			Array<int> = Array.from(this._extendSizes.keys());
+			const	extendSizeKeys:	Array<int> = Array.from(this._extendSizes.keys());
 			if (this._alignment == AdvancedStackPanel3D.START_ALIGNMENT) {
 				if (this._isVertical) {
 					const	points:	{min: Vector3, max: Vector3} = this.children[extendSizeKeys[extendSizeKeys.length - 1]].node!.getHierarchyBoundingVectors(true, (am) => am && am.isVisible && am.isEnabled());

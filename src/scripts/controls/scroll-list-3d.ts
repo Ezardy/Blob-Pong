@@ -155,7 +155,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		const	ev:	WheelEvent = info.event as WheelEvent
 		const	speed:	number = 15;
 		const	lastIndex:	int = this._rollControls.length - 1;
-		if (this._entries) {
+		if (this._entries && this._entries.length > this.pageSize) {
 			if (this.isVertical) {
 				if (ev.deltaY > 0) {
 					if (this._rollControls[lastIndex].position.y + speed <= this._preFirstPos) {

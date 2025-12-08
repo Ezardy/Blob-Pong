@@ -93,7 +93,6 @@ type RoomStateChanged =
 export type RoomPlayer =
 {
 	id:			string;
-	alias?:		string;
 	isReady:	boolean;
 	username:	string;
 };
@@ -139,7 +138,8 @@ export class ServerGame
 	}
 
 	public	open() : void {
-		this._lobbyWs = new WebSocket(`wss://${window.location.host}/ws/lobby?sId=${this._sessionId}`);
+		//this._lobbyWs = new WebSocket(`wss://${window.location.host}/ws/lobby?sId=${this._sessionId}`);
+		this._lobbyWs = new WebSocket(`${/**process.env.SERVER_WS_URL ?? **/"ws://localhost:4000/ws"}/lobby?sId=${this._sessionId}`);
 
 		this._lobbyWs.onopen = () => {
 			console.log("Connected to Lobby WebSocket ");
@@ -306,14 +306,6 @@ export class ServerGame
 
 		if (this.isWebSocketOpen())
 			this._lobbyWs!.send(JSON.stringify({ type, dragValue: dragValue}));
-	}
-
-	public assignAliasToUser(alias: string)
-	{
-		const type = "ALIAS";
-
-		// if (this.isWebSocketOpen())
-		// 	this._lobbyWs!.send(JSON.stringify({ type, alias }));
 	}
 
 	public closeWebsocket()
