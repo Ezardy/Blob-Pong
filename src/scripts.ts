@@ -4,18 +4,18 @@
  */
 
 import { loadScene, scriptsDictionary, scriptAssetsCache, _applyScriptsForObject, _removeRegisteredScriptInstance, _preloadScriptsAssets } from "babylonjs-editor-tools";
+import * as scripts_web_api from "./scripts/web-api";
+import * as scripts_game from "./scripts/game";
 import * as scripts_text_block from "./scripts/text-block";
 import * as scripts_ui from "./scripts/ui";
-import * as scripts_game from "./scripts/game";
 import * as scripts_input_field from "./scripts/input-field";
-import * as scripts_web_api from "./scripts/web-api";
 
 export const scriptsMap = {
-    "scripts/text-block.ts": scripts_text_block,
-	"scripts/ui.ts": scripts_ui,
+    "scripts/web-api.ts": scripts_web_api,
 	"scripts/game.ts": scripts_game,
-	"scripts/input-field.ts": scripts_input_field,
-	"scripts/web-api.ts": scripts_web_api
+	"scripts/text-block.ts": scripts_text_block,
+	"scripts/ui.ts": scripts_ui,
+	"scripts/input-field.ts": scripts_input_field
 };
 
 export { loadScene, scriptsDictionary, scriptAssetsCache, _applyScriptsForObject, _removeRegisteredScriptInstance, _preloadScriptsAssets };
