@@ -116,6 +116,18 @@ export interface RoomDetails
 	maxPlayers:	number;
 }
 
+interface Filter
+{
+	type: "DESC" | "ASC";
+	count: number | null;
+}
+
+export interface RoomFilter
+{
+	orderByBlob: Filter | null;
+	orderByPlayers: Filter | null;
+}
+
 export class ServerGame
 {
 	private			_lobbyWs?:						WebSocket;
@@ -315,6 +327,14 @@ export class ServerGame
 		if (this.isWebSocketOpen())
 			this._lobbyWs!.send(JSON.stringify({ type }));
 	}
+	
+	public filterGames(filter: RoomFilter)
+	{
+		const type = "FILTER";
+
+		if (this.isWebSocketOpen())
+			this._lobbyWs!.send(JSON.stringify({ type, filter }));
+	}
 
 	public isWebSocketOpen(): boolean
 	{
@@ -323,4 +343,5 @@ export class ServerGame
 
 		return false;
 	}
+
 }
