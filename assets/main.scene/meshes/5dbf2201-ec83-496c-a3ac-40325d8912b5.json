@@ -1,0 +1,109 @@
+{
+    "meshes": [
+        {
+            "name": "coin.glb",
+            "id": "5dbf2201-ec83-496c-a3ac-40325d8912b5",
+            "uniqueId": 1762255851383,
+            "type": "Mesh",
+            "position": [
+                -33.941098204427476,
+                -86.68752088652798,
+                -200
+            ],
+            "rotationQuaternion": [
+                -4.857174027707881e-17,
+                -0.20730335910528486,
+                2.2411677848778e-19,
+                0.9782767079429344
+            ],
+            "scaling": [
+                1.0000000000000038,
+                1.0000000000000038,
+                0.9999999999999991
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}

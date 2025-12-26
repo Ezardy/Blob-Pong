@@ -1,0 +1,52 @@
+{
+    "tags": null,
+    "position": [
+        -583.2931327752973,
+        968.7564959279999,
+        4.547473508864641e-13
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "create-game-layout",
+    "id": "82ebdd6f-af06-422e-84ce-ce829216b628",
+    "state": "",
+    "metadata": {
+        "isLocked": true
+    },
+    "type": "TransformNode",
+    "uniqueId": 1758052214954,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

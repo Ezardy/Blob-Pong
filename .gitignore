@@ -1,0 +1,12 @@
+node_modules/
+.bjseditor/
+.next/
+.vscode/
+assets/.export-cache.json
+assets/.assets-cache.json
+assets/main.scene/preview.png
+dist/
+package-lock.json
+assets/test.scene/preview.png
+public/
+src/scripts.ts

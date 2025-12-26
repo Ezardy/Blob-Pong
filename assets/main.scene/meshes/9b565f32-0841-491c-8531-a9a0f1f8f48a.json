@@ -1,0 +1,893 @@
+{
+    "meshes": [
+        {
+            "name": "accept.glb",
+            "id": "9b565f32-0841-491c-8531-a9a0f1f8f48a",
+            "uniqueId": 1764177547175,
+            "type": "Mesh",
+            "position": [
+                234.78084222576933,
+                38.08161544799805,
+                -200.46409777872327
+            ],
+            "rotationQuaternion": [
+                0,
+                0.15643446504023092,
+                0,
+                0.9876883405951378
+            ],
+            "scaling": [
+                0.9999999999999996,
+                1,
+                0.9999999999999996
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/bounding-box-updater.ts"
+                    },
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
+                            },
+                            "_fitFrontText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontText": {
+                                "type": "string",
+                                "value": "Accept"
+                            },
+                            "_frontFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontFontMaxSize": {
+                                "type": "number",
+                                "value": 40
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_fitBackText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_fitRightText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_fitLeftText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_leftPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_fitTopText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_fitBottomText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1764153209495
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/bounding-box-updater.ts"
+            },
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
+                    },
+                    "_fitFrontText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontText": {
+                        "type": "string",
+                        "value": "Accept"
+                    },
+                    "_frontFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontFontMaxSize": {
+                        "type": "number",
+                        "value": 40
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_fitBackText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_fitRightText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_fitLeftText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_leftPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_fitTopText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_fitBottomText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    }
+                }
+            }
+        ],
+        "parentId": 1764153209495
+    },
+    "basePoseMatrix": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}

@@ -1,0 +1,553 @@
+{
+    "clearColor": [
+        0.26666666666666666,
+        0.5647058823529412,
+        0.6862745098039216,
+        1
+    ],
+    "ambientColor": [
+        0,
+        0,
+        0
+    ],
+    "environment": {
+        "environmentIntensity": 1,
+        "environmentTexture": {
+            "tags": null,
+            "url": "assets/blobs.env",
+            "boundingBoxPosition": [
+                0,
+                0,
+                0
+            ],
+            "rotationY": 0,
+            "files": [],
+            "textureMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "textureMatrixRefraction": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "name": "assets/blobs.env",
+            "hasAlpha": false,
+            "getAlphaFromRGB": false,
+            "level": 1,
+            "coordinatesIndex": 0,
+            "optimizeUVAllocation": true,
+            "coordinatesMode": 3,
+            "wrapU": 0,
+            "wrapV": 0,
+            "wrapR": 1,
+            "anisotropicFilteringLevel": 1,
+            "isCube": true,
+            "is3D": false,
+            "is2DArray": false,
+            "gammaSpace": false,
+            "invertZ": false,
+            "lodLevelInAlpha": false,
+            "lodGenerationOffset": 0,
+            "lodGenerationScale": 0.8,
+            "linearSpecularLOD": false,
+            "isRenderTarget": false,
+            "animations": []
+        }
+    },
+    "fog": {
+        "fogEnabled": false,
+        "fogMode": 0,
+        "fogStart": 10,
+        "fogEnd": 1000,
+        "fogDensity": 0.001,
+        "fogColor": [
+            0.640006735140596,
+            0.640006735140596,
+            0.640006735140596
+        ]
+    },
+    "physics": {
+        "gravity": [
+            0,
+            -981,
+            0
+        ]
+    },
+    "rendering": [
+        {
+            "cameraId": "3cc9ef80-8c60-43e0-bcc4-1b55ff36010d",
+            "ssao2RenderingPipeline": null,
+            "vlsPostProcess": null,
+            "ssrRenderingPipeline": null,
+            "motionBlurPostProcess": null,
+            "defaultRenderingPipeline": null,
+            "iblShadowsRenderPipeline": null
+        },
+        {
+            "cameraId": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
+            "ssao2RenderingPipeline": null,
+            "vlsPostProcess": null,
+            "ssrRenderingPipeline": null,
+            "motionBlurPostProcess": null,
+            "defaultRenderingPipeline": null,
+            "iblShadowsRenderPipeline": null
+        }
+    ],
+    "metadata": {
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/ui.ts",
+                "values": {
+                    "_joinPublicGameButtonMesh": {
+                        "type": "entity",
+                        "value": "9de33c5d-d058-46de-8210-789d3858dee1"
+                    },
+                    "_joinPrivateGameButtonMesh": {
+                        "type": "entity",
+                        "value": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e"
+                    },
+                    "_createGameButtonMesh": {
+                        "type": "entity",
+                        "value": "812575f8-900f-4c6a-9ce5-11012eebf22c"
+                    },
+                    "_gameListPreviousButtonMesh": {
+                        "type": "entity",
+                        "value": "5a4b0ff0-ebaa-4337-b9c3-e007ed156ff6"
+                    },
+                    "_gameListHeaderMesh": {
+                        "type": "entity",
+                        "value": "15fcc637-2e49-443c-bbcd-b04a8e86cb37"
+                    },
+                    "_playerCountOrderButtonMesh": {
+                        "type": "entity",
+                        "value": "4971c2a6-b062-4f5b-bfbb-da18af77dce5"
+                    },
+                    "_playerCountInputMesh": {
+                        "type": "entity",
+                        "value": "e8c6ce1c-eb46-4c89-98f8-aa4846c082be"
+                    },
+                    "_entranceFeeOrderButtonMesh": {
+                        "type": "entity",
+                        "value": "d61eee2d-3b31-4e02-b491-4001a8e5e148"
+                    },
+                    "_entranceFeeInputMesh": {
+                        "type": "entity",
+                        "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
+                    },
+                    "_playButtonMesh": {
+                        "type": "entity",
+                        "value": "6207434c-8f7f-4242-a213-2de6bf0b1be0"
+                    },
+                    "_gameNameEntryMesh": {
+                        "type": "entity",
+                        "value": "18f3446d-8412-4dfc-98aa-b8647ad22e0b"
+                    },
+                    "_playerCountEntryMesh": {
+                        "type": "entity",
+                        "value": "388eb481-346c-4ba8-8edd-2cbf0fd7dd3c"
+                    },
+                    "_entranceFeeEntryMesh": {
+                        "type": "entity",
+                        "value": "98378508-dabd-47eb-9d04-2ee4f6af0e0a"
+                    },
+                    "_gameCreationHeaderMesh": {
+                        "type": "entity",
+                        "value": "41489335-cafb-4baf-832e-4812034923d2"
+                    },
+                    "_gameCreationPreviousButtonMesh": {
+                        "type": "entity",
+                        "value": "201965e6-47f2-4e44-832e-e6980bba5bf2"
+                    },
+                    "_gameCreationGameNameInputMesh": {
+                        "type": "entity",
+                        "value": "2cc86f80-14f6-4450-96db-206853166fb4"
+                    },
+                    "_gameCreationPlayerCountInputMesh": {
+                        "type": "entity",
+                        "value": "3cf1c7e8-3eaf-4981-b66b-32f0d95145d5"
+                    },
+                    "_gameCreationEntranceFeeInputMesh": {
+                        "type": "entity",
+                        "value": "5beccf2d-b0aa-4e51-824a-5afa465589aa"
+                    },
+                    "_createButtonMesh": {
+                        "type": "entity",
+                        "value": "476a7c71-43e4-4a60-b99a-511f87b47056"
+                    },
+                    "_exitButtonMesh": {
+                        "type": "entity",
+                        "value": "46ca556d-b165-43f8-9b2f-1c55debb7433"
+                    },
+                    "_background": {
+                        "type": "entity",
+                        "value": "0fe36208-15f6-4366-a95f-7a324d858364"
+                    },
+                    "_mainMenuMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.9176470588235294,
+                            0.6431372549019608,
+                            0.6431372549019608
+                        ]
+                    },
+                    "_mainMenuDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_joinPublicMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.8980392156862745,
+                            0.9254901960784314,
+                            0.6901960784313725
+                        ]
+                    },
+                    "_joinPublicDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            0.18823529411764706,
+                            0.8627450980392157,
+                            0.48627450980392156
+                        ]
+                    },
+                    "_createMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.8470588235294118,
+                            0.00784313725490196,
+                            0.42745098039215684
+                        ]
+                    },
+                    "_createDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            0.4549019607843137,
+                            0.054901960784313725
+                        ]
+                    },
+                    "_gameMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.4235294117647059,
+                            0,
+                            0
+                        ]
+                    },
+                    "_gameDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "_readyButtonMesh": {
+                        "type": "entity",
+                        "value": "0c499e71-3061-4e0d-a56f-f14454372cff"
+                    },
+                    "_lobbyMainColor": {
+                        "type": "color3",
+                        "value": [
+                            0.26666666666666666,
+                            0.5647058823529412,
+                            0.6862745098039216
+                        ]
+                    },
+                    "_lobbyDepthColor": {
+                        "type": "color3",
+                        "value": [
+                            1,
+                            0.027450980392156862,
+                            0.5764705882352941
+                        ]
+                    },
+                    "_countdownMesh": {
+                        "type": "entity",
+                        "value": "9f419d10-9cf4-40fd-bb5a-43fed9ed94d0"
+                    },
+                    "_playerIconMesh": {
+                        "type": "entity",
+                        "value": "bce6fcda-7a82-4dab-8f3e-2195d6caacc8"
+                    },
+                    "_coinIconMesh": {
+                        "type": "entity",
+                        "value": "5dbf2201-ec83-496c-a3ac-40325d8912b5"
+                    },
+                    "_gamePrivacyButtonMesh": {
+                        "type": "entity",
+                        "value": "b33e19bd-b59a-45a9-870e-878f1ae20386"
+                    },
+                    "_kickedPlayersIconMesh": {
+                        "type": "entity",
+                        "value": "2e96a4e0-df3b-4e76-8cc4-65692782cee7"
+                    },
+                    "_kickedDescriptionMesh": {
+                        "type": "entity",
+                        "value": "b1dbce3a-ee74-4817-86a0-76fb0a4ffed3"
+                    },
+                    "_placeIconMesh": {
+                        "type": "entity",
+                        "value": "fbcb36ea-9307-48a7-b506-dcf0405f3bd9"
+                    },
+                    "_placeDescriptionMesh": {
+                        "type": "entity",
+                        "value": "ecb0c3bd-2ef4-4986-b3c0-a1dc22d32eab"
+                    },
+                    "_earnedIconMesh": {
+                        "type": "entity",
+                        "value": "7079d243-7a85-434c-8958-1f796561a5f2"
+                    },
+                    "_earnedDescriptionMesh": {
+                        "type": "entity",
+                        "value": "e6eed525-6f39-43d1-bc40-b31bf96e0d66"
+                    },
+                    "_skipResultMesh": {
+                        "type": "entity",
+                        "value": "3b3e25c1-95c5-445d-9ab2-84353d4e7faf"
+                    },
+                    "_resultPlayerNameMesh": {
+                        "type": "entity",
+                        "value": "b37fdf85-c1e4-4648-a486-d294dcc2e409"
+                    }
+                },
+                "_id": "a11102fb-fe5b-4d1f-a6a7-d9364681e232"
+            },
+            {
+                "enabled": true,
+                "key": "scripts/web-api.ts",
+                "_id": "390273b0-f5d2-44b3-80cb-0a7245173731"
+            },
+            {
+                "enabled": true,
+                "key": "scripts/game.ts",
+                "values": {
+                    "_distance": {
+                        "type": "number",
+                        "value": 200
+                    },
+                    "_padding": {
+                        "type": "number",
+                        "value": 0.05
+                    },
+                    "_wallColor": {
+                        "type": "color3",
+                        "value": [
+                            0.29411764705882354,
+                            0.29411764705882354,
+                            0.29411764705882354
+                        ]
+                    },
+                    "_racketSize": {
+                        "type": "number",
+                        "description": "percentage of wall size",
+                        "value": 20
+                    },
+                    "_ballSize": {
+                        "type": "number",
+                        "description": "percentage of wall size",
+                        "value": 10
+                    },
+                    "_racketMesh": {
+                        "type": "entity",
+                        "value": "4f2b4e31-1eba-4c78-a173-104bde64695d"
+                    },
+                    "_ballMesh": {
+                        "type": "entity",
+                        "value": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7"
+                    },
+                    "_rectangleRatio": {
+                        "type": "number",
+                        "value": 2.2
+                    },
+                    "maxPlayers": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "countdownTime": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "minFee": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "maxFee": {
+                        "type": "number",
+                        "value": 1000
+                    }
+                },
+                "_id": "36a4d360-dea7-46c0-9f53-6f2217703813"
+            },
+            {
+                "enabled": true,
+                "key": "scripts/notifications.ts",
+                "values": {
+                    "_descriptionMesh": {
+                        "type": "entity",
+                        "value": "be7e5b62-21e7-4622-ba0e-53dc4924f5b1"
+                    },
+                    "_acceptMesh": {
+                        "type": "entity",
+                        "value": "9b565f32-0841-491c-8531-a9a0f1f8f48a"
+                    },
+                    "_declineMesh": {
+                        "type": "entity",
+                        "value": "cc0a307f-8041-4ede-947d-830d12309b99"
+                    }
+                },
+                "_id": "07750684-39fb-4118-b293-26ab7ae6c542"
+            }
+        ],
+        "rendering": [
+            {
+                "cameraId": "2e102ab8-1685-4cd3-98eb-9f1dc6ac8056",
+                "ssao2RenderingPipeline": null,
+                "vlsPostProcess": null,
+                "ssrRenderingPipeline": null,
+                "motionBlurPostProcess": null,
+                "defaultRenderingPipeline": null
+            }
+        ],
+        "physicsGravity": [
+            0,
+            -981,
+            0
+        ]
+    },
+    "editorCamera": {
+        "tags": null,
+        "ellipsoid": [
+            0.5,
+            1,
+            0.5
+        ],
+        "ellipsoidOffset": [
+            0,
+            0,
+            0
+        ],
+        "checkCollisions": false,
+        "applyGravity": false,
+        "updateUpVectorFromRotation": false,
+        "rotation": [
+            0,
+            0,
+            0
+        ],
+        "speed": 200,
+        "position": [
+            0,
+            0,
+            0
+        ],
+        "upVector": [
+            0,
+            1,
+            0
+        ],
+        "fov": 0.8,
+        "projectionPlaneTilt": 0,
+        "minZ": 1,
+        "maxZ": 1500000,
+        "inertia": 0.5,
+        "mode": 0,
+        "layerMask": 268435455,
+        "fovMode": 0,
+        "cameraRigMode": 0,
+        "ignoreCameraMaxZ": false,
+        "name": "Editor preview",
+        "id": "3cc9ef80-8c60-43e0-bcc4-1b55ff36010d",
+        "state": "",
+        "metadata": {
+            "sensorSize": 36,
+            "focalLength": 42.574003560703986
+        },
+        "type": "EditorCamera",
+        "inputsmgr": {
+            "FreeCameraKeyboardMoveInput": {
+                "tags": null,
+                "keysUp": [
+                    87
+                ],
+                "keysUpward": [
+                    69
+                ],
+                "keysDown": [
+                    83
+                ],
+                "keysDownward": [
+                    81
+                ],
+                "keysLeft": [
+                    65
+                ],
+                "keysRight": [
+                    68
+                ],
+                "rotationSpeed": 0.5,
+                "keysRotateLeft": [],
+                "keysRotateRight": [],
+                "keysRotateUp": [],
+                "keysRotateDown": []
+            },
+            "FreeCameraMouseInput": {
+                "tags": null,
+                "buttons": [
+                    0,
+                    1,
+                    2
+                ],
+                "angularSensibility": 500
+            },
+            "FreeCameraMouseWheelInput": {
+                "tags": null,
+                "wheelXMoveRelative": 0,
+                "wheelYMoveRelative": 2,
+                "wheelPrecisionX": 3,
+                "wheelPrecisionY": 3,
+                "wheelPrecisionZ": 3
+            },
+            "EditorFreeCameraPanInput": {
+                "tags": null
+            }
+        },
+        "animations": [],
+        "ranges": [],
+        "isEnabled": true
+    },
+    "animations": []
+}

@@ -1,0 +1,2060 @@
+{
+    "meshes": [
+        {
+            "name": "Join public game button",
+            "id": "9de33c5d-d058-46de-8210-789d3858dee1",
+            "uniqueId": 1753196359073,
+            "type": "Mesh",
+            "position": [
+                0,
+                170.70000000000005,
+                -82.31586041729275
+            ],
+            "rotation": [
+                -0.3257134675827121,
+                -0.5331521995802376,
+                0.005996054752008573
+            ],
+            "scaling": [
+                0.9999999999999959,
+                0.9999999999999968,
+                0.9999999999999979
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": false,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "geometryUniqueId": 1753196359074,
+            "geometryId": "f0c7a0ab-92b5-4c3c-b6f3-0cddd4549dac",
+            "subMeshes": null,
+            "materialUniqueId": 1753626823209,
+            "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "metadata": {
+                "type": "Box",
+                "width": 312.69999999999993,
+                "depth": 100,
+                "height": 100,
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/text-block.ts",
+                        "values": {
+                            "_frontText": {
+                                "type": "string",
+                                "value": "Join public game"
+                            },
+                            "_frontColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_backColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_rightText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.10675535077288945,
+                                    0.728448275862069,
+                                    0.2229617636002962,
+                                    1
+                                ]
+                            },
+                            "_leftText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_topText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_bottomText": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_frontAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isFrontInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBackInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isRightInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isLeftInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isTopInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomAngle": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_isBottomInverted": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_frontFontFamily": {
+                                "type": "string",
+                                "value": "Asimovian"
+                            },
+                            "_backPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_backFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_rightPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_rightFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_leftPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_leftFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_topPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_topFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_bottomPositivePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomNegativePaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomAlignments": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_bottomFontFamily": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_renderOnStart": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_resolution": {
+                                "type": "number",
+                                "value": 2
+                            },
+                            "_boundingBoxCentered": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_frontFontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_backFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_rightFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_leftFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_topFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_bottomFontWeight": {
+                                "type": "number",
+                                "value": 100
+                            },
+                            "_fitFrontText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_frontFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_frontFontMaxSize": {
+                                "type": "number",
+                                "value": 36
+                            },
+                            "_fitBackText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_backFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_backFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitRightText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_rightFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_rightFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitLeftText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_leftFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_leftFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitTopText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_topFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_topFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_fitBottomText": {
+                                "type": "boolean",
+                                "value": false
+                            },
+                            "_bottomFontMinSize": {
+                                "type": "number",
+                                "value": 1
+                            },
+                            "_bottomFontMaxSize": {
+                                "type": "number",
+                                "value": 1
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1753456838837
+            },
+            "instances": [
+                {
+                    "name": "Join private game button",
+                    "id": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e",
+                    "isEnabled": true,
+                    "isVisible": true,
+                    "isPickable": true,
+                    "checkCollisions": false,
+                    "position": [
+                        -2.7132625862174216,
+                        46.85234611100009,
+                        -66.37324166089316
+                    ],
+                    "scaling": [
+                        0.9999999999999941,
+                        0.999999999999996,
+                        0.9999999999999967
+                    ],
+                    "rotation": [
+                        -0.25376228733754874,
+                        -0.599392388947211,
+                        0.14247068765912782
+                    ],
+                    "metadata": {
+                        "scripts": [
+                            {
+                                "enabled": true,
+                                "key": "scripts/text-block.ts",
+                                "values": {
+                                    "_frontText": {
+                                        "type": "string",
+                                        "value": "Join private game"
+                                    },
+                                    "_frontColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_backText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_rightText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_leftText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_topText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_bottomText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_frontAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isFrontInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBackInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isRightInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isLeftInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isTopInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBottomInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_frontPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontFontFamily": {
+                                        "type": "string",
+                                        "value": "Asimovian"
+                                    },
+                                    "_backPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_renderOnStart": {
+                                        "type": "boolean",
+                                        "value": true
+                                    },
+                                    "_resolution": {
+                                        "type": "number",
+                                        "value": 2
+                                    },
+                                    "_boundingBoxCentered": {
+                                        "type": "boolean",
+                                        "value": true
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_fitFrontText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_frontFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_frontFontMaxSize": {
+                                        "type": "number",
+                                        "value": 36
+                                    },
+                                    "_fitBackText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_backFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitRightText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitLeftText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitTopText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitBottomText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    }
+                                }
+                            }
+                        ],
+                        "parentId": 1753456838837
+                    },
+                    "animations": [],
+                    "ranges": [],
+                    "uniqueId": 1753453633368
+                },
+                {
+                    "name": "Create game button",
+                    "id": "812575f8-900f-4c6a-9ce5-11012eebf22c",
+                    "isEnabled": true,
+                    "isVisible": true,
+                    "isPickable": true,
+                    "checkCollisions": false,
+                    "position": [
+                        0.6473835476451294,
+                        -90.69112467077785,
+                        -27.546698241673184
+                    ],
+                    "scaling": [
+                        0.9999999999999903,
+                        0.9999999999999853,
+                        0.9999999999999915
+                    ],
+                    "rotation": [
+                        0.05906529133317973,
+                        0.2574000146149878,
+                        0.23991047841585442
+                    ],
+                    "metadata": {
+                        "scripts": [
+                            {
+                                "enabled": true,
+                                "key": "scripts/text-block.ts",
+                                "values": {
+                                    "_frontText": {
+                                        "type": "string",
+                                        "value": "Create game"
+                                    },
+                                    "_frontColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_backText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_rightText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_leftText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_topText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_bottomText": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomColor": {
+                                        "type": "color4",
+                                        "value": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ]
+                                    },
+                                    "_frontPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            5
+                                        ]
+                                    },
+                                    "_frontAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_frontFontFamily": {
+                                        "type": "string",
+                                        "value": "Asimovian"
+                                    },
+                                    "_frontAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isFrontInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_backFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_backAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBackInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_rightFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_rightAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isRightInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_leftFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_leftAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isLeftInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_topFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_topAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isTopInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomPositivePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomNegativePaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomAlignments": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_bottomFontFamily": {
+                                        "type": "string",
+                                        "value": ""
+                                    },
+                                    "_bottomAngle": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_isBottomInverted": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_renderOnStart": {
+                                        "type": "boolean",
+                                        "value": true
+                                    },
+                                    "_resolution": {
+                                        "type": "number",
+                                        "value": 2
+                                    },
+                                    "_boundingBoxCentered": {
+                                        "type": "boolean",
+                                        "value": true
+                                    },
+                                    "_frontFontWeight": {
+                                        "type": "number",
+                                        "value": 400
+                                    },
+                                    "_backFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_rightFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_leftFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_topFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_bottomFontWeight": {
+                                        "type": "number",
+                                        "value": 100
+                                    },
+                                    "_fitFrontText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_frontFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_frontFontMaxSize": {
+                                        "type": "number",
+                                        "value": 36
+                                    },
+                                    "_fitBackText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_backFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_backFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitRightText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_rightFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_rightFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitLeftText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_leftFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_leftFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitTopText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_topFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_topFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_fitBottomText": {
+                                        "type": "boolean",
+                                        "value": false
+                                    },
+                                    "_bottomFontMinSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    },
+                                    "_bottomFontMaxSize": {
+                                        "type": "number",
+                                        "value": 1
+                                    }
+                                }
+                            }
+                        ],
+                        "parentId": 1753456838837
+                    },
+                    "animations": [],
+                    "ranges": [],
+                    "uniqueId": 1753455359100
+                }
+            ],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 0,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "renderOverlay": false,
+            "applyFog": true,
+            "delayLoadingFile": "assets/main.scene/geometries/f0c7a0ab-92b5-4c3c-b6f3-0cddd4549dac.babylonbinarymeshdata",
+            "boundingBoxMaximum": [
+                156.35000610351562,
+                50,
+                50
+            ],
+            "boundingBoxMinimum": [
+                -156.35000610351562,
+                -50,
+                -50
+            ],
+            "_binaryInfo": {
+                "positionsAttrDesc": {
+                    "count": 72,
+                    "stride": 3,
+                    "offset": 0,
+                    "dataType": 1
+                },
+                "normalsAttrDesc": {
+                    "count": 72,
+                    "stride": 3,
+                    "offset": 288,
+                    "dataType": 1
+                },
+                "uvsAttrDesc": {
+                    "count": 48,
+                    "stride": 2,
+                    "offset": 576,
+                    "dataType": 1
+                },
+                "indicesAttrDesc": {
+                    "count": 36,
+                    "stride": 1,
+                    "offset": 768,
+                    "dataType": 0
+                },
+                "subMeshesAttrDesc": {
+                    "count": 1,
+                    "stride": 5,
+                    "offset": 912,
+                    "dataType": 0
+                }
+            },
+            "positions": null,
+            "normals": null,
+            "uvs": null,
+            "hasUVs": true,
+            "indices": null
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [
+        {
+            "tags": null,
+            "directIntensity": 1,
+            "emissiveIntensity": 1,
+            "environmentIntensity": 1,
+            "specularIntensity": 1,
+            "disableBumpMap": false,
+            "ambientTextureStrength": 1,
+            "ambientTextureImpactOnAnalyticalLights": 0,
+            "metallic": 0,
+            "metallicF0Factor": 1,
+            "metallicReflectanceColor": [
+                1,
+                1,
+                1
+            ],
+            "useOnlyMetallicFromMetallicReflectanceTexture": false,
+            "ambient": [
+                0,
+                0,
+                0
+            ],
+            "albedo": [
+                0.6346607172924734,
+                0,
+                0
+            ],
+            "baseWeight": 1,
+            "reflectivity": [
+                1,
+                1,
+                1
+            ],
+            "reflection": [
+                1,
+                1,
+                1
+            ],
+            "emissive": [
+                0,
+                0,
+                0
+            ],
+            "microSurface": 1,
+            "useLightmapAsShadowmap": false,
+            "useAlphaFromAlbedoTexture": false,
+            "forceAlphaTest": false,
+            "alphaCutOff": 0.4,
+            "useSpecularOverAlpha": true,
+            "useMicroSurfaceFromReflectivityMapAlpha": false,
+            "useRoughnessFromMetallicTextureAlpha": true,
+            "useRoughnessFromMetallicTextureGreen": false,
+            "useMetallnessFromMetallicTextureBlue": false,
+            "useAmbientOcclusionFromMetallicTextureRed": false,
+            "useAmbientInGrayScale": false,
+            "useAutoMicroSurfaceFromReflectivityMap": false,
+            "usePhysicalLightFalloff": true,
+            "useGLTFLightFalloff": false,
+            "useRadianceOverAlpha": true,
+            "useObjectSpaceNormalMap": false,
+            "useParallax": false,
+            "useParallaxOcclusion": false,
+            "parallaxScaleBias": 0.05,
+            "disableLighting": false,
+            "forceIrradianceInFragment": false,
+            "maxSimultaneousLights": 32,
+            "invertNormalMapX": false,
+            "invertNormalMapY": false,
+            "twoSidedLighting": false,
+            "useAlphaFresnel": false,
+            "useLinearAlphaFresnel": false,
+            "forceNormalForward": false,
+            "enableSpecularAntiAliasing": false,
+            "useHorizonOcclusion": true,
+            "useRadianceOcclusion": true,
+            "unlit": false,
+            "applyDecalMapAfterDetailMap": false,
+            "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "name": "header",
+            "checkReadyOnEveryCall": false,
+            "checkReadyOnlyOnce": false,
+            "state": "",
+            "alpha": 1,
+            "backFaceCulling": true,
+            "cullBackFaces": true,
+            "_alphaMode": [
+                2
+            ],
+            "_needDepthPrePass": false,
+            "disableDepthWrite": false,
+            "disableColorWrite": false,
+            "forceDepthWrite": false,
+            "depthFunction": 0,
+            "separateCullingPass": false,
+            "fogEnabled": true,
+            "pointSize": 1,
+            "zOffset": 0,
+            "zOffsetUnits": 0,
+            "pointsCloud": false,
+            "fillMode": 0,
+            "_isVertexOutputInvariant": false,
+            "transparencyMode": 0,
+            "stencil": {
+                "tags": null,
+                "func": 519,
+                "backFunc": 519,
+                "funcRef": 1,
+                "funcMask": 255,
+                "opStencilFail": 7680,
+                "opDepthFail": 7680,
+                "opStencilDepthPass": 7681,
+                "backOpStencilFail": 7680,
+                "backOpDepthFail": 7680,
+                "backOpStencilDepthPass": 7681,
+                "mask": 255,
+                "enabled": false
+            },
+            "uniqueId": 1753626823209,
+            "plugins": {
+                "PBRBRDFConfiguration": {
+                    "tags": null,
+                    "useEnergyConservation": true,
+                    "useSmithVisibilityHeightCorrelated": true,
+                    "useSphericalHarmonics": true,
+                    "useSpecularGlossinessInputEnergyConservation": true,
+                    "mixIblRadianceWithIrradiance": true,
+                    "useLegacySpecularEnergyConservation": true,
+                    "baseDiffuseModel": 0,
+                    "dielectricSpecularModel": 0,
+                    "conductorSpecularModel": 0,
+                    "name": "PBRBRDF",
+                    "priority": 90,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                },
+                "PBRClearCoatConfiguration": {
+                    "tags": null,
+                    "isEnabled": false,
+                    "intensity": 1,
+                    "roughness": 0,
+                    "indexOfRefraction": 1.5,
+                    "useRoughnessFromMainTexture": true,
+                    "remapF0OnInterfaceChange": true,
+                    "isTintEnabled": false,
+                    "tintColor": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "tintColorAtDistance": 1,
+                    "tintThickness": 1,
+                    "name": "PBRClearCoat",
+                    "priority": 100,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                },
+                "PBRIridescenceConfiguration": {
+                    "tags": null,
+                    "isEnabled": false,
+                    "intensity": 1,
+                    "minimumThickness": 100,
+                    "maximumThickness": 400,
+                    "indexOfRefraction": 1.3,
+                    "name": "PBRIridescence",
+                    "priority": 110,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                },
+                "PBRAnisotropicConfiguration": {
+                    "tags": null,
+                    "isEnabled": false,
+                    "intensity": 1,
+                    "direction": [
+                        1,
+                        0
+                    ],
+                    "legacy": false,
+                    "name": "PBRAnisotropic",
+                    "priority": 110,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                },
+                "PBRSheenConfiguration": {
+                    "tags": null,
+                    "isEnabled": false,
+                    "linkSheenWithAlbedo": false,
+                    "intensity": 1,
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "useRoughnessFromMainTexture": true,
+                    "albedoScaling": false,
+                    "name": "Sheen",
+                    "priority": 120,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                },
+                "PBRSubSurfaceConfiguration": {
+                    "tags": null,
+                    "isRefractionEnabled": false,
+                    "isTranslucencyEnabled": false,
+                    "isDispersionEnabled": false,
+                    "isScatteringEnabled": false,
+                    "_scatteringDiffusionProfileIndex": 0,
+                    "refractionIntensity": 1,
+                    "translucencyIntensity": 1,
+                    "useAlbedoToTintRefraction": false,
+                    "useAlbedoToTintTranslucency": false,
+                    "indexOfRefraction": 1.5,
+                    "_volumeIndexOfRefraction": -1,
+                    "invertRefractionY": false,
+                    "linkRefractionWithTransparency": false,
+                    "minimumThickness": 0,
+                    "maximumThickness": 1,
+                    "useThicknessAsDepth": false,
+                    "tintColor": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "tintColorAtDistance": 1,
+                    "dispersion": 0,
+                    "diffusionDistance": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "useMaskFromThicknessTexture": false,
+                    "useGltfStyleTextures": true,
+                    "applyAlbedoAfterSubSurface": false,
+                    "legacyTranslucency": false,
+                    "name": "PBRSubSurface",
+                    "priority": 130,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": true
+                },
+                "DetailMapConfiguration": {
+                    "tags": null,
+                    "diffuseBlendLevel": 1,
+                    "roughnessBlendLevel": 1,
+                    "bumpLevel": 1,
+                    "normalBlendMethod": 0,
+                    "isEnabled": false,
+                    "name": "DetailMap",
+                    "priority": 140,
+                    "resolveIncludes": false,
+                    "registerForExtraEvents": false
+                }
+            },
+            "customType": "BABYLON.PBRMaterial"
+        }
+    ],
+    "geometries": {
+        "boxes": [],
+        "spheres": [],
+        "cylinders": [],
+        "toruses": [],
+        "grounds": [],
+        "planes": [],
+        "torusKnots": [],
+        "vertexData": []
+    },
+    "metadata": {
+        "type": "Box",
+        "width": 312.69999999999993,
+        "depth": 100,
+        "height": 100,
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/text-block.ts",
+                "values": {
+                    "_frontText": {
+                        "type": "string",
+                        "value": "Join public game"
+                    },
+                    "_frontColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_backColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_rightText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightColor": {
+                        "type": "color4",
+                        "value": [
+                            0.10675535077288945,
+                            0.728448275862069,
+                            0.2229617636002962,
+                            1
+                        ]
+                    },
+                    "_leftText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_topText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_bottomText": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_frontAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isFrontInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBackInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isRightInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isLeftInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isTopInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomAngle": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_frontFontFamily": {
+                        "type": "string",
+                        "value": "Asimovian"
+                    },
+                    "_backPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_backFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_rightPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_rightFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_leftPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_leftFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_topPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_topFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_bottomPositivePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomNegativePaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomAlignments": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_bottomFontFamily": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_renderOnStart": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_resolution": {
+                        "type": "number",
+                        "value": 2
+                    },
+                    "_boundingBoxCentered": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_frontFontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_backFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_rightFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_leftFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_topFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_bottomFontWeight": {
+                        "type": "number",
+                        "value": 100
+                    },
+                    "_fitFrontText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_frontFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_frontFontMaxSize": {
+                        "type": "number",
+                        "value": 36
+                    },
+                    "_fitBackText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_backFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitRightText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_rightFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_rightFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitLeftText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_leftFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_leftFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitTopText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_topFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_topFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_fitBottomText": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_bottomFontMinSize": {
+                        "type": "number",
+                        "value": 1
+                    },
+                    "_bottomFontMaxSize": {
+                        "type": "number",
+                        "value": 1
+                    }
+                }
+            }
+        ],
+        "parentId": 1753456838837
+    },
+    "basePoseMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}

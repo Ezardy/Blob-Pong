@@ -1,0 +1,109 @@
+{
+    "meshes": [
+        {
+            "name": "player.glb",
+            "id": "bce6fcda-7a82-4dab-8f3e-2195d6caacc8",
+            "uniqueId": 1762244717734,
+            "type": "Mesh",
+            "position": [
+                -26.175956531614133,
+                -15.80546333066036,
+                -200
+            ],
+            "rotationQuaternion": [
+                0,
+                -0.07742132817629266,
+                0,
+                0.9969984643636213
+            ],
+            "scaling": [
+                0.9999999999999964,
+                1,
+                0.9999999999999964
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}
