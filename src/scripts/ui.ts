@@ -12,7 +12,7 @@ import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
 import Game from "./game";
 import { setKeys } from "./functions/animations";
-import { ResultPlayer, RoomPlayer } from "./web-api/server-game";
+import { ResultPlayer, RoomFilter, RoomPlayer } from "./web-api/server-game";
 import ScrollList3D from "./controls/scroll-list-3d";
 
 export default class Ui implements IScript {
@@ -90,6 +90,8 @@ export default class Ui implements IScript {
 	private readonly	_gameListControlPanel:				AdvancedStackPanel3D;
 	private readonly	_gameListScroll:					ScrollRaioList3D;
 	private readonly	_gameListLayout:					AdvancedStackPanel3D;
+
+	private readonly	_listFilters:	RoomFilter = {orderByBlob: {type: 'ASC', count: null}, orderByPlayers: {type: 'ASC', count: null}};
 
 	// game creation layout elements
 	@visibleAsEntity("node", "game creation header mesh")
@@ -533,11 +535,29 @@ export default class Ui implements IScript {
 				Quaternion.RotationAxis(Axis.Y, -Math.PI / 4),
 				Quaternion.RotationAxis(Axis.X, Math.PI), Quaternion.RotationYawPitchRoll(Math.PI / 3, Math.PI, 0),
 				Vector3.Zero(), new Vector3(-playerCountOrderBtnExtS.x, 0, playerCountOrderBtnExtS.z), 1.5);
+			playerCountOrderButton.onPointerUpObservable.add(() => {
+				this._listFilters.orderByPlayers!.type = playerCountOrderButton.state ? 'DESC' : 'ASC';
+				console.log(this._listFilters);
+				this._webApi.serverGame.filterGames(this._listFilters);
+			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
-			const	input:				InputField3D = getScriptByClassForObject(this._playerCountInputMesh, InputField3D)!;
+			const	input:	InputField3D = getScriptByClassForObject(this._playerCountInputMesh, InputField3D)!;
 			input.draw();
 			const	playerCountInput:	MeshControl = new MeshControl(this._playerCountInputMesh, "player count input", input.inputTextArea);
-			input.parser = (s: string) => Number.parseFloat(s).toString();
+			input.parser = (s: string) => Number.parseInt(s).toString();
+			input.inputTextArea.onBlurObservable.add(() => {
+				const	count:	number = Number.parseInt(input.inputTextArea.text);
+				if (input.inputTextArea.text.length) {
+					if (Number.isInteger(count)) {
+						this._listFilters.orderByPlayers!.count = count;
+						this._webApi.serverGame.filterGames(this._listFilters);
+					}
+				} else {
+					this._listFilters.orderByPlayers!.count = null;
+					this._webApi.serverGame.filterGames(this._listFilters);
+				}
+				console.log(this._listFilters);
+			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountInput);
 		this._playerCountOrderButtonInputPanel.blockLayout = false;
 	}
@@ -554,10 +574,28 @@ export default class Ui implements IScript {
 				Vector3.Zero(), new Vector3(-entranceFeeOrderBtnExtS.x, 0, entranceFeeOrderBtnExtS.z), 1.5,
 			);
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeOrderButton);
-			const	input:				InputField3D = getScriptByClassForObject(this._entranceFeeInputMesh, InputField3D)!;
+			entranceFeeOrderButton.onPointerUpObservable.add(() => {
+				this._listFilters.orderByBlob!.type = entranceFeeOrderButton.state ? 'DESC' : 'ASC';
+				console.log(this._listFilters);
+				this._webApi.serverGame.filterGames(this._listFilters);
+			});
+			const	input:	InputField3D = getScriptByClassForObject(this._entranceFeeInputMesh, InputField3D)!;
 			input.draw();
 			const	entranceFeeInput:	MeshControl = new MeshControl(this._entranceFeeInputMesh, "entrance fee input", input.inputTextArea);
 			input.parser = (s: string) => Math.abs(Number.parseFloat(s)).toString();
+			input.inputTextArea.onBlurObservable.add(() => {
+				const	fee:	number = Number.parseFloat(input.inputTextArea.text);
+				if (input.inputTextArea.text.length) {
+					if (Number.isFinite(fee)) {
+						this._listFilters.orderByBlob!.count = fee;
+						this._webApi.serverGame.filterGames(this._listFilters);
+					}
+				} else {
+					this._listFilters.orderByBlob!.count = null;
+					this._webApi.serverGame.filterGames(this._listFilters);
+				}
+				console.log(this._listFilters);
+			});
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeInput);
 		this._entranceFeeOrderButtonInputPanel.blockLayout = false;
 	}
@@ -684,6 +722,7 @@ export default class Ui implements IScript {
 
 	private	_setOnRoomDetailsObservable():	void {
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
+			console.log(list);
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
