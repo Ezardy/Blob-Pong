@@ -223,16 +223,9 @@ export class ServerGame
 			{
 				case "LOGOUT":
 					this.closeWebsocket();
+					break;
 			}
 		});
-	}
-
-	public getRoomDetails() : void
-	{
-		const type = "GET_ROOM";
-
-		if (this.isWebSocketOpen())
-			this._lobbyWs?.send(JSON.stringify({ type, roomId: this._currentRoomId }));
 	}
 
 	public createRoom(
@@ -343,5 +336,4 @@ export class ServerGame
 
 		return false;
 	}
-
 }
