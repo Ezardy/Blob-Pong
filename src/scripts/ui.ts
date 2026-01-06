@@ -6,7 +6,7 @@ import TextBlockDrawer from "./text-block";
 import { ISelectable } from "./interfaces/iselectable";
 import { AdvancedStackPanel3D } from "./controls/advanced-stack-panel-3d";
 import ScrollRaioList3D from "./controls/scroll-radio-list";
-import SwitchButton3D from "./controls/switch-button";
+import SwitchBox3D from "./controls/switch-box-3d";
 import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
@@ -14,6 +14,7 @@ import Game from "./game";
 import { setKeys } from "./functions/animations";
 import { ResultPlayer, RoomFilter, RoomPlayer } from "./web-api/server-game";
 import ScrollList3D from "./controls/scroll-list-3d";
+import SwitchIcons3D from "./switch-icons-3d";
 
 export default class Ui implements IScript {
 	private static readonly	_dummyRot:	Quaternion = Quaternion.Identity();
@@ -66,6 +67,8 @@ export default class Ui implements IScript {
 	private readonly	_gameListPreviousButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "game list header mesh")
 	private readonly	_gameListHeaderMesh!:			AbstractMesh;
+	@visibleAsEntity("node", "sort by switcher")
+	private readonly	_sortBySwitcherMesh!:			AbstractMesh;
 	@visibleAsEntity("node", "player count order button mesh")
 	private readonly	_playerCountOrderButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "player count input mesh")
@@ -136,8 +139,8 @@ export default class Ui implements IScript {
 	private readonly	_lobbyLayout:		AdvancedStackPanel3D;
 	private readonly	_gameLayout:		AdvancedStackPanel3D;
 	private readonly	_exitPanel:			AdvancedStackPanel3D;
-	private				_countdown!:		SwitchButton3D;
-	private				_readyButton!:		SwitchButton3D;
+	private				_countdown!:		SwitchBox3D;
+	private				_readyButton!:		SwitchBox3D;
 
 	// result layout
 	@visibleAsEntity("node", "kicked players icon mesh")
@@ -242,7 +245,7 @@ export default class Ui implements IScript {
 	}
 
 	private static	_gameControlSelector(control: Control3D):	AbstractButton3D & ISelectable {
-		return <SwitchButton3D>(<Container3D>control).children[2];
+		return <SwitchBox3D>(<Container3D>control).children[2];
 	}
 
 	public onStart(): void {
@@ -315,7 +318,7 @@ export default class Ui implements IScript {
 		this._gameLayout.blockLayout = true;
 		const	rot2:		Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 2);
 		const	rot3:		Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
-		this._countdown = new SwitchButton3D(this._countdownMesh, "countdown", Ui._dummyRot, rot2, rot2, undefined, undefined, 1.1, rot3, rot3);
+		this._countdown = new SwitchBox3D(this._countdownMesh, "countdown", Ui._dummyRot, rot2, rot2, undefined, undefined, 1.1, rot3, rot3);
 		this._countdown.onPointerUpObservable.add(this._countdownCallback);
 		this._gameLayout.addControl(this._countdown);
 		this._gameLayout.blockLayout = false;
@@ -326,7 +329,7 @@ export default class Ui implements IScript {
 		this._manager.addControl(this._lobbyLayout);
 		this._lobbyLayout.blockLayout = true;
 		const	rot:	Quaternion = Quaternion.RotationAxis(Axis.Y, Math.PI / 4);
-		this._readyButton = new SwitchButton3D(this._readyButtonMesh, "ready button", Ui._dummyRot, rot, rot, undefined, undefined, 1.1);
+		this._readyButton = new SwitchBox3D(this._readyButtonMesh, "ready button", Ui._dummyRot, rot, rot, undefined, undefined, 1.1);
 		this._lobbyLayout.addControl(this._exitPanel);
 		this._exitPanel.blockLayout = true;
 		this._exitPanel.isArrangable = false;
@@ -407,7 +410,7 @@ export default class Ui implements IScript {
 		this._privacyNamePanel.blockLayout = true;
 		this._privacyNamePanel.margin = 20;
 		const	state2Rot:	Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
-		const	privacy:	SwitchButton3D = new SwitchButton3D(this._gamePrivacyButtonMesh, "privacy", Quaternion.RotationAxis(Axis.X, Math.PI / 2.5), state2Rot, state2Rot, undefined, undefined, 1.2);
+		const	privacy:	SwitchBox3D = new SwitchBox3D(this._gamePrivacyButtonMesh, "privacy", Quaternion.RotationAxis(Axis.X, Math.PI / 2.5), state2Rot, state2Rot, undefined, undefined, 1.2);
 		this._privacyNamePanel.addControl(privacy);
 		const	gameNameInput:	InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
 		this._gameCreationGameNameInput = gameNameInput.inputTextArea;
@@ -508,8 +511,13 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 75;
+		this._gameListControlPanel.margin = 60;
 		this._gameListControlPanel.blockLayout = true;
+		const	sortBySwitcher:	SwitchIcons3D = getScriptByClassForObject(this._sortBySwitcherMesh, SwitchIcons3D)!;
+		sortBySwitcher.onPointerUpObservable.add(() => {
+			
+		});
+		this._gameListControlPanel.addControl(sortBySwitcher);
 		this._setPlayerCountOrderButtonInputPanel();
 		this._setEntranceFeeOrderButtonInputPanel();
 
@@ -531,13 +539,12 @@ export default class Ui implements IScript {
 		this._playerCountOrderButtonInputPanel.margin = 0;
 		this._playerCountOrderButtonInputPanel.blockLayout = true;
 			const	playerCountOrderBtnExtS:	Vector3 = this._playerCountOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1.5);
-			const	playerCountOrderButton:	SwitchButton3D = new SwitchButton3D(this._playerCountOrderButtonMesh, "player count order button",
+			const	playerCountOrderButton:	SwitchBox3D = new SwitchBox3D(this._playerCountOrderButtonMesh, "player count order button",
 				Quaternion.RotationAxis(Axis.Y, -Math.PI / 4),
 				Quaternion.RotationAxis(Axis.X, Math.PI), Quaternion.RotationYawPitchRoll(Math.PI / 3, Math.PI, 0),
 				Vector3.Zero(), new Vector3(-playerCountOrderBtnExtS.x, 0, playerCountOrderBtnExtS.z), 1.5);
 			playerCountOrderButton.onPointerUpObservable.add(() => {
 				this._listFilters.orderByPlayers!.type = playerCountOrderButton.state ? 'DESC' : 'ASC';
-				console.log(this._listFilters);
 				this._webApi.serverGame.filterGames(this._listFilters);
 			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
@@ -556,7 +563,6 @@ export default class Ui implements IScript {
 					this._listFilters.orderByPlayers!.count = null;
 					this._webApi.serverGame.filterGames(this._listFilters);
 				}
-				console.log(this._listFilters);
 			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountInput);
 		this._playerCountOrderButtonInputPanel.blockLayout = false;
@@ -567,12 +573,11 @@ export default class Ui implements IScript {
 		this._gameListControlPanel.addControl(this._entranceFeeOrderButtonInputPanel);
 		this._entranceFeeOrderButtonInputPanel.margin = 1;
 		this._entranceFeeOrderButtonInputPanel.blockLayout = true;
-			const	entranceFeeOrderBtnExtS:	Vector3 = this._entranceFeeOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1.5);
-			const	entranceFeeOrderButton:	SwitchButton3D = new SwitchButton3D(this._entranceFeeOrderButtonMesh, "entrance fee order button",
-				Quaternion.RotationAxis(Axis.Y, -Math.PI / 3.5),
-				Quaternion.RotationAxis(Axis.Z, Math.PI), Quaternion.RotationYawPitchRoll(-Math.PI / 3.5, 0, Math.PI),
-				Vector3.Zero(), new Vector3(-entranceFeeOrderBtnExtS.x, 0, entranceFeeOrderBtnExtS.z), 1.5,
-			);
+			const	entranceFeeOrderBtnExtS:	Vector3 = this._entranceFeeOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1);
+			const	entranceFeeOrderButton:	SwitchBox3D = new SwitchBox3D(this._entranceFeeOrderButtonMesh, "entrance fee order button",
+				Quaternion.RotationAxis(Axis.Y, -Math.PI / 5),
+				Quaternion.RotationAxis(Axis.Z, Math.PI), Quaternion.RotationYawPitchRoll(-Math.PI / 3, 0, Math.PI),
+				Vector3.Zero(), new Vector3(-entranceFeeOrderBtnExtS.x, 0, entranceFeeOrderBtnExtS.z), 1.5);
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeOrderButton);
 			entranceFeeOrderButton.onPointerUpObservable.add(() => {
 				this._listFilters.orderByBlob!.type = entranceFeeOrderButton.state ? 'DESC' : 'ASC';
@@ -612,7 +617,7 @@ export default class Ui implements IScript {
 		this._entryPanel.addControl(new MeshControl(this._playerCountEntryMesh, "player count entry"));
 		this._entryPanel.addControl(new MeshControl(this._entranceFeeEntryMesh, "entrance fee entry"));
 		const	rot2:	Quaternion = Quaternion.RotationAxis(Axis.X, -Math.PI / 3);
-		this._entryPanel.addControl(new SwitchButton3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
+		this._entryPanel.addControl(new SwitchBox3D(this._gameNameEntryMesh, "game name entry", Quaternion.Identity(), rot2, rot2, new Vector3(0), new Vector3(0, 0, -10), 1.2));
 		this._entryPanel.blockLayout = false;
 		this._gameListScroll.margin = 10;
 		this._gameListScroll.blockLayout = false;

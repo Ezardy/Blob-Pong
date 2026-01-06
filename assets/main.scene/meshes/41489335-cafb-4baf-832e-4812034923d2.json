@@ -360,10 +360,6 @@
                                 "type": "number",
                                 "value": 2
                             },
-                            "_boundingBoxCentered": {
-                                "type": "boolean",
-                                "value": true
-                            },
                             "_frontFontWeight": {
                                 "type": "number",
                                 "value": 400
@@ -460,7 +456,8 @@
                                 "type": "number",
                                 "value": 1
                             }
-                        }
+                        },
+                        "_id": "9b58b334-60e8-4a3e-9532-a3429e44c908"
                     }
                 ],
                 "parentId": 1758052214954
@@ -1091,10 +1088,6 @@
                         "type": "number",
                         "value": 2
                     },
-                    "_boundingBoxCentered": {
-                        "type": "boolean",
-                        "value": true
-                    },
                     "_frontFontWeight": {
                         "type": "number",
                         "value": 400
@@ -1191,7 +1184,8 @@
                         "type": "number",
                         "value": 1
                     }
-                }
+                },
+                "_id": "9b58b334-60e8-4a3e-9532-a3429e44c908"
             }
         ],
         "parentId": 1758052214954

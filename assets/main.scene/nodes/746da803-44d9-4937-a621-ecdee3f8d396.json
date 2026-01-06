@@ -1,8 +1,8 @@
 {
     "tags": null,
     "position": [
-        -1294.7108490312376,
-        478.93995799021013,
+        0,
+        0,
         0
     ],
     "rotation": [
@@ -20,14 +20,14 @@
     "infiniteDistance": false,
     "ignoreNonUniformScaling": false,
     "reIntegrateRotationIntoRotationQuaternion": false,
-    "name": "game-list-layout",
-    "id": "1f1029ee-d5de-4a41-a194-5e2eb5df6cff",
+    "name": "coin yaw",
+    "id": "746da803-44d9-4937-a621-ecdee3f8d396",
     "state": "",
     "metadata": {
-        "isLocked": false
+        "parentId": 1767691039742
     },
     "type": "TransformNode",
-    "uniqueId": 1753456789352,
+    "uniqueId": 1767691053647,
     "localMatrix": [
         1,
         0,

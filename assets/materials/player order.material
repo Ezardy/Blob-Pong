@@ -1255,6 +1255,7 @@
 				"invertY": false,
 				"samplingMode": 3,
 				"_useSRGBBuffer": false,
+				"internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/editor-generated_extracted-t",
 				"noMipmap": false
 			}
 		},
@@ -1381,6 +1382,7 @@
 				"invertY": false,
 				"samplingMode": 3,
 				"_useSRGBBuffer": false,
+				"internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/editor-generated_extracted-t",
 				"noMipmap": false
 			}
 		}

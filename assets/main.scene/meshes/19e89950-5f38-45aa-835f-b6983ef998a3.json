@@ -1,14 +1,14 @@
 {
     "meshes": [
         {
-            "name": "entrance fee input mesh",
-            "id": "5beccf2d-b0aa-4e51-824a-5afa465589aa",
-            "uniqueId": 1758101347265,
+            "name": "player",
+            "id": "19e89950-5f38-45aa-835f-b6983ef998a3",
+            "uniqueId": 1767681926352,
             "type": "Mesh",
             "position": [
-                49.59413707761137,
-                -84.74408081314807,
-                -200
+                0,
+                0,
+                0
             ],
             "rotationQuaternion": [
                 0,
@@ -17,9 +17,9 @@
                 1
             ],
             "scaling": [
-                27.000000000000004,
-                27,
-                27.000000000000004
+                1,
+                1,
+                1
             ],
             "localMatrix": [
                 1,
@@ -42,8 +42,8 @@
             "isEnabled": true,
             "isVisible": true,
             "infiniteDistance": false,
-            "pickable": false,
-            "receiveShadows": false,
+            "pickable": true,
+            "receiveShadows": true,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -62,103 +62,13 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1754739902865,
-            "geometryId": "db8ab8ff-6e21-4fd3-baa9-485e35cf928e",
+            "geometryUniqueId": 1767681926357,
+            "geometryId": "05410fdb-f433-48ce-8c89-a0ffe584e7ca",
             "subMeshes": null,
-            "materialUniqueId": 1754739854561,
-            "materialId": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
+            "materialUniqueId": 1753696953292,
+            "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
             "metadata": {
-                "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/input-field.ts",
-                        "values": {
-                            "_hint": {
-                                "type": "string",
-                                "value": "entrance fee"
-                            },
-                            "_hintColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    0.796078431372549
-                                ]
-                            },
-                            "_textColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_backgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.20392156862745098
-                                ]
-                            },
-                            "_focusedBackgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.4117647058823529
-                                ]
-                            },
-                            "_highlightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    0,
-                                    0,
-                                    0.5137254901960784
-                                ]
-                            },
-                            "_borderThickness": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_hintSize": {
-                                "type": "number",
-                                "value": 24
-                            },
-                            "_textureResolutionScaler": {
-                                "type": "number",
-                                "value": 3
-                            },
-                            "_resizeTextToFit": {
-                                "type": "boolean",
-                                "value": true
-                            },
-                            "_fontFamily": {
-                                "type": "string",
-                                "value": "Asimovian"
-                            },
-                            "_fontWeight": {
-                                "type": "number",
-                                "value": 400
-                            },
-                            "_maxTextSize": {
-                                "type": "number",
-                                "value": 70
-                            },
-                            "_minTextSize": {
-                                "type": "number",
-                                "value": 5
-                            }
-                        },
-                        "_id": "db51230b-1d9f-44e9-aae4-44ef51c1a5a2"
-                    }
-                ],
-                "parentId": 1758052214954
+                "parentId": 1767691015009
             },
             "instances": [],
             "animations": [],
@@ -174,53 +84,45 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/db8ab8ff-6e21-4fd3-baa9-485e35cf928e.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/05410fdb-f433-48ce-8c89-a0ffe584e7ca.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1,
-                1,
-                1
+                1.1019389629364014,
+                1.2209665775299072,
+                0.5706184506416321
             ],
             "boundingBoxMinimum": [
-                -1,
-                -1,
-                -1
+                -1.10198175907135,
+                -0.8275684714317322,
+                -0.570554792881012
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 3240,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 3240,
                     "stride": 3,
-                    "offset": 288,
-                    "dataType": 1
-                },
-                "uvsAttrDesc": {
-                    "count": 48,
-                    "stride": 2,
-                    "offset": 576,
+                    "offset": 12960,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 6468,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 25920,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 51792,
                     "dataType": 0
                 }
             },
             "positions": null,
             "normals": null,
-            "uvs": null,
-            "hasUVs": true,
             "indices": null
         }
     ],
@@ -237,7 +139,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.6299999999999997,
+            "roughness": 0.16999999999999998,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -251,9 +154,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
-                0,
-                0
+                0.9870689655172413,
+                0.9870689655172413,
+                0.9870689655172413
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -305,8 +208,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-            "name": "input field",
+            "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+            "name": "icon",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -345,7 +248,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754739854561,
+            "uniqueId": 1753696953292,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,
@@ -493,110 +396,20 @@
         "vertexData": []
     },
     "metadata": {
-        "scripts": [
-            {
-                "enabled": true,
-                "key": "scripts/input-field.ts",
-                "values": {
-                    "_hint": {
-                        "type": "string",
-                        "value": "entrance fee"
-                    },
-                    "_hintColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            0.796078431372549
-                        ]
-                    },
-                    "_textColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_backgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.20392156862745098
-                        ]
-                    },
-                    "_focusedBackgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.4117647058823529
-                        ]
-                    },
-                    "_highlightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            0,
-                            0,
-                            0.5137254901960784
-                        ]
-                    },
-                    "_borderThickness": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_hintSize": {
-                        "type": "number",
-                        "value": 24
-                    },
-                    "_textureResolutionScaler": {
-                        "type": "number",
-                        "value": 3
-                    },
-                    "_resizeTextToFit": {
-                        "type": "boolean",
-                        "value": true
-                    },
-                    "_fontFamily": {
-                        "type": "string",
-                        "value": "Asimovian"
-                    },
-                    "_fontWeight": {
-                        "type": "number",
-                        "value": 400
-                    },
-                    "_maxTextSize": {
-                        "type": "number",
-                        "value": 70
-                    },
-                    "_minTextSize": {
-                        "type": "number",
-                        "value": 5
-                    }
-                },
-                "_id": "db51230b-1d9f-44e9-aae4-44ef51c1a5a2"
-            }
-        ],
-        "parentId": 1758052214954
+        "parentId": 1767691015009
     },
     "basePoseMatrix": [
-        -2,
+        -1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,

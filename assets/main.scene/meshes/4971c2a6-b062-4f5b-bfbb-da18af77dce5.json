@@ -6,15 +6,15 @@
             "uniqueId": 1753699837713,
             "type": "Mesh",
             "position": [
-                -176.82548183150558,
-                119.25892157507954,
-                -76.11663810769082
+                -176.8254818315056,
+                119.25892157507951,
+                -52.5698523258026
             ],
             "rotationQuaternion": [
                 0,
-                -0.28118478841698885,
                 0,
-                0.9596536431249002
+                0,
+                1
             ],
             "scaling": [
                 27.00000000000002,
@@ -355,7 +355,7 @@
                             },
                             "_resolution": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             },
                             "_frontFontWeight": {
                                 "type": "number",
@@ -453,7 +453,8 @@
                                 "type": "number",
                                 "value": 1
                             }
-                        }
+                        },
+                        "_id": "dd88fbe4-08c0-4039-b422-9c5f10372e2e"
                     }
                 ],
                 "parentId": 1753456789352
@@ -1783,6 +1784,7 @@
                         "invertY": false,
                         "samplingMode": 3,
                         "_useSRGBBuffer": false,
+                        "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/editor-generated_extracted-t",
                         "noMipmap": false
                     }
                 },
@@ -1909,6 +1911,7 @@
                         "invertY": false,
                         "samplingMode": 3,
                         "_useSRGBBuffer": false,
+                        "internalTextureLabel": "C:/Users/zahar/Blob-Pong/assets/editor-generated_extracted-t",
                         "noMipmap": false
                     }
                 }
@@ -2214,7 +2217,7 @@
                     },
                     "_resolution": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     },
                     "_frontFontWeight": {
                         "type": "number",
@@ -2312,7 +2315,8 @@
                         "type": "number",
                         "value": 1
                     }
-                }
+                },
+                "_id": "dd88fbe4-08c0-4039-b422-9c5f10372e2e"
             }
         ],
         "parentId": 1753456789352

@@ -8,7 +8,7 @@ import MeshButton3DDisablable from "./mesh-button-3d-disablable";
 import { setKeys } from "../functions/animations";
 import { Vector3WithInfo } from "@babylonjs/gui";
 
-export default class SwitchButton3D extends MeshButton3DDisablable implements IClonableControl3D, ISelectable {
+export default class SwitchBox3D extends MeshButton3DDisablable implements IClonableControl3D, ISelectable {
 	private static readonly	_dummyInfo:	Vector3WithInfo = new Vector3WithInfo(Vector3.Zero());
 
 	public get	state() {
@@ -20,7 +20,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 			while (this._state !== value) {
 				this._pointerEnterFunc();
 				this._pointerDownFunc();
-				this.onPointerUpObservable.notifyObserver(this._selectObserver, SwitchButton3D._dummyInfo);
+				this.onPointerUpObservable.notifyObserver(this._selectObserver, SwitchBox3D._dummyInfo);
 				this._pointerUpFunc();
 				this._pointerOutFunc();
 			}
@@ -50,7 +50,6 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 		dummy.position = mesh.position.clone();
 		mesh.parent = dummy;
 		mesh.position.setAll(0);
-		updateBoundingBoxRecursively(mesh);
 		updateBoundingBoxRecursively(dummy);
 		super(dummy, name);
 
@@ -154,7 +153,7 @@ export default class SwitchButton3D extends MeshButton3DDisablable implements IC
 		const	dummyMesh:	Mesh = this.mesh as Mesh;
 		const	actualMesh:	AbstractMesh = dummyMesh.getChildMeshes()[0] as AbstractMesh;
 		actualMesh.position.set(dummyMesh.position.x, dummyMesh.position.y, dummyMesh.position.z);
-		const	c:	SwitchButton3D = new SwitchButton3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation);
+		const	c:	SwitchBox3D = new SwitchBox3D(cloneNodeWithScripts(actualMesh) as Mesh, actualMesh.name, this.state1DescriptionRotation, this.state2Rotation, this.state2DescriptionRotation, this.pivot, this.offset, this.scaleOnEnter, this.state3Rotation, this.state3DescriptionRotation);
 		actualMesh.position.setAll(0);
 		return {root: c, children: []};
 	}

@@ -342,6 +342,10 @@
                     "_resultPlayerNameMesh": {
                         "type": "entity",
                         "value": "b37fdf85-c1e4-4648-a486-d294dcc2e409"
+                    },
+                    "_sortBySwitcherMesh": {
+                        "type": "entity",
+                        "value": "c34140c1-d771-4b15-9f85-179c8b76edbc"
                     }
                 },
                 "_id": "a11102fb-fe5b-4d1f-a6a7-d9364681e232"
@@ -464,15 +468,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0,
-            0,
+            0.0139999694824218,
+            0.504828551134791,
             0
         ],
         "speed": 200,
         "position": [
-            0,
-            0,
-            0
+            -602.2218976268467,
+            742.549988751036,
+            -1554.3827797107538
         ],
         "upVector": [
             0,

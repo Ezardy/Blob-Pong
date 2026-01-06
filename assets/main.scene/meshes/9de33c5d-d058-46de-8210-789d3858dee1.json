@@ -778,10 +778,6 @@
                                         "type": "number",
                                         "value": 2
                                     },
-                                    "_boundingBoxCentered": {
-                                        "type": "boolean",
-                                        "value": true
-                                    },
                                     "_frontFontWeight": {
                                         "type": "number",
                                         "value": 100
@@ -878,7 +874,8 @@
                                         "type": "number",
                                         "value": 1
                                     }
-                                }
+                                },
+                                "_id": "afc897fd-2567-4e32-b30b-cca00f1084dc"
                             }
                         ],
                         "parentId": 1753456838837

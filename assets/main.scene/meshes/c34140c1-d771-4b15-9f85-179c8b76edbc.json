@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "join.glb",
-            "id": "6207434c-8f7f-4242-a213-2de6bf0b1be0",
-            "uniqueId": 1762174114654,
+            "name": "sortBy",
+            "id": "c34140c1-d771-4b15-9f85-179c8b76edbc",
+            "uniqueId": 1767681926350,
             "type": "Mesh",
             "position": [
-                240.5991102100404,
-                111.87447161204523,
-                -79.99155550818875
+                -267.8608985585538,
+                120.5978282255893,
+                -79.99
             ],
             "rotationQuaternion": [
-                0,
-                0.3056238475335587,
-                0,
-                0.9521523322550778
+                -0.3056953049631057,
+                -1.8718438836872056e-17,
+                0.9521293927421387,
+                5.830111065978867e-17
             ],
             "scaling": [
-                0.9999999999999982,
-                1,
-                0.9999999999999982
+                24.764005414384386,
+                -24.76400541438439,
+                24.764005414384393
             ],
             "localMatrix": [
                 1,
@@ -67,12 +67,51 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts",
-                        "_id": "3156ebaf-d28a-479f-9e5c-81844517ab57"
+                        "key": "scripts/switch-icons-3d.ts",
+                        "_id": "35ec424c-aede-46f0-8fc6-cbc166061cb9",
+                        "values": {
+                            "_icon1": {
+                                "type": "entity",
+                                "value": "4ecc696e-faf2-4d5d-bf8e-2afb28e4ccf4"
+                            },
+                            "_icon2": {
+                                "type": "entity",
+                                "value": "a2342481-caa9-4cbf-82a0-d98ed49eaf40"
+                            },
+                            "_icon3": {
+                                "type": "entity",
+                                "value": null
+                            },
+                            "_scale": {
+                                "type": "number",
+                                "value": 1.5
+                            },
+                            "_offset": {
+                                "type": "vector3",
+                                "value": [
+                                    10,
+                                    0,
+                                    -20
+                                ]
+                            },
+                            "_desc1": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_desc2": {
+                                "type": "string",
+                                "value": ""
+                            },
+                            "_desc3": {
+                                "type": "string",
+                                "value": ""
+                            }
+                        }
                     },
                     {
                         "enabled": true,
                         "key": "scripts/text-block.ts",
+                        "_id": "f360009c-4ee9-4f95-87b5-754b8fa8fa22",
                         "values": {
                             "_renderOnStart": {
                                 "type": "boolean",
@@ -80,7 +119,7 @@
                             },
                             "_resolution": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             },
                             "_fitFrontText": {
                                 "type": "boolean",
@@ -88,7 +127,7 @@
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": "Join"
+                                "value": ""
                             },
                             "_frontFontMinSize": {
                                 "type": "number",
@@ -96,7 +135,7 @@
                             },
                             "_frontFontMaxSize": {
                                 "type": "number",
-                                "value": 40
+                                "value": 1
                             },
                             "_frontColor": {
                                 "type": "color4",
@@ -130,11 +169,11 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": "Asimovian"
+                                "value": ""
                             },
                             "_frontFontWeight": {
                                 "type": "number",
-                                "value": 400
+                                "value": 100
                             },
                             "_frontAngle": {
                                 "type": "number",
@@ -454,8 +493,7 @@
                                 "type": "boolean",
                                 "value": false
                             }
-                        },
-                        "_id": "85c15ec6-00f7-4caf-a6e8-647ae0b0642a"
+                        }
                     }
                 ],
                 "parentId": 1753456789352
@@ -483,12 +521,51 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts",
-                "_id": "3156ebaf-d28a-479f-9e5c-81844517ab57"
+                "key": "scripts/switch-icons-3d.ts",
+                "_id": "35ec424c-aede-46f0-8fc6-cbc166061cb9",
+                "values": {
+                    "_icon1": {
+                        "type": "entity",
+                        "value": "4ecc696e-faf2-4d5d-bf8e-2afb28e4ccf4"
+                    },
+                    "_icon2": {
+                        "type": "entity",
+                        "value": "a2342481-caa9-4cbf-82a0-d98ed49eaf40"
+                    },
+                    "_icon3": {
+                        "type": "entity",
+                        "value": null
+                    },
+                    "_scale": {
+                        "type": "number",
+                        "value": 1.5
+                    },
+                    "_offset": {
+                        "type": "vector3",
+                        "value": [
+                            10,
+                            0,
+                            -20
+                        ]
+                    },
+                    "_desc1": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_desc2": {
+                        "type": "string",
+                        "value": ""
+                    },
+                    "_desc3": {
+                        "type": "string",
+                        "value": ""
+                    }
+                }
             },
             {
                 "enabled": true,
                 "key": "scripts/text-block.ts",
+                "_id": "f360009c-4ee9-4f95-87b5-754b8fa8fa22",
                 "values": {
                     "_renderOnStart": {
                         "type": "boolean",
@@ -496,7 +573,7 @@
                     },
                     "_resolution": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     },
                     "_fitFrontText": {
                         "type": "boolean",
@@ -504,7 +581,7 @@
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": "Join"
+                        "value": ""
                     },
                     "_frontFontMinSize": {
                         "type": "number",
@@ -512,7 +589,7 @@
                     },
                     "_frontFontMaxSize": {
                         "type": "number",
-                        "value": 40
+                        "value": 1
                     },
                     "_frontColor": {
                         "type": "color4",
@@ -546,11 +623,11 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": "Asimovian"
+                        "value": ""
                     },
                     "_frontFontWeight": {
                         "type": "number",
-                        "value": 400
+                        "value": 100
                     },
                     "_frontAngle": {
                         "type": "number",
@@ -870,8 +947,7 @@
                         "type": "boolean",
                         "value": false
                     }
-                },
-                "_id": "85c15ec6-00f7-4caf-a6e8-647ae0b0642a"
+                }
             }
         ],
         "parentId": 1753456789352

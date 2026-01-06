@@ -1,8 +1,8 @@
 {
     "tags": null,
     "position": [
-        -1294.7108490312376,
-        478.93995799021013,
+        0,
+        0,
         0
     ],
     "rotation": [
@@ -20,14 +20,14 @@
     "infiniteDistance": false,
     "ignoreNonUniformScaling": false,
     "reIntegrateRotationIntoRotationQuaternion": false,
-    "name": "game-list-layout",
-    "id": "1f1029ee-d5de-4a41-a194-5e2eb5df6cff",
+    "name": "player pitch",
+    "id": "4ecc696e-faf2-4d5d-bf8e-2afb28e4ccf4",
     "state": "",
     "metadata": {
-        "isLocked": false
+        "parentId": 1767681926350
     },
     "type": "TransformNode",
-    "uniqueId": 1753456789352,
+    "uniqueId": 1767690984225,
     "localMatrix": [
         1,
         0,

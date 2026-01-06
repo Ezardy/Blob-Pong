@@ -8,13 +8,13 @@
             "position": [
                 18.796619927106775,
                 122.59050721103236,
-                -44.16766937092762
+                -52.5698523258026
             ],
             "rotationQuaternion": [
                 0,
-                -0.014261130846111511,
                 0,
-                0.9998983049025487
+                0,
+                1
             ],
             "scaling": [
                 27.000000000000007,
@@ -355,7 +355,7 @@
                             },
                             "_resolution": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             },
                             "_frontFontWeight": {
                                 "type": "number",
@@ -453,7 +453,8 @@
                                 "type": "number",
                                 "value": 1
                             }
-                        }
+                        },
+                        "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"
                     }
                 ],
                 "parentId": 1753456789352
@@ -2028,7 +2029,7 @@
                     },
                     "_resolution": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     },
                     "_frontFontWeight": {
                         "type": "number",
@@ -2126,7 +2127,8 @@
                         "type": "number",
                         "value": 1
                     }
-                }
+                },
+                "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"
             }
         ],
         "parentId": 1753456789352
