@@ -511,7 +511,7 @@ export default class Ui implements IScript {
 	private	_setGameListControlPanel():	void {
 		getScriptByClassForObject(this._playButtonMesh, TextBlockDrawer)?.render();
 		this._gameListLayout.addControl(this._gameListControlPanel);
-		this._gameListControlPanel.margin = 60;
+		this._gameListControlPanel.margin = 75;
 		this._gameListControlPanel.blockLayout = true;
 		const	sortBySwitcher:	SwitchIcons3D = getScriptByClassForObject(this._sortBySwitcherMesh, SwitchIcons3D)!;
 		sortBySwitcher.onPointerUpObservable.add(() => {
@@ -540,7 +540,7 @@ export default class Ui implements IScript {
 		this._playerCountOrderButtonInputPanel.blockLayout = true;
 			const	playerCountOrderBtnExtS:	Vector3 = this._playerCountOrderButtonMesh.getBoundingInfo().boundingBox.extendSizeWorld.scale(1.5);
 			const	playerCountOrderButton:	SwitchBox3D = new SwitchBox3D(this._playerCountOrderButtonMesh, "player count order button",
-				Quaternion.RotationAxis(Axis.Y, -Math.PI / 4),
+				Quaternion.RotationAxis(Axis.Y, -Math.PI / 3),
 				Quaternion.RotationAxis(Axis.X, Math.PI), Quaternion.RotationYawPitchRoll(Math.PI / 3, Math.PI, 0),
 				Vector3.Zero(), new Vector3(-playerCountOrderBtnExtS.x, 0, playerCountOrderBtnExtS.z), 1.5);
 			playerCountOrderButton.onPointerUpObservable.add(() => {

@@ -64,7 +64,8 @@ export default class ButtonWithDescription extends MeshButton3DDisablable implem
 		this.pointerOutAnimation = () => {
 			setKeys(this._descOutAnim, mesh.rotationQuaternion, this._initialRotation, 5);
 			setKeys(this._scOutAnim, mesh.scaling, this._initialScale, 5);
-			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim, this._scOutAnim], 0, 5).onAnimationEndObservable.addOnce(() => description && (description.isVisible = false));
+			this._currentMesh.getScene().beginDirectAnimation(this._currentMesh, [this._descOutAnim, this._scOutAnim], 0, 5);
+			description && (description.isVisible = false);
 		};
 		description && (description.isVisible = false);
 	}

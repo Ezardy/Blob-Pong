@@ -11,10 +11,10 @@
                 -79.99
             ],
             "rotationQuaternion": [
-                -0.3056953049631057,
-                -1.8718438836872056e-17,
-                0.9521293927421387,
-                5.830111065978867e-17
+                -0.3048642990280107,
+                -1.866755439894773e-17,
+                0.9523957996432784,
+                5.831742337772623e-17
             ],
             "scaling": [
                 24.764005414384386,
@@ -72,11 +72,11 @@
                         "values": {
                             "_icon1": {
                                 "type": "entity",
-                                "value": "4ecc696e-faf2-4d5d-bf8e-2afb28e4ccf4"
+                                "value": "4087ce02-c615-474e-9af1-6cd04e5b635a"
                             },
                             "_icon2": {
                                 "type": "entity",
-                                "value": "a2342481-caa9-4cbf-82a0-d98ed49eaf40"
+                                "value": "0e679c5e-32fe-4120-876a-b0a77da7ac3f"
                             },
                             "_icon3": {
                                 "type": "entity",
@@ -96,11 +96,11 @@
                             },
                             "_desc1": {
                                 "type": "string",
-                                "value": ""
+                                "value": "sort by\nplayers"
                             },
                             "_desc2": {
                                 "type": "string",
-                                "value": ""
+                                "value": "sort by\nfee"
                             },
                             "_desc3": {
                                 "type": "string",
@@ -127,7 +127,7 @@
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": ""
+                                "value": "sort by\nplayers"
                             },
                             "_frontFontMinSize": {
                                 "type": "number",
@@ -135,14 +135,14 @@
                             },
                             "_frontFontMaxSize": {
                                 "type": "number",
-                                "value": 1
+                                "value": 21
                             },
                             "_frontColor": {
                                 "type": "color4",
                                 "value": [
-                                    1,
-                                    1,
-                                    1,
+                                    0.8232758620689655,
+                                    0,
+                                    0,
                                     1
                                 ]
                             },
@@ -181,7 +181,7 @@
                             },
                             "_isFrontInverted": {
                                 "type": "boolean",
-                                "value": false
+                                "value": true
                             },
                             "_fitBackText": {
                                 "type": "boolean",
@@ -492,6 +492,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": false
                             }
                         }
                     }
@@ -526,11 +530,11 @@
                 "values": {
                     "_icon1": {
                         "type": "entity",
-                        "value": "4ecc696e-faf2-4d5d-bf8e-2afb28e4ccf4"
+                        "value": "4087ce02-c615-474e-9af1-6cd04e5b635a"
                     },
                     "_icon2": {
                         "type": "entity",
-                        "value": "a2342481-caa9-4cbf-82a0-d98ed49eaf40"
+                        "value": "0e679c5e-32fe-4120-876a-b0a77da7ac3f"
                     },
                     "_icon3": {
                         "type": "entity",
@@ -550,11 +554,11 @@
                     },
                     "_desc1": {
                         "type": "string",
-                        "value": ""
+                        "value": "sort by\nplayers"
                     },
                     "_desc2": {
                         "type": "string",
-                        "value": ""
+                        "value": "sort by\nfee"
                     },
                     "_desc3": {
                         "type": "string",
@@ -581,7 +585,7 @@
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": ""
+                        "value": "sort by\nplayers"
                     },
                     "_frontFontMinSize": {
                         "type": "number",
@@ -589,14 +593,14 @@
                     },
                     "_frontFontMaxSize": {
                         "type": "number",
-                        "value": 1
+                        "value": 21
                     },
                     "_frontColor": {
                         "type": "color4",
                         "value": [
-                            1,
-                            1,
-                            1,
+                            0.8232758620689655,
+                            0,
+                            0,
                             1
                         ]
                     },
@@ -635,7 +639,7 @@
                     },
                     "_isFrontInverted": {
                         "type": "boolean",
-                        "value": false
+                        "value": true
                     },
                     "_fitBackText": {
                         "type": "boolean",
@@ -944,6 +948,10 @@
                         "value": 0
                     },
                     "_isBottomInverted": {
+                        "type": "boolean",
+                        "value": false
+                    },
+                    "_backfaceCulling": {
                         "type": "boolean",
                         "value": false
                     }

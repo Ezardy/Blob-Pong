@@ -67,7 +67,8 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts"
+                        "key": "scripts/bounding-box-updater.ts",
+                        "_id": "115a851f-8f29-4bb2-904d-adda7548b876"
                     },
                     {
                         "enabled": true,
@@ -87,7 +88,7 @@
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": "Main\\nmenu"
+                                "value": "Main\nmenu"
                             },
                             "_frontFontMinSize": {
                                 "type": "number",
@@ -453,7 +454,8 @@
                                 "type": "boolean",
                                 "value": false
                             }
-                        }
+                        },
+                        "_id": "789ea3cc-9fa6-4f82-88d2-13e16ebd47c5"
                     }
                 ],
                 "parentId": 1753456789352
@@ -481,7 +483,8 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts"
+                "key": "scripts/bounding-box-updater.ts",
+                "_id": "115a851f-8f29-4bb2-904d-adda7548b876"
             },
             {
                 "enabled": true,
@@ -501,7 +504,7 @@
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": "Main\\nmenu"
+                        "value": "Main\nmenu"
                     },
                     "_frontFontMinSize": {
                         "type": "number",
@@ -867,7 +870,8 @@
                         "type": "boolean",
                         "value": false
                     }
-                }
+                },
+                "_id": "789ea3cc-9fa6-4f82-88d2-13e16ebd47c5"
             }
         ],
         "parentId": 1753456789352

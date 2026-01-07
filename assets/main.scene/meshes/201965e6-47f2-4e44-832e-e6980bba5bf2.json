@@ -67,7 +67,8 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts"
+                        "key": "scripts/bounding-box-updater.ts",
+                        "_id": "8f9429c1-92ce-4f0c-a8d2-3cb0677ff011"
                     },
                     {
                         "enabled": true,
@@ -87,7 +88,7 @@
                             },
                             "_frontText": {
                                 "type": "string",
-                                "value": "Main\\nmenu"
+                                "value": "Main\nmenu"
                             },
                             "_frontFontMinSize": {
                                 "type": "number",
@@ -453,7 +454,8 @@
                                 "type": "boolean",
                                 "value": false
                             }
-                        }
+                        },
+                        "_id": "6a3a31c5-e9f6-4eff-a2d5-a0d8717ab8f2"
                     }
                 ],
                 "parentId": 1758052214954
@@ -481,7 +483,8 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts"
+                "key": "scripts/bounding-box-updater.ts",
+                "_id": "8f9429c1-92ce-4f0c-a8d2-3cb0677ff011"
             },
             {
                 "enabled": true,
@@ -501,7 +504,7 @@
                     },
                     "_frontText": {
                         "type": "string",
-                        "value": "Main\\nmenu"
+                        "value": "Main\nmenu"
                     },
                     "_frontFontMinSize": {
                         "type": "number",
@@ -867,7 +870,8 @@
                         "type": "boolean",
                         "value": false
                     }
-                }
+                },
+                "_id": "6a3a31c5-e9f6-4eff-a2d5-a0d8717ab8f2"
             }
         ],
         "parentId": 1758052214954

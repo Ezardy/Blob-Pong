@@ -11,9 +11,11 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 	private	_renderOnStart:	boolean = true;
 	@visibleAsNumber("resolution", {min: 1, max: 10, step: 1})
 	private	_resolution:	int = 1;
+	@visibleAsBoolean("backface culling")
+	private	_backfaceCulling:	boolean = true;
 	@visibleAsBoolean("front text fit")
 	private	_fitFrontText:	boolean = false;
-	@visibleAsString("front text")
+	@visibleAsString("front text", {multiline: true})
 	private	_frontText:	string = "";
 	@visibleAsNumber("front font min size", {min: 1, max: 99, step: 1})
 	private	_frontFontMinSize:	number = 5;
@@ -40,8 +42,8 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	@visibleAsBoolean("back text fit")
 	private	_fitBackText:	boolean = false;
-	@visibleAsString("back text")
-	private 			_backText:	string = "";
+	@visibleAsString("back text", {multiline: true})
+	private	_backText:	string = "";
 	@visibleAsNumber("back font min size", {min: 1, max: 99, step: 1})
 	private	_backFontMinSize:	number = 5;
 	@visibleAsNumber("back font max size", {min: 1, max: 100, step: 1})
@@ -67,7 +69,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	@visibleAsBoolean("fit right text")
 	private	_fitRightText:	boolean = false;
-	@visibleAsString("right text")
+	@visibleAsString("right text", {multiline: true})
 	private	_rightText:	string = "";
 	@visibleAsNumber("right font min size", {min: 1, max: 99, step: 1})
 	private	_rightFontMinSize:	number = 5;
@@ -94,7 +96,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	@visibleAsBoolean("fit left text")
 	private	_fitLeftText:	boolean = false;
-	@visibleAsString("left text")
+	@visibleAsString("left text", {multiline: true})
 	private	_leftText:	string = "";
 	@visibleAsNumber("left font min size", {min: 1, max: 99, step: 1})
 	private	_leftFontMinSize:	number = 5;
@@ -121,7 +123,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	@visibleAsBoolean("fit top text")
 	private	_fitTopText:	boolean = false;
-	@visibleAsString("top text")
+	@visibleAsString("top text", {multiline: true})
 	private	_topText:	string = "";
 	@visibleAsNumber("top font min size", {min: 1, max: 99, step: 1})
 	private	_topFontMinSize:	number = 5;
@@ -148,7 +150,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 
 	@visibleAsBoolean("fit bottom text")
 	private	_fitBottomText:	boolean = false;
-	@visibleAsString("bottom text")
+	@visibleAsString("bottom text", {multiline: true})
 	private	_bottomText:	string = "";
 	@visibleAsNumber("bottom font min size", {min: 1, max: 99, step: 1})
 	private	_bottomFontMinSize:	number = 5;
@@ -346,12 +348,6 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 			this._rightFontMaxSize = Math.max(this._rightFontMaxSize, this._rightFontMinSize);
 			this._topFontMaxSize = Math.max(this._topFontMaxSize, this._topFontMinSize);
 			this._bottomFontMaxSize = Math.max(this._bottomFontMaxSize, this._bottomFontMinSize);
-			this._frontText = JSON.parse(`"${this._frontText}"`);
-			this._backText = JSON.parse(`"${this._backText}"`);
-			this._leftText = JSON.parse(`"${this._leftText}"`);
-			this._rightText = JSON.parse(`"${this._rightText}"`);
-			this._topText = JSON.parse(`"${this._topText}"`);
-			this._bottomText = JSON.parse(`"${this._bottomText}"`);
 			this._frontAngle *= Math.PI / 180;
 			this._backAngle *= Math.PI / 180;
 			this._topAngle *= -Math.PI / 180;
@@ -452,7 +448,7 @@ export default class TextBlockDrawer implements IScript, IClonableScript, IRende
 				textBlock.onTextChangedObservable.add(() => fitTextIntoControl(textBlock, dynText.getContext(), minSize, maxSize));
 			textBlock.text = text;
 			dynText.addControl(textBlock);
-			plane.material!.backFaceCulling = true;
+			plane.material!.backFaceCulling = this._backfaceCulling;
 		}
 	}
 }

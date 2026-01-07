@@ -117,7 +117,7 @@
                             },
                             "_rightText": {
                                 "type": "string",
-                                "value": "fee\\ndescending\\norder"
+                                "value": "fee\ndescending\norder"
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -138,7 +138,7 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": "fee\\nascending\\norder"
+                                "value": "fee\nascending\norder"
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -1791,7 +1791,7 @@
                     },
                     "_rightText": {
                         "type": "string",
-                        "value": "fee\\ndescending\\norder"
+                        "value": "fee\ndescending\norder"
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1812,7 +1812,7 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": "fee\\nascending\\norder"
+                        "value": "fee\nascending\norder"
                     },
                     "_leftColor": {
                         "type": "color4",

@@ -1,10 +1,11 @@
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { IRenderOnStart } from "./interfaces/irenderonstart";
-import { IScript, visibleAsEntity, visibleAsNumber, visibleAsString, visibleAsVector3 } from "babylonjs-editor-tools";
+import { getScriptByClassForObject, IScript, visibleAsEntity, visibleAsNumber, visibleAsString, visibleAsVector3 } from "babylonjs-editor-tools";
 import { MeshButton3D } from "@babylonjs/gui";
 import { AbstractMesh, int, Animation, Animatable, Vector3, Quaternion, QuarticEase, AnimationKeyInterpolation, Nullable, Axis, Scene } from "@babylonjs/core";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 import { setKeys } from "./functions/animations";
+import TextBlockDrawer from "./text-block";
 
 export default class SwitchIcons3D extends MeshButton3D implements IScript, IRenderOnStart {
 	@visibleAsEntity("node", "icon 1")
@@ -26,7 +27,7 @@ export default class SwitchIcons3D extends MeshButton3D implements IScript, IRen
 	private readonly	_offset:	Vector3 = new Vector3(0, 0, -10);
 	
 	private				_isRendered:			boolean = false;
-	private readonly	_icons:					Array<AbstractMesh> = [];
+	private readonly	_iconDescs:				Array<{mesh: AbstractMesh, description: string}> = [];
 	private				_state:					int = 0;
 	private				_onEnterAnimatable:		Nullable<Animatable> = null;
 	private				_ready:					boolean = true;
@@ -52,24 +53,32 @@ export default class SwitchIcons3D extends MeshButton3D implements IScript, IRen
 	}
 
 	public get	maxState():	int {
-		return this._icons.length;
+		return this._iconDescs.length;
 	}
 	
 	public	render():	void {
 		if (!this._isRendered) {
-		const	icons:	Array<AbstractMesh | undefined> = [this._icon1, this._icon2, this._icon3];
-		icons.forEach((i) => {
-			if (i && i.parent == this.m) {
-				this._icons.push(i);
-				i.scaling.setAll(0.001);
-				if (!i.rotationQuaternion)
-					i.rotationQuaternion = Quaternion.FromEulerVector(i.rotation);
+			const	icons:	Array<AbstractMesh | undefined> = [this._icon1, this._icon2, this._icon3];
+			const	descs:	Array<string> = [this._desc1, this._desc2, this._desc3];
+			for (let i = 0; i < icons.length; i += 1) {
+				const	mesh:	AbstractMesh | undefined = icons[i];
+				if (mesh && mesh.parent == this.m) {
+					this._iconDescs.push({mesh: mesh, description: descs[i]});
+					mesh.scaling.setAll(0.001);
+					if (!mesh.rotationQuaternion)
+						mesh.rotationQuaternion = Quaternion.FromEulerVector(mesh.rotation);
+				}
 			}
-		});
-		if (this._icons.length)
-			this._icons[0]?.scaling.setAll(1);
-		if (!this.m.rotationQuaternion)
-			this.m.rotationQuaternion = Quaternion.FromEulerVector(this.m.rotation);
+			const	textBlock:	Nullable<TextBlockDrawer> = getScriptByClassForObject(this.m, TextBlockDrawer);
+			if (this._iconDescs.length) {
+				this._iconDescs[0].mesh.scaling.setAll(1);
+				if (textBlock) {
+					textBlock.frontTextBlock.text = this._iconDescs[0].description;
+					textBlock.frontTextBlock.isVisible = false;
+				}
+			}
+			if (!this.m.rotationQuaternion)
+				this.m.rotationQuaternion = Quaternion.FromEulerVector(this.m.rotation);
 			this._isRendered = true;
 			const	scaleAnim:	Animation = new Animation(this.m.name + " scale anim", "scaling", 30, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 			const	offsetAnim:	Animation = new Animation(this.m.name + " offset anim", "position", 30, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
@@ -114,6 +123,8 @@ export default class SwitchIcons3D extends MeshButton3D implements IScript, IRen
 					frame = this._onEnterAnimatable.masterFrame;
 					this._onEnterAnimatable.stop();
 				}
+				if (textBlock)
+					textBlock.frontTextBlock.isVisible = true;
 				this._onEnterAnimatable = scene.beginDirectAnimation(this.m, [scaleAnim, offsetAnim], frame, 5, false, 1, () => this._onEnterAnimatable = null);
 			};
 			this.pointerOutAnimation = () => {
@@ -122,6 +133,8 @@ export default class SwitchIcons3D extends MeshButton3D implements IScript, IRen
 					frame = this._onEnterAnimatable.masterFrame;
 					this._onEnterAnimatable.stop();
 				}
+				if (textBlock)
+					textBlock.frontTextBlock.isVisible = false;
 				this._onEnterAnimatable = scene.beginDirectAnimation(this.m, [scaleAnim, offsetAnim], frame, 0, false, 1, () => this._onEnterAnimatable = null);
 			};
 			const	oldAnim:	() => void = this.pointerUpAnimation.bind(this);
@@ -129,13 +142,15 @@ export default class SwitchIcons3D extends MeshButton3D implements IScript, IRen
 				oldAnim();
 				if (this._ready) {
 					this._ready = false;
-					const	target1:	AbstractMesh = this._icons[this._state];
+					const	target1:	{mesh: AbstractMesh, description: string} = this._iconDescs[this._state];
 					this._state = (this._state + 1) % this.maxState;
-					const	target2:	AbstractMesh = this._icons[this._state];
-					scene.beginDirectAnimation(target1, [pitch1Anim, vis1Anim], 0, 15);
-					scene.beginDirectAnimation(target1.getChildTransformNodes(true)[0], [yaw1Anim], 0, 15);
-					scene.beginDirectAnimation(target2, [pitch2Anim, vis2Anim], 0, 15);
-					scene.beginDirectAnimation(target2.getChildTransformNodes(true)[0], [yaw2Anim], 0, 15, false, 1, () => this._ready = true);
+					const	target2:	{mesh: AbstractMesh, description: string} = this._iconDescs[this._state];
+					if (textBlock)
+						textBlock.frontTextBlock.text = target2.description;
+					scene.beginDirectAnimation(target1.mesh, [pitch1Anim, vis1Anim], 0, 15);
+					scene.beginDirectAnimation(target1.mesh.getChildTransformNodes(true)[0], [yaw1Anim], 0, 15);
+					scene.beginDirectAnimation(target2.mesh, [pitch2Anim, vis2Anim], 0, 15);
+					scene.beginDirectAnimation(target2.mesh.getChildTransformNodes(true)[0], [yaw2Anim], 0, 15, false, 1, () => this._ready = true);
 				}
 			};
 		}

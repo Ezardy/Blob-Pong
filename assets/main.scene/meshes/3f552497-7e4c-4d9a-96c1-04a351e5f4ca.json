@@ -1,0 +1,108 @@
+{
+    "meshes": [
+        {
+            "name": "coin yaw",
+            "id": "3f552497-7e4c-4d9a-96c1-04a351e5f4ca",
+            "uniqueId": 1767767719095,
+            "type": "Mesh",
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scaling": [
+                1,
+                1,
+                1
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "parentId": 1767767768321
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "parentId": 1767767768321
+    },
+    "basePoseMatrix": [
+        -0.03283397606490309,
+        4.021002369116439e-18,
+        -0.02350681807794946,
+        0,
+        4.945269469356547e-18,
+        0.040381189685055593,
+        1.2466628113680706e-33,
+        0,
+        -0.02350681807794947,
+        2.8787549517299938e-18,
+        0.032833976064903084,
+        0,
+        -53.18575373811218,
+        -24.2100490685385,
+        -34.104700058905195,
+        0.9999999999999999
+    ]
+}

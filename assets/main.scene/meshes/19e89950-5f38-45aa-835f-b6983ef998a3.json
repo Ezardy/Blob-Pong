@@ -68,7 +68,7 @@
             "materialUniqueId": 1753696953292,
             "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
             "metadata": {
-                "parentId": 1767691015009
+                "parentId": 1767767613886
             },
             "instances": [],
             "animations": [],
@@ -396,7 +396,7 @@
         "vertexData": []
     },
     "metadata": {
-        "parentId": 1767691015009
+        "parentId": 1767767613886
     },
     "basePoseMatrix": [
         -1,

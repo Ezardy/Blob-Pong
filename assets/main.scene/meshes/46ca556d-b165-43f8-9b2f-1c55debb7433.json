@@ -67,7 +67,8 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts"
+                        "key": "scripts/bounding-box-updater.ts",
+                        "_id": "e7af8530-49c1-4236-b58b-08726a873257"
                     },
                     {
                         "enabled": true,
@@ -453,7 +454,8 @@
                                 "type": "boolean",
                                 "value": false
                             }
-                        }
+                        },
+                        "_id": "931c3294-9839-41d5-89ef-ccff891d593d"
                     }
                 ],
                 "parentId": 1758123563382
@@ -481,7 +483,8 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts"
+                "key": "scripts/bounding-box-updater.ts",
+                "_id": "e7af8530-49c1-4236-b58b-08726a873257"
             },
             {
                 "enabled": true,
@@ -867,7 +870,8 @@
                         "type": "boolean",
                         "value": false
                     }
-                }
+                },
+                "_id": "931c3294-9839-41d5-89ef-ccff891d593d"
             }
         ],
         "parentId": 1758123563382
