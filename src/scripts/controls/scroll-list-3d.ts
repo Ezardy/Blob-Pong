@@ -71,13 +71,15 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 		const	s:	int = Math.min(entries.length, this.pageSize + 1);
 		for (let i = 0; i < s; i += 1)
 			this._rollControls.push(this.children[this._extendSizeKeys[i]]);
-		this._extendSize.copyFrom(this._extendSizes.get(this._extendSizeKeys[0])!);
-		if (this.isVertical) {
-			this._preFirstPos = this._rollControls[this._rollControls.length - 1].position.y + this._extendSize.y * 2 + this.margin;
-			this._lastPos = this._rollControls[0].position.y;
-		} else {
-			this._preFirstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
-			this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
+		if (this._extendSizeKeys.length) {
+			this._extendSize.copyFrom(this._extendSizes.get(this._extendSizeKeys[0])!);
+			if (this.isVertical) {
+				this._preFirstPos = this._rollControls[this._rollControls.length - 1].position.y + this._extendSize.y * 2 + this.margin;
+				this._lastPos = this._rollControls[0].position.y;
+			} else {
+				this._preFirstPos = this._rollControls[0].position.x - this._extendSize.x * 2 - this.margin;
+				this._lastPos = this._rollControls[this._rollControls.length - 1].position.x;
+			}
 		}
 	}
 
@@ -117,7 +119,7 @@ export default class ScrollList3D extends AdvancedStackPanel3D {
 	}
 
 	public	setClipped(value: boolean):	void {
-		if (value) {
+		if (value && this._rollControls.length) {
 			const	lastControlNode:	TransformNode = this.isVertical ? this._rollControls[0].node! : this._rollControls[this._rollControls.length - 1].node!;
 			const	vv:					{min: Vector3, max: Vector3} = this._entries && this._entries.length > this.pageSize ? this.node!.getHierarchyBoundingVectors(true, m => !m.isDescendantOf(lastControlNode)) : this.node!.getHierarchyBoundingVectors();
 			let		startPlane:			Plane;

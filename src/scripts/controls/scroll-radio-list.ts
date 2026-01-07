@@ -1,10 +1,10 @@
 import ScrollList3D from "./scroll-list-3d";
 import { int, Nullable, Observable, Scene, PointerInfo, EventState, PointerEventTypes } from "@babylonjs/core";
 import { AbstractButton3D, Control3D } from "@babylonjs/gui";
-import { JSONArray, JSONObject } from "../functions/typing-utils";
+import { JSONObject } from "../functions/typing-utils";
 import { ISelectable } from "../interfaces/iselectable";
 
-export default class ScrollRaioList3D extends ScrollList3D {
+export default class ScrollRadioList3D extends ScrollList3D {
 	private	_selectedControl:	Nullable<Control3D> = null;
 	private	_indexOnSelection:	int = 0;
 	private	_prevIndex:			int = 0;

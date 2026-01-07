@@ -360,10 +360,6 @@
                                 "type": "number",
                                 "value": 2
                             },
-                            "_boundingBoxCentered": {
-                                "type": "boolean",
-                                "value": true
-                            },
                             "_frontFontWeight": {
                                 "type": "number",
                                 "value": 400
@@ -459,431 +455,18 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 1
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": false
                             }
-                        }
+                        },
+                        "_id": "1bcc075d-0a72-4e05-aec7-82c3a798b637"
                     }
                 ],
                 "parentId": 1753456838837
             },
             "instances": [
-                {
-                    "name": "Join private game button",
-                    "id": "6d6d18ac-e2fc-423e-b66a-be8b4ed7dd5e",
-                    "isEnabled": true,
-                    "isVisible": true,
-                    "isPickable": true,
-                    "checkCollisions": false,
-                    "position": [
-                        -2.7132625862174216,
-                        46.85234611100009,
-                        -66.37324166089316
-                    ],
-                    "scaling": [
-                        0.9999999999999941,
-                        0.999999999999996,
-                        0.9999999999999967
-                    ],
-                    "rotation": [
-                        -0.25376228733754874,
-                        -0.599392388947211,
-                        0.14247068765912782
-                    ],
-                    "metadata": {
-                        "scripts": [
-                            {
-                                "enabled": true,
-                                "key": "scripts/text-block.ts",
-                                "values": {
-                                    "_frontText": {
-                                        "type": "string",
-                                        "value": "Join private game"
-                                    },
-                                    "_frontColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_backText": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_backColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_rightText": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_rightColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_leftText": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_leftColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_topText": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_topColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_bottomText": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_bottomColor": {
-                                        "type": "color4",
-                                        "value": [
-                                            1,
-                                            1,
-                                            1,
-                                            1
-                                        ]
-                                    },
-                                    "_frontAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isFrontInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_backAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isBackInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_rightAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isRightInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_leftAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isLeftInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_topAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isTopInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_bottomAngle": {
-                                        "type": "number",
-                                        "value": 0
-                                    },
-                                    "_isBottomInverted": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_frontPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_frontNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_frontAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_frontFontFamily": {
-                                        "type": "string",
-                                        "value": "Asimovian"
-                                    },
-                                    "_backPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_backNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_backAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_backFontFamily": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_rightPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_rightNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_rightAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_rightFontFamily": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_leftPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_leftNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_leftAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_leftFontFamily": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_topPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_topNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_topAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_topFontFamily": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_bottomPositivePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_bottomNegativePaddings": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_bottomAlignments": {
-                                        "type": "vector2",
-                                        "value": [
-                                            0,
-                                            0
-                                        ]
-                                    },
-                                    "_bottomFontFamily": {
-                                        "type": "string",
-                                        "value": ""
-                                    },
-                                    "_renderOnStart": {
-                                        "type": "boolean",
-                                        "value": true
-                                    },
-                                    "_resolution": {
-                                        "type": "number",
-                                        "value": 2
-                                    },
-                                    "_frontFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_backFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_rightFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_leftFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_topFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_bottomFontWeight": {
-                                        "type": "number",
-                                        "value": 100
-                                    },
-                                    "_fitFrontText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_frontFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_frontFontMaxSize": {
-                                        "type": "number",
-                                        "value": 36
-                                    },
-                                    "_fitBackText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_backFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_backFontMaxSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_fitRightText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_rightFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_rightFontMaxSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_fitLeftText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_leftFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_leftFontMaxSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_fitTopText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_topFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_topFontMaxSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_fitBottomText": {
-                                        "type": "boolean",
-                                        "value": false
-                                    },
-                                    "_bottomFontMinSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    },
-                                    "_bottomFontMaxSize": {
-                                        "type": "number",
-                                        "value": 1
-                                    }
-                                },
-                                "_id": "afc897fd-2567-4e32-b30b-cca00f1084dc"
-                            }
-                        ],
-                        "parentId": 1753456838837
-                    },
-                    "animations": [],
-                    "ranges": [],
-                    "uniqueId": 1753453633368
-                },
                 {
                     "name": "Create game button",
                     "id": "812575f8-900f-4c6a-9ce5-11012eebf22c",
@@ -897,14 +480,14 @@
                         -27.546698241673184
                     ],
                     "scaling": [
-                        0.9999999999999903,
-                        0.9999999999999853,
-                        0.9999999999999915
+                        0.9999999999999869,
+                        0.9999999999999812,
+                        0.9999999999999892
                     ],
                     "rotation": [
-                        0.05906529133317973,
-                        0.2574000146149878,
-                        0.23991047841585442
+                        0.036062590362727645,
+                        0.16210528600007248,
+                        0.08312551639617946
                     ],
                     "metadata": {
                         "scripts": [
@@ -1196,10 +779,6 @@
                                         "type": "number",
                                         "value": 2
                                     },
-                                    "_boundingBoxCentered": {
-                                        "type": "boolean",
-                                        "value": true
-                                    },
                                     "_frontFontWeight": {
                                         "type": "number",
                                         "value": 400
@@ -1295,8 +874,13 @@
                                     "_bottomFontMaxSize": {
                                         "type": "number",
                                         "value": 1
+                                    },
+                                    "_backfaceCulling": {
+                                        "type": "boolean",
+                                        "value": false
                                     }
-                                }
+                                },
+                                "_id": "b123b268-06eb-4165-b891-657565954048"
                             }
                         ],
                         "parentId": 1753456838837
@@ -1931,10 +1515,6 @@
                         "type": "number",
                         "value": 2
                     },
-                    "_boundingBoxCentered": {
-                        "type": "boolean",
-                        "value": true
-                    },
                     "_frontFontWeight": {
                         "type": "number",
                         "value": 400
@@ -2030,8 +1610,13 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 1
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": false
                     }
-                }
+                },
+                "_id": "1bcc075d-0a72-4e05-aec7-82c3a798b637"
             }
         ],
         "parentId": 1753456838837

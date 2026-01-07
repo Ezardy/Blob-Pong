@@ -65,8 +65,8 @@
             "geometryUniqueId": 1758053688348,
             "geometryId": "e83e283b-08a8-475c-9007-cb0a3f40014a",
             "subMeshes": null,
-            "materialUniqueId": 1754739854561,
-            "materialId": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
+            "materialUniqueId": 1767779530300,
+            "materialId": "11e42008-967c-4838-8217-2b8c37108a30",
             "metadata": {
                 "scripts": [
                     {
@@ -305,7 +305,7 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
+            "id": "11e42008-967c-4838-8217-2b8c37108a30",
             "name": "input field",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
@@ -345,7 +345,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1754739854561,
+            "uniqueId": 1767779530300,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,

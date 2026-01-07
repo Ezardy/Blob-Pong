@@ -1,11 +1,11 @@
-import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation, Constants } from "@babylonjs/core";
-import { AbstractButton3D, AdvancedDynamicTexture, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
+import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation } from "@babylonjs/core";
+import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
 import TextBlockDrawer from "./text-block";
 import { ISelectable } from "./interfaces/iselectable";
 import { AdvancedStackPanel3D } from "./controls/advanced-stack-panel-3d";
-import ScrollRaioList3D from "./controls/scroll-radio-list";
+import ScrollRadioList3D from "./controls/scroll-radio-list";
 import SwitchBox3D from "./controls/switch-box-3d";
 import ButtonWithDescription from "./controls/button-with-description";
 import MeshControl from "./controls/mesh-control";
@@ -56,8 +56,6 @@ export default class Ui implements IScript {
 	// main layout elements
 	@visibleAsEntity("node", "Join public game button mesh")
 	private readonly	_joinPublicGameButtonMesh!:	AbstractMesh;
-	@visibleAsEntity("node", "Join private game button mesh")
-	private readonly	_joinPrivateGameButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "Create game button mesh")
 	private readonly	_createGameButtonMesh!:	AbstractMesh;
 
@@ -92,10 +90,11 @@ export default class Ui implements IScript {
 	private readonly	_entranceFeeOrderButtonInputPanel:	AdvancedStackPanel3D;
 	private readonly	_entryPanel:						AdvancedStackPanel3D;
 	private readonly	_gameListControlPanel:				AdvancedStackPanel3D;
-	private readonly	_gameListScroll:					ScrollRaioList3D;
+	private readonly	_gameListScroll:					ScrollRadioList3D;
 	private readonly	_gameListLayout:					AdvancedStackPanel3D;
 
 	private readonly	_listFilters:	RoomFilter = {orderByBlob: {type: 'ASC', count: null}, orderByPlayers: {type: 'ASC', count: null}};
+	private				_sortByPlayers:	boolean = true;
 
 	// game creation layout elements
 	@visibleAsEntity("node", "game creation header mesh")
@@ -205,7 +204,7 @@ export default class Ui implements IScript {
 		this._playerCountOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._entranceFeeOrderButtonInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._entryPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
-		this._gameListScroll = new ScrollRaioList3D(true, 5, (entry, control) => {
+		this._gameListScroll = new ScrollRadioList3D(true, 5, (entry, control) => {
 			const	meshes:	AbstractMesh[] = control.node!.getChildMeshes(true);
 			const	playerCountDrawer:	TextBlockDrawer = getScriptByClassForObject(meshes[0].getChildMeshes(true)[0], TextBlockDrawer)!;
 			const	playerCount = entry.count;
@@ -360,10 +359,9 @@ export default class Ui implements IScript {
 
 	private	_setMainLayout():	void {
 		this._manager.addControl(this._mainLayout);
-		this._mainLayout.margin = 0.05;
+		this._mainLayout.margin = 30;
 
 		const	joinPublicGameButton:	MeshButton3D = new MeshButton3D(this._joinPublicGameButtonMesh as Mesh, "joinPublicButton");
-		const	joinPrivateGameButton:	MeshButton3D = new MeshButton3D(this._joinPrivateGameButtonMesh as Mesh, "joinPrivateButton");
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh as Mesh, "createGameButton");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
@@ -375,7 +373,6 @@ export default class Ui implements IScript {
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
-		this._mainLayout.addControl(joinPrivateGameButton);
 		this._mainLayout.addControl(joinPublicGameButton);
 		this._mainLayout.blockLayout = false;
 	}
@@ -523,12 +520,15 @@ export default class Ui implements IScript {
 				playerSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_ASCENDING_ORDER;
 				feeSwitcherDesc.rightTextBlock.text = ButtonStrings.FEE_SWITCHER_TO;
 				feeSwitcherDesc.leftTextBlock.text = ButtonStrings.FEE_SWITCHER_FROM;
+				this._sortByPlayers = true;
 			} else {
 				playerSwitcherDesc.rightTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_TO;
 				playerSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_FROM;
 				feeSwitcherDesc.rightTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_DESCENDING_ORDER;
 				feeSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_ASCENDING_ORDER;
+				this._sortByPlayers = false;
 			}
+			this._setFilter();
 		});
 		this._gameListControlPanel.addControl(sortBySwitcher);
 		this._setPlayerCountOrderButtonInputPanel();
@@ -570,11 +570,11 @@ export default class Ui implements IScript {
 				if (input.inputTextArea.text.length) {
 					if (Number.isInteger(count)) {
 						this._listFilters.orderByPlayers!.count = count;
-						this._webApi.serverGame.filterGames(this._listFilters);
+						this._setFilter();
 					}
 				} else {
 					this._listFilters.orderByPlayers!.count = null;
-					this._webApi.serverGame.filterGames(this._listFilters);
+					this._setFilter();
 				}
 			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountInput);
@@ -606,13 +606,12 @@ export default class Ui implements IScript {
 				if (input.inputTextArea.text.length) {
 					if (Number.isFinite(fee)) {
 						this._listFilters.orderByBlob!.count = fee;
-						this._webApi.serverGame.filterGames(this._listFilters);
+						this._setFilter();
 					}
 				} else {
 					this._listFilters.orderByBlob!.count = null;
-					this._webApi.serverGame.filterGames(this._listFilters);
+					this._setFilter();
 				}
-				console.log(this._listFilters);
 			});
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeInput);
 		this._entranceFeeOrderButtonInputPanel.blockLayout = false;
@@ -699,6 +698,17 @@ export default class Ui implements IScript {
 		}
 	}
 
+	private	_setFilter():	void {
+		let	filter:	RoomFilter;
+		if (this._sortByPlayers) {
+			filter = {orderByPlayers: this._listFilters.orderByPlayers, orderByBlob: null};
+		} else {
+			filter = {orderByPlayers: null, orderByBlob: this._listFilters.orderByBlob};
+		}
+		console.log(filter);
+		this._webApi.serverGame.filterGames(filter);
+	}
+
 	// Callback setting
 	private	_setOnGameStateUpdatedObservable():	void {
 		this._webApi.serverGame.onGameStateUpdatedObservable.add((gs) => {
@@ -741,6 +751,21 @@ export default class Ui implements IScript {
 	private	_setOnRoomDetailsObservable():	void {
 		this._webApi.serverGame.onRoomsUpdatedObservable.add((list) => {
 			console.log(list);
+			if (this._sortByPlayers) {
+				if (this._listFilters.orderByBlob!.count) {
+					if (this._listFilters.orderByBlob!.type == 'ASC')
+						list = list.filter((v) => v.entryFee >= this._listFilters.orderByBlob!.count!);
+					else
+						list = list.filter((v) => v.entryFee <= this._listFilters.orderByBlob!.count!);
+				}
+			} else {
+				if (this._listFilters.orderByPlayers!.count) {
+					if (this._listFilters.orderByPlayers!.type == 'DESC')
+						list = list.filter((v) => v.maxPlayers >= this._listFilters.orderByPlayers!.count!);
+					else
+						list = list.filter((v) => v.maxPlayers <= this._listFilters.orderByPlayers!.count!);
+				}
+			}
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
 			this._gameListLayout.updateLayout();
 			this._gameListScroll.setClipped(true);
