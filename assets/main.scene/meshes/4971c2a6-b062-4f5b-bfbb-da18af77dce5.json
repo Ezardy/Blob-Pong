@@ -452,6 +452,10 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 1
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": false
                             }
                         },
                         "_id": "dd88fbe4-08c0-4039-b422-9c5f10372e2e"
@@ -2314,6 +2318,10 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 1
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": false
                     }
                 },
                 "_id": "dd88fbe4-08c0-4039-b422-9c5f10372e2e"

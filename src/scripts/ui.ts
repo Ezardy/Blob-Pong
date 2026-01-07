@@ -12,9 +12,10 @@ import MeshControl from "./controls/mesh-control";
 import WebApi from "./web-api";
 import Game from "./game";
 import { setKeys } from "./functions/animations";
-import { ResultPlayer, RoomFilter, RoomPlayer } from "./web-api/server-game";
+import { RoomFilter, RoomPlayer } from "./web-api/server-game";
 import ScrollList3D from "./controls/scroll-list-3d";
 import SwitchIcons3D from "./switch-icons-3d";
+import { ButtonStrings } from "./constants/strings";
 
 export default class Ui implements IScript {
 	private static readonly	_dummyRot:	Quaternion = Quaternion.Identity();
@@ -514,8 +515,20 @@ export default class Ui implements IScript {
 		this._gameListControlPanel.margin = 75;
 		this._gameListControlPanel.blockLayout = true;
 		const	sortBySwitcher:	SwitchIcons3D = getScriptByClassForObject(this._sortBySwitcherMesh, SwitchIcons3D)!;
+		const	playerSwitcherDesc:	TextBlockDrawer = getScriptByClassForObject(this._playerCountOrderButtonMesh, TextBlockDrawer)!;
+		const	feeSwitcherDesc:	TextBlockDrawer = getScriptByClassForObject(this._entranceFeeOrderButtonMesh, TextBlockDrawer)!;
 		sortBySwitcher.onPointerUpObservable.add(() => {
-			
+			if (sortBySwitcher.state) {
+				playerSwitcherDesc.rightTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_DESCENDING_ORDER;
+				playerSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_ASCENDING_ORDER;
+				feeSwitcherDesc.rightTextBlock.text = ButtonStrings.FEE_SWITCHER_TO;
+				feeSwitcherDesc.leftTextBlock.text = ButtonStrings.FEE_SWITCHER_FROM;
+			} else {
+				playerSwitcherDesc.rightTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_TO;
+				playerSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_FROM;
+				feeSwitcherDesc.rightTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_DESCENDING_ORDER;
+				feeSwitcherDesc.leftTextBlock.text = ButtonStrings.PLAYERS_SWITCHER_ASCENDING_ORDER;
+			}
 		});
 		this._gameListControlPanel.addControl(sortBySwitcher);
 		this._setPlayerCountOrderButtonInputPanel();

@@ -169,7 +169,7 @@
                             },
                             "_frontFontFamily": {
                                 "type": "string",
-                                "value": ""
+                                "value": "Asimovian"
                             },
                             "_frontFontWeight": {
                                 "type": "number",
@@ -627,7 +627,7 @@
                     },
                     "_frontFontFamily": {
                         "type": "string",
-                        "value": ""
+                        "value": "Asimovian"
                     },
                     "_frontFontWeight": {
                         "type": "number",

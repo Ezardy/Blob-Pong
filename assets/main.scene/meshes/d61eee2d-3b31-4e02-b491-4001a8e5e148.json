@@ -117,7 +117,7 @@
                             },
                             "_rightText": {
                                 "type": "string",
-                                "value": "fee\ndescending\norder"
+                                "value": "fee\nup to"
                             },
                             "_rightColor": {
                                 "type": "color4",
@@ -138,7 +138,7 @@
                             },
                             "_leftText": {
                                 "type": "string",
-                                "value": "fee\nascending\norder"
+                                "value": "fee\nfrom"
                             },
                             "_leftColor": {
                                 "type": "color4",
@@ -452,6 +452,10 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 1
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": false
                             }
                         },
                         "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"
@@ -1791,7 +1795,7 @@
                     },
                     "_rightText": {
                         "type": "string",
-                        "value": "fee\ndescending\norder"
+                        "value": "fee\nup to"
                     },
                     "_rightColor": {
                         "type": "color4",
@@ -1812,7 +1816,7 @@
                     },
                     "_leftText": {
                         "type": "string",
-                        "value": "fee\nascending\norder"
+                        "value": "fee\nfrom"
                     },
                     "_leftColor": {
                         "type": "color4",
@@ -2126,6 +2130,10 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 1
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": false
                     }
                 },
                 "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"
