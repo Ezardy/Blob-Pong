@@ -455,7 +455,7 @@
                             },
                             "_backfaceCulling": {
                                 "type": "boolean",
-                                "value": false
+                                "value": true
                             }
                         },
                         "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"
@@ -2133,7 +2133,7 @@
                     },
                     "_backfaceCulling": {
                         "type": "boolean",
-                        "value": false
+                        "value": true
                     }
                 },
                 "_id": "103f6314-a1f6-46e1-b38e-b2514d86d8dc"

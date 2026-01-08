@@ -453,8 +453,13 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 1
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": true
                             }
-                        }
+                        },
+                        "_id": "d8c98b28-0735-4fb0-bde7-4f35e948b22c"
                     }
                 ],
                 "parentId": 1764933923267
@@ -1227,8 +1232,13 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 1
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": true
                     }
-                }
+                },
+                "_id": "d8c98b28-0735-4fb0-bde7-4f35e948b22c"
             }
         ],
         "parentId": 1764933923267

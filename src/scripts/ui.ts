@@ -441,18 +441,18 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationEntranceFeeInputPanel():	void {
 		this._gameCreationLayout.addControl(this._gameCreationEntranceFeeInputPanel);
-		this._gameCreationEntranceFeeInputPanel.margin = 30;
+		this._gameCreationEntranceFeeInputPanel.margin = 15;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
-			this._gameCreationEntranceFeeInputPanel.addControl(new MeshControl(this._coinIconMesh, "coin icon"));
-			const	input:	InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
-			this._gameCreationEntranceFeeInput = input.inputTextArea;
-			this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
-			input.parser = (input: string) => {
-				const	n:	number = Number.parseFloat(input);
-				return (n > this._game.maxFee ? this._game.maxFee : (n < this._game.minFee ? this._game.minFee : n)).toString();
-			}
-			const	inputControl:	MeshControl = new MeshControl(this._gameCreationEntranceFeeInputMesh, "game creation entrance fee input", input.inputTextArea);
-			this._gameCreationEntranceFeeInputPanel.addControl(inputControl);
+		const	input:	InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
+		this._gameCreationEntranceFeeInput = input.inputTextArea;
+		this._gameCreationEntranceFeeInput.onTextChangedObservable.add(() => this._enableCreateButton());
+		input.parser = (input: string) => {
+			const	n:	number = Number.parseFloat(input);
+			return (n > this._game.maxFee ? this._game.maxFee : (n < this._game.minFee ? this._game.minFee : n)).toString();
+		}
+		const	inputControl:	MeshControl = new MeshControl(this._gameCreationEntranceFeeInputMesh, "game creation entrance fee input", input.inputTextArea);
+		this._gameCreationEntranceFeeInputPanel.addControl(inputControl);
+		this._gameCreationEntranceFeeInputPanel.addControl(new MeshControl(this._coinIconMesh, "coin icon"));
 		this._gameCreationEntranceFeeInputPanel.blockLayout = false;
 	}
 
@@ -558,7 +558,7 @@ export default class Ui implements IScript {
 				Vector3.Zero(), new Vector3(-playerCountOrderBtnExtS.x, 0, playerCountOrderBtnExtS.z), 1.5);
 			playerCountOrderButton.onPointerUpObservable.add(() => {
 				this._listFilters.orderByPlayers!.type = playerCountOrderButton.state ? 'DESC' : 'ASC';
-				this._webApi.serverGame.filterGames(this._listFilters);
+				this._setFilter();
 			});
 			this._playerCountOrderButtonInputPanel.addControl(playerCountOrderButton);
 			const	input:	InputField3D = getScriptByClassForObject(this._playerCountInputMesh, InputField3D)!;
@@ -594,8 +594,7 @@ export default class Ui implements IScript {
 			this._entranceFeeOrderButtonInputPanel.addControl(entranceFeeOrderButton);
 			entranceFeeOrderButton.onPointerUpObservable.add(() => {
 				this._listFilters.orderByBlob!.type = entranceFeeOrderButton.state ? 'DESC' : 'ASC';
-				console.log(this._listFilters);
-				this._webApi.serverGame.filterGames(this._listFilters);
+				this._setFilter();
 			});
 			const	input:	InputField3D = getScriptByClassForObject(this._entranceFeeInputMesh, InputField3D)!;
 			input.draw();
@@ -699,14 +698,10 @@ export default class Ui implements IScript {
 	}
 
 	private	_setFilter():	void {
-		let	filter:	RoomFilter;
-		if (this._sortByPlayers) {
-			filter = {orderByPlayers: this._listFilters.orderByPlayers, orderByBlob: null};
-		} else {
-			filter = {orderByPlayers: null, orderByBlob: this._listFilters.orderByBlob};
-		}
-		console.log(filter);
-		this._webApi.serverGame.filterGames(filter);
+		if (this._sortByPlayers)
+			this._webApi.serverGame.filterGames({orderByPlayers: this._listFilters.orderByPlayers, orderByBlob: null});
+		else
+			this._webApi.serverGame.filterGames({orderByPlayers: null, orderByBlob: this._listFilters.orderByBlob});
 	}
 
 	// Callback setting

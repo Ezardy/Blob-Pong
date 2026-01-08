@@ -323,6 +323,7 @@ export class ServerGame
 	
 	public filterGames(filter: RoomFilter)
 	{
+		console.log(filter);
 		const type = "FILTER";
 
 		if (this.isWebSocketOpen())

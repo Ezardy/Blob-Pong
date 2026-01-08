@@ -456,6 +456,10 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 1
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": true
                             }
                         },
                         "_id": "55439270-892e-4872-98ff-3e77d9f2ddfc"
@@ -871,6 +875,10 @@
                                     "_bottomFontMaxSize": {
                                         "type": "number",
                                         "value": 1
+                                    },
+                                    "_backfaceCulling": {
+                                        "type": "boolean",
+                                        "value": true
                                     }
                                 },
                                 "_id": "8bc43cd7-a4f5-4f7c-acdf-29fe3d31cc08"
@@ -1289,6 +1297,10 @@
                                     "_bottomFontMaxSize": {
                                         "type": "number",
                                         "value": 1
+                                    },
+                                    "_backfaceCulling": {
+                                        "type": "boolean",
+                                        "value": true
                                     }
                                 },
                                 "_id": "d4ba17b6-475f-4683-b0dc-16043f7f76c1"
@@ -2022,6 +2034,10 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 1
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": true
                     }
                 },
                 "_id": "55439270-892e-4872-98ff-3e77d9f2ddfc"

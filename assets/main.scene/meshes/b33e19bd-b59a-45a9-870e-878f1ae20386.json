@@ -455,6 +455,10 @@
                             "_bottomFontMaxSize": {
                                 "type": "number",
                                 "value": 29
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": true
                             }
                         },
                         "_id": "15b0c237-c21d-4a55-b2b0-0fd0017af1c4"
@@ -1508,7 +1512,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 0.7699999999999998
+                    "value": 1
                 },
                 {
                     "customType": "BABYLON.InputBlock",
@@ -1536,7 +1540,7 @@
                     "convertToGammaSpace": false,
                     "convertToLinearSpace": false,
                     "valueType": "number",
-                    "value": 0
+                    "value": 0.6400000000000001
                 },
                 {
                     "customType": "BABYLON.ReflectionBlock",
@@ -2133,6 +2137,10 @@
                     "_bottomFontMaxSize": {
                         "type": "number",
                         "value": 29
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": true
                     }
                 },
                 "_id": "15b0c237-c21d-4a55-b2b0-0fd0017af1c4"

@@ -453,6 +453,10 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": true
                             }
                         },
                         "_id": "6a3a31c5-e9f6-4eff-a2d5-a0d8717ab8f2"
@@ -869,6 +873,10 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": true
                     }
                 },
                 "_id": "6a3a31c5-e9f6-4eff-a2d5-a0d8717ab8f2"

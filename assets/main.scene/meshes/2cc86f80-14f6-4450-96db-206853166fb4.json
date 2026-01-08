@@ -11,10 +11,10 @@
                 0
             ],
             "rotationQuaternion": [
-                0,
-                0,
-                0,
-                1
+                0.03979146928660657,
+                -0.06039297128991156,
+                -0.035965928898337135,
+                0.9967325518659802
             ],
             "scaling": [
                 100.14000000000004,
@@ -98,10 +98,10 @@
                             "_backgroundColor": {
                                 "type": "color4",
                                 "value": [
+                                    0.03738317757009302,
                                     0,
-                                    0,
-                                    0,
-                                    0.20392156862745098
+                                    1,
+                                    0.2235294117647059
                                 ]
                             },
                             "_focusedBackgroundColor": {
@@ -237,7 +237,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.46999999999999953,
+            "roughness": 0.1399999999999998,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -251,9 +252,9 @@
                 0
             ],
             "albedo": [
-                0.6352941176470588,
+                1,
                 0,
-                0
+                0.2784313725490196
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -523,10 +524,10 @@
                     "_backgroundColor": {
                         "type": "color4",
                         "value": [
+                            0.03738317757009302,
                             0,
-                            0,
-                            0,
-                            0.20392156862745098
+                            1,
+                            0.2235294117647059
                         ]
                     },
                     "_focusedBackgroundColor": {

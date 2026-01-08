@@ -67,7 +67,8 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts"
+                        "key": "scripts/bounding-box-updater.ts",
+                        "_id": "86bb9109-4053-43e3-9945-539fdb5e813e"
                     },
                     {
                         "enabled": true,
@@ -452,8 +453,13 @@
                             "_isBottomInverted": {
                                 "type": "boolean",
                                 "value": false
+                            },
+                            "_backfaceCulling": {
+                                "type": "boolean",
+                                "value": true
                             }
-                        }
+                        },
+                        "_id": "f371322b-70fa-49d5-ae06-26f1fd818e49"
                     }
                 ],
                 "parentId": 1764230513645
@@ -481,7 +487,8 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts"
+                "key": "scripts/bounding-box-updater.ts",
+                "_id": "86bb9109-4053-43e3-9945-539fdb5e813e"
             },
             {
                 "enabled": true,
@@ -866,8 +873,13 @@
                     "_isBottomInverted": {
                         "type": "boolean",
                         "value": false
+                    },
+                    "_backfaceCulling": {
+                        "type": "boolean",
+                        "value": true
                     }
-                }
+                },
+                "_id": "f371322b-70fa-49d5-ae06-26f1fd818e49"
             }
         ],
         "parentId": 1764230513645

@@ -976,7 +976,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 0.7699999999999998
+			"value": 1
 		},
 		{
 			"customType": "BABYLON.InputBlock",
@@ -1004,7 +1004,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 0
+			"value": 0.6400000000000001
 		},
 		{
 			"customType": "BABYLON.ReflectionBlock",
