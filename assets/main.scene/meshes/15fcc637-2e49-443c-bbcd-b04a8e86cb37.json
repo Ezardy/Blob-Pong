@@ -64,8 +64,8 @@
             "geometryUniqueId": 1753626784675,
             "geometryId": "b03d53f7-3fcf-481e-955b-a90dd67b31ad",
             "subMeshes": null,
-            "materialUniqueId": 1753626823209,
-            "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "materialUniqueId": 1767856206315,
+            "materialId": "15f989f2-67ff-493e-a14a-3f9b495cee5a",
             "metadata": {
                 "type": "Box",
                 "width": 488.60000000000014,
@@ -543,7 +543,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.6899999999999997,
+            "roughness": 0.24999999999999992,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -557,8 +558,8 @@
                 0
             ],
             "albedo": [
-                0.6346607172924734,
-                0,
+                0.9607843137254902,
+                0.08235294117647059,
                 0
             ],
             "baseWeight": 1,
@@ -611,8 +612,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
-            "name": "header",
+            "id": "15f989f2-67ff-493e-a14a-3f9b495cee5a",
+            "name": "create header",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -651,7 +652,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753626823209,
+            "uniqueId": 1767856206315,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,

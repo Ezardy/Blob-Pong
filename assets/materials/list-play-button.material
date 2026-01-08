@@ -7,8 +7,8 @@
 	"disableBumpMap": false,
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
-	"metallic": 0.5200000000000001,
-	"roughness": 0.18999999999999956,
+	"metallic": 1,
+	"roughness": 0.26999999999999985,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -22,9 +22,9 @@
 		0
 	],
 	"albedo": [
-		0.175702288941736,
-		0.3535470862798059,
-		0.8318965517241379
+		0.9607843137254902,
+		0.08235294117647059,
+		0
 	],
 	"baseWeight": 1,
 	"reflectivity": [
@@ -76,8 +76,8 @@
 	"useRadianceOcclusion": true,
 	"unlit": false,
 	"applyDecalMapAfterDetailMap": false,
-	"id": "1681da6c-3b7e-4624-af9b-38e3559f5de7",
-	"name": "list input",
+	"id": "745223eb-1549-4ebb-8a9b-df08af015c9a",
+	"name": "list play button",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",
@@ -116,7 +116,7 @@
 		"mask": 255,
 		"enabled": false
 	},
-	"uniqueId": 1754739854561,
+	"uniqueId": 1767890327145,
 	"plugins": {
 		"PBRBRDFConfiguration": {
 			"tags": null,

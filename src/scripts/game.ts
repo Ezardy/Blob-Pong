@@ -456,7 +456,7 @@ export default class Game implements IScript {
 		if (value != this._mode && (value > this._mode || value == Game.NONE_MODE)) {
 			switch (value) {
 				case Game.NONE_MODE:
-					//this._camera.detachControl();
+					this._camera.detachControl();
 					this._resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._camera.onViewMatrixChangedObservable.removeCallback(this._drawNames, this);

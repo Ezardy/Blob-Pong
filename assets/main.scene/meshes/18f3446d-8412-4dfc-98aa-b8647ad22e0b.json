@@ -66,7 +66,8 @@
                 "scripts": [
                     {
                         "enabled": true,
-                        "key": "scripts/bounding-box-updater.ts"
+                        "key": "scripts/bounding-box-updater.ts",
+                        "_id": "efa04f52-9970-4fee-99db-33375a407dfd"
                     }
                 ],
                 "parentId": 1753456789352
@@ -94,7 +95,8 @@
         "scripts": [
             {
                 "enabled": true,
-                "key": "scripts/bounding-box-updater.ts"
+                "key": "scripts/bounding-box-updater.ts",
+                "_id": "efa04f52-9970-4fee-99db-33375a407dfd"
             }
         ],
         "parentId": 1753456789352

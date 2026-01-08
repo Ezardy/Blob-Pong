@@ -65,8 +65,8 @@
             "geometryUniqueId": 1767681926355,
             "geometryId": "22f6b63a-174d-4811-925a-718dfc735cec",
             "subMeshes": null,
-            "materialUniqueId": 1753696953292,
-            "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+            "materialUniqueId": 1767858142977,
+            "materialId": "faf721ee-eead-437f-9c18-13add0414536",
             "metadata": {
                 "parentId": 1767767719095
             },
@@ -147,8 +147,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0.6299999999999997,
-            "roughness": 0.16999999999999998,
+            "metallic": 1,
+            "roughness": 0.2899999999999998,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -162,9 +162,9 @@
                 0
             ],
             "albedo": [
-                0.9870689655172413,
-                0.9870689655172413,
-                0.9870689655172413
+                0.01898781212841849,
+                0.4410779421560031,
+                0.6293103448275862
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -216,8 +216,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
-            "name": "icon",
+            "id": "faf721ee-eead-437f-9c18-13add0414536",
+            "name": "create-coin",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -256,7 +256,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753696953292,
+            "uniqueId": 1767858142977,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,

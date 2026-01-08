@@ -183,8 +183,10 @@ export default class Ui implements IScript {
 		this._backgroundDepthAnim = new Animation("background depth color", "value", 30, Animation.ANIMATIONTYPE_COLOR3, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._clearColorAnim = new Animation("clear color", "clearColor", 30, Animation.ANIMATIONTYPE_COLOR4, Animation.ANIMATIONLOOPMODE_CONSTANT, false);
 		this._updateLayoutCallback = () => {
-			if (this._isLayoutUpdatable)
-				this._updateLayoutRecursively()
+			if (this._isLayoutUpdatable) {
+				this._updateLayoutRecursively();
+				this._gameListScroll.setClipped(true);
+			}
 		};
 		this._countdownCallback = () => {
 			this._readyButton.deselect();

@@ -307,7 +307,7 @@
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
             "id": "11e42008-967c-4838-8217-2b8c37108a30",
-            "name": "input field",
+            "name": "create input",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
