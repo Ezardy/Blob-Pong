@@ -264,7 +264,7 @@ export default class Game implements IScript {
 		if (gs.players.length) {
 			if (this._playerColors.size > gs.players.length) {
 				if (gs.players.length === 2)
-					this._resetCamera();
+					this.resetCamera();
 				this._syncGame(gs.players);
 			}
 			if (gs.players.length <= 2 && this._shift)
@@ -457,7 +457,7 @@ export default class Game implements IScript {
 			switch (value) {
 				case Game.NONE_MODE:
 					this._camera.detachControl();
-					this._resetCamera();
+					this.resetCamera();
 					this.scene.onPointerObservable.removeCallback(this._mouseCallback, this);
 					this._camera.onViewMatrixChangedObservable.removeCallback(this._drawNames, this);
 					this._webApi.serverGame.onRoomDetailsUpdatedObservable.removeCallback(this._updateRoom, this);
@@ -508,11 +508,13 @@ export default class Game implements IScript {
 	}
 
 	private	_scaleMeshes():	void {
-		const	index:			int = this._playerCount - 2;
-		const	racketScale:	Vector3 = this._racketMeshScales[index];
-		this._ball.scaling = this._ballMeshScales[index];
-		this._playerRackets.forEach(racket => racket.scaling = racketScale);
-		this._racketPool.forEach(racket => racket.scaling = racketScale);
+		if (this._playerCount > 1) {
+			const	index:			int = this._playerCount - 2;
+			const	racketScale:	Vector3 = this._racketMeshScales[index];
+			this._ball.scaling = this._ballMeshScales[index];
+			this._playerRackets.forEach(racket => racket.scaling = racketScale);
+			this._racketPool.forEach(racket => racket.scaling = racketScale);
+		}
 	}
 
 	private static	_omitDuplicateWrapper(p1: Vector3, p2: Vector3, p3: Vector3, points: Vector3[][],
@@ -574,7 +576,7 @@ export default class Game implements IScript {
 			this._colorPool[this.maxPlayers - i - 1] = Game._colors[i];
 	}
 
-	private _resetCamera():	void {
+	public resetCamera():	void {
 		setKeys(this._cameraAlphaAnimation, this._camera.alpha, this._cameraAlpha, 20);
 		setKeys(this._cameraBetaAnimation, this._camera.beta, this._cameraBeta, 20);
 		setKeys(this._cameraRadiusAnimation, this._camera.radius, this._cameraRadius, 20);

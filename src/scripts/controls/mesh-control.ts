@@ -1,6 +1,6 @@
 import { Scene, Nullable, TransformNode, AbstractMesh } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
-import { Control, Control3D } from "@babylonjs/gui";
+import { Control, Control3D, InputText } from "@babylonjs/gui";
 import { IClonableControl3D } from "../interfaces/iclonablecontrol3d";
 import { updateBoundingBoxRecursively } from "../functions/bounding-box";
 import { Control3DClone } from "../functions/typing-utils";
@@ -11,6 +11,10 @@ export default class MeshControl extends Control3D implements IClonableControl3D
 		super(name);
 		updateBoundingBoxRecursively(meshToUse);
 		this.onPointerUpObservable.add(() => content?.focus());
+		if (content instanceof InputText) {
+			this.onPointerEnterObservable.add(() => document.body.style.cursor = 'text');
+			this.onPointerOutObservable.add(() => document.body.style.cursor = '');
+		}
 	}
 
 	protected override _createNode(scene: Scene): Nullable<TransformNode> {

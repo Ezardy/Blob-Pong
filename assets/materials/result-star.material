@@ -8,7 +8,7 @@
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
 	"metallic": 1,
-	"roughness": 1,
+	"roughness": 0.5899999999999999,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -22,8 +22,8 @@
 		0
 	],
 	"albedo": [
-		0.521551724137931,
-		0,
+		1,
+		0.14018691588785046,
 		0
 	],
 	"baseWeight": 1,
@@ -76,8 +76,8 @@
 	"useRadianceOcclusion": true,
 	"unlit": false,
 	"applyDecalMapAfterDetailMap": false,
-	"id": "87bda4a1-d5f2-4ec5-a0d6-32d22eba8670",
-	"name": "create header",
+	"id": "29c8b667-1dcf-41b4-ad51-34648ab0f436",
+	"name": "create-coin",
 	"checkReadyOnEveryCall": false,
 	"checkReadyOnlyOnce": false,
 	"state": "",
@@ -116,7 +116,7 @@
 		"mask": 255,
 		"enabled": false
 	},
-	"uniqueId": 1767779302554,
+	"uniqueId": 1767894793987,
 	"plugins": {
 		"PBRBRDFConfiguration": {
 			"tags": null,

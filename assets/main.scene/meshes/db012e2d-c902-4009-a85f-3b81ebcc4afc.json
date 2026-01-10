@@ -1,0 +1,325 @@
+{
+    "meshes": [
+        {
+            "name": "entrance fee input mesh",
+            "id": "db012e2d-c902-4009-a85f-3b81ebcc4afc",
+            "uniqueId": 1768033166559,
+            "type": "Mesh",
+            "position": [
+                -22.595043572687132,
+                -84.74408081314812,
+                -200
+            ],
+            "rotationQuaternion": [
+                0.048810907918996435,
+                0.09067112884820837,
+                -0.035596350716398883,
+                0.9940468507455722
+            ],
+            "scaling": [
+                27.00999999999996,
+                26.999999999999996,
+                26.999999999999947
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/input-field.ts",
+                        "_id": "b1de534e-c1a4-459a-9d32-3b85d7b44ed3",
+                        "values": {
+                            "_resizeTextToFit": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_textureResolutionScaler": {
+                                "type": "number",
+                                "value": 3
+                            },
+                            "_fontFamily": {
+                                "type": "string",
+                                "value": "Asimovian"
+                            },
+                            "_fontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_hint": {
+                                "type": "string",
+                                "value": "entrance fee"
+                            },
+                            "_hintSize": {
+                                "type": "number",
+                                "value": 24
+                            },
+                            "_hintColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0.8
+                                ]
+                            },
+                            "_maxTextSize": {
+                                "type": "number",
+                                "value": 70
+                            },
+                            "_minTextSize": {
+                                "type": "number",
+                                "value": 5
+                            },
+                            "_textColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0
+                                ]
+                            },
+                            "_focusedBackgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.0392156862745098,
+                                    0,
+                                    1,
+                                    0.22
+                                ]
+                            },
+                            "_highlightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    0,
+                                    0,
+                                    0.51
+                                ]
+                            },
+                            "_borderThickness": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_margin": {
+                                "type": "number",
+                                "value": 2
+                            },
+                            "_horizontalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_verticalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/input-field.ts",
+                "_id": "b1de534e-c1a4-459a-9d32-3b85d7b44ed3",
+                "values": {
+                    "_resizeTextToFit": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_textureResolutionScaler": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "_fontFamily": {
+                        "type": "string",
+                        "value": "Asimovian"
+                    },
+                    "_fontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_hint": {
+                        "type": "string",
+                        "value": "entrance fee"
+                    },
+                    "_hintSize": {
+                        "type": "number",
+                        "value": 24
+                    },
+                    "_hintColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0.8
+                        ]
+                    },
+                    "_maxTextSize": {
+                        "type": "number",
+                        "value": 70
+                    },
+                    "_minTextSize": {
+                        "type": "number",
+                        "value": 5
+                    },
+                    "_textColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0
+                        ]
+                    },
+                    "_focusedBackgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            0.0392156862745098,
+                            0,
+                            1,
+                            0.22
+                        ]
+                    },
+                    "_highlightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            0,
+                            0,
+                            0.51
+                        ]
+                    },
+                    "_borderThickness": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_margin": {
+                        "type": "number",
+                        "value": 2
+                    },
+                    "_horizontalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_verticalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        583.2931327752973,
+        -968.7564959279999,
+        -4.547473508864641e-13,
+        1
+    ]
+}

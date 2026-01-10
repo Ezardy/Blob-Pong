@@ -1,0 +1,325 @@
+{
+    "meshes": [
+        {
+            "name": "game name input mesh",
+            "id": "9e8b213c-ac4e-460f-b28b-e7ffd16ecfc1",
+            "uniqueId": 1768037592140,
+            "type": "Mesh",
+            "position": [
+                50.46928990344719,
+                74.63561215980002,
+                0
+            ],
+            "rotationQuaternion": [
+                0.03979146928660656,
+                -0.06039297128991155,
+                -0.03596592889833714,
+                0.9967325518659802
+            ],
+            "scaling": [
+                100.14000000000004,
+                27,
+                27.000000000000004
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/input-field.ts",
+                        "_id": "80d9cd89-83a9-4336-a76a-4dbbd831916e",
+                        "values": {
+                            "_resizeTextToFit": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_textureResolutionScaler": {
+                                "type": "number",
+                                "value": 3
+                            },
+                            "_fontFamily": {
+                                "type": "string",
+                                "value": "Asimovian"
+                            },
+                            "_fontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_hint": {
+                                "type": "string",
+                                "value": "game name"
+                            },
+                            "_hintSize": {
+                                "type": "number",
+                                "value": 60
+                            },
+                            "_hintColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0.8
+                                ]
+                            },
+                            "_maxTextSize": {
+                                "type": "number",
+                                "value": 80
+                            },
+                            "_minTextSize": {
+                                "type": "number",
+                                "value": 5
+                            },
+                            "_textColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0
+                                ]
+                            },
+                            "_focusedBackgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.0392156862745098,
+                                    0,
+                                    1,
+                                    0.22
+                                ]
+                            },
+                            "_highlightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    0,
+                                    0,
+                                    0.51
+                                ]
+                            },
+                            "_borderThickness": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_margin": {
+                                "type": "number",
+                                "value": 2
+                            },
+                            "_horizontalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_verticalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/input-field.ts",
+                "_id": "80d9cd89-83a9-4336-a76a-4dbbd831916e",
+                "values": {
+                    "_resizeTextToFit": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_textureResolutionScaler": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "_fontFamily": {
+                        "type": "string",
+                        "value": "Asimovian"
+                    },
+                    "_fontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_hint": {
+                        "type": "string",
+                        "value": "game name"
+                    },
+                    "_hintSize": {
+                        "type": "number",
+                        "value": 60
+                    },
+                    "_hintColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0.8
+                        ]
+                    },
+                    "_maxTextSize": {
+                        "type": "number",
+                        "value": 80
+                    },
+                    "_minTextSize": {
+                        "type": "number",
+                        "value": 5
+                    },
+                    "_textColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0
+                        ]
+                    },
+                    "_focusedBackgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            0.0392156862745098,
+                            0,
+                            1,
+                            0.22
+                        ]
+                    },
+                    "_highlightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            0,
+                            0,
+                            0.51
+                        ]
+                    },
+                    "_borderThickness": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_margin": {
+                        "type": "number",
+                        "value": 2
+                    },
+                    "_horizontalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_verticalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        583.2931327752973,
+        -968.7564959279999,
+        -4.547473508864641e-13,
+        1
+    ]
+}

@@ -43,7 +43,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -65,8 +65,8 @@
             "geometryUniqueId": 1764246000762,
             "geometryId": "2d1fd9e8-1861-4e54-a324-3ca0525d3386",
             "subMeshes": null,
-            "materialUniqueId": 1753696953292,
-            "materialId": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
+            "materialUniqueId": 1767894793987,
+            "materialId": "29c8b667-1dcf-41b4-ad51-34648ab0f436",
             "metadata": {
                 "parentId": 1764246000760
             },
@@ -139,8 +139,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0.6299999999999997,
-            "roughness": 0.16999999999999998,
+            "metallic": 1,
+            "roughness": 0.5899999999999999,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -154,9 +154,9 @@
                 0
             ],
             "albedo": [
-                0.9870689655172413,
-                0.9870689655172413,
-                0.9870689655172413
+                1,
+                0.14018691588785046,
+                0
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -208,8 +208,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
-            "name": "icon",
+            "id": "29c8b667-1dcf-41b4-ad51-34648ab0f436",
+            "name": "create-coin",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -248,7 +248,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753696953292,
+            "uniqueId": 1767894793987,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,

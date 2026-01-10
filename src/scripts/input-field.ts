@@ -1,7 +1,7 @@
-import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh, ICanvasRenderingContext, Tools } from "@babylonjs/core";
+import { Color3, Color4, int, IParticleSystem, MeshBuilder, Scene, Tags, Vector3, Node, InstancedMesh, AbstractMesh, ICanvasRenderingContext, Tools, ActionManager, Vector2 } from "@babylonjs/core";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { AdvancedDynamicTexture, Control, InputTextArea } from "@babylonjs/gui";
-import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString } from "babylonjs-editor-tools";
+import { IScript, _registerScriptInstance, applyScriptOnObject, visibleAsBoolean, visibleAsColor4, visibleAsNumber, visibleAsString, visibleAsVector2 } from "babylonjs-editor-tools";
 import { IClonableScript } from "./interfaces/iclonablescript";
 import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 import { fitTextIntoControl } from "./functions/text";
@@ -35,6 +35,12 @@ export default class InputField3D implements IScript, IClonableScript {
 	private	_highlightColor:	Color4 = new Color4(1, 1, 1, 0.4);
 	@visibleAsNumber("border thickness", {min: 0, max: 20, step: 1})
 	private	_borderThickness:	int = 1;
+	@visibleAsNumber("margin", {min: 0, max: 100, step: 1})
+	private	_margin:	number = 0;
+	@visibleAsVector2("horizontal paddings", {min: 0, max: 100, step: 1})
+	private	_horizontalPaddings:	Vector2 = Vector2.Zero();
+	@visibleAsVector2("vertical paddings", {min: 0, max: 100, step: 1})
+	private	_verticalPaddings:	Vector2 = Vector2.Zero();
 
 	private readonly	_inputText:			InputTextArea;
 	private readonly	_plane:				Mesh;
@@ -127,6 +133,8 @@ export default class InputField3D implements IScript, IClonableScript {
 				this._inputText.onTextChangedObservable.add(() => fitTextIntoControl(this._inputText, dynText.getContext(), this._minTextSize, this._maxTextSize));
 			dynText.skipBlockEvents = 0;
 			dynText.addControl(this._inputText);
+			this._inputText.onPointerEnterObservable.add(() => document.body.style.cursor = 'text');
+			this._inputText.onPointerOutObservable.add(() => document.body.style.cursor = '');
 			this._inputText.fontWeight = this._fontWeight.toString();
 			this._inputText.placeholderText = this._hint;
 			this._inputText.placeholderColor = this._hintColor.toHexString();
@@ -138,10 +146,10 @@ export default class InputField3D implements IScript, IClonableScript {
 			this._inputText.background = this._backgroundColor.toHexString();
 			this._inputText.focusedBackground = this._focusedBackgroundColor.toHexString();
 			this._inputText.color = this._textColor.toHexString();
-			//this._inputText.autoStretchWidth = true;
+			this._inputText.autoStretchWidth = true;
 			this._inputText.autoStretchHeight = true;
-			this._inputText.margin = "1px";
-			this._inputText.setPaddingInPixels(0, 0, 0, 0);
+			this._inputText.margin = `${this._margin}%`;
+			this._inputText.setPadding(`${this._verticalPaddings.y}%`, `${this._horizontalPaddings.y}%`, `${this._verticalPaddings.x}%`, `${this._horizontalPaddings.x}%`);
 			this._inputText.thickness = this._borderThickness * this._textureResolutionScaler;
 			this._inputText.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
 			this._inputText.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER

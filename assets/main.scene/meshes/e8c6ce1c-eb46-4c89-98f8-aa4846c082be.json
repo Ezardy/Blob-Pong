@@ -153,6 +153,24 @@
                             "_minTextSize": {
                                 "type": "number",
                                 "value": 5
+                            },
+                            "_margin": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_horizontalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_verticalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
                             }
                         },
                         "_id": "92568f59-1c5c-44aa-b799-7a03be9af61d"
@@ -270,6 +288,24 @@
                                     "_minTextSize": {
                                         "type": "number",
                                         "value": 5
+                                    },
+                                    "_margin": {
+                                        "type": "number",
+                                        "value": 0
+                                    },
+                                    "_horizontalPaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "_verticalPaddings": {
+                                        "type": "vector2",
+                                        "value": [
+                                            0,
+                                            0
+                                        ]
                                     }
                                 },
                                 "_id": "1dbb7a9b-4788-48ba-9225-ac5cec5a7c95"
@@ -700,6 +736,24 @@
                     "_minTextSize": {
                         "type": "number",
                         "value": 5
+                    },
+                    "_margin": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_horizontalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_verticalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
                     }
                 },
                 "_id": "92568f59-1c5c-44aa-b799-7a03be9af61d"

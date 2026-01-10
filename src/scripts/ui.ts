@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation } from "@babylonjs/core";
+import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation, Tools } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
@@ -124,6 +124,7 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationLayout:					AdvancedStackPanel3D;
 	private readonly	_gameCreationPreviousButtonHeaderPanel:	AdvancedStackPanel3D;
 	private readonly	_privacyNamePanel:						AdvancedStackPanel3D;
+	private readonly	_gameCreationNumberInputsPanel:			AdvancedStackPanel3D;
 	private readonly	_gameCreationPlayerCountInputPanel:		AdvancedStackPanel3D;
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
@@ -185,7 +186,8 @@ export default class Ui implements IScript {
 		this._updateLayoutCallback = () => {
 			if (this._isLayoutUpdatable) {
 				this._updateLayoutRecursively();
-				this._gameListScroll.setClipped(true);
+				if (this._currentLayout == this._gameListLayout)
+					this._gameListScroll.setClipped(true);
 			}
 		};
 		this._countdownCallback = () => {
@@ -219,6 +221,7 @@ export default class Ui implements IScript {
 		// game creation layout initialization
 		this._gameCreationLayout = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.START_ALIGNMENT);
 		this._gameCreationPreviousButtonHeaderPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
+		this._gameCreationNumberInputsPanel = new AdvancedStackPanel3D(true, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationPlayerCountInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._gameCreationEntranceFeeInputPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.CENTER_ALIGNMENT);
 		this._createPanel = new AdvancedStackPanel3D(false, AdvancedStackPanel3D.END_ALIGNMENT);
@@ -242,7 +245,7 @@ export default class Ui implements IScript {
 			playerNameText.text = entry.username as string;
 			kickedPlayersText.text = entry.playersKicked as string;
 			placeText.text = entry.place as string;
-			earnedText.text = entry.score as string;
+			earnedText.text = ((<number>entry.score).toFixed(3)) as string;
 		}, scene);
 	}
 
@@ -393,14 +396,18 @@ export default class Ui implements IScript {
 
 	private	_setGameCreationLayout():	void {
 		this._manager.addControl(this._gameCreationLayout);
-		this._gameCreationLayout.margin = 40;
-		this._gameCreationLayout.padding = 0;
 		this._gameCreationLayout.blockLayout = true;
-			this._setCreatePanel();
-			this._setGameCreationEntranceFeeInputPanel();
-			this._setGameCreationPlayerCountInputPanel();
-			this._setPrivacyNameLayout();
-			this._setGameCreationPreviousButtonHeaderPanel();
+			this._gameCreationNumberInputsPanel.blockLayout = true;
+				this._gameCreationNumberInputsPanel.margin = 5;
+				this._gameCreationLayout.margin = 40;
+				this._gameCreationLayout.padding = 0;
+				this._setCreatePanel();
+				this._gameCreationLayout.addControl(this._gameCreationNumberInputsPanel);
+				this._setGameCreationEntranceFeeInputPanel();
+				this._setGameCreationPlayerCountInputPanel();
+				this._setPrivacyNameLayout();
+				this._setGameCreationPreviousButtonHeaderPanel();
+			this._gameCreationNumberInputsPanel.blockLayout = true;
 		this._gameCreationLayout.blockLayout = false;
 		this._gameCreationLayout.isVisible = false;
 	}
@@ -442,7 +449,7 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameCreationEntranceFeeInputPanel():	void {
-		this._gameCreationLayout.addControl(this._gameCreationEntranceFeeInputPanel);
+		this._gameCreationNumberInputsPanel.addControl(this._gameCreationEntranceFeeInputPanel);
 		this._gameCreationEntranceFeeInputPanel.margin = 15;
 		this._gameCreationEntranceFeeInputPanel.blockLayout = true;
 		const	input:	InputField3D = getScriptByClassForObject(this._gameCreationEntranceFeeInputMesh, InputField3D)!;
@@ -459,7 +466,7 @@ export default class Ui implements IScript {
 	}
 
 	private	_setGameCreationPlayerCountInputPanel():	void {
-		this._gameCreationLayout.addControl(this._gameCreationPlayerCountInputPanel);
+		this._gameCreationNumberInputsPanel.addControl(this._gameCreationPlayerCountInputPanel);
 		this._gameCreationPlayerCountInputPanel.margin = 30;
 		this._gameCreationPlayerCountInputPanel.blockLayout = true;
 			this._gameCreationPlayerCountInputPanel.addControl(new MeshControl(this._playerIconMesh, "player icon"));
@@ -730,7 +737,8 @@ export default class Ui implements IScript {
 								this._countdown.state = state % this._countdown.maxState;
 								break;
 							case "finished":
-								this._game.mode = 0;
+								this._game.resetCamera();
+								setTimeout(() => this._game.mode = 0, 1000);
 								this._isGameFinished = true;
 								this._countdown.deselect();
 								this._countdown.onPointerUpObservable.add(this._countdownCallback);
@@ -765,7 +773,7 @@ export default class Ui implements IScript {
 			}
 			this._gameListScroll.fillList(JSON.parse(JSON.stringify(list)));
 			this._gameListLayout.updateLayout();
-			this._gameListScroll.setClipped(true);
+			Tools.SetImmediate(() => this._gameListScroll.setClipped(true));
 		});
 		this._webApi.serverGame.onRoomDetailsUpdatedObservable.add((details) => {
 			if (this._game.mode === Game.NONE_MODE) {
@@ -807,8 +815,11 @@ export default class Ui implements IScript {
 
 	private	_setOnGameResultObservable():	void {
 		this._webApi.serverGame.onGameResultObservable.add((res) => {
-			this._switchLayout(this._resultLayout, this._gameMainColor, this._gameDepthColor);
-			this._resultScrollList.fillList(res.gameResult.players.sort((a, b) => b.score - a.score));
+			setTimeout(() => {
+				this._switchLayout(this._resultLayout, this._gameMainColor, this._gameDepthColor);
+				this._resultScrollList.fillList(res.gameResult.players.sort((a, b) => b.score - a.score));
+				Tools.SetImmediate(() => this._resultScrollList.setClipped(true));
+			}, 1010);
 		});
 	}
 	// Observers' functions

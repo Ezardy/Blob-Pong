@@ -1,25 +1,25 @@
 {
     "meshes": [
         {
-            "name": "game name input mesh",
-            "id": "2cc86f80-14f6-4450-96db-206853166fb4",
-            "uniqueId": 1758053688349,
+            "name": "input",
+            "id": "36341fab-9d7a-47b8-bf69-5d1da9503203",
+            "uniqueId": 1768033930758,
             "type": "Mesh",
             "position": [
-                50.46928990344719,
-                74.63561215980002,
+                0,
+                0,
                 0
             ],
             "rotationQuaternion": [
-                0.03979146928660657,
-                -0.06039297128991156,
-                -0.035965928898337135,
-                0.9967325518659802
+                0,
+                0,
+                0,
+                1
             ],
             "scaling": [
-                100.14000000000004,
-                27,
-                27.000000000000004
+                1,
+                1,
+                1
             ],
             "localMatrix": [
                 1,
@@ -62,105 +62,76 @@
             "isBlocker": false,
             "sideOrientation": 0,
             "isUnIndexed": false,
-            "geometryUniqueId": 1758053688348,
-            "geometryId": "e83e283b-08a8-475c-9007-cb0a3f40014a",
+            "geometryUniqueId": 1768033930759,
+            "geometryId": "33036ea6-3840-41b1-957a-0f91d9980f3e",
             "subMeshes": null,
             "materialUniqueId": 1767779530300,
             "materialId": "11e42008-967c-4838-8217-2b8c37108a30",
             "metadata": {
-                "scripts": [
-                    {
-                        "enabled": true,
-                        "key": "scripts/input-field.ts",
-                        "values": {
-                            "_hint": {
-                                "type": "string",
-                                "value": "game name"
-                            },
-                            "_hintColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    0.796078431372549
-                                ]
-                            },
-                            "_textColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    1,
-                                    1,
-                                    1
-                                ]
-                            },
-                            "_backgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0.03738317757009302,
-                                    0,
-                                    1,
-                                    0.2235294117647059
-                                ]
-                            },
-                            "_focusedBackgroundColor": {
-                                "type": "color4",
-                                "value": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.4117647058823529
-                                ]
-                            },
-                            "_highlightColor": {
-                                "type": "color4",
-                                "value": [
-                                    1,
-                                    0,
-                                    0,
-                                    0.5137254901960784
-                                ]
-                            },
-                            "_borderThickness": {
-                                "type": "number",
-                                "value": 0
-                            },
-                            "_hintSize": {
-                                "type": "number",
-                                "value": 60
-                            },
-                            "_textureResolutionScaler": {
-                                "type": "number",
-                                "value": 2
-                            },
-                            "_resizeTextToFit": {
-                                "type": "boolean",
-                                "value": true
-                            },
-                            "_fontFamily": {
-                                "type": "string",
-                                "value": "Asimovian"
-                            },
-                            "_fontWeight": {
-                                "type": "number",
-                                "value": 400
-                            },
-                            "_maxTextSize": {
-                                "type": "number",
-                                "value": 80
-                            },
-                            "_minTextSize": {
-                                "type": "number",
-                                "value": 5
-                            }
-                        },
-                        "_id": "a6661d44-b3e8-49cb-81a6-e508b75591ac"
-                    }
-                ],
-                "parentId": 1758052214954
+                "parentId": 1768033166559
             },
-            "instances": [],
+            "instances": [
+                {
+                    "name": "input",
+                    "id": "b8cd0942-d915-42c4-9c19-be31b395916a",
+                    "isEnabled": true,
+                    "isVisible": true,
+                    "isPickable": true,
+                    "checkCollisions": false,
+                    "position": [
+                        -1.0658141036401503e-14,
+                        0,
+                        0
+                    ],
+                    "scaling": [
+                        0.9999999999999986,
+                        0.9999999999999979,
+                        0.9999999999999968
+                    ],
+                    "rotationQuaternion": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "metadata": {
+                        "parentId": 1768030637136
+                    },
+                    "animations": [],
+                    "ranges": [],
+                    "uniqueId": 1768035387327
+                },
+                {
+                    "name": "input",
+                    "id": "3b628c46-234e-45f3-8509-92c61fa76d74",
+                    "isEnabled": true,
+                    "isVisible": true,
+                    "isPickable": true,
+                    "checkCollisions": false,
+                    "position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scaling": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "rotationQuaternion": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "metadata": {
+                        "parentId": 1768037592140
+                    },
+                    "animations": [],
+                    "ranges": [],
+                    "uniqueId": 1768037561321
+                }
+            ],
             "animations": [],
             "ranges": [],
             "layerMask": 268435455,
@@ -174,46 +145,46 @@
             ],
             "renderOverlay": false,
             "applyFog": true,
-            "delayLoadingFile": "assets/main.scene/geometries/e83e283b-08a8-475c-9007-cb0a3f40014a.babylonbinarymeshdata",
+            "delayLoadingFile": "assets/main.scene/geometries/33036ea6-3840-41b1-957a-0f91d9980f3e.babylonbinarymeshdata",
             "boundingBoxMaximum": [
-                1,
-                1,
-                1
+                0.9999999403953552,
+                0.9999999403953552,
+                0.997104287147522
             ],
             "boundingBoxMinimum": [
                 -1,
-                -1,
-                -1
+                -0.9999999403953552,
+                -1.002895712852478
             ],
             "_binaryInfo": {
                 "positionsAttrDesc": {
-                    "count": 72,
+                    "count": 120,
                     "stride": 3,
                     "offset": 0,
                     "dataType": 1
                 },
                 "normalsAttrDesc": {
-                    "count": 72,
+                    "count": 120,
                     "stride": 3,
-                    "offset": 288,
+                    "offset": 480,
                     "dataType": 1
                 },
                 "uvsAttrDesc": {
-                    "count": 48,
+                    "count": 80,
                     "stride": 2,
-                    "offset": 576,
+                    "offset": 960,
                     "dataType": 1
                 },
                 "indicesAttrDesc": {
-                    "count": 36,
+                    "count": 60,
                     "stride": 1,
-                    "offset": 768,
+                    "offset": 1280,
                     "dataType": 0
                 },
                 "subMeshesAttrDesc": {
                     "count": 1,
                     "stride": 5,
-                    "offset": 912,
+                    "offset": 1520,
                     "dataType": 0
                 }
             },
@@ -237,8 +208,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0.46999999999999953,
-            "roughness": 0.1399999999999998,
+            "metallic": 0.97,
+            "roughness": 0.12999999999999992,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -494,110 +465,20 @@
         "vertexData": []
     },
     "metadata": {
-        "scripts": [
-            {
-                "enabled": true,
-                "key": "scripts/input-field.ts",
-                "values": {
-                    "_hint": {
-                        "type": "string",
-                        "value": "game name"
-                    },
-                    "_hintColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            0.796078431372549
-                        ]
-                    },
-                    "_textColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            1,
-                            1,
-                            1
-                        ]
-                    },
-                    "_backgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0.03738317757009302,
-                            0,
-                            1,
-                            0.2235294117647059
-                        ]
-                    },
-                    "_focusedBackgroundColor": {
-                        "type": "color4",
-                        "value": [
-                            0,
-                            0,
-                            0,
-                            0.4117647058823529
-                        ]
-                    },
-                    "_highlightColor": {
-                        "type": "color4",
-                        "value": [
-                            1,
-                            0,
-                            0,
-                            0.5137254901960784
-                        ]
-                    },
-                    "_borderThickness": {
-                        "type": "number",
-                        "value": 0
-                    },
-                    "_hintSize": {
-                        "type": "number",
-                        "value": 60
-                    },
-                    "_textureResolutionScaler": {
-                        "type": "number",
-                        "value": 2
-                    },
-                    "_resizeTextToFit": {
-                        "type": "boolean",
-                        "value": true
-                    },
-                    "_fontFamily": {
-                        "type": "string",
-                        "value": "Asimovian"
-                    },
-                    "_fontWeight": {
-                        "type": "number",
-                        "value": 400
-                    },
-                    "_maxTextSize": {
-                        "type": "number",
-                        "value": 80
-                    },
-                    "_minTextSize": {
-                        "type": "number",
-                        "value": 5
-                    }
-                },
-                "_id": "a6661d44-b3e8-49cb-81a6-e508b75591ac"
-            }
-        ],
-        "parentId": 1758052214954
+        "parentId": 1768033166559
     },
     "basePoseMatrix": [
-        -2,
+        -1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,
         0,
-        2,
+        1,
         0,
         0,
         0,

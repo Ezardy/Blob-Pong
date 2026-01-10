@@ -1,0 +1,325 @@
+{
+    "meshes": [
+        {
+            "name": "max player input",
+            "id": "44bd9389-a675-44f7-bab9-f3655c68071f",
+            "uniqueId": 1768030637136,
+            "type": "Mesh",
+            "position": [
+                48.96189053943522,
+                -6.021810025640093,
+                -200
+            ],
+            "rotationQuaternion": [
+                0.08182233486569787,
+                -0.07909787631791951,
+                0.034357440143594015,
+                0.9929089574507323
+            ],
+            "scaling": [
+                26.999999999999968,
+                27.000000000000004,
+                27.000000000000032
+            ],
+            "localMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "isEnabled": true,
+            "isVisible": true,
+            "infiniteDistance": false,
+            "pickable": true,
+            "receiveShadows": true,
+            "billboardMode": 0,
+            "visibility": 1,
+            "alwaysSelectAsActiveMesh": false,
+            "checkCollisions": false,
+            "ellipsoid": [
+                0.5,
+                1,
+                0.5
+            ],
+            "ellipsoidOffset": [
+                0,
+                0,
+                0
+            ],
+            "doNotSyncBoundingInfo": false,
+            "isBlocker": false,
+            "sideOrientation": 1,
+            "isUnIndexed": false,
+            "materialId": "default material",
+            "metadata": {
+                "scripts": [
+                    {
+                        "enabled": true,
+                        "key": "scripts/input-field.ts",
+                        "_id": "e7a22f3e-c1fb-4fb7-b2c8-c5e6b8266ffe",
+                        "values": {
+                            "_resizeTextToFit": {
+                                "type": "boolean",
+                                "value": true
+                            },
+                            "_textureResolutionScaler": {
+                                "type": "number",
+                                "value": 3
+                            },
+                            "_fontFamily": {
+                                "type": "string",
+                                "value": "Asimovian"
+                            },
+                            "_fontWeight": {
+                                "type": "number",
+                                "value": 400
+                            },
+                            "_hint": {
+                                "type": "string",
+                                "value": "max player count"
+                            },
+                            "_hintSize": {
+                                "type": "number",
+                                "value": 24
+                            },
+                            "_hintColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0.8
+                                ]
+                            },
+                            "_maxTextSize": {
+                                "type": "number",
+                                "value": 70
+                            },
+                            "_minTextSize": {
+                                "type": "number",
+                                "value": 5
+                            },
+                            "_textColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "_backgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    1,
+                                    1,
+                                    0
+                                ]
+                            },
+                            "_focusedBackgroundColor": {
+                                "type": "color4",
+                                "value": [
+                                    0.0392156862745098,
+                                    0,
+                                    1,
+                                    0.2196078431372549
+                                ]
+                            },
+                            "_highlightColor": {
+                                "type": "color4",
+                                "value": [
+                                    1,
+                                    0,
+                                    0,
+                                    0.51
+                                ]
+                            },
+                            "_borderThickness": {
+                                "type": "number",
+                                "value": 0
+                            },
+                            "_margin": {
+                                "type": "number",
+                                "value": 3
+                            },
+                            "_horizontalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            },
+                            "_verticalPaddings": {
+                                "type": "vector2",
+                                "value": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "parentId": 1758052214954
+            },
+            "instances": [],
+            "animations": [],
+            "ranges": [],
+            "layerMask": 268435455,
+            "alphaIndex": 1.7976931348623157e+308,
+            "hasVertexAlpha": false,
+            "overlayAlpha": 1,
+            "overlayColor": [
+                0,
+                0,
+                0
+            ],
+            "applyFog": true
+        }
+    ],
+    "transformNodes": [],
+    "cameras": [],
+    "lights": [],
+    "materials": [],
+    "metadata": {
+        "scripts": [
+            {
+                "enabled": true,
+                "key": "scripts/input-field.ts",
+                "_id": "e7a22f3e-c1fb-4fb7-b2c8-c5e6b8266ffe",
+                "values": {
+                    "_resizeTextToFit": {
+                        "type": "boolean",
+                        "value": true
+                    },
+                    "_textureResolutionScaler": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "_fontFamily": {
+                        "type": "string",
+                        "value": "Asimovian"
+                    },
+                    "_fontWeight": {
+                        "type": "number",
+                        "value": 400
+                    },
+                    "_hint": {
+                        "type": "string",
+                        "value": "max player count"
+                    },
+                    "_hintSize": {
+                        "type": "number",
+                        "value": 24
+                    },
+                    "_hintColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0.8
+                        ]
+                    },
+                    "_maxTextSize": {
+                        "type": "number",
+                        "value": 70
+                    },
+                    "_minTextSize": {
+                        "type": "number",
+                        "value": 5
+                    },
+                    "_textColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            1
+                        ]
+                    },
+                    "_backgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            1,
+                            1,
+                            0
+                        ]
+                    },
+                    "_focusedBackgroundColor": {
+                        "type": "color4",
+                        "value": [
+                            0.0392156862745098,
+                            0,
+                            1,
+                            0.2196078431372549
+                        ]
+                    },
+                    "_highlightColor": {
+                        "type": "color4",
+                        "value": [
+                            1,
+                            0,
+                            0,
+                            0.51
+                        ]
+                    },
+                    "_borderThickness": {
+                        "type": "number",
+                        "value": 0
+                    },
+                    "_margin": {
+                        "type": "number",
+                        "value": 3
+                    },
+                    "_horizontalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    },
+                    "_verticalPaddings": {
+                        "type": "vector2",
+                        "value": [
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "parentId": 1758052214954
+    },
+    "basePoseMatrix": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+}

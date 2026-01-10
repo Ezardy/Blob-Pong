@@ -20,20 +20,20 @@
                 0,
                 0
             ],
-            "rotationY": 0.23999999999999982,
+            "rotationY": 1.9800000000000022,
             "files": [],
             "textureMatrix": [
-                0.9713379748520297,
+                -0.397878873789918,
                 0,
-                -0.2377026264271344,
+                -0.9174379552818089,
                 0,
                 0,
                 1,
                 0,
                 0,
-                0.2377026264271344,
+                0.9174379552818089,
                 0,
-                0.9713379748520297,
+                -0.397878873789918,
                 0,
                 0,
                 0,
@@ -185,15 +185,15 @@
                     },
                     "_gameCreationGameNameInputMesh": {
                         "type": "entity",
-                        "value": "2cc86f80-14f6-4450-96db-206853166fb4"
+                        "value": "9e8b213c-ac4e-460f-b28b-e7ffd16ecfc1"
                     },
                     "_gameCreationPlayerCountInputMesh": {
                         "type": "entity",
-                        "value": "3cf1c7e8-3eaf-4981-b66b-32f0d95145d5"
+                        "value": "44bd9389-a675-44f7-bab9-f3655c68071f"
                     },
                     "_gameCreationEntranceFeeInputMesh": {
                         "type": "entity",
-                        "value": "5beccf2d-b0aa-4e51-824a-5afa465589aa"
+                        "value": "db012e2d-c902-4009-a85f-3b81ebcc4afc"
                     },
                     "_createButtonMesh": {
                         "type": "entity",
@@ -464,15 +464,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            0.15630189024939625,
-            -0.006201689731017502,
+            -0.000011364175815093205,
+            -0.019102283365022767,
             0
         ],
         "speed": 200,
         "position": [
-            -567.2845285072814,
-            954.873285071118,
-            -430.45740643016734
+            -575.6088983968725,
+            1000.678440388144,
+            -698.8263181915449
         ],
         "upVector": [
             0,

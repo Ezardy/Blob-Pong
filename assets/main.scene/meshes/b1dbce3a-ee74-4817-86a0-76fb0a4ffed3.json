@@ -16,9 +16,9 @@
                 0
             ],
             "scaling": [
-                0.9999999999999992,
+                0.9999999999999983,
                 1,
-                0.9999999999999992
+                0.9999999999999984
             ],
             "localMatrix": [
                 1,
@@ -42,7 +42,7 @@
             "isVisible": true,
             "infiniteDistance": false,
             "pickable": true,
-            "receiveShadows": true,
+            "receiveShadows": false,
             "billboardMode": 0,
             "visibility": 1,
             "alwaysSelectAsActiveMesh": false,
@@ -64,8 +64,8 @@
             "geometryUniqueId": 1764320671554,
             "geometryId": "94e37e12-746f-4347-a7f9-ef1cc6dfbd1e",
             "subMeshes": null,
-            "materialUniqueId": 1753626823209,
-            "materialId": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
+            "materialUniqueId": 1767894387820,
+            "materialId": "ce731791-3caa-43e4-8252-75831e16144a",
             "metadata": {
                 "type": "Box",
                 "width": 72,
@@ -478,7 +478,7 @@
                     "position": [
                         85.9623903570697,
                         71.19694724176827,
-                        -200
+                        -220
                     ],
                     "scaling": [
                         0.9999999999999992,
@@ -1389,7 +1389,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0,
+            "metallic": 0.26999999999999974,
+            "roughness": 0.20999999999999996,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -1403,7 +1404,7 @@
                 0
             ],
             "albedo": [
-                0.6346607172924734,
+                0.9698275862068966,
                 0,
                 0
             ],
@@ -1457,8 +1458,8 @@
             "useRadianceOcclusion": true,
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
-            "id": "76c5f011-3f22-4dfb-8679-c63a19d334d7",
-            "name": "menu",
+            "id": "ce731791-3caa-43e4-8252-75831e16144a",
+            "name": "result",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
@@ -1497,7 +1498,7 @@
                 "mask": 255,
                 "enabled": false
             },
-            "uniqueId": 1753626823209,
+            "uniqueId": 1767894387820,
             "plugins": {
                 "PBRBRDFConfiguration": {
                     "tags": null,

@@ -139,8 +139,8 @@
             "disableBumpMap": false,
             "ambientTextureStrength": 1,
             "ambientTextureImpactOnAnalyticalLights": 0,
-            "metallic": 0.6299999999999997,
-            "roughness": 0.16999999999999998,
+            "metallic": 1,
+            "roughness": 0,
             "metallicF0Factor": 1,
             "metallicReflectanceColor": [
                 1,
@@ -154,9 +154,9 @@
                 0
             ],
             "albedo": [
-                0.9870689655172413,
-                0.9870689655172413,
-                0.9870689655172413
+                1,
+                1,
+                1
             ],
             "baseWeight": 1,
             "reflectivity": [
@@ -209,7 +209,7 @@
             "unlit": false,
             "applyDecalMapAfterDetailMap": false,
             "id": "6f138a9f-e8e4-4478-846a-a9c75312a3ec",
-            "name": "icon",
+            "name": "result player",
             "checkReadyOnEveryCall": false,
             "checkReadyOnlyOnce": false,
             "state": "",
