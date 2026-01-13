@@ -342,6 +342,10 @@
                     "_sortBySwitcherMesh": {
                         "type": "entity",
                         "value": "c34140c1-d771-4b15-9f85-179c8b76edbc"
+                    },
+                    "_ballMesh": {
+                        "type": "entity",
+                        "value": "41f5b903-f2c8-4b18-8d8b-a99c4b199fb7"
                     }
                 },
                 "_id": "a11102fb-fe5b-4d1f-a6a7-d9364681e232"

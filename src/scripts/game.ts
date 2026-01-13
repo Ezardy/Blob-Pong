@@ -1,9 +1,10 @@
-import { AbstractMesh, ArcRotateCamera, Axis, Animation, Color3, CreateGreasedLine, FloatArray, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, IndicesArray, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase, Vector2, Nullable } from "@babylonjs/core";
+import { ArcRotateCamera, Axis, Animation, Color3, CreateGreasedLine, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase, Vector2, Scalar } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
 import { setKeys } from "./functions/animations";
 import { AdvancedDynamicTexture, Rectangle, TextBlock } from "@babylonjs/gui";
+import { omitDuplicateWrapper } from "./functions/greased-line-tools";
 
 export default class Game implements IScript {
 	public static readonly	NONE_MODE:	int = 0;
@@ -156,7 +157,7 @@ export default class Game implements IScript {
 		this._racketMeshScales[0] = this._racketMesh.scaling.scale(initWallSize * this._racketSize / 100 / wallWorldSize);
 		this._rotations[0][0] = Quaternion.RotationAxis(Axis.Z, -Math.PI / 2);
 		this._rotations[0][1] = Quaternion.RotationAxis(Axis.Z, Math.PI / 2);
-		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], Game._omitDuplicateWrapper);
+		const	lines:	Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], omitDuplicateWrapper);
 		for (let i = 1; i < this._wallSizes.length; i += 2)
 			this._wallSizes[i] = 2 * this._y * Math.cos(Math.PI / 2 - Math.PI / (i + 2));
 		for (let i = 2; i < this._wallSizes.length; i += 2)
@@ -220,7 +221,20 @@ export default class Game implements IScript {
 		this._glow.referenceMeshToUseItsOwnMaterial(this._ball);
 		this._ballMesh.isVisible = false;
 		this._ball.isVisible = false;
+		this._ball.rotationQuaternion = Quaternion.Identity();
+		const angularVelocity = new Vector3(
+			Scalar.RandomRange(-1, 1),
+			Scalar.RandomRange(-1, 1),
+			Scalar.RandomRange(-1, 1)
+		);
 		this.scene.onBeforeRenderObservable.add(() => {
+			const	deltaTime:	number = this.scene.getEngine().getDeltaTime() / 1000;
+			const deltaRotation = Quaternion.RotationYawPitchRoll(
+				angularVelocity.y * deltaTime,
+				angularVelocity.x * deltaTime,
+				angularVelocity.z * deltaTime
+			);
+			this._ball.rotationQuaternion?.multiplyInPlace(deltaRotation);
 			if (this._playerCount > 2)
 				this._fields[this._playerCount - 2].greasedLineMaterial!.dashOffset += 0.001;
 			else
@@ -515,12 +529,6 @@ export default class Game implements IScript {
 			this._playerRackets.forEach(racket => racket.scaling = racketScale);
 			this._racketPool.forEach(racket => racket.scaling = racketScale);
 		}
-	}
-
-	private static	_omitDuplicateWrapper(p1: Vector3, p2: Vector3, p3: Vector3, points: Vector3[][],
-						indiceIndex: number, vertexIndex: number, mesh: AbstractMesh,
-						meshIndex: number, vertices: FloatArray, indices: IndicesArray):	Vector3[][] {
-		return GreasedLineTools.OmitDuplicatesPredicate(p1, p2, p3, points) || [];
 	}
 
 	private	_createField(points: Vector3[], rotate: boolean):	GreasedLineMesh {

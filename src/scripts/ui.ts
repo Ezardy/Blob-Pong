@@ -1,4 +1,4 @@
-import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation, Tools } from "@babylonjs/core";
+import { AbstractMesh, Axis, Color3, GroundMesh, InputBlock, int, Mesh, NodeMaterial, Nullable, Quaternion, Scene, Vector3, Animation, Tools, GreasedLineTools, GreasedLineMesh, CreateGreasedLine, GreasedLineMeshMaterialType, Scalar } from "@babylonjs/core";
 import { AbstractButton3D, Container3D, Control3D, GUI3DManager, InputTextArea, MeshButton3D, TextBlock } from "@babylonjs/gui";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity } from "babylonjs-editor-tools";
 import InputField3D from "./input-field";
@@ -16,6 +16,8 @@ import { RoomFilter, RoomPlayer } from "./web-api/server-game";
 import ScrollList3D from "./controls/scroll-list-3d";
 import SwitchIcons3D from "./switch-icons-3d";
 import { ButtonStrings } from "./constants/strings";
+import { omitDuplicateWrapper } from "./functions/greased-line-tools";
+import { updateBoundingBoxRecursively } from "./functions/bounding-box";
 
 export default class Ui implements IScript {
 	private static readonly	_dummyRot:	Quaternion = Quaternion.Identity();
@@ -58,6 +60,8 @@ export default class Ui implements IScript {
 	private readonly	_joinPublicGameButtonMesh!:	AbstractMesh;
 	@visibleAsEntity("node", "Create game button mesh")
 	private readonly	_createGameButtonMesh!:	AbstractMesh;
+	@visibleAsEntity("node", "ball mesh")
+	private readonly	_ballMesh!:	AbstractMesh;
 
 	private readonly	_mainLayout:	AdvancedStackPanel3D;
 
@@ -368,6 +372,34 @@ export default class Ui implements IScript {
 
 		const	joinPublicGameButton:	MeshButton3D = new MeshButton3D(this._joinPublicGameButtonMesh as Mesh, "joinPublicButton");
 		const	createGameButton:		MeshButton3D = new MeshButton3D(this._createGameButtonMesh as Mesh, "createGameButton");
+		const	lines:					Vector3[][] = GreasedLineTools.MeshesToLines([this._ballMesh], omitDuplicateWrapper);
+		const	ball:					GreasedLineMesh = CreateGreasedLine("ball", {points: lines}, {
+			color: Color3.FromHexString("#d50303"),
+			sizeAttenuation: true,
+			width: 2,
+			materialType: GreasedLineMeshMaterialType.MATERIAL_TYPE_SIMPLE
+		}) as GreasedLineMesh;
+		const	ballParent:	Mesh = new Mesh("ball parent", this.scene);
+		ball.scaling.scaleInPlace(50);
+		ball.parent = ballParent;
+		ball.rotationQuaternion = Quaternion.Identity();
+		ball.computeWorldMatrix(true);
+		updateBoundingBoxRecursively(ballParent);
+		const angularVelocity = new Vector3(
+			Scalar.RandomRange(-1, 1),
+			Scalar.RandomRange(-1, 1),
+			Scalar.RandomRange(-1, 1)
+		);
+		this.scene.onBeforeRenderObservable.add(() => {
+			const	deltaTime:	number = this.scene.getEngine().getDeltaTime() / 1000;
+			const deltaRotation = Quaternion.RotationYawPitchRoll(
+				angularVelocity.y * deltaTime,
+				angularVelocity.x * deltaTime,
+				angularVelocity.z * deltaTime
+			);
+			ball.rotationQuaternion?.multiplyInPlace(deltaRotation);
+		});
+		const	ballControl:	MeshControl = new MeshControl(ballParent, "deco ball");
 
 		joinPublicGameButton.onPointerUpObservable.add(() => {
 			this._switchLayout(this._gameListLayout, this._joinPublicMainColor, this._joinPublicDepthColor);
@@ -378,6 +410,7 @@ export default class Ui implements IScript {
 		
 		this._mainLayout.blockLayout = true;
 		this._mainLayout.addControl(createGameButton);
+		this._mainLayout.addControl(ballControl);
 		this._mainLayout.addControl(joinPublicGameButton);
 		this._mainLayout.blockLayout = false;
 	}
