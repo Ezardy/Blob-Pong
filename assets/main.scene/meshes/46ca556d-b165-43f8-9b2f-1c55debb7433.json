@@ -80,7 +80,7 @@
                             },
                             "_resolution": {
                                 "type": "number",
-                                "value": 2
+                                "value": 3
                             },
                             "_fitFrontText": {
                                 "type": "boolean",
@@ -500,7 +500,7 @@
                     },
                     "_resolution": {
                         "type": "number",
-                        "value": 2
+                        "value": 3
                     },
                     "_fitFrontText": {
                         "type": "boolean",

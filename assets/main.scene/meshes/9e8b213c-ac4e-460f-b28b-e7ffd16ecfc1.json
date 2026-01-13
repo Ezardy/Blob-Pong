@@ -105,7 +105,7 @@
                             },
                             "_maxTextSize": {
                                 "type": "number",
-                                "value": 80
+                                "value": 75
                             },
                             "_minTextSize": {
                                 "type": "number",
@@ -235,7 +235,7 @@
                     },
                     "_maxTextSize": {
                         "type": "number",
-                        "value": 80
+                        "value": 75
                     },
                     "_minTextSize": {
                         "type": "number",

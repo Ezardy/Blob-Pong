@@ -7,7 +7,7 @@
 	"disableBumpMap": false,
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
-	"metallic": 0.5999999999999996,
+	"metallic": 1,
 	"roughness": 0.26,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [

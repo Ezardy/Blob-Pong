@@ -1325,7 +1325,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 0
+			"value": 382.06020000001064
 		},
 		{
 			"customType": "BABYLON.InputBlock",
@@ -1889,9 +1889,9 @@
 			"convertToLinearSpace": false,
 			"valueType": "BABYLON.Color3",
 			"value": [
-				1,
-				0.027450980392156862,
-				0.5764705882352941
+				0.42726171558113946,
+				0.35385701545778836,
+				0.7672413793103448
 			]
 		},
 		{
@@ -1982,9 +1982,9 @@
 			"convertToLinearSpace": false,
 			"valueType": "BABYLON.Color3",
 			"value": [
-				0.26666666666666666,
-				0.5647058823529412,
-				0.6862745098039216
+				0.47502972651605235,
+				0.7915421116383479,
+				0.8103448275862069
 			]
 		}
 	],
