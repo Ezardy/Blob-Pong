@@ -8,7 +8,7 @@
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
 	"metallic": 1,
-	"roughness": 0.2899999999999998,
+	"roughness": 0,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -22,9 +22,9 @@
 		0
 	],
 	"albedo": [
-		0.01898781212841849,
-		0.4410779421560031,
-		0.6293103448275862
+		1,
+		1,
+		1
 	],
 	"baseWeight": 1,
 	"reflectivity": [

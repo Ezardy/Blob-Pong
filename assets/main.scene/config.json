@@ -149,7 +149,7 @@
                     },
                     "_playerCountInputMesh": {
                         "type": "entity",
-                        "value": "e8c6ce1c-eb46-4c89-98f8-aa4846c082be"
+                        "value": "fa424265-8965-49bb-9c35-cb85648830d7"
                     },
                     "_entranceFeeOrderButtonMesh": {
                         "type": "entity",
@@ -157,7 +157,7 @@
                     },
                     "_entranceFeeInputMesh": {
                         "type": "entity",
-                        "value": "17357c88-61ba-4cf8-a2dd-d5330ddfa441"
+                        "value": "8653a891-34bc-4a26-856b-8ab067bb070b"
                     },
                     "_playButtonMesh": {
                         "type": "entity",
@@ -226,17 +226,17 @@
                     "_joinPublicMainColor": {
                         "type": "color3",
                         "value": [
-                            0.18823529411764706,
-                            0.8627450980392157,
-                            0.48627450980392156
+                            1,
+                            0.7725490196078432,
+                            0.7725490196078432
                         ]
                     },
                     "_joinPublicDepthColor": {
                         "type": "color3",
                         "value": [
-                            0.8980392156862745,
-                            0.9254901960784314,
-                            0.6901960784313725
+                            0.7215686274509804,
+                            0.7019607843137254,
+                            1
                         ]
                     },
                     "_createMainColor": {
@@ -464,15 +464,15 @@
         "applyGravity": false,
         "updateUpVectorFromRotation": false,
         "rotation": [
-            -0.10601145572854945,
-            0.09252277767013298,
+            -0.04063566742866892,
+            0.0565920464426211,
             0
         ],
         "speed": 200,
         "position": [
-            -644.2758960080153,
-            965.2377522565785,
-            -744.3317340655152
+            -1355.4687149626159,
+            636.7874575648689,
+            -612.4076465629207
         ],
         "upVector": [
             0,

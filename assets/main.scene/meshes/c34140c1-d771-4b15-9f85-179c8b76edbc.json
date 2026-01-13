@@ -96,11 +96,11 @@
                             },
                             "_desc1": {
                                 "type": "string",
-                                "value": "sort by\nplayers"
+                                "value": "sort\nby\nplayers"
                             },
                             "_desc2": {
                                 "type": "string",
-                                "value": "sort by\nfee"
+                                "value": "sort\nby\nfee"
                             },
                             "_desc3": {
                                 "type": "string",
@@ -119,7 +119,7 @@
                             },
                             "_resolution": {
                                 "type": "number",
-                                "value": 3
+                                "value": 4
                             },
                             "_fitFrontText": {
                                 "type": "boolean",
@@ -554,11 +554,11 @@
                     },
                     "_desc1": {
                         "type": "string",
-                        "value": "sort by\nplayers"
+                        "value": "sort\nby\nplayers"
                     },
                     "_desc2": {
                         "type": "string",
-                        "value": "sort by\nfee"
+                        "value": "sort\nby\nfee"
                     },
                     "_desc3": {
                         "type": "string",
@@ -577,7 +577,7 @@
                     },
                     "_resolution": {
                         "type": "number",
-                        "value": 3
+                        "value": 4
                     },
                     "_fitFrontText": {
                         "type": "boolean",

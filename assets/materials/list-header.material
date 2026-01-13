@@ -7,8 +7,8 @@
 	"disableBumpMap": false,
 	"ambientTextureStrength": 1,
 	"ambientTextureImpactOnAnalyticalLights": 0,
-	"metallic": 0.6899999999999997,
-	"roughness": 0.24999999999999992,
+	"metallic": 1,
+	"roughness": 1,
 	"metallicF0Factor": 1,
 	"metallicReflectanceColor": [
 		1,
@@ -22,8 +22,8 @@
 		0
 	],
 	"albedo": [
-		0.9607843137254902,
-		0.08235294117647059,
+		0.4913793103448276,
+		0,
 		0
 	],
 	"baseWeight": 1,

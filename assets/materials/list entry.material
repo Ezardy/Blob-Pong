@@ -1,8 +1,8 @@
 {
 	"tags": null,
-	"directIntensity": 1,
+	"directIntensity": 10,
 	"emissiveIntensity": 1,
-	"environmentIntensity": 7.900000000000001,
+	"environmentIntensity": 0.49999999999999983,
 	"specularIntensity": 1,
 	"disableBumpMap": false,
 	"albedoTexture": {
