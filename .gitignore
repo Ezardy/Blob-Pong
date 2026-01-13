@@ -10,3 +10,4 @@ package-lock.json
 assets/test.scene/preview.png
 public/
 src/scripts.ts
+.env
