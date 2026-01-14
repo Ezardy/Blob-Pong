@@ -442,7 +442,7 @@ export default class Game implements IScript {
 			const	localAngle:	number = this._playerCount > 2 ? 2 * Math.PI / this._playerCount * wall : -Math.PI / 2 + Math.PI * wall;
 			const	dir:	Vector3 = Vector3.Right().applyRotationQuaternionInPlace(Quaternion.RotationAxis(Axis.Z, localAngle));
 			const	viewDir:	Vector3 = Vector3.TransformNormal(dir, this._camera.getViewMatrix());
-			let		angle:	number = Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), viewDir, Vector3.Forward());
+			let		angle:	number = Math.f16round(Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), viewDir, Vector3.Forward()));
 			if (angle < 0)
 				angle += 2 * Math.PI;
 			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
