@@ -180,8 +180,8 @@ export default class Game implements IScript {
 			text.isEnabled = false;
 			text.disabledColor = "#00000000";
 			rect.addControl(text);
-			rect.width = 0.12;
-			rect.height = "40px";
+			rect.width = "10%";
+			rect.height = "4%";
 			rect.cornerRadius = 20;
 			rect.thickness = 0;
 			rect.background = "rgba(0, 0, 0, 0.2)";
