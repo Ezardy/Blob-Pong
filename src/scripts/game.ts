@@ -447,8 +447,8 @@ export default class Game implements IScript {
 				angle += 2 * Math.PI;
 			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
 			name.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
-			name.linkOffsetX = offset.x;
-			name.linkOffsetY = -offset.y;
+			name.linkOffsetX = offset.x.toFixed();
+			name.linkOffsetY = -offset.y.toFixed();
 		}
 	}
 
