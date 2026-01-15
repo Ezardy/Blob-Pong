@@ -45,6 +45,12 @@ export default class Game implements IScript {
 	private readonly	_ballSize:	number = 1.6;
 	@visibleAsNumber("rectangle ratio", {min: 1})
 	private readonly	_rectangleRatio:	number = 2.2;
+	@visibleAsNumber("nickname offset", {min: 0, max: 100, step: 1})
+	private readonly	_nicknameOffset:	number = 20;
+	@visibleAsNumber("nickname width", {min: 0, max: 100, step: 1})
+	private readonly	_nicknameWidth:	number = 10;
+	@visibleAsNumber("nickname height", {min: 0, max: 100, step: 1})
+	private readonly	_nicknameHeight:	number = 4;
 
 	private	_webApi!:	WebApi;
 
@@ -180,8 +186,8 @@ export default class Game implements IScript {
 			text.isEnabled = false;
 			text.disabledColor = "#00000000";
 			rect.addControl(text);
-			rect.width = "10%";
-			rect.height = "4%";
+			rect.width = `${this._nicknameWidth}%`;
+			rect.height = `${this._nicknameHeight}%`;
 			rect.cornerRadius = 20;
 			rect.thickness = 0;
 			rect.background = "rgba(0, 0, 0, 0.2)";
@@ -445,7 +451,7 @@ export default class Game implements IScript {
 			let		angle:	number = Math.f16round(Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), viewDir, Vector3.Forward()));
 			if (angle < 0)
 				angle += 2 * Math.PI;
-			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle);
+			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle).scaleInPlace(this._cameraRadius / this._camera.radius);
 			name.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
 			name.linkOffsetX = offset.x.toFixed();
 			name.linkOffsetY = -offset.y.toFixed();
