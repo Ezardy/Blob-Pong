@@ -46,7 +46,7 @@ export default class Game implements IScript {
 	@visibleAsNumber("rectangle ratio", {min: 1})
 	private readonly	_rectangleRatio:	number = 2.2;
 	@visibleAsNumber("nickname offset", {min: 0, max: 100, step: 1})
-	private readonly	_nicknameOffset:	number = 20;
+	private readonly	_nicknameOffset:	number = 70;
 	@visibleAsNumber("nickname width", {min: 0, max: 100, step: 1})
 	private readonly	_nicknameWidth:	number = 10;
 	@visibleAsNumber("nickname height", {min: 0, max: 100, step: 1})
@@ -451,7 +451,10 @@ export default class Game implements IScript {
 			let		angle:	number = Math.f16round(Vector3.GetAngleBetweenVectorsOnPlane(Vector3.Right(), viewDir, Vector3.Forward()));
 			if (angle < 0)
 				angle += 2 * Math.PI;
-			const	offset:	Vector2 = new Vector2(0, -70).rotate(angle).scaleInPlace(this._cameraRadius / this._camera.radius);
+			const	radius:	number = this._cameraRadius / this._camera.radius;
+			name.width = `${this._nicknameWidth * radius}%`;
+			name.height = `${this._nicknameHeight * radius}%`;
+			const	offset:	Vector2 = new Vector2(0, -this._nicknameOffset).rotate(angle).scaleInPlace(radius);
 			name.rotation = (angle >= 0 && angle <= Math.PI / 2) || (angle >= 3 * Math.PI / 2 && angle < 2 * Math.PI) ? - angle : -angle + Math.PI;
 			name.linkOffsetX = offset.x.toFixed();
 			name.linkOffsetY = -offset.y.toFixed();

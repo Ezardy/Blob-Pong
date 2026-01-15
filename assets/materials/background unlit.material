@@ -1325,7 +1325,7 @@
 			"convertToGammaSpace": false,
 			"convertToLinearSpace": false,
 			"valueType": "number",
-			"value": 2694.7234800004944
+			"value": 0
 		},
 		{
 			"customType": "BABYLON.InputBlock",

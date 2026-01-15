@@ -412,6 +412,18 @@
                     "maxFee": {
                         "type": "number",
                         "value": 1000
+                    },
+                    "_nicknameOffset": {
+                        "type": "number",
+                        "value": 70
+                    },
+                    "_nicknameWidth": {
+                        "type": "number",
+                        "value": 10
+                    },
+                    "_nicknameHeight": {
+                        "type": "number",
+                        "value": 4
                     }
                 },
                 "_id": "36a4d360-dea7-46c0-9f53-6f2217703813"
