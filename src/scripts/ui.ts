@@ -133,6 +133,8 @@ export default class Ui implements IScript {
 	private readonly	_gameCreationEntranceFeeInputPanel:		AdvancedStackPanel3D;
 	private readonly	_createPanel:							AdvancedStackPanel3D;
 
+	private	_isPrivate:	boolean = false;
+
 	// game lobby layout
 	@visibleAsEntity("node", "exit button mesh")
 	private readonly	_exitButtonMesh!:	AbstractMesh;
@@ -451,6 +453,7 @@ export default class Ui implements IScript {
 		this._privacyNamePanel.margin = 20;
 		const	state2Rot:	Quaternion = Quaternion.RotationAxis(Axis.X, Math.PI);
 		const	privacy:	SwitchBox3D = new SwitchBox3D(this._gamePrivacyButtonMesh, "privacy", Quaternion.RotationAxis(Axis.X, Math.PI / 2.5), state2Rot, state2Rot, undefined, undefined, 1.2);
+		privacy.onPointerUpObservable.add(() => this._isPrivate = privacy.state === 1);
 		this._privacyNamePanel.addControl(privacy);
 		const	gameNameInput:	InputField3D = getScriptByClassForObject(this._gameCreationGameNameInputMesh, InputField3D)!;
 		this._gameCreationGameNameInput = gameNameInput.inputTextArea;
@@ -473,7 +476,8 @@ export default class Ui implements IScript {
 			this._webApi.serverGame.createRoom(
 				this._gameCreationGameNameInput.text,
 				Number.parseFloat(this._gameCreationEntranceFeeInput.text),
-				Number.parseInt(this._gameCreationPlayerCountInput.text)
+				Number.parseInt(this._gameCreationPlayerCountInput.text),
+				this._isPrivate
 			);
 		})
 		this._createPanel.addControl(this._createButton);
