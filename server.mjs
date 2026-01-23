@@ -9,7 +9,7 @@ const distPath = join(dirname(fileURLToPath(import.meta.url)), "dist");
 
 fastify.register(fastifyStatic, {
 	root: distPath,
-	prefix: "/",
+	prefix: process.env.VITE_APP_BASE,
 });
 
 fastify.setNotFoundHandler((req, reply) => {
