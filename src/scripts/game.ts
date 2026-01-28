@@ -519,6 +519,7 @@ export default class Game implements IScript {
 					this._fields[this._playerCount - 2].isVisible = true;
 					break;
 				default:
+					this._camera.attachControl();
 					if (!this._camera.onViewMatrixChangedObservable.hasObservers())
 						this._camera.onViewMatrixChangedObservable.add(this._drawNames, undefined, false, this);
 					this.scene.onPointerObservable.add(this._mouseCallback, undefined, false, this);
