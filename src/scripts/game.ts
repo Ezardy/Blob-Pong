@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Axis, Animation, Color3, CreateGreasedLine, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase, Vector2, Scalar } from "@babylonjs/core";
+import { ArcRotateCamera, Axis, Animation, Color3, CreateGreasedLine, GlowLayer, GreasedLineBaseMesh, GreasedLineMesh, GreasedLineMeshColorDistribution, GreasedLineMeshColorDistributionType, GreasedLineMeshMaterialType, GreasedLineTools, InstancedMesh, int, Mesh, PointerEventTypes, PointerInfo, Quaternion, Scene, Vector3, SineEase, Vector2, Scalar, Plane, Ray, Nullable } from "@babylonjs/core";
 import WebApi from "./web-api";
 import { getScriptByClassForObject, IScript, visibleAsColor3, visibleAsEntity, visibleAsNumber } from "babylonjs-editor-tools";
 import { GamePlayer, GameState, RoomDetails } from "./web-api/server-game";
@@ -90,6 +90,10 @@ export default class Game implements IScript {
 	private readonly	_cameraBetaAnimation:	Animation;
 	private readonly	_cameraRadiusAnimation:	Animation;
 
+	private readonly	_fieldPlane:	Plane;
+	private readonly	_tangentPlane:	Plane;
+	private readonly	_binormalPlane:	Plane;
+
 	@visibleAsEntity("node", "racket mesh")
 	private readonly	_racketMesh!:	Mesh;
 	@visibleAsEntity("node", "ball mesh")
@@ -119,6 +123,9 @@ export default class Game implements IScript {
 		this._cameraAlphaAnimation.setEasingFunction(easeFunc);
 		this._cameraBetaAnimation.setEasingFunction(easeFunc);
 		this._cameraRadiusAnimation.setEasingFunction(easeFunc);
+		this._fieldPlane = Plane.FromPositionAndNormal(this._camera.target, Vector3.Backward());
+		this._tangentPlane = Plane.FromPositionAndNormal(new Vector3(0, 1000, 0), Vector3.Down());
+		this._binormalPlane = Plane.FromPositionAndNormal(new Vector3(1000, 0, 0), Vector3.Left());
 	}
 
 	public onStart(): void {
@@ -251,30 +258,30 @@ export default class Game implements IScript {
 	}
 
 	private	_sendDrag():	void {
-		if (this._drag) {
+		if (Math.abs(this._drag ) > 0.01) {
+			console.log(this._drag);
 			this._webApi.serverGame.sendDragToServer(this._drag);
 			this._drag = 0;
 		}
 	}
 
 	private	_mouseCallback(info: PointerInfo) {
-		if (info.type == PointerEventTypes.POINTERMOVE) {
-			const	rot:	Quaternion = Quaternion.Zero();
-			const	rect = this.scene.getEngine().getRenderingCanvasClientRect()!
-			const	move:	Vector3 = new Vector3(info.event.movementX / rect.width * 2, info.event.movementY / rect.height * 2, 0);
-			let		dir:	Vector3;
-			if (this._playerCount <= 2)
-				dir = Vector3.Up();
-			else {
-				move.y *= -1;
-				dir = Vector3.Right();
+		const	racket:	InstancedMesh | undefined = this._playerRackets.get(this._webApi.clientInfo!.id);
+		if (racket) {
+			if (info.type == PointerEventTypes.POINTERMOVE) {
+				const	plane:	Plane = Plane.FromPositionAndNormal(this._camera.target, Vector3.Backward());
+				const	ray:	Ray = this.scene.createPickingRay(info.event.clientX, info.event.clientY, null, this._camera);
+				let		dist:	Nullable<number> = ray.intersectsPlane(plane);
+				if (this._playerCount <= 2) {
+					if (!dist)
+						dist = ray.intersectsPlane(this._binormalPlane)!;
+					this._drag = (racket.position.y - ray.origin.add(ray.direction.scale(dist)).y) / this._wallSizes[0] / 2;
+				} else {
+					if (!dist)
+						dist = ray.intersectsPlane(this._tangentPlane)!;
+					this._drag = (ray.origin.add(ray.direction.scale(dist)).x - racket.position.x) / this._wallSizes[this._playerCount - 2] / 2;
+				}
 			}
-			const	wallDir:	Vector3 = this.scene.activeCamera!.getDirection(dir);
-			wallDir.z = 0;
-			wallDir.normalize();
-			Quaternion.FromUnitVectorsToRef(wallDir, dir, rot);
-			move.applyRotationQuaternionInPlace(rot);
-			this._drag = (this._playerCount <= 2 ? move.y : move.x);
 		}
 	}
 
