@@ -19,8 +19,8 @@ export default class WebApi implements IScript {
 	}
 
 	public	onStart():	void {
-		this.serverGame.onWebSocketOpenedObservable.add(() => {
-			getCurrentUser().then((info) => {
+		this.serverGame.onWebSocketOpenedObservable.add((accessToken) => {
+			getCurrentUser(accessToken).then((info) => {
 				if (info) {
 					this._clientInfo = info;
 					this.onServerGameReady.notifyObservers();
