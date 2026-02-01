@@ -33,6 +33,27 @@ type LoginResponse =
 	user:		UserInfo
 }
 
+export async function getTokenAsync() : Promise<string | undefined>
+{
+	const response = await fetch(
+		`${import.meta.env.VITE_SERVER_URL}/api/users/token`,
+		{
+			method: 'GET',
+			headers: { 'content-type': 'application/json' },
+			credentials: 'include',
+		}
+	);
+
+	if (response.ok)
+	{
+		const json = await response.json();
+		console.log(json);
+		return json.accessToken;
+	}
+
+	return undefined;
+}
+
 export async function loginAsync(data: LoginInfo) : Promise<LoginResponse | undefined>
 {
 	const response = await fetch(
@@ -118,13 +139,16 @@ export async function doesSessionExist() : Promise<boolean>
 	return false;
 }
 
-export async function getCurrentUser() : Promise<UserInfo | undefined>
+export async function getCurrentUser(accessToken: string) : Promise<UserInfo | undefined>
 {
 	//const response = await fetch(`https://${window.location.host}/api/users/current`,
 	const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/current`,
 		{
 			method: "GET",
-			credentials: "include"
+			// credentials: "include",
+			headers: {
+				"Authorization": `Bearer ${accessToken}`
+			}
 		}
 	);
 
