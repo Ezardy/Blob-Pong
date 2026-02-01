@@ -1,4 +1,5 @@
 import { int, Observable } from "@babylonjs/core";
+import { getTokenAsync } from "./server-login";
 
 type LobbyRooms =
 {
@@ -48,7 +49,7 @@ type GameResult =
 	gameResult:
 	{
 		players:	Array<ResultPlayer>;
-		fee:		number
+		fee:	 number
 		state:		'finished' | 'aborted';
 	}
 }
@@ -132,13 +133,15 @@ export class ServerGame
 {
 	private			_lobbyWs?:						WebSocket;
 	private			_gameState?:					GameState;
-	private			_sessionId?:					string;
+	private			_accessToken?:					string;
 	private			_currentRoomId?:				string;
+	private			_lastCalledMethod?:				() => void;
+	private			_lastCalledMethodName?:			string;
 	public readonly	onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
 	public readonly	onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
 	public readonly	onGameStateUpdatedObservable:	Observable<GameState>;
 	public readonly	onGameResultObservable:			Observable<GameResult>;
-	public readonly	onWebSocketOpenedObservable:	Observable<void>;
+	public readonly	onWebSocketOpenedObservable:	Observable<string>;
 
 	constructor()
 	{
@@ -146,75 +149,96 @@ export class ServerGame
 		this.onRoomDetailsUpdatedObservable = new Observable<RoomDetails>();
 		this.onGameStateUpdatedObservable = new Observable<GameState>();
 		this.onGameResultObservable = new Observable<GameResult>();
-		this.onWebSocketOpenedObservable = new Observable<void>();
+		this.onWebSocketOpenedObservable = new Observable<string>();
 	}
 
-	public	open() : void {
-		//this._lobbyWs = new WebSocket(`wss://${window.location.host}/ws/lobby?sId=${this._sessionId}`);
-		this._lobbyWs = new WebSocket(`${import.meta.env.VITE_SERVER_WS_URL}/lobby?sId=${this._sessionId}`);
-		this._lobbyWs.onopen = () => {
-			console.log("Connected to Lobby WebSocket ");
-			this.onWebSocketOpenedObservable.notifyObservers();
-		};
-
-		this._lobbyWs.onmessage = (event: MessageEvent) =>
+	public open() : void {
+		//this._lobbyWs = new WebSocket(`wss://${window.location.host}/ws/lobby?sId=${this._accessToken}`);
+		getTokenAsync().then(token =>
 		{
-			try
+			this._accessToken = token;
+			this._lobbyWs = new WebSocket(`${import.meta.env.VITE_SERVER_WS_URL}/lobby?accessToken=${this._accessToken}`);
+	
+			this._lobbyWs.onopen = () => {
+				console.log("Connected to Lobby WebSocket ");
+				this.onWebSocketOpenedObservable.notifyObservers(this._accessToken!);
+	
+				if (this._lastCalledMethodName)
+				{
+        			this._lobbyWs?.send(JSON.stringify({ type: "RECONNECT" }));
+				}
+
+				console.log(this._lastCalledMethodName);
+				if (this._lastCalledMethod && this._lastCalledMethodName && this._lastCalledMethodName !== "reconnect")
+				{
+					console.log(`send ${this._lastCalledMethodName}`);
+					this._lastCalledMethod();
+					this._lastCalledMethod = undefined;
+					this._lastCalledMethodName = undefined;
+				}
+			};
+	
+			this._lobbyWs.onmessage = (event: MessageEvent) =>
 			{
-				// figure out what event was sent from the server
-				const data: LobbyRooms | CreateRoom | JoinRoom | LeaveRoom | RoomDetails | RoomStateChanged | GameState | GameResult
-					= JSON.parse(event.data);
+				try
+				{
+					// figure out what event was sent from the server
+					const data: LobbyRooms | CreateRoom | JoinRoom | LeaveRoom | RoomDetails | RoomStateChanged | GameState | GameResult | any
+						= JSON.parse(event.data);
 
-				if ("rooms" in data) // LobbyRooms
-				{
-					this.onRoomsUpdatedObservable.notifyObservers(data.rooms);
+					if ("rooms" in data) // LobbyRooms
+					{
+						this.onRoomsUpdatedObservable.notifyObservers(data.rooms);
+					}
+					else if ("createRoom" in data) // CreateRoom
+					{
+						this._currentRoomId = data.createRoom.roomId;
+					}
+					else if ("joinRoom" in data) // JoinRoom
+					{
+						this._currentRoomId = data.joinRoom.roomId;
+					}
+					else if ("leaveRoom" in data)
+					{
+						this._currentRoomId = undefined;
+					}
+					else if ("creator" in data) // RoomDetails
+					{
+						if (!this._currentRoomId)
+							this._currentRoomId = data.id;
+						this.onRoomDetailsUpdatedObservable.notifyObservers(data);
+					}
+					else if ("roomStateChanged" in data) // RoomStateChanged
+					{
+						data.roomStateChanged.roomId
+					}
+					else if ("ballPosition" in data) // GameState
+					{
+						this._gameState = data;
+						this.onGameStateUpdatedObservable.notifyObservers(data);
+					}
+					else if ("gameResult" in data) // GameResult
+					{
+						this.onGameResultObservable.notifyObservers(data);
+					}
 				}
-				else if ("createRoom" in data) // CreateRoom
+				catch (error)
 				{
-					this._currentRoomId = data.createRoom.roomId;
+					console.error('Error parsing lobby message:', error);
 				}
-				else if ("joinRoom" in data) // JoinRoom
-				{
-					this._currentRoomId = data.joinRoom.roomId;
-				}
-				else if ("leaveRoom" in data)
-				{
-					this._currentRoomId = undefined;
-				}
-				else if ("creator" in data) // RoomDetails
-				{
-					if (!this._currentRoomId)
-						this._currentRoomId = data.id;
-					this.onRoomDetailsUpdatedObservable.notifyObservers(data);
-				}
-				else if ("roomStateChanged" in data) // RoomStateChanged
-				{
-					data.roomStateChanged.roomId
-				}
-				else if ("ballPosition" in data) // GameState
-				{
-					this._gameState = data;
-					this.onGameStateUpdatedObservable.notifyObservers(data);
-				}
-				else if ("gameResult" in data) // GameResult
-				{
-					this.onGameResultObservable.notifyObservers(data);
-				}
-			}
-			catch (error)
+			};
+	
+			this._lobbyWs.onclose = () =>
 			{
-				console.error('Error parsing lobby message:', error);
-			}
-		};
+				console.log("Reopen Lobby WebSocket");
+				this.open();
+			};
+	
+			this._lobbyWs.onerror = (error) => {
+				console.log("Lobby WebSocket error: ", error);
+			};
+		});
 
-		this._lobbyWs.onclose = () =>
-		{
-			console.log("Disconnected Lobby WebSocket");
-		};
-
-		this._lobbyWs.onerror = (error) => {
-			console.log("Lobby WebSocket error: ", error);
-		};
 
 		window.addEventListener("message", (event: MessageEvent) =>
 		{
@@ -234,6 +258,8 @@ export class ServerGame
 		isPrivate: boolean = false
 	) : void
 	{
+		this._lastCalledMethod = () => this.createRoom(name, entryFee, maxPlayers, isPrivate);
+		this._lastCalledMethodName = "createRoom";
 		const type = "CREATE_ROOM";
 
 		if (this.isWebSocketOpen())
@@ -242,6 +268,8 @@ export class ServerGame
 
 	public joinRoom(roomId: string) : void
 	{
+		this._lastCalledMethod = () => this.joinRoom(roomId);
+		this._lastCalledMethodName = "joinRoom";
 		const type = "JOIN_ROOM";
 
 		if (this.isWebSocketOpen())
@@ -250,6 +278,8 @@ export class ServerGame
 
 	public leaveRoom() : void
 	{
+		this._lastCalledMethod = () => this.leaveRoom();
+		this._lastCalledMethodName = "leaveRoom";
 		const type = "LEAVE_ROOM";
 
 		if (this.isWebSocketOpen() && this._currentRoomId)
@@ -258,6 +288,8 @@ export class ServerGame
 
 	public markRoomPlayerReady() : void
 	{
+		this._lastCalledMethod = () => this.markRoomPlayerReady();
+		this._lastCalledMethodName = "ready";
 		const type = "READY";
 
 		if (this.isWebSocketOpen())
@@ -266,6 +298,8 @@ export class ServerGame
 
 	public markRoomPlayerWaiting() : void
 	{
+		this._lastCalledMethod = () => this.markRoomPlayerWaiting();
+		this._lastCalledMethodName = "waiting";
 		const type = "WAITING";
 
 		if (this.isWebSocketOpen())
@@ -274,6 +308,8 @@ export class ServerGame
 
 	public startGame() : void
 	{
+		this._lastCalledMethod = () => this.startGame();
+		this._lastCalledMethodName = "start";
 		const type = "START_GAME";
 
 		if (this.isWebSocketOpen())
@@ -282,6 +318,8 @@ export class ServerGame
 
 	public reconnectToTopics() : void
 	{
+		this._lastCalledMethod = () => this.reconnectToTopics();
+		this._lastCalledMethodName = "reconnect";
 		const type = "RECONNECT";
 
 		if (this.isWebSocketOpen())
@@ -290,6 +328,8 @@ export class ServerGame
 
 	public subscribeToLobby()
 	{
+		this._lastCalledMethod = () => this.subscribeToLobby();
+
 		const type = "SUBSCRIBE_LOBBY";
 
 		if (this.isWebSocketOpen())
@@ -298,6 +338,8 @@ export class ServerGame
 	
 	public unsubscribeFromLobby()
 	{
+		this._lastCalledMethod = () => this.unsubscribeFromLobby();
+
 		const type = "UNSUBSCRIBE_LOBBY";
 
 		if (this.isWebSocketOpen())
@@ -314,6 +356,8 @@ export class ServerGame
 
 	public closeWebsocket()
 	{
+		this._lastCalledMethod = () => this.closeWebsocket();
+		
 		const type = "CLOSE_WS";
 
 		if (this.isWebSocketOpen())
@@ -322,6 +366,7 @@ export class ServerGame
 	
 	public filterGames(filter: RoomFilter)
 	{
+		this._lastCalledMethod = () => this.filterGames(filter);
 		console.log(filter);
 		const type = "FILTER";
 
