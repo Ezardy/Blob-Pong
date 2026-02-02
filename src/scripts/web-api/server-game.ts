@@ -237,6 +237,10 @@ export class ServerGame
 			this._lobbyWs.onerror = (error) => {
 				console.log("Lobby WebSocket error: ", error);
 			};
+		})
+		.catch(err =>
+		{
+			console.error("Error getting access token for WebSocket:", err);
 		});
 
 
