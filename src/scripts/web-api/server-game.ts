@@ -137,6 +137,7 @@ export class ServerGame
 	private			_currentRoomId?:				string;
 	private			_lastCalledMethod?:				() => void;
 	private			_lastCalledMethodName?:			string;
+	private			_closeWs:						boolean;
 	public readonly	onRoomsUpdatedObservable:		Observable<RoomInfo[]>;
 	public readonly	onRoomDetailsUpdatedObservable:	Observable<RoomDetails>;
 	public readonly	onGameStateUpdatedObservable:	Observable<GameState>;
@@ -150,6 +151,19 @@ export class ServerGame
 		this.onGameStateUpdatedObservable = new Observable<GameState>();
 		this.onGameResultObservable = new Observable<GameResult>();
 		this.onWebSocketOpenedObservable = new Observable<string>();
+		this._closeWs = false;
+
+		window.addEventListener("message", (event: MessageEvent) =>
+		{
+			switch (event.data.type)
+			{
+				case "LOGOUT":
+					this._closeWs = true;
+					this._lobbyWs?.close();
+					// this.closeWebsocket();
+					break;
+			}
+		});
 	}
 
 	public open() : void {
@@ -168,10 +182,8 @@ export class ServerGame
         			this._lobbyWs?.send(JSON.stringify({ type: "RECONNECT" }));
 				}
 
-				console.log(this._lastCalledMethodName);
 				if (this._lastCalledMethod && this._lastCalledMethodName && this._lastCalledMethodName !== "reconnect")
 				{
-					console.log(`send ${this._lastCalledMethodName}`);
 					this._lastCalledMethod();
 					this._lastCalledMethod = undefined;
 					this._lastCalledMethodName = undefined;
@@ -208,10 +220,10 @@ export class ServerGame
 							this._currentRoomId = data.id;
 						this.onRoomDetailsUpdatedObservable.notifyObservers(data);
 					}
-					else if ("roomStateChanged" in data) // RoomStateChanged
-					{
-						data.roomStateChanged.roomId
-					}
+					// else if ("roomStateChanged" in data) // RoomStateChanged
+					// {
+					// 	data.roomStateChanged.roomId
+					// }
 					else if ("ballPosition" in data) // GameState
 					{
 						this._gameState = data;
@@ -230,8 +242,10 @@ export class ServerGame
 	
 			this._lobbyWs.onclose = () =>
 			{
-				console.log("Reopen Lobby WebSocket");
-				this.open();
+				if (!this._closeWs)
+				{
+					this.open();
+				}
 			};
 	
 			this._lobbyWs.onerror = (error) => {
@@ -240,18 +254,10 @@ export class ServerGame
 		})
 		.catch(err =>
 		{
-			console.error("Error getting access token for WebSocket:", err);
-		});
-
-
-		window.addEventListener("message", (event: MessageEvent) =>
-		{
-			switch (event.data.type)
-			{
-				case "LOGOUT":
-					this.closeWebsocket();
-					break;
-			}
+			this._closeWs = true;
+			this._lobbyWs?.close();
+			window.parent.postMessage({ type: "LOGOUT" }, "*");
+			// console.error("Error getting access token for WebSocket:", err);
 		});
 	}
 
